@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="GSC Study">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0C1F5C"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    <filter id="ds" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <path filter="url(#ds)" d="M256 32c84 0 168 22 224 50v188c0 116-87 202-224 242C119 472 32 386 32 270V82c56-28 140-50 224-50z" fill="url(#g)"/>
+  <text x="256" y="190" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="112" fill="#fff" letter-spacing="2">GSC</text>
+  <text x="256" y="238" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Arial" font-size="36" fill="#EAF2FF" letter-spacing="6">STUDY</text>
+  <!-- simple crossed keys -->
+  <g transform="translate(256 340)" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" opacity=".95">
+    <path d="M-120 -30 L20 70" />
+    <path d="M120 -30 L-20 70" />
+    <circle cx="-120" cy="-30" r="26" fill="none"/>
+    <circle cx="120" cy="-30" r="26" fill="none"/>
+    <path d="M-6 88 L6 88" />
+    <path d="M-16 110 L16 110" />
+  </g>
+</svg>
