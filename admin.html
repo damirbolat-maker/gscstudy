@@ -210,6 +210,23 @@ table tr:hover{background:#f9fafb}
 .promo-live-preview .plp-sub{font-size:12px;opacity:.85;margin-top:4px}
 .promo-live-preview .plp-cta{display:inline-block;margin-top:8px;padding:5px 12px;background:rgba(255,255,255,.2);border-radius:6px;font-size:11px;font-weight:600}
 
+/* ===== TEST RESULT CARDS ===== */
+.tr-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;transition:box-shadow .2s}
+.tr-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.tr-card-header{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.tr-card-name{font-weight:700;font-size:15px}
+.tr-card-phone{color:var(--muted);font-size:13px}
+.tr-card-badges{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.tr-card-date{font-size:12px;color:var(--muted);white-space:nowrap}
+.tr-expand-btn{background:none;border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:12px;cursor:pointer;transition:all .15s}
+.tr-expand-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.tr-details{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.tr-details.open{display:block}
+.tr-answers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin-top:8px}
+.tr-answer-item{padding:8px 12px;border-radius:6px;font-size:12px;background:#f9fafb;border:1px solid var(--border)}
+.tr-answer-item.correct{background:#d1fae5;border-color:#10b981}
+.tr-answer-item.wrong{background:#fee2e2;border-color:#fca5a5}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%)}
@@ -354,9 +371,13 @@ table tr:hover{background:#f9fafb}
     <!-- TEST RESULTS -->
     <section class="panel" id="panel-tests">
       <h2 class="panel-title">Test Results</h2>
-      <div class="card">
-        <div class="table-wrap"><table id="tests-table"><thead><tr><th>Name</th><th>Phone</th><th>Test Type</th><th>Test Name</th><th>Score</th><th>Level</th><th>Date</th></tr></thead><tbody></tbody></table></div>
+      <div class="toolbar">
+        <input type="text" id="tests-search" placeholder="Search by name or phone...">
+        <select id="tests-type-filter"><option value="">All Types</option></select>
+        <span style="flex:1"></span>
+        <button class="btn btn-outline btn-sm" id="export-tests-csv-btn">Export CSV</button>
       </div>
+      <div id="tests-list"></div>
     </section>
 
     <!-- WRITING RESULTS -->
@@ -370,11 +391,10 @@ table tr:hover{background:#f9fafb}
     <!-- TEST QUESTIONS (CONSTRUCTOR) -->
     <section class="panel" id="panel-questions">
       <h2 class="panel-title">Test Constructor</h2>
-      <!-- Test type tabs -->
-      <div class="test-tabs" id="test-tabs">
-        <div class="test-tab active" data-type="english">&#127468;&#127463; English<span class="tab-count" id="tab-count-english">0 questions</span></div>
-        <div class="test-tab" data-type="sat">&#128218; SAT<span class="tab-count" id="tab-count-sat">0 questions</span></div>
-        <div class="test-tab" data-type="ielts">&#127919; IELTS<span class="tab-count" id="tab-count-ielts">0 questions</span></div>
+      <!-- Test type tabs (dynamic) -->
+      <div class="test-tabs" id="test-tabs"></div>
+      <div style="margin-bottom:16px">
+        <button class="btn btn-outline btn-sm" id="add-test-type-btn">+ Add Test Type</button>
       </div>
       <input type="hidden" id="questions-filter" value="english">
       <!-- Stats bar -->
@@ -633,9 +653,26 @@ Section: Vocabulary &amp; Grammar"></textarea>
         <input type="number" id="q-sort-order" value="0">
       </div>
     </div>
+    <!-- Image upload -->
     <div class="form-group">
-      <label>Audio URL (for listening)</label>
-      <input type="text" id="q-audio-url" placeholder="https://...">
+      <label>Image (optional)</label>
+      <input type="file" id="q-image-file" accept="image/*" style="font-size:13px">
+      <input type="hidden" id="q-image-url">
+      <div id="q-image-preview" style="margin-top:8px;display:none">
+        <img id="q-image-preview-img" style="max-width:200px;max-height:120px;border-radius:6px;border:1px solid var(--border)">
+        <button class="btn btn-outline btn-sm" id="q-image-remove" style="margin-left:8px">Remove</button>
+      </div>
+    </div>
+
+    <!-- Audio upload -->
+    <div class="form-group">
+      <label>Audio (for listening)</label>
+      <input type="file" id="q-audio-file" accept="audio/*" style="font-size:13px">
+      <input type="hidden" id="q-audio-url">
+      <div id="q-audio-preview" style="margin-top:8px;display:none">
+        <audio id="q-audio-preview-el" controls style="height:32px"></audio>
+        <button class="btn btn-outline btn-sm" id="q-audio-remove" style="margin-left:8px">Remove</button>
+      </div>
     </div>
 
     <div class="modal-actions">
@@ -823,7 +860,7 @@ Section: Vocabulary &amp; Grammar"></textarea>
     var search = $('#leads-search').value.toLowerCase();
     var list = leadsCache.filter(function(l){
       if(filter && l.status !== filter) return false;
-      if(search && (l.name||'').toLowerCase().indexOf(search)===-1 && (l.phone||'').indexOf(search)===-1) return false;
+      if(search && (l.name||'').toLowerCase().indexOf(search)===-1 && (l.phone||'').indexOf(search)===-1 && (l.city||'').toLowerCase().indexOf(search)===-1 && (l.email||'').toLowerCase().indexOf(search)===-1 && (l.product||'').toLowerCase().indexOf(search)===-1) return false;
       return true;
     });
     var tb = $('#leads-table tbody');
@@ -1304,28 +1341,99 @@ Section: Vocabulary &amp; Grammar"></textarea>
   function loadTests(){
     GSC.getTestResults().then(function(data){
       testResultsCache = data || [];
+      // populate type filter
+      var types = [];
+      testResultsCache.forEach(function(t){ if(t.test_type && types.indexOf(t.test_type)===-1) types.push(t.test_type); });
+      var sel = $('#tests-type-filter');
+      sel.innerHTML = '<option value="">All Types</option>' + types.map(function(t){ return '<option value="'+E(t)+'">'+E(t)+'</option>'; }).join('');
       renderTests();
     }).catch(function(err){ toast('Failed to load test results: '+err.message,'error'); });
   }
 
   function renderTests(){
-    var tb = $('#tests-table tbody');
-    if(!testResultsCache.length){
-      tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted)">No test results yet</td></tr>';
+    var search = ($('#tests-search').value || '').toLowerCase();
+    var typeFilter = $('#tests-type-filter').value;
+    var list = testResultsCache.filter(function(t){
+      if(typeFilter && t.test_type !== typeFilter) return false;
+      if(search && (t.name||'').toLowerCase().indexOf(search)===-1 && (t.phone||'').indexOf(search)===-1) return false;
+      return true;
+    });
+    var container = $('#tests-list');
+    if(!list.length){
+      container.innerHTML = '<div class="card" style="text-align:center;color:var(--muted);padding:40px">No test results found</div>';
       return;
     }
-    tb.innerHTML = testResultsCache.map(function(t){
-      return '<tr>'+
-        '<td>'+E(t.name||'')+'</td>'+
-        '<td>'+E(t.phone||'')+'</td>'+
-        '<td>'+E(t.test_type||'')+'</td>'+
-        '<td>'+E(t.test_name||'')+'</td>'+
-        '<td>'+t.score+'/'+t.total+'</td>'+
-        '<td><span class="badge badge-qualified">'+E(t.level||'')+'</span></td>'+
-        '<td style="white-space:nowrap">'+fmtDate(t.created_at)+'</td>'+
-      '</tr>';
+    container.innerHTML = list.map(function(t){
+      var pct = t.total ? Math.round(t.score / t.total * 100) : 0;
+      var pctColor = pct >= 70 ? 'var(--green)' : pct >= 40 ? 'var(--yellow)' : 'var(--red)';
+      // Parse answers
+      var answers = t.answers_json || [];
+      var answersHtml = '';
+      if(answers.length){
+        answersHtml = '<div class="tr-answers-grid">' + answers.map(function(a, i){
+          var cls = a.correct ? 'correct' : 'wrong';
+          var qText = a.question || ('Q'+(i+1));
+          if(qText.length > 80) qText = qText.substring(0,77) + '...';
+          var detail = '';
+          if(a.selected !== undefined && a.selected !== null) detail += 'Selected: ' + E(String(a.selected_text || a.selected));
+          if(a.correct_answer !== undefined) detail += (detail ? ' | ' : '') + 'Correct: ' + E(String(a.correct_answer_text || a.correct_answer));
+          return '<div class="tr-answer-item '+cls+'"><strong>Q'+(i+1)+':</strong> '+E(qText)+(detail ? '<br><span style="opacity:.7">'+detail+'</span>' : '')+'</div>';
+        }).join('') + '</div>';
+      }
+
+      return '<div class="tr-card" data-id="'+t.id+'">'+
+        '<div class="tr-card-header">'+
+          '<span class="tr-card-name">'+E(t.name||'Anonymous')+'</span>'+
+          '<span class="tr-card-phone">'+E(t.phone||'')+'</span>'+
+          (t.city ? '<span class="tr-card-phone">'+E(t.city)+'</span>' : '')+
+          '<div class="tr-card-badges">'+
+            '<span class="badge badge-new">'+E(t.test_type||'')+'</span>'+
+            (t.test_name ? '<span class="badge badge-contacted">'+E(t.test_name)+'</span>' : '')+
+            '<span class="badge badge-qualified">'+E(t.level||'')+'</span>'+
+            '<span style="font-weight:700;color:'+pctColor+';font-size:14px">'+t.score+'/'+t.total+' ('+pct+'%)</span>'+
+          '</div>'+
+          '<span class="tr-card-date">'+fmtDate(t.created_at)+'</span>'+
+          (answers.length ? '<button class="tr-expand-btn test-expand" data-id="'+t.id+'">Details &#9660;</button>' : '')+
+        '</div>'+
+        (answers.length ? '<div class="tr-details" id="tr-detail-'+t.id+'">'+answersHtml+'</div>' : '')+
+      '</div>';
     }).join('');
+
+    // Wire expand buttons
+    container.querySelectorAll('.test-expand').forEach(function(b){
+      b.addEventListener('click', function(){
+        var detail = document.getElementById('tr-detail-'+b.dataset.id);
+        if(detail){
+          detail.classList.toggle('open');
+          b.innerHTML = detail.classList.contains('open') ? 'Hide &#9650;' : 'Details &#9660;';
+        }
+      });
+    });
   }
+
+  $('#tests-search').addEventListener('input', renderTests);
+  $('#tests-type-filter').addEventListener('change', renderTests);
+
+  // CSV Export for test results
+  $('#export-tests-csv-btn').addEventListener('click', function(){
+    if(!testResultsCache.length){ toast('No results to export','info'); return; }
+    var headers = ['Name','Phone','City','Test Type','Test Name','Score','Total','Percent','Level','Date'];
+    var rows = testResultsCache.map(function(t){
+      var pct = t.total ? Math.round(t.score / t.total * 100) : 0;
+      return [t.name, t.phone, t.city||'', t.test_type||'', t.test_name||'', t.score, t.total, pct+'%', t.level||'', t.created_at||''].map(function(v){
+        return '"' + String(v).replace(/"/g,'""') + '"';
+      }).join(',');
+    });
+    var csv = headers.join(',') + '\n' + rows.join('\n');
+    var blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'gsc-test-results-' + new Date().toISOString().slice(0,10) + '.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('CSV exported');
+  });
 
   /* ==========================================
      WRITING SUBMISSIONS
@@ -1373,33 +1481,62 @@ Section: Vocabulary &amp; Grammar"></textarea>
      TEST QUESTIONS (Full Constructor)
   ========================================== */
   var activeTestType = 'english';
+  var knownTestTypes = ['english', 'sat', 'ielts']; // default set, will be augmented from DB
 
   function loadQuestions(){
     GSC.getAllTestQuestions().then(function(data){
       questionsCache = data || [];
-      updateTabCounts();
+      // Discover all unique test_types from DB and merge with defaults
+      questionsCache.forEach(function(q){
+        if(q.test_type && knownTestTypes.indexOf(q.test_type) === -1){
+          knownTestTypes.push(q.test_type);
+        }
+      });
+      renderTestTabs();
       renderQuestions();
     }).catch(function(err){ toast('Failed to load questions: '+err.message,'error'); });
   }
 
-  function updateTabCounts(){
-    var types = ['english','sat','ielts'];
-    types.forEach(function(t){
+  function renderTestTabs(){
+    var container = $('#test-tabs');
+    container.innerHTML = knownTestTypes.map(function(t){
       var count = questionsCache.filter(function(q){ return q.test_type === t; }).length;
-      var el = document.getElementById('tab-count-'+t);
-      if(el) el.textContent = count + ' question' + (count!==1?'s':'');
+      var isActive = t === activeTestType;
+      return '<div class="test-tab'+(isActive?' active':'')+'" data-type="'+E(t)+'">'+
+        E(t.charAt(0).toUpperCase() + t.slice(1))+
+        '<span class="tab-count">'+count+' question'+(count!==1?'s':'')+'</span></div>';
+    }).join('');
+    // Bind click events
+    container.querySelectorAll('.test-tab').forEach(function(tab){
+      tab.addEventListener('click', function(){
+        container.querySelectorAll('.test-tab').forEach(function(t2){ t2.classList.remove('active'); });
+        tab.classList.add('active');
+        activeTestType = tab.dataset.type;
+        $('#questions-filter').value = activeTestType;
+        renderQuestions();
+      });
     });
   }
 
-  // Tab switching
-  $$('#test-tabs .test-tab').forEach(function(tab){
-    tab.addEventListener('click', function(){
-      $$('#test-tabs .test-tab').forEach(function(t){ t.classList.remove('active'); });
-      tab.classList.add('active');
-      activeTestType = tab.dataset.type;
-      $('#questions-filter').value = activeTestType;
+  // Add test type button
+  $('#add-test-type-btn').addEventListener('click', function(){
+    var name = prompt('Enter new test type name (e.g. english_kids, TOEFL, math):');
+    if(!name) return;
+    name = name.trim().toLowerCase().replace(/\s+/g, '_');
+    if(!name){ toast('Invalid name','error'); return; }
+    if(knownTestTypes.indexOf(name) !== -1){
+      toast('Test type "'+name+'" already exists','info');
+      activeTestType = name;
+      renderTestTabs();
       renderQuestions();
-    });
+      return;
+    }
+    knownTestTypes.push(name);
+    activeTestType = name;
+    $('#questions-filter').value = activeTestType;
+    renderTestTabs();
+    renderQuestions();
+    toast('Test type "'+name+'" added. Start adding questions!');
   });
 
   function renderQuestions(){
@@ -1456,6 +1593,12 @@ Section: Vocabulary &amp; Grammar"></textarea>
       if(q.hint){
         metaHtml += '<span>Hint: '+E(q.hint)+'</span>';
       }
+      if(q.image_url){
+        metaHtml += '<span>&#128247; Image</span>';
+      }
+      if(q.audio_url){
+        metaHtml += '<span>&#127911; Audio</span>';
+      }
       metaHtml += '<span>Sort: '+q.sort_order+'</span>';
 
       return '<div class="q-card" data-id="'+q.id+'">'+
@@ -1477,6 +1620,8 @@ Section: Vocabulary &amp; Grammar"></textarea>
           '</div>'+
         '</div>'+
         '<div class="q-card-text">'+E(q.question||'')+'</div>'+
+        (q.image_url ? '<div style="margin-bottom:8px"><img src="'+E(q.image_url)+'" style="max-width:240px;max-height:140px;border-radius:6px;border:1px solid var(--border)"></div>' : '')+
+        (q.audio_url ? '<div style="margin-bottom:8px"><audio controls src="'+E(q.audio_url)+'" style="height:32px"></audio></div>' : '')+
         optionsHtml+
         (metaHtml ? '<div class="q-meta">'+metaHtml+'</div>' : '')+
       '</div>';
@@ -1653,6 +1798,55 @@ Section: Vocabulary &amp; Grammar"></textarea>
     });
   });
 
+  // --- Media upload helpers ---
+  function uploadMedia(file, prefix) {
+    var ext = file.name.split('.').pop().toLowerCase();
+    var path = prefix + '/' + Date.now() + '_' + Math.random().toString(36).slice(2,8) + '.' + ext;
+    return GSC.sb.storage.from('test-media').upload(path, file).then(function(res) {
+      if (res.error) throw new Error(res.error.message);
+      var pubUrl = GSC.sb.storage.from('test-media').getPublicUrl(path).data.publicUrl;
+      return pubUrl;
+    });
+  }
+
+  // Image file change
+  $('#q-image-file').addEventListener('change', function(){
+    var file = this.files[0];
+    if (!file) return;
+    toast('Uploading image...', 'info');
+    uploadMedia(file, 'images').then(function(url){
+      $('#q-image-url').value = url;
+      $('#q-image-preview-img').src = url;
+      $('#q-image-preview').style.display = 'flex';
+      toast('Image uploaded');
+    }).catch(function(err){ toast('Image upload failed: '+err.message, 'error'); });
+  });
+
+  $('#q-image-remove').addEventListener('click', function(){
+    $('#q-image-url').value = '';
+    $('#q-image-preview').style.display = 'none';
+    $('#q-image-file').value = '';
+  });
+
+  // Audio file change
+  $('#q-audio-file').addEventListener('change', function(){
+    var file = this.files[0];
+    if (!file) return;
+    toast('Uploading audio...', 'info');
+    uploadMedia(file, 'audio').then(function(url){
+      $('#q-audio-url').value = url;
+      $('#q-audio-preview-el').src = url;
+      $('#q-audio-preview').style.display = 'flex';
+      toast('Audio uploaded');
+    }).catch(function(err){ toast('Audio upload failed: '+err.message, 'error'); });
+  });
+
+  $('#q-audio-remove').addEventListener('click', function(){
+    $('#q-audio-url').value = '';
+    $('#q-audio-preview').style.display = 'none';
+    $('#q-audio-file').value = '';
+  });
+
   // Add question
   $('#add-question-btn').addEventListener('click', function(){
     $('#modal-question-title').textContent = 'Add Question';
@@ -1678,6 +1872,11 @@ Section: Vocabulary &amp; Grammar"></textarea>
     var maxSort = existing.reduce(function(m, q){ return Math.max(m, q.sort_order||0); }, 0);
     $('#q-sort-order').value = maxSort + 1;
     $('#q-audio-url').value = '';
+    $('#q-image-url').value = '';
+    $('#q-image-file').value = '';
+    $('#q-audio-file').value = '';
+    $('#q-image-preview').style.display = 'none';
+    $('#q-audio-preview').style.display = 'none';
     updateQuestionModalFields();
     updateSectionChips();
     openModal('modal-question');
@@ -1711,6 +1910,21 @@ Section: Vocabulary &amp; Grammar"></textarea>
     $('#q-word-limit').value = q.word_limit || '';
     $('#q-sort-order').value = q.sort_order || 0;
     $('#q-audio-url').value = q.audio_url || '';
+    $('#q-audio-file').value = '';
+    if(q.audio_url){
+      $('#q-audio-preview-el').src = q.audio_url;
+      $('#q-audio-preview').style.display = 'flex';
+    } else {
+      $('#q-audio-preview').style.display = 'none';
+    }
+    $('#q-image-url').value = q.image_url || '';
+    $('#q-image-file').value = '';
+    if(q.image_url){
+      $('#q-image-preview-img').src = q.image_url;
+      $('#q-image-preview').style.display = 'flex';
+    } else {
+      $('#q-image-preview').style.display = 'none';
+    }
     updateQuestionModalFields();
     updateSectionChips();
     openModal('modal-question');
@@ -1742,7 +1956,8 @@ Section: Vocabulary &amp; Grammar"></textarea>
       correct_text: $('#q-correct-text').value.trim() || null,
       word_limit: $('#q-word-limit').value ? parseInt($('#q-word-limit').value) : null,
       sort_order: parseInt($('#q-sort-order').value) || 0,
-      audio_url: $('#q-audio-url').value.trim() || null
+      audio_url: $('#q-audio-url').value.trim() || null,
+      image_url: $('#q-image-url').value.trim() || null
     };
 
     var editId = $('#q-edit-id').value;

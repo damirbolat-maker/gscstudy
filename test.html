@@ -1000,79 +1000,66 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
        SAVE TO SUPABASE
     ═══════════════════════════════════════ */
     async function saveResults(result) {
-      if (!window.GSC) return;
-
+      var EDGE = 'https://alzouuuaxqzwrcytrpvm.supabase.co/functions/v1';
       var leadName = S.lead ? S.lead.name : '';
       var leadPhone = S.lead ? S.lead.phone : '';
+      var leadCity = S.lead ? S.lead.city : '';
 
-      // Save test result to Supabase
+      // 1. Save test result to Supabase
       try {
-        await GSC.addTestResult({
-          name: leadName,
-          phone: leadPhone,
-          test_type: S.type,
-          test_name: S.config.name,
-          score: result.correct,
-          total: result.total,
-          level: result.level,
-          answers_json: S.answers
-        });
-      } catch (e) {
-        console.warn('Failed to save test result:', e);
-      }
+        if (window.GSC) {
+          await GSC.addTestResult({
+            name: leadName, phone: leadPhone,
+            test_type: S.type, test_name: S.config.name,
+            score: result.correct, total: result.total,
+            level: result.level, answers_json: S.answers
+          });
+        }
+      } catch (e) { console.warn('Save test result:', e); }
 
-      // Save writing submissions to Supabase
+      // 2. Save writing submissions
       var writingTexts = [];
       for (var i = 0; i < S.writingAnswers.length; i++) {
         var w = S.writingAnswers[i];
         writingTexts.push('Prompt: ' + w.prompt + '\nResponse (' + w.wordCount + ' words):\n' + w.text);
         try {
-          await GSC.addWritingSubmission({
-            name: leadName,
-            phone: leadPhone,
-            test_type: S.type,
-            prompt: w.prompt,
-            response_text: w.text
-          });
-        } catch (e) {
-          console.warn('Failed to save writing submission:', e);
-        }
+          if (window.GSC) {
+            await GSC.addWritingSubmission({
+              name: leadName, phone: leadPhone,
+              test_type: S.type, prompt: w.prompt, response_text: w.text
+            });
+          }
+        } catch (e) { console.warn('Save writing:', e); }
       }
 
-      // Send to Bitrix24 with FULL data (score + writing)
+      // 3. Build detailed comments for Bitrix24
+      var comments = 'Тест: ' + S.config.name +
+        '\nРезультат: ' + result.level + ' (' + result.correct + '/' + result.total + ', ' + result.pct + '%)';
+
+      var bd = getSectionBreakdown();
+      var bdKeys = Object.keys(bd);
+      if (bdKeys.length > 0) {
+        comments += '\n\nРазбивка по разделам:';
+        bdKeys.forEach(function(s) { comments += '\n  ' + s + ': ' + bd[s].correct + '/' + bd[s].total; });
+      }
+      if (writingTexts.length > 0) {
+        comments += '\n\n--- WRITING ---\n' + writingTexts.join('\n\n');
+      }
+
+      // 4. Send to Bitrix24 — ALWAYS via direct fetch (even if GSC not loaded)
       if (leadName && leadPhone) {
-        var comments = 'Тест: ' + S.config.name +
-          '\nРезультат: ' + result.level + ' (' + result.correct + '/' + result.total + ', ' + result.pct + '%)';
-
-        // Add section breakdown
-        var bd = getSectionBreakdown();
-        var bdKeys = Object.keys(bd);
-        if (bdKeys.length > 0) {
-          comments += '\n\nРазбивка по разделам:';
-          bdKeys.forEach(function(s) {
-            comments += '\n  ' + s + ': ' + bd[s].correct + '/' + bd[s].total;
-          });
-        }
-
-        // Add writing text
-        if (writingTexts.length > 0) {
-          comments += '\n\n--- WRITING ---\n' + writingTexts.join('\n\n');
-        }
-
+        var bitrixData = {
+          name: leadName, phone: leadPhone, city: leadCity,
+          source: 'Тест на сайте', test_type: S.config.name,
+          test_result: result.level + ' (' + result.correct + '/' + result.total + ')',
+          product: S.config.name, comments: comments
+        };
         try {
-          await GSC.sendToBitrix({
-            name: leadName,
-            phone: leadPhone,
-            source: 'Тест на сайте',
-            test_type: S.config.name,
-            test_result: result.level + ' (' + result.correct + '/' + result.total + ')',
-            product: S.config.name,
-            city: S.lead.city || '',
-            comments: comments
+          await fetch(EDGE + '/bitrix-lead', {
+            method: 'POST', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(bitrixData)
           });
-        } catch (e) {
-          console.warn('Bitrix send failed:', e);
-        }
+        } catch (e) { console.warn('Bitrix send:', e); }
       }
     }
 

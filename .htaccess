@@ -1,21 +1,21 @@
 Options -Indexes
+DirectoryIndex index.html
 
-# Pretty URLs for static HTML
 RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Remove .html extension with 301 redirect
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
 
 # If request is a real file or directory, serve it
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Map /admin -> /admin.html
-RewriteRule ^admin/?$ admin.html [L]
-
-# Map /tests -> /tests.html
-RewriteRule ^tests/?$ tests.html [L]
-
-# Map /courses -> /courses.html
-RewriteRule ^courses/?$ courses.html [L]
-
-# Map /abroad -> /abroad.html
-RewriteRule ^abroad/?$ abroad.html [L]
+# Serve .html file for extensionless URLs (universal rule)
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
