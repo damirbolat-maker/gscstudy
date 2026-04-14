@@ -3,1624 +3,1103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GSC Study — Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex,nofollow">
+<title>GSC Study — Admin Panel</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bl:#2563EB;--bl2:#1D4ED8;--bl3:#EFF4FF;--bl4:#DBEAFE;
-  --ink:#0E0E14;--ink2:#1C1C28;--mu:#6B7280;--mu2:#9CA3AF;
-  --wh:#FAFAF8;--wh2:#F2F0EB;--wh3:#E8E5DE;
-  --br:rgba(14,14,20,.1);--br2:rgba(14,14,20,.16);
-  --gr:#22C55E;--rd:#EF4444;--am:#F59E0B;
-  --fd:'Syne',sans-serif;--f:'DM Sans',sans-serif;
-  --r:10px;--rl:14px;--rx:20px;
-  --sp:cubic-bezier(.34,1.56,.64,1);
-  --sw:240px;
+  --sidebar-w:250px;
+  --primary:#2563EB;
+  --primary-dark:#1d4ed8;
+  --bg:#f3f4f6;
+  --card:#fff;
+  --dark:#111827;
+  --dark2:#1f2937;
+  --dark3:#374151;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --green:#10b981;
+  --red:#ef4444;
+  --yellow:#f59e0b;
+  --radius:8px;
+  --shadow:0 1px 3px rgba(0,0,0,.1);
 }
-body{font-family:var(--f);background:var(--wh2);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
-a{text-decoration:none;color:inherit}
-button{cursor:pointer;font-family:var(--f)}
-input,textarea,select{font-family:var(--f)}
-
-/* LOGIN */
-#lw{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink2);position:relative;overflow:hidden}
-.gl{position:absolute;border-radius:50%;pointer-events:none}
-.gl1{width:500px;height:500px;background:radial-gradient(circle,rgba(37,99,235,.22),transparent 70%);top:-100px;left:-100px}
-.gl2{width:380px;height:380px;background:radial-gradient(circle,rgba(200,255,0,.1),transparent 70%);bottom:-80px;right:-80px}
-.lc{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:24px;padding:40px 36px;width:380px;position:relative;z-index:1;backdrop-filter:blur(20px)}
-.lo{display:flex;align-items:center;gap:9px;margin-bottom:28px;justify-content:center}
-.lbg{width:38px;height:38px;background:var(--bl);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:17px;font-weight:800;color:#fff}
-.lbr{font-family:var(--fd);font-size:18px;font-weight:800;color:#fff}
-.lh{font-family:var(--fd);font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
-.ls{font-size:12px;color:rgba(255,255,255,.38);margin-bottom:24px}
-.ll{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;display:block}
-.li{width:100%;padding:11px 13px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:11px;font-size:14px;color:#fff;outline:none;margin-bottom:13px;transition:border-color .2s}
-.li:focus{border-color:var(--bl)}
-.li::placeholder{color:rgba(255,255,255,.22)}
-.lb{width:100%;padding:12px;background:var(--bl);color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:700;transition:transform .2s var(--sp),box-shadow .2s}
-.lb:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(37,99,235,.4)}
-.le{display:none;padding:9px 12px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);border-radius:8px;font-size:12px;color:#FCA5A5;margin-bottom:10px;text-align:center}
-.lh2{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.07)}
-.lh2t{font-size:10px;color:rgba(255,255,255,.28);text-align:center;margin-bottom:7px;text-transform:uppercase;letter-spacing:.07em}
-.lhi{display:flex;justify-content:space-between;padding:3px 0;font-size:11px;color:rgba(255,255,255,.3)}
-.lhi b{color:rgba(255,255,255,.5);font-weight:600}
-
-/* SHELL */
-#sh{display:none;min-height:100vh;grid-template-columns:var(--sw) 1fr;grid-template-rows:56px 1fr}
-#sh.on{display:grid}
-
-/* SIDEBAR */
-.sb{grid-row:1/3;background:var(--ink2);display:flex;flex-direction:column;overflow-y:auto;position:sticky;top:0;height:100vh}
-.sbt{padding:18px 15px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:9px;flex-shrink:0}
-.sbi2{width:29px;height:29px;background:var(--bl);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:13px;font-weight:800;color:#fff;flex-shrink:0}
-.sbn{font-family:var(--fd);font-size:13px;font-weight:800;color:#fff}
-.sbs{font-size:9px;color:rgba(255,255,255,.32)}
-.sbnav{padding:8px 7px;flex:1}
-.sbsec{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.26);padding:9px 9px 4px}
-.sbi{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:9px;font-size:12px;font-weight:500;color:rgba(255,255,255,.48);cursor:pointer;transition:.14s;margin-bottom:1px;user-select:none}
-.sbi:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.82)}
-.sbi.on{background:rgba(37,99,235,.28);color:#fff;border:1px solid rgba(37,99,235,.32)}
-.sbi .ic{width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.sbi.on .ic{background:var(--bl)}
-.sbnc{margin-left:auto;background:var(--rd);color:#fff;font-size:9px;font-weight:800;padding:1px 5px;border-radius:100px;min-width:16px;text-align:center}
-.sbft{padding:12px;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;display:flex;align-items:center;gap:8px}
-.sbav{width:28px;height:28px;border-radius:50%;background:var(--bl);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#fff;flex-shrink:0}
-.sbun{font-size:11px;font-weight:600;color:#fff}
-.sbur{font-size:9px;color:rgba(255,255,255,.36)}
-.sbout{width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:12px;transition:.14s}
-.sbout:hover{background:rgba(239,68,68,.18);color:var(--rd)}
-
-/* TOPBAR */
-.tb{background:var(--wh);border-bottom:1.5px solid var(--br);padding:0 22px;height:56px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50}
-.tbt{font-family:var(--fd);font-size:16px;font-weight:800;color:var(--ink)}
-.tbr{margin-left:auto;display:flex;align-items:center;gap:7px}
-
-/* BUTTONS */
-.btn{padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;border:none;transition:.16s;cursor:pointer}
-.btn.p{background:var(--bl);color:#fff}.btn.p:hover{background:var(--bl2)}
-.btn.g{background:var(--wh2);color:var(--ink);border:1.5px solid var(--br2)}.btn.g:hover{border-color:var(--bl);color:var(--bl)}
-.btn.r{background:#FEF2F2;color:var(--rd);border:1.5px solid #FECACA}.btn.r:hover{background:#FEE2E2}
-
-/* MAIN */
-.main{padding:22px;overflow-y:auto}
-.panel{display:none}.panel.on{display:block}
-
-/* STAT CARDS */
-.sr{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
-.sc{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rx);padding:16px;transition:transform .2s var(--sp)}
-.sc:hover{transform:translateY(-2px)}
-.scl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);margin-bottom:7px}
-.scn{font-family:'Manrope',monospace;font-size:32px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink);margin-bottom:2px}
-.scc{font-size:10px;font-weight:500;color:var(--gr)}
-
-/* CHART */
-.cw{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rx);padding:16px;margin-bottom:18px}
-.ctop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.ctit{font-family:var(--fd);font-size:13px;font-weight:700}
-.bars{display:flex;align-items:flex-end;gap:6px;height:80px}
-.bit{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
-.bar{width:100%;border-radius:3px 3px 0 0;background:var(--bl3);border:1.5px solid var(--bl4);transition:.16s}
-.bit:hover .bar{background:var(--bl);border-color:var(--bl)}
-.bla{font-size:8px;color:var(--mu);font-weight:600}
-.bva{font-size:8px;font-weight:700;color:var(--bl)}
-
-/* SECTION HEAD */
-.shd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.shd h2{font-family:var(--fd);font-size:16px;font-weight:800}
-.shdr{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-
-/* TABLE */
-.tw{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rx);overflow:hidden;margin-bottom:18px}
-.tbl{width:100%;border-collapse:collapse}
-.tbl th{background:var(--wh2);padding:9px 12px;text-align:left;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);border-bottom:1.5px solid var(--br)}
-.tbl td{padding:10px 12px;font-size:12px;border-bottom:1px solid var(--br)}
-.tbl tr:last-child td{border-bottom:none}
-.tbl tr:hover td{background:var(--wh2)}
-.tda{display:flex;gap:4px}
-.tb2{padding:4px 8px;border-radius:6px;font-size:10px;font-weight:600;border:none;transition:.14s;cursor:pointer}
-.tb2.e{background:var(--bl3);color:var(--bl)}.tb2.e:hover{background:var(--bl4)}
-.tb2.d{background:#FEF2F2;color:var(--rd)}.tb2.d:hover{background:#FEE2E2}
-.bdg{display:inline-flex;align-items:center;padding:2px 7px;border-radius:100px;font-size:9px;font-weight:700}
-.bdg.ok{background:#F0FDF4;color:#166534;border:1px solid #BBF7D0}
-.bdg.no{background:var(--wh2);color:var(--mu);border:1px solid var(--br2)}
-.bdg.wn{background:#FFF7ED;color:#92400E;border:1px solid #FED7AA}
-
-/* GRID */
-.cg{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.ec{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rx);overflow:hidden}
-.ech{padding:12px 16px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
-.ect{font-family:var(--fd);font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px}
-.ecb{padding:16px}
-.fl{font-size:9px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;display:block}
-.fi{width:100%;padding:8px 11px;border:1.5px solid var(--br2);border-radius:var(--r);font-size:12px;color:var(--ink);background:var(--wh);transition:border-color .18s;outline:none;resize:vertical}
-.fi:focus{border-color:var(--bl);background:#fff}
-.fr{margin-bottom:10px}
-.srow2{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--br)}
-.shi{font-size:10px;color:var(--mu)}
-
-/* UPLOAD */
-.uz{border:2px dashed var(--br2);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
-.uz:hover{border-color:var(--bl);background:var(--bl3)}
-.uz input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.uzi{font-size:26px;margin-bottom:5px}
-.uzt{font-size:12px;font-weight:500;color:var(--mu);margin-bottom:2px}
-.uzs{font-size:10px;color:var(--mu2)}
-
-/* OFFICES */
-.og{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.oc{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rx);padding:16px}
-.ocm{border-color:var(--bl);background:var(--bl3)}
-.oname{font-family:var(--fd);font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.odot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-
-/* REVIEWS */
-.rvg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.rvc{background:var(--wh);border:1.5px solid var(--br);border-radius:12px;padding:13px}
-.rvh{display:flex;align-items:center;gap:7px;margin-bottom:7px}
-.rvav{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#fff;flex-shrink:0}
-.rvnm{font-size:11px;font-weight:700}
-.rvdt{font-size:10px;color:var(--mu)}
-.rvst{color:#F4A827;font-size:11px;margin-bottom:4px}
-.rvtx{font-size:11px;color:var(--mu);line-height:1.5;margin-bottom:7px}
-.rvbd{display:inline-block;padding:2px 6px;border-radius:100px;background:var(--bl3);border:1px solid var(--bl4);font-size:9px;font-weight:700;color:var(--bl)}
-
-/* PROMO */
-.pg{display:flex;flex-direction:column;gap:10px}
-.pcard{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rx);padding:13px;display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end}
-
-/* TESTS */
-.ttab{padding:9px 16px;font-size:12px;font-weight:600;color:var(--mu);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.14s;display:inline-flex;align-items:center;gap:6px}
-.ttab.on{color:var(--bl);border-bottom-color:var(--bl)}
-.qitem{background:var(--wh);border:1.5px solid var(--br);border-radius:10px;padding:9px 11px;cursor:pointer;transition:border-color .14s;position:relative;margin-bottom:5px}
-.qitem:hover{border-color:var(--bl3)}
-.qsel{border-color:var(--bl)!important;box-shadow:0 0 0 3px var(--bl3)}
-.qnum{font-size:9px;font-weight:700;color:var(--mu);text-transform:uppercase;margin-bottom:2px}
-.qtxt{font-size:11px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.qdel{position:absolute;top:7px;right:7px;width:18px;height:18px;border-radius:50%;background:#FEF2F2;border:none;color:var(--rd);font-size:10px;display:none;align-items:center;justify-content:center;font-weight:700;cursor:pointer}
-.qitem:hover .qdel{display:flex}
-
-/* SETTINGS */
-.sg{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.sc2{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rx);padding:20px}
-.togr{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--br)}
-.togr:last-child{border-bottom:none}
-.tolb{font-size:12px;font-weight:500}
-.toss{font-size:10px;color:var(--mu);margin-top:1px}
-.tog{position:relative;width:38px;height:20px;flex-shrink:0}
-.tog input{opacity:0;width:0;height:0;position:absolute}
-.togs{position:absolute;cursor:pointer;inset:0;background:var(--br2);border-radius:100px;transition:.28s}
-.togs:before{content:'';position:absolute;height:14px;width:14px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.28s var(--sp)}
-.tog input:checked+.togs{background:var(--bl)}
-.tog input:checked+.togs:before{transform:translateX(18px)}
-
-/* MODAL */
-.mov{display:none;position:fixed;inset:0;background:rgba(14,14,20,.5);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.mov.open{display:flex}
-.mbox{background:var(--wh);border-radius:20px;padding:26px;max-width:480px;width:calc(100% - 24px);max-height:88vh;overflow-y:auto;animation:mIn .3s var(--sp) both}
-@keyframes mIn{from{opacity:0;transform:scale(.93) translateY(14px)}to{opacity:1;transform:none}}
-.mhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.mtt{font-family:var(--fd);font-size:17px;font-weight:800}
-.mcl{width:28px;height:28px;border-radius:50%;background:var(--wh2);border:none;font-size:13px;display:flex;align-items:center;justify-content:center;color:var(--mu);transition:.14s;cursor:pointer}
-.mcl:hover{background:var(--wh3);color:var(--ink)}
-.mft{display:flex;gap:7px;justify-content:flex-end;margin-top:18px}
-
-/* LIVE BADGE */
-.live{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;color:var(--gr);background:#F0FDF4;border:1px solid #BBF7D0;border-radius:100px;padding:2px 7px;margin-left:6px}
-.live:before{content:'●';font-size:5px;animation:pu 1.5s ease infinite}
-@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* TOAST */
-.twrap{position:fixed;bottom:18px;right:18px;z-index:300;display:flex;flex-direction:column;gap:6px;pointer-events:none}
-.toast{padding:10px 14px;border-radius:12px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;animation:tIn .28s var(--sp) both;box-shadow:0 6px 18px rgba(0,0,0,.13)}
-.toast.s{background:var(--gr);color:#fff}
-.toast.i{background:var(--bl);color:#fff}
-.toast.e{background:var(--rd);color:#fff}
-@keyframes tIn{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
-
-@media(max-width:900px){
-  :root{--sw:0px}
-  .sb{display:none}
-  .sr,.cg,.og,.sg,.rvg{grid-template-columns:1fr}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+/* ===== LOGIN ===== */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,var(--dark) 0%,var(--dark2) 100%)}
+.login-box{background:var(--card);border-radius:12px;padding:40px;width:380px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-box h1{font-size:24px;margin-bottom:4px;color:var(--dark)}
+.login-box p{color:var(--muted);margin-bottom:24px;font-size:14px}
+.login-box .logo-text{color:var(--primary);font-weight:800;font-size:28px;margin-bottom:16px;display:block}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--dark3)}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;outline:none;transition:border .2s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border:none;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-danger{background:var(--red);color:#fff}
+.btn-danger:hover{background:#dc2626}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{background:var(--bg)}
+.btn-success{background:var(--green);color:#fff}
+.btn-success:hover{background:#059669}
+.btn-block{width:100%;justify-content:center}
+#login-error{color:var(--red);font-size:13px;margin-top:8px;display:none}
+/* ===== LAYOUT ===== */
+#app{display:none}
+.sidebar{position:fixed;left:0;top:0;width:var(--sidebar-w);height:100vh;background:var(--dark);color:#fff;display:flex;flex-direction:column;z-index:100;transition:transform .3s}
+.sidebar-header{padding:20px;border-bottom:1px solid var(--dark3)}
+.sidebar-header .brand{font-size:20px;font-weight:800;color:#fff}
+.sidebar-header .sub{font-size:11px;color:var(--muted);margin-top:2px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 0}
+.sidebar-nav button{display:flex;align-items:center;gap:10px;width:100%;padding:11px 20px;background:none;border:none;color:#d1d5db;font-size:14px;cursor:pointer;transition:all .15s;text-align:left}
+.sidebar-nav button:hover{background:var(--dark2);color:#fff}
+.sidebar-nav button.active{background:var(--primary);color:#fff}
+.sidebar-nav button .icon{width:20px;text-align:center;font-size:16px}
+.sidebar-footer{padding:16px 20px;border-top:1px solid var(--dark3)}
+.sidebar-footer button{background:none;border:none;color:#d1d5db;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px}
+.sidebar-footer button:hover{color:#fff}
+.main{margin-left:var(--sidebar-w);padding:24px 32px;min-height:100vh}
+.mobile-toggle{display:none;position:fixed;top:12px;left:12px;z-index:200;background:var(--dark);color:#fff;border:none;border-radius:var(--radius);padding:10px 14px;font-size:18px;cursor:pointer}
+/* ===== PANELS ===== */
+.panel{display:none}
+.panel.active{display:block}
+.panel-title{font-size:22px;font-weight:700;margin-bottom:20px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:20px}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.stat-card .label{font-size:13px;color:var(--muted);margin-bottom:4px}
+.stat-card .value{font-size:28px;font-weight:700}
+.stat-card .sub{font-size:12px;color:var(--muted);margin-top:4px}
+/* ===== TABLE ===== */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+table th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--border);font-weight:600;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+table tr:hover{background:#f9fafb}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-new{background:#dbeafe;color:#1d4ed8}
+.badge-contacted{background:#fef3c7;color:#92400e}
+.badge-qualified{background:#d1fae5;color:#065f46}
+.badge-closed{background:#f3f4f6;color:#6b7280}
+.badge-lost{background:#fee2e2;color:#991b1b}
+/* ===== TOOLBAR ===== */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.toolbar input,.toolbar select{padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;outline:none}
+.toolbar input:focus,.toolbar select:focus{border-color:var(--primary)}
+/* ===== MODAL ===== */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--card);border-radius:12px;padding:28px;width:500px;max-width:90vw;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal h3{font-size:18px;margin-bottom:16px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+/* ===== TOAST ===== */
+#toast{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast-msg{padding:12px 20px;border-radius:var(--radius);color:#fff;font-size:14px;font-weight:500;animation:slideIn .3s;box-shadow:0 4px 12px rgba(0,0,0,.2);max-width:380px}
+.toast-msg.success{background:var(--green)}
+.toast-msg.error{background:var(--red)}
+.toast-msg.info{background:var(--primary)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+/* ===== OFFICES GRID ===== */
+.offices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.office-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.office-card .form-group{margin-bottom:10px}
+.office-card .form-group label{font-size:12px}
+.office-card .form-group input{padding:8px 10px;font-size:13px}
+/* ===== REVIEWS LIST ===== */
+.review-item{display:flex;gap:16px;align-items:flex-start;padding:16px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px}
+.review-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;flex-shrink:0}
+.review-body{flex:1;min-width:0}
+.review-body .rname{font-weight:600;font-size:14px}
+.review-body .rbadge{font-size:11px;color:var(--muted)}
+.review-body .rtext{font-size:13px;color:var(--dark3);margin-top:4px;white-space:pre-wrap}
+/* ===== PROMO LIST ===== */
+.promo-item{display:flex;gap:16px;align-items:center;padding:14px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px}
+.promo-preview{width:60px;height:40px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex-shrink:0}
+.promo-info{flex:1;min-width:0}
+.promo-info .ptag{font-size:11px;color:var(--muted)}
+.promo-info .ptitle{font-weight:600;font-size:14px}
+.promo-info .psub{font-size:12px;color:var(--muted)}
+/* ===== SETTINGS ===== */
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
+.setting-row:last-child{border-bottom:none}
+.setting-label .sname{font-weight:600;font-size:14px}
+.setting-label .sdesc{font-size:12px;color:var(--muted)}
+.toggle{position:relative;width:44px;height:24px;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0}
+.toggle .slider{position:absolute;inset:0;background:#d1d5db;border-radius:24px;transition:.3s}
+.toggle .slider::before{content:'';position:absolute;left:3px;top:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked+.slider{background:var(--primary)}
+.toggle input:checked+.slider::before{transform:translateX(20px)}
+/* ===== WRITING MODAL ===== */
+.writing-text-preview{background:var(--bg);border-radius:var(--radius);padding:16px;font-size:13px;line-height:1.7;max-height:400px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding:16px}
+  .mobile-toggle{display:block}
+  .stat-grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 <body>
 
-<div id="supabaseBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#FEF3C7;border-bottom:2px solid #F59E0B;padding:10px 20px;font-size:13px;font-weight:600;color:#92400E;align-items:center;gap:10px;"></div>
-
-
-
-<!-- LOGIN -->
-<div id="lw">
-  <div class="gl gl1"></div><div class="gl gl2"></div>
-  <div class="lc">
-    <div class="lo"><div class="lbg">G</div><span class="lbr">GSC Study</span></div>
-    <div class="lh">Панель управления</div>
-    <div class="ls">CMS · Войдите для доступа</div>
-    <div class="le" id="le">Неверный логин или пароль</div>
-    <label class="ll">Логин</label>
-    <input class="li" id="lu" type="text" placeholder="admin" autocomplete="username">
-    <label class="ll">Пароль</label>
-    <input class="li" id="lp" type="password" placeholder="••••••••">
-    <button class="lb" id="lbtn">Войти →</button>
-    <div class="lh2">
-      <div class="lh2t">Тестовые аккаунты</div>
-      <div class="lhi"><span>Администратор</span><b>admin / gsc2026</b></div>
-      <div class="lhi"><span>Менеджер</span><b>manager / manager123</b></div>
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <span class="logo-text">GSC Study</span>
+    <h1>Admin Panel</h1>
+    <p>Sign in to manage the website</p>
+    <div class="form-group">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="admin@gscstudy.kz" autocomplete="email">
     </div>
+    <div class="form-group">
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+    </div>
+    <div id="login-error"></div>
+    <button class="btn btn-primary btn-block" id="login-btn" style="margin-top:12px">Sign In</button>
   </div>
 </div>
 
-<!-- SHELL -->
-<div id="sh">
-  <aside class="sb">
-    <div class="sbt">
-      <div class="sbi2">G</div>
-      <div><div class="sbn">GSC Study</div><div class="sbs">Admin CMS</div></div>
+<!-- APP -->
+<div id="app">
+  <button class="mobile-toggle" id="mobile-toggle-btn">&#9776;</button>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">GSC Study</div>
+      <div class="sub">Admin Panel</div>
     </div>
-    <nav class="sbnav">
-      <div class="sbsec">Обзор</div>
-      <div class="sbi on" data-p="dash"><div class="ic">📊</div>Дашборд</div>
-      <div class="sbi" data-p="leads"><div class="ic">👤</div>Заявки<span class="sbnc" id="lbadge">0</span></div>
-      <div class="sbsec">Контент</div>
-      <div class="sbi" data-p="content"><div class="ic">✏️</div>Тексты <span class="live">Live</span></div>
-      <div class="sbi" data-p="images"><div class="ic">🖼</div>Изображения</div>
-      <div class="sbi" data-p="offices"><div class="ic">🏢</div>Офисы</div>
-      <div class="sbi" data-p="reviews"><div class="ic">⭐</div>Отзывы</div>
-      <div class="sbi" data-p="promo"><div class="ic">🎁</div>Акции</div>
-      <div class="sbsec">Тесты</div>
-      <div class="sbi" data-p="tests"><div class="ic">📝</div>Конструктор тестов</div>
-      <div class="sbi" data-p="testres"><div class="ic">📈</div>Результаты</div>
-      <div class="sbsec">Система</div>
-      <div class="sbi" data-p="settings"><div class="ic">⚙️</div>Настройки</div>
-      <div class="sbi" id="siteLink"><div class="ic">🌐</div>Открыть сайт ↗</div>
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <button data-panel="dashboard" class="active"><span class="icon">&#9635;</span>Dashboard</button>
+      <button data-panel="leads"><span class="icon">&#9993;</span>Leads</button>
+      <button data-panel="cms"><span class="icon">&#9998;</span>Content CMS</button>
+      <button data-panel="offices"><span class="icon">&#9962;</span>Offices</button>
+      <button data-panel="reviews"><span class="icon">&#9733;</span>Reviews</button>
+      <button data-panel="promos"><span class="icon">&#9888;</span>Promo Slides</button>
+      <button data-panel="tests"><span class="icon">&#10003;</span>Test Results</button>
+      <button data-panel="writing"><span class="icon">&#9997;</span>Writing Results</button>
+      <button data-panel="settings"><span class="icon">&#9881;</span>Settings</button>
     </nav>
-    <div class="sbft">
-      <div class="sbav" id="sbav">A</div>
-      <div><div class="sbun" id="sbun">Admin</div><div class="sbur" id="sbur">Роль</div></div>
-      <button class="sbout" id="sbout" title="Выйти">↩</button>
+    <div class="sidebar-footer">
+      <button id="logout-btn">&#10140; Sign Out</button>
     </div>
   </aside>
 
-  <div style="display:flex;flex-direction:column;min-height:100vh">
-    <header class="tb">
-      <div class="tbt" id="tbt">Дашборд</div>
-      <div class="tbr">
-        <button class="btn g" id="previewBtn">👁 Предпросмотр</button>
-        <button class="btn p" id="newLeadBtn">+ Заявка</button>
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <section class="panel active" id="panel-dashboard">
+      <h2 class="panel-title">Dashboard</h2>
+      <div class="stat-grid" id="dash-stats"></div>
+      <div class="card">
+        <h3 style="margin-bottom:12px">Recent Leads</h3>
+        <div class="table-wrap"><table id="dash-recent-table"><thead><tr><th>Name</th><th>Phone</th><th>Source</th><th>Status</th><th>Date</th></tr></thead><tbody></tbody></table></div>
       </div>
-    </header>
-    <div class="main">
+    </section>
 
-<!-- DASHBOARD -->
-<div class="panel on" id="p-dash">
-  <div class="sr">
-    <div class="sc"><div class="scl">Заявок</div><div class="scn" id="s1">0</div><div class="scc" id="s1c">Новых: 0</div></div>
-    <div class="sc"><div class="scl">Тестов пройдено</div><div class="scn" id="s2">0</div><div class="scc">За всё время</div></div>
-    <div class="sc"><div class="scl">Студентов</div><div class="scn">15K+</div><div class="scc">За 15 лет</div></div>
-    <div class="sc"><div class="scl">Конверсия</div><div class="scn" id="s4">—</div><div class="scc" id="s4c">в запись</div></div>
-  </div>
-  <div class="cw">
-    <div class="ctop"><div class="ctit">Заявки за 7 дней</div></div>
-    <div class="bars" id="chart"></div>
-  </div>
-  <div class="shd"><h2>Последние заявки</h2><div class="shdr"><button class="btn g" id="allLeadsBtn">Все →</button></div></div>
-  <div class="tw"><table class="tbl"><thead><tr><th>Имя</th><th>Телефон</th><th>Курс</th><th>Источник</th><th>Дата</th><th>Статус</th><th></th></tr></thead><tbody id="dtb"></tbody></table></div>
-</div>
-
-<!-- LEADS -->
-<div class="panel" id="p-leads">
-  <div class="shd"><h2>Заявки</h2>
-    <div class="shdr">
-      <div style="display:flex;gap:3px;padding:3px;background:var(--wh2);border-radius:100px">
-        <button id="tf-all" onclick="setF('all')" style="padding:5px 11px;border-radius:100px;font-size:11px;font-weight:700;background:var(--wh);border:none;cursor:pointer;color:var(--ink)">Все</button>
-        <button id="tf-new" onclick="setF('new')" style="padding:5px 11px;border-radius:100px;font-size:11px;font-weight:500;background:none;border:none;cursor:pointer;color:var(--mu)">Новые</button>
-        <button id="tf-called" onclick="setF('called')" style="padding:5px 11px;border-radius:100px;font-size:11px;font-weight:500;background:none;border:none;cursor:pointer;color:var(--mu)">Позвонили</button>
-        <button id="tf-enrolled" onclick="setF('enrolled')" style="padding:5px 11px;border-radius:100px;font-size:11px;font-weight:500;background:none;border:none;cursor:pointer;color:var(--mu)">Записались</button>
+    <!-- LEADS -->
+    <section class="panel" id="panel-leads">
+      <h2 class="panel-title">Leads</h2>
+      <div class="toolbar">
+        <select id="leads-filter"><option value="">All Statuses</option><option value="new">New</option><option value="contacted">Contacted</option><option value="qualified">Qualified</option><option value="closed">Closed</option><option value="lost">Lost</option></select>
+        <input type="text" id="leads-search" placeholder="Search by name or phone...">
+        <button class="btn btn-primary btn-sm" id="add-lead-btn">+ Add Lead</button>
+        <button class="btn btn-outline btn-sm" id="export-csv-btn">Export CSV</button>
       </div>
-      <button class="btn p" id="addLeadBtn2">+ Добавить</button>
-      <button class="btn g" id="exportBtn">⬇ CSV</button>
-    </div>
-  </div>
-  <div class="tw"><table class="tbl"><thead><tr><th>#</th><th>Имя</th><th>Телефон</th><th>Курс</th><th>Источник</th><th>Менеджер</th><th>Дата</th><th>Статус</th><th></th></tr></thead><tbody id="ltb"></tbody></table></div>
-</div>
+      <div class="card">
+        <div class="table-wrap"><table id="leads-table"><thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>City</th><th>Source</th><th>Product</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
 
-<!-- CONTENT -->
-<div class="panel" id="p-content">
-  <div class="shd"><h2>Тексты <span class="live">Изменения видны на сайте сразу</span></h2></div>
-  <div class="cg">
-    <div class="ec">
-      <div class="ech"><div class="ect">🏠 Hero — Typing фразы</div><span class="bdg ok">index.html</span></div>
-      <div class="ecb">
-        <div class="fr"><label class="fl">Фразы (каждая с новой строки)</label>
-          <textarea class="fi" id="c-phrases" style="min-height:110px">Я хочу поступить в топ вуз 🎓
-Я хочу выучить английский 📚
-Я хочу учиться за рубежом 🌍
-Я хочу развиваться 🚀
-Мне нужен результат!</textarea>
+    <!-- CMS -->
+    <section class="panel" id="panel-cms">
+      <h2 class="panel-title">Content CMS</h2>
+      <div class="card">
+        <h3 style="margin-bottom:16px">Hero Section</h3>
+        <div class="form-group"><label>Hero Title</label><input type="text" id="cms-hero-title" placeholder="Main hero title"></div>
+        <div class="form-group"><label>Hero Subtitle</label><textarea id="cms-hero-subtitle" rows="2" placeholder="Hero subtitle text"></textarea></div>
+        <button class="btn btn-primary btn-sm" id="cms-save-hero">Save Hero</button>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:16px">Typing Phrases</h3>
+        <div class="form-group"><label>Phrases (one per line)</label><textarea id="cms-typing" rows="5" placeholder="IELTS&#10;TOEFL&#10;General English"></textarea></div>
+        <button class="btn btn-primary btn-sm" id="cms-save-typing">Save Phrases</button>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:16px">Contact Info</h3>
+        <div class="form-group"><label>Phone</label><input type="text" id="cms-phone" placeholder="+7 (xxx) xxx-xx-xx"></div>
+        <div class="form-group"><label>Email</label><input type="text" id="cms-email" placeholder="info@gscstudy.kz"></div>
+        <div class="form-group"><label>WhatsApp Link</label><input type="text" id="cms-whatsapp" placeholder="https://wa.me/7..."></div>
+        <button class="btn btn-primary btn-sm" id="cms-save-contact">Save Contact Info</button>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:16px">SEO Meta</h3>
+        <div class="form-group"><label>Meta Title</label><input type="text" id="cms-meta-title" placeholder="GSC Study — ..."></div>
+        <div class="form-group"><label>Meta Description</label><textarea id="cms-meta-desc" rows="3" placeholder="Page description for search engines"></textarea></div>
+        <button class="btn btn-primary btn-sm" id="cms-save-seo">Save SEO</button>
+      </div>
+    </section>
+
+    <!-- OFFICES -->
+    <section class="panel" id="panel-offices">
+      <h2 class="panel-title">Offices</h2>
+      <div class="offices-grid" id="offices-grid"></div>
+      <div style="margin-top:16px"><button class="btn btn-primary" id="save-offices-btn">Save All Offices</button></div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="panel" id="panel-reviews">
+      <h2 class="panel-title">Reviews</h2>
+      <div class="toolbar">
+        <button class="btn btn-primary btn-sm" id="add-review-btn">+ Add Review</button>
+      </div>
+      <div id="reviews-list"></div>
+    </section>
+
+    <!-- PROMOS -->
+    <section class="panel" id="panel-promos">
+      <h2 class="panel-title">Promo Slides</h2>
+      <div class="toolbar">
+        <button class="btn btn-primary btn-sm" id="add-promo-btn">+ Add Promo</button>
+      </div>
+      <div id="promos-list"></div>
+    </section>
+
+    <!-- TEST RESULTS -->
+    <section class="panel" id="panel-tests">
+      <h2 class="panel-title">Test Results</h2>
+      <div class="card">
+        <div class="table-wrap"><table id="tests-table"><thead><tr><th>Name</th><th>Phone</th><th>Test Type</th><th>Test Name</th><th>Score</th><th>Level</th><th>Date</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- WRITING RESULTS -->
+    <section class="panel" id="panel-writing">
+      <h2 class="panel-title">Writing Submissions</h2>
+      <div class="card">
+        <div class="table-wrap"><table id="writing-table"><thead><tr><th>Name</th><th>Phone</th><th>Test Type</th><th>Prompt</th><th>Words</th><th>Date</th><th>View</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="panel" id="panel-settings">
+      <h2 class="panel-title">Settings</h2>
+      <div class="card">
+        <h3 style="margin-bottom:16px">Feature Toggles</h3>
+        <div class="setting-row">
+          <div class="setting-label"><div class="sname">Promo Banner</div><div class="sdesc">Show promotional banner on homepage</div></div>
+          <label class="toggle"><input type="checkbox" id="set-promo-banner" checked><span class="slider"></span></label>
         </div>
-        <div class="srow2"><span class="shi">Typing-анимация на главной</span><button class="btn p" onclick="saveC('phrases')">💾 Сохранить</button></div>
-      </div>
-    </div>
-    <div class="ec">
-      <div class="ech"><div class="ect">📋 Секция «С чем поможем»</div><span class="bdg ok">index.html</span></div>
-      <div class="ecb">
-        <div class="fr"><label class="fl">Заголовок</label><input class="fi" id="c-split_h" value="Комплексные решения для образования"></div>
-        <div class="fr"><label class="fl">Подзаголовок</label><textarea class="fi" id="c-split_sub">От первого урока английского до письма-приглашения из вуза мечты</textarea></div>
-        <div class="srow2"><span class="shi">Секция с описанием услуг</span><button class="btn p" onclick="saveC('split')">💾 Сохранить</button></div>
-      </div>
-    </div>
-    <div class="ec">
-      <div class="ech"><div class="ect">🌍 Страница «За рубеж»</div><span class="bdg ok">abroad.html</span></div>
-      <div class="ecb">
-        <div class="fr"><label class="fl">Заголовок Hero</label><input class="fi" id="c-abroad_h" value="Поступи в топ-вуз мира"></div>
-        <div class="fr"><label class="fl">Подзаголовок</label><textarea class="fi" id="c-abroad_sub">Сопровождаем от выбора программы до получения оффера.</textarea></div>
-        <div class="srow2"><span class="shi">Применится на abroad.html</span><button class="btn p" onclick="saveC('abroad')">💾 Сохранить</button></div>
-      </div>
-    </div>
-    <div class="ec">
-      <div class="ech"><div class="ect">📚 Страница «Курсы»</div><span class="bdg ok">courses.html</span></div>
-      <div class="ecb">
-        <div class="fr"><label class="fl">Заголовок Hero</label><input class="fi" id="c-courses_h" value="Учи язык с гарантией результата"></div>
-        <div class="fr"><label class="fl">Подзаголовок</label><textarea class="fi" id="c-courses_sub">IELTS, SAT, General English, Kids, Business, Китайский.</textarea></div>
-        <div class="srow2"><span class="shi">Применится на courses.html</span><button class="btn p" onclick="saveC('courses')">💾 Сохранить</button></div>
-      </div>
-    </div>
-    <div class="ec">
-      <div class="ech"><div class="ect">📞 Контакты</div><span class="bdg ok">Все страницы</span></div>
-      <div class="ecb">
-        <div class="fr"><label class="fl">Телефон</label><input class="fi" id="c-phone" value="+7 700 127 77 88"></div>
-        <div class="fr"><label class="fl">WhatsApp (цифры)</label><input class="fi" id="c-wa" value="77718080828"></div>
-        <div class="fr"><label class="fl">Email</label><input class="fi" id="c-email" value="info@gscenter.kz"></div>
-        <div class="fr"><label class="fl">Instagram</label><input class="fi" id="c-ig" value="@gscstudy.qaz"></div>
-        <div class="srow2"><span class="shi">Обновит контакты везде</span><button class="btn p" onclick="saveC('contacts')">💾 Сохранить</button></div>
-      </div>
-    </div>
-    <div class="ec">
-      <div class="ech"><div class="ect">🔍 SEO</div><span class="bdg no">Meta</span></div>
-      <div class="ecb">
-        <div class="fr"><label class="fl">Title</label><input class="fi" id="c-stitle" value="GSC Study — IELTS, SAT, Поступление | Казахстан"></div>
-        <div class="fr"><label class="fl">Description</label><textarea class="fi" id="c-sdesc">GSC Study — 15 лет. IELTS, SAT, поступление в UK, Германию, Канаду.</textarea></div>
-        <div class="srow2"><span class="shi">Скопируйте в head страниц</span><button class="btn g" id="copySeoBtn">📋 Копировать</button></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- IMAGES -->
-<div class="panel" id="p-images">
-  <div class="shd"><h2>Изображения</h2></div>
-  <div class="cg">
-    <div class="ec">
-      <div class="ech"><div class="ect">🏠 Hero фото (главная)</div></div>
-      <div class="ecb">
-        <div class="uz"><input type="file" accept="image/*" id="upHero">
-          <div class="uzi">🖼</div><div class="uzt">Нажми или перетащи</div><div class="uzs">JPG/PNG · макс. 2MB · рек. 1920×1080</div>
+        <div class="setting-row">
+          <div class="setting-label"><div class="sname">Online Tests</div><div class="sdesc">Enable online testing section</div></div>
+          <label class="toggle"><input type="checkbox" id="set-online-tests" checked><span class="slider"></span></label>
         </div>
-        <img id="img-hero" style="display:none;max-height:120px;width:100%;object-fit:cover;border-radius:8px;margin-top:10px;border:1.5px solid var(--br)">
-        <div class="srow2" style="margin-top:8px"><span class="shi">Применится на главной</span><button class="btn r" id="clearHero">✕ Удалить</button></div>
-      </div>
-    </div>
-    <div class="ec">
-      <div class="ech"><div class="ect">🏫 Логотипы университетов</div></div>
-      <div class="ecb">
-        <div class="uz"><input type="file" accept="image/*" multiple id="upUnis">
-          <div class="uzi">🏫</div><div class="uzt">PNG с прозрачным фоном</div><div class="uzs">рек. 200×200</div>
+        <div class="setting-row">
+          <div class="setting-label"><div class="sname">Reviews Section</div><div class="sdesc">Show reviews on homepage</div></div>
+          <label class="toggle"><input type="checkbox" id="set-reviews" checked><span class="slider"></span></label>
         </div>
-        <div id="imgs-unis" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"></div>
-      </div>
-    </div>
-    <div class="ec">
-      <div class="ech"><div class="ect">👩‍🏫 Фото преподавателей</div></div>
-      <div class="ecb">
-        <div class="uz"><input type="file" accept="image/*" multiple id="upTeam">
-          <div class="uzi">👩‍🏫</div><div class="uzt">Фото команды</div><div class="uzs">рек. 400×400 · квадрат</div>
+        <div class="setting-row">
+          <div class="setting-label"><div class="sname">WhatsApp Widget</div><div class="sdesc">Floating WhatsApp button on all pages</div></div>
+          <label class="toggle"><input type="checkbox" id="set-whatsapp" checked><span class="slider"></span></label>
         </div>
-        <div id="imgs-team" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"></div>
       </div>
-    </div>
-    <div class="ec">
-      <div class="ech"><div class="ect">🏢 Фото офисов</div></div>
-      <div class="ecb">
-        <div class="uz"><input type="file" accept="image/*" multiple id="upOffices">
-          <div class="uzi">🏢</div><div class="uzt">Интерьер офисов</div><div class="uzs">рек. 1280×720</div>
-        </div>
-        <div id="imgs-offices" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"></div>
+      <div class="card">
+        <h3 style="margin-bottom:16px">Integration Settings</h3>
+        <div class="form-group"><label>Bitrix24 Webhook URL</label><input type="text" id="set-bitrix-url" placeholder="https://your-domain.bitrix24.kz/rest/..."></div>
+        <div class="form-group"><label>Google Analytics ID</label><input type="text" id="set-ga-id" placeholder="G-XXXXXXXXX"></div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- OFFICES -->
-<div class="panel" id="p-offices">
-  <div class="shd"><h2>Офисы <span class="live">Обновляет index.html</span></h2></div>
-  <div class="og" id="og"></div>
-  <div style="margin-top:14px;text-align:right"><button class="btn p" style="padding:10px 28px" id="saveOffBtn">💾 Сохранить офисы</button></div>
-</div>
-
-<!-- REVIEWS -->
-<div class="panel" id="p-reviews">
-  <div class="shd"><h2>Отзывы <span class="live">Обновляет index.html</span></h2>
-    <button class="btn p" id="addRvBtn">+ Добавить</button>
-  </div>
-  <div class="rvg" id="rvg"></div>
-</div>
-
-<!-- PROMO -->
-<div class="panel" id="p-promo">
-  <div class="shd"><h2>Акции / Слайдер <span class="live">Обновляет index.html</span></h2>
-    <button class="btn p" id="addPromoBtn">+ Новая акция</button>
-  </div>
-  <div class="pg" id="pg"></div>
-  <div style="margin-top:14px;text-align:right"><button class="btn p" style="padding:10px 28px" id="savePromoBtn">💾 Сохранить</button></div>
-</div>
-
-<!-- TESTS -->
-<div class="panel" id="p-tests">
-  <div class="shd"><h2>Конструктор тестов</h2>
-    <div class="shdr">
-      <button class="btn g" id="expTestBtn">⬇ JSON</button>
-      <button class="btn g" id="impTestBtn">⬆ Импорт</button>
-      <input type="file" id="impFile" accept=".json" style="display:none">
-      <button class="btn p" id="addQBtn">+ Вопрос</button>
-    </div>
-  </div>
-  <div style="display:flex;gap:0;border-bottom:2px solid var(--br);margin-bottom:18px" id="testTabs">
-    <div class="ttab on" data-t="ielts">📝 IELTS <span id="tc-ielts" style="background:var(--bl);color:#fff;font-size:9px;font-weight:800;padding:1px 5px;border-radius:100px">0</span></div>
-    <div class="ttab" data-t="sat">📐 SAT <span id="tc-sat" style="background:var(--bl3);color:var(--bl);font-size:9px;font-weight:800;padding:1px 5px;border-radius:100px">0</span></div>
-    <div class="ttab" data-t="english">🗣 English <span id="tc-english" style="background:var(--bl3);color:var(--bl);font-size:9px;font-weight:800;padding:1px 5px;border-radius:100px">0</span></div>
-    <div class="ttab" data-t="kids">🧒 Kids <span id="tc-kids" style="background:var(--bl3);color:var(--bl);font-size:9px;font-weight:800;padding:1px 5px;border-radius:100px">0</span></div>
-  </div>
-  <div class="sc2" style="margin:-6px 0 16px">
-    <div style="font-family:var(--fd);font-size:13px;font-weight:800;margin-bottom:8px">✍️ Writing (после теста)</div>
-    <div style="font-size:11px;color:var(--mu);line-height:1.5;margin-bottom:10px">Этот prompt появится у студента после прохождения вопросов. Текст Writing сохранится и будет виден в результатах.</div>
-    <textarea class="fi" id="wp" style="min-height:90px;resize:vertical" placeholder="Например: Describe a memorable journey you took and explain why it was important for you."></textarea>
-    <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn p" id="saveWpBtn">💾 Сохранить prompt</button></div>
-  </div>
-  <div style="display:flex;gap:14px">
-    <div style="width:255px;flex-shrink:0">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <span style="font-family:var(--fd);font-size:13px;font-weight:700">Вопросы</span>
-        <button class="btn p" style="padding:4px 10px;font-size:11px" id="addQBtn2">+ Добавить</button>
-      </div>
-      <div id="qlist" style="max-height:480px;overflow-y:auto"></div>
-    </div>
-    <div id="qed" style="flex:1;background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rx);padding:18px;min-height:200px">
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;color:var(--mu);text-align:center">
-        <div style="font-size:36px;opacity:.3;margin-bottom:10px">📝</div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">Выберите вопрос</div>
-        <div style="font-size:11px">или добавьте новый</div>
-      </div>
-    </div>
-  </div>
-  <div style="margin-top:14px;display:flex;justify-content:flex-end;padding-top:12px;border-top:1.5px solid var(--br)">
-    <button class="btn p" style="padding:10px 24px" id="saveTestBtn">💾 Подтвердить тест</button>
-  </div>
-</div>
-
-<!-- TEST RESULTS -->
-<div class="panel" id="p-testres">
-  <div class="shd"><h2>Результаты тестов</h2></div>
-  <div class="sr">
-    <div class="sc"><div class="scl">IELTS</div><div class="scn" id="ri">0</div><div class="scc">пройдено</div></div>
-    <div class="sc"><div class="scl">SAT</div><div class="scn" id="rs">0</div><div class="scc">пройдено</div></div>
-    <div class="sc"><div class="scl">English Level</div><div class="scn" id="re">0</div><div class="scc">пройдено</div></div>
-    <div class="sc"><div class="scl">Kids</div><div class="scn" id="rk">0</div><div class="scc">пройдено</div></div>
-  </div>
-  <div class="tw"><table class="tbl"><thead><tr><th>Имя</th><th>Телефон</th><th>Тест</th><th>Балл</th><th>Уровень</th><th>Дата</th><th></th></tr></thead><tbody id="trtb"></tbody></table></div>
-</div>
-
-<!-- SETTINGS -->
-<div class="panel" id="p-settings">
-  <div class="shd"><h2>Настройки</h2></div>
-  <div class="sg">
-    <div class="sc2">
-      <div style="font-family:var(--fd);font-size:13px;font-weight:700;margin-bottom:14px">⚙️ Функции</div>
-      <div class="togr"><div><div class="tolb">Сайт активен</div><div class="toss">Открыт для посетителей</div></div><label class="tog"><input type="checkbox" checked id="cfg-active"><span class="togs"></span></label></div>
-      <div class="togr"><div><div class="tolb">WhatsApp виджет</div><div class="toss">Плавающая кнопка</div></div><label class="tog"><input type="checkbox" checked id="cfg-wa"><span class="togs"></span></label></div>
-      <div class="togr"><div><div class="tolb">Онлайн тесты</div><div class="toss">Публичный доступ</div></div><label class="tog"><input type="checkbox" checked id="cfg-tests"><span class="togs"></span></label></div>
-      <div class="togr"><div><div class="tolb">RU / KZ / EN</div><div class="toss">Переключатель языков</div></div><label class="tog"><input type="checkbox" checked id="cfg-lang"><span class="togs"></span></label></div>
-      <div style="margin-top:12px"><button class="btn p" id="saveSettBtn">💾 Сохранить</button></div>
-    </div>
-    <div class="sc2">
-      <div style="font-family:var(--fd);font-size:13px;font-weight:700;margin-bottom:14px">🔗 Интеграции</div>
-      <div class="fr"><label class="fl">Google Analytics</label><input class="fi" id="cfg-ga" value="G-XXXXXXXXXX"></div>
-      <div class="fr"><label class="fl">Facebook Pixel</label><input class="fi" id="cfg-fbpx" placeholder="000000000000"></div>
-      <div class="fr"><label class="fl">2GIS URL</label><input class="fi" id="cfg-2gis" value="https://2gis.kz/nur-sultan/search/GSC%20Study"></div>
-      <div class="fr"><label class="fl">Bitrix24 Webhook (crm.lead.add)</label><input class="fi" id="cfg-bitrix" placeholder="https://.../rest/1/xxx/crm.lead.add.json"></div>
-      <div><button class="btn p" id="saveIntBtn">💾 Сохранить</button></div>
-    </div>
-    <div class="sc2">
-      <div style="font-family:var(--fd);font-size:13px;font-weight:700;margin-bottom:14px">👥 Пользователи</div>
-      <div class="tw" style="margin:0;border:none"><table class="tbl"><thead><tr><th>Логин</th><th>Роль</th><th>Статус</th></tr></thead><tbody>
-        <tr><td>admin</td><td>Администратор</td><td><span class="bdg ok">Активен</span></td></tr>
-        <tr><td>manager</td><td>Менеджер</td><td><span class="bdg ok">Активен</span></td></tr>
-      </tbody></table></div>
-    </div>
-    <div class="sc2">
-      <div style="font-family:var(--fd);font-size:13px;font-weight:700;margin-bottom:14px">📦 Данные</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <button class="btn g" id="expCSVBtn">⬇ Экспорт заявок CSV</button>
-        <button class="btn g" id="expAllBtn">⬇ Полный бэкап JSON</button>
-        <button class="btn g" id="impAllBtn">⬆ Восстановить JSON</button>
-        <input type="file" id="restFile" accept=".json" style="display:none">
-        <button class="btn r" id="clearAllBtn">🗑 Сбросить все данные</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-    </div>
-  </div>
+      <button class="btn btn-primary" id="save-settings-btn">Save Settings</button>
+    </section>
+  </main>
 </div>
 
 <!-- MODALS -->
-<div class="mov" id="ml">
-  <div class="mbox">
-    <div class="mhd"><div class="mtt">Новая заявка</div><button class="mcl" data-m="ml">✕</button></div>
-    <div class="fr"><label class="fl">Имя</label><input class="fi" id="ln" placeholder="Алибек Жаксыбеков"></div>
-    <div class="fr"><label class="fl">Телефон</label><input class="fi" id="lph" type="tel" placeholder="+7 700 000 00 00"></div>
-    <div class="fr"><label class="fl">Курс</label><select class="fi" id="lco">
-      <option>IELTS Preparation</option><option>SAT Preparation</option><option>General English</option>
-      <option>Kids English</option><option>Business English</option><option>Китайский (HSK)</option>
-      <option>Поступление за рубеж</option><option>Foundation Year</option>
-    </select></div>
-    <div class="fr"><label class="fl">Источник</label><select class="fi" id="lso">
-      <option>WhatsApp</option><option>Сайт</option><option>Instagram</option>
-      <option>2ГИС</option><option>Рекомендация</option><option>Телефон</option>
-    </select></div>
-    <div class="fr"><label class="fl">Комментарий</label><textarea class="fi" id="lnt" placeholder="..." style="min-height:60px"></textarea></div>
-    <div class="mft"><button class="btn g" data-m="ml">Отмена</button><button class="btn p" id="saveLeadBtn">Сохранить</button></div>
+<!-- Add/Edit Lead Modal -->
+<div class="modal-overlay" id="modal-lead">
+  <div class="modal">
+    <h3 id="modal-lead-title">Add Lead</h3>
+    <input type="hidden" id="lead-edit-id">
+    <div class="form-group"><label>Name *</label><input type="text" id="lead-name"></div>
+    <div class="form-group"><label>Phone *</label><input type="text" id="lead-phone"></div>
+    <div class="form-group"><label>Email</label><input type="text" id="lead-email"></div>
+    <div class="form-group"><label>City</label><input type="text" id="lead-city"></div>
+    <div class="form-group"><label>Source</label><input type="text" id="lead-source" value="Admin"></div>
+    <div class="form-group"><label>Product</label><input type="text" id="lead-product"></div>
+    <div class="form-group"><label>Status</label>
+      <select id="lead-status"><option value="new">New</option><option value="contacted">Contacted</option><option value="qualified">Qualified</option><option value="closed">Closed</option><option value="lost">Lost</option></select>
+    </div>
+    <div class="form-group"><label>Note</label><textarea id="lead-note" rows="2"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="modal-lead-cancel">Cancel</button>
+      <button class="btn btn-primary" id="modal-lead-save">Save</button>
+    </div>
   </div>
 </div>
 
-<div class="mov" id="mr">
-  <div class="mbox">
-    <div class="mhd"><div class="mtt">Добавить отзыв</div><button class="mcl" data-m="mr">✕</button></div>
-    <div class="fr"><label class="fl">Имя</label><input class="fi" id="rn" placeholder="Зарина Н."></div>
-    <div class="fr"><label class="fl">Когда</label><input class="fi" id="rd" placeholder="2 нед. назад"></div>
-    <div class="fr"><label class="fl">Текст</label><textarea class="fi" id="rt" style="min-height:80px"></textarea></div>
-    <div class="fr"><label class="fl">Значок (IELTS 6.0→8.0)</label><input class="fi" id="rb"></div>
-    <div class="fr"><label class="fl">Цвет аватара</label><select class="fi" id="rc">
-      <option value="#2563EB">Синий</option><option value="#059669">Зелёный</option>
-      <option value="#7C3AED">Фиолетовый</option><option value="#C05000">Оранжевый</option>
-    </select></div>
-    <div class="mft"><button class="btn g" data-m="mr">Отмена</button><button class="btn p" id="saveRvBtn">Добавить</button></div>
+<!-- Add Review Modal -->
+<div class="modal-overlay" id="modal-review">
+  <div class="modal">
+    <h3>Add Review</h3>
+    <div class="form-group"><label>Name *</label><input type="text" id="review-name"></div>
+    <div class="form-group"><label>Avatar Initial (1 letter)</label><input type="text" id="review-avatar" maxlength="2" placeholder="A"></div>
+    <div class="form-group"><label>Avatar Color</label><input type="color" id="review-color" value="#2563EB"></div>
+    <div class="form-group"><label>Badge (e.g. IELTS 7.5)</label><input type="text" id="review-badge" placeholder="IELTS 7.5"></div>
+    <div class="form-group"><label>Date Label</label><input type="text" id="review-date" placeholder="March 2026"></div>
+    <div class="form-group"><label>Review Text *</label><textarea id="review-text" rows="4"></textarea></div>
+    <div class="form-group"><label>Sort Order</label><input type="number" id="review-sort" value="0"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="modal-review-cancel">Cancel</button>
+      <button class="btn btn-primary" id="modal-review-save">Save</button>
+    </div>
   </div>
 </div>
 
-<div class="twrap" id="tw"></div>
+<!-- Add/Edit Promo Modal -->
+<div class="modal-overlay" id="modal-promo">
+  <div class="modal">
+    <h3 id="modal-promo-title">Add Promo Slide</h3>
+    <input type="hidden" id="promo-edit-id">
+    <div class="form-group"><label>Tag</label><input type="text" id="promo-tag" placeholder="Hot offer"></div>
+    <div class="form-group"><label>Eyebrow text</label><input type="text" id="promo-ey" placeholder="Spring 2026"></div>
+    <div class="form-group"><label>Title *</label><input type="text" id="promo-title"></div>
+    <div class="form-group"><label>Subtitle</label><textarea id="promo-sub" rows="2"></textarea></div>
+    <div class="form-group"><label>CTA Text</label><input type="text" id="promo-cta" value="&#1055;&#1086;&#1076;&#1088;&#1086;&#1073;&#1085;&#1077;&#1077; &#8594;"></div>
+    <div class="form-group"><label>CTA Link</label><input type="text" id="promo-href" value="#"></div>
+    <div class="form-group"><label>Background Color</label><input type="color" id="promo-bg" value="#2563EB"></div>
+    <div class="form-group"><label>Is Hot?</label><select id="promo-hot"><option value="false">No</option><option value="true">Yes</option></select></div>
+    <div class="form-group"><label>Sort Order</label><input type="number" id="promo-sort" value="0"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="modal-promo-cancel">Cancel</button>
+      <button class="btn btn-primary" id="modal-promo-save">Save</button>
+    </div>
+  </div>
+</div>
 
+<!-- Writing Preview Modal -->
+<div class="modal-overlay" id="modal-writing">
+  <div class="modal" style="width:640px">
+    <h3 id="modal-writing-title">Writing Submission</h3>
+    <div style="margin-bottom:12px">
+      <strong>Prompt:</strong> <span id="modal-writing-prompt"></span>
+    </div>
+    <div class="writing-text-preview" id="modal-writing-text"></div>
+    <div class="modal-actions"><button class="btn btn-outline" id="modal-writing-close">Close</button></div>
+  </div>
+</div>
 
-<div class="twrap" id="tw"></div>
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   GSC ADMIN DATA ADAPTER v1 — Vercel KV powered
-   Admin Auth: uses Basic Auth (ADMIN_USER/ADMIN_PASS on server)
-   ═══════════════════════════════════════════════════════════════ */
+(function(){
+  'use strict';
 
-function basicAuthHeader() {
-  try {
-    const s = JSON.parse(localStorage.getItem('gsc_session') || 'null');
-    if (!s || !s.login || !s.pass) return '';
-    return 'Basic ' + btoa(s.login + ':' + s.pass);
-  } catch (e) { return ''; }
-}
+  /* --- CACHE --- */
+  var leadsCache = [];
+  var testResultsCache = [];
+  var writingCache = [];
+  var reviewsCache = [];
+  var promosCache = [];
+  var officesCache = [];
 
-async function apiFetch(path, method, body, needsAuth) {
-  const headers = { 'Content-Type': 'application/json' };
-  if (needsAuth) {
-    const h = basicAuthHeader();
-    if (h) headers['Authorization'] = h;
+  /* --- HELPERS --- */
+  var E = GSC.escHtml;
+
+  function $(sel){ return document.querySelector(sel); }
+  function $$(sel){ return document.querySelectorAll(sel); }
+
+  function toast(msg, type){
+    type = type || 'success';
+    var el = document.createElement('div');
+    el.className = 'toast-msg ' + type;
+    el.textContent = msg;
+    $('#toast').appendChild(el);
+    setTimeout(function(){ el.remove(); }, 3500);
   }
-  const res = await fetch('/api/' + path, {
-    method: method || 'GET',
-    headers,
-    body: body ? JSON.stringify(body) : undefined
-  });
-  const txt = await res.text().catch(() => '');
-  let json = null;
-  try { json = txt ? JSON.parse(txt) : null; } catch(e) {}
-  if (!res.ok) {
-    const msg = (json && (json.error || json.message)) ? (json.error || json.message) : (txt || ('http_' + res.status));
-    throw new Error(msg);
+
+  function fmtDate(d){
+    if(!d) return '\u2014';
+    var dt = new Date(d);
+    return dt.toLocaleDateString('ru-RU') + ' ' + dt.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
   }
-  return json;
-}
 
-async function kvGet(key, defVal) {
-  const j = await apiFetch('data?key=' + encodeURIComponent(key), 'GET', null, false);
-  return j && 'value' in j ? (j.value ?? defVal) : defVal;
-}
+  function statusBadge(s){
+    var cls = 'badge badge-' + (s||'new');
+    return '<span class="'+cls+'">' + E(s||'new') + '</span>';
+  }
 
-async function kvSet(key, value) {
-  return apiFetch('data?key=' + encodeURIComponent(key), 'PUT', { value }, true);
-}
+  function openModal(id){ document.getElementById(id).classList.add('open'); }
+  function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
-async function kvDel(key) {
-  return apiFetch('data?key=' + encodeURIComponent(key), 'DELETE', null, true);
-}
+  /* --- AUTH --- */
+  var loginBtn = $('#login-btn');
+  var loginEmail = $('#login-email');
+  var loginPassword = $('#login-password');
+  var loginError = $('#login-error');
 
-/* ── DB API — app-level models stored in KV ── */
-const DB = {
-  /* LEADS */
-  async getLeads() {
-    const j = await apiFetch('leads?limit=500', 'GET', null, true);
-    return (j && j.leads) || [];
-  },
-  async addLead(lead) {
-    // admin-created lead (still uses public POST)
-    const j = await apiFetch('leads', 'POST', {
-      name: lead.name, phone: lead.phone, city: lead.city || '',
-      email: lead.email || '',
-      source: lead.source || 'Admin',
-      product: lead.course || lead.product || ''
-    }, false);
-    return j && j.lead;
-  },
-  async updateLeadStatus(id, status) {
-    return apiFetch('leads?id=' + encodeURIComponent(id), 'PATCH', { status }, true);
-  },
-  async deleteLead(id) {
-    return apiFetch('leads?id=' + encodeURIComponent(id), 'DELETE', null, true);
-  },
-
-  /* TEST RESULTS */
-  async getTestResults() {
-    const j = await apiFetch('test-results?limit=500', 'GET', null, true);
-    return (j && j.results) || [];
-  },
-  async addTestResult(r) {
-    return apiFetch('test-results', 'POST', r, false);
-  },
-
-  /* CONTENT (ключи сайта) */
-  async getContent() {
-    return (await kvGet('content', {})) || {};
-  },
-  async setContent(key, value) {
-    const c = (await kvGet('content', {})) || {};
-    c[key] = value;
-    return kvSet('content', c);
-  },
-
-  /* OFFICES */
-  async getOffices() {
-    return (await kvGet('offices', [])) || [];
-  },
-  async setOffices(offices) {
-    return kvSet('offices', offices || []);
-  },
-  async updateOffice(id, data) {
-    const arr = (await kvGet('offices', [])) || [];
-    const next = arr.map(o => (String(o.id) === String(id) ? { ...o, ...data } : o));
-    await kvSet('offices', next);
-    return { ok:true };
-  },
-
-  /* REVIEWS (Google-like cards) */
-  async getReviews() {
-    return (await kvGet('google_reviews', [])) || [];
-  },
-  async setReviews(reviews) {
-    return kvSet('google_reviews', reviews || []);
-  },
-  async addReview(r) {
-    const arr = (await kvGet('google_reviews', [])) || [];
-    const id = r && r.id ? r.id : (Date.now() + Math.random()).toString(36);
-    arr.unshift({ id, ...r });
-    await kvSet('google_reviews', arr.slice(0,200));
-    return { ok:true, id };
-  },
-  async deleteReview(id) {
-    const arr = (await kvGet('google_reviews', [])) || [];
-    const next = arr.filter(r => String(r.id) !== String(id));
-    await kvSet('google_reviews', next);
-    return { ok:true };
-  },
-
-  /* PROMO SLIDES */
-  async getPromo() {
-    return (await kvGet('promo_slides', [])) || [];
-  },
-  async setPromo(promo) {
-    return kvSet('promo_slides', promo || []);
-  },
-  async addPromo(p) {
-    const arr = (await kvGet('promo_slides', [])) || [];
-    const id = p && p.id ? p.id : (Date.now() + Math.random()).toString(36);
-    arr.push({ id, ...p });
-    await kvSet('promo_slides', arr);
-    return { ok:true, id };
-  },
-  async updatePromo(id, data) {
-    const arr = (await kvGet('promo_slides', [])) || [];
-    const next = arr.map(p => (String(p.id) === String(id) ? { ...p, ...data } : p));
-    await kvSet('promo_slides', next);
-    return { ok:true };
-  },
-  async deletePromo(id) {
-    const arr = (await kvGet('promo_slides', [])) || [];
-    const next = arr.filter(p => String(p.id) !== String(id));
-    await kvSet('promo_slides', next);
-    return { ok:true };
-  },
-
-  /* TEST QUESTIONS */
-  async getQuestions(type) {
-    return (await kvGet('test_questions_' + type, [])) || [];
-  },
-  async setQuestions(type, qs) {
-    return kvSet('test_questions_' + type, qs || []);
-  },
-  async addQuestion(q) {
-    const type = q && (q.test_type || q.type);
-    const t = String(type || '');
-    if (!t) throw new Error('missing_test_type');
-    const arr = (await kvGet('test_questions_' + t, [])) || [];
-    const id = q && q.id ? q.id : (Date.now() + Math.random()).toString(36);
-    arr.push({ id, ...q, test_type: t });
-    await kvSet('test_questions_' + t, arr);
-    return [{ id, ...q, test_type: t }];
-  },
-  async updateQuestion(id, data) {
-    const type = data && (data.test_type || data.type);
-    const t = String(type || '');
-    if (!t) throw new Error('missing_test_type');
-    const arr = (await kvGet('test_questions_' + t, [])) || [];
-    const next = arr.map(q => (String(q.id) === String(id) ? { ...q, ...data } : q));
-    await kvSet('test_questions_' + t, next);
-    return { ok:true };
-  },
-  async deleteQuestion(id) {
-    // try all types
-    const types = ['ielts','sat','english','kids'];
-    for (const t of types) {
-      const arr = (await kvGet('test_questions_' + t, [])) || [];
-      const next = arr.filter(q => String(q.id) !== String(id));
-      if (next.length !== arr.length) {
-        await kvSet('test_questions_' + t, next);
-        return { ok:true };
-      }
+  function doLogin(){
+    var email = loginEmail.value.trim();
+    var pass = loginPassword.value;
+    if(!email || !pass){
+      loginError.textContent = 'Please enter email and password.';
+      loginError.style.display = 'block';
+      return;
     }
-    return { ok:true };
-  },
-
-  /* WRITING PROMPT */
-  async getWritingPrompt(type) {
-    return (await kvGet('writing_prompt_' + type, '')) || '';
-  },
-  async setWritingPrompt(type, text) {
-    return kvSet('writing_prompt_' + type, text || '');
-  },
-
-  /* SETTINGS / INTEGRATIONS */
-  async getCfg() { return (await kvGet('cfg', {})) || {}; },
-  async setCfg(cfg) { return kvSet('cfg', cfg || {}); },
-  async getIntegrations() { return (await kvGet('integrations', {})) || {}; },
-  async setIntegrations(v) { return kvSet('integrations', v || {}); },
-  async setBitrixWebhook(url) { return kvSet('bitrix_webhook', String(url || '').trim()); },
-  async getBitrixWebhook() { return (await kvGet('bitrix_webhook', '')) || ''; },
-
-  /* DANGER ZONE */
-  async clearAll() {
-    await Promise.allSettled([
-      kvDel('content'),
-      kvDel('offices'),
-      kvDel('google_reviews'),
-      kvDel('promo_slides'),
-      kvDel('cfg'),
-      kvDel('integrations'),
-      kvDel('bitrix_webhook')
-    ]);
-    // questions per type
-    await Promise.allSettled(['ielts','sat','english','kids'].map(t => kvDel('test_questions_' + t)));
-    await Promise.allSettled(['ielts','sat','english','kids'].map(t => kvDel('writing_prompt_' + t)));
-    return { ok:true };
-  }
-};
-
-/* ── Toast helper (used before admin loads) ── */
-function toast(msg, type) {
-  type = type || 'i';
-  const w = document.getElementById('tw');
-  if (!w) return;
-  const t = document.createElement('div');
-  t.className = 'toast ' + type;
-  t.textContent = (type==='s'?'✅ ':type==='e'?'❌ ':'ℹ️ ') + msg;
-  w.appendChild(t);
-  setTimeout(() => {
-    t.style.opacity = '0'; t.style.transform = 'translateX(32px)';
-    t.style.transition = '.28s'; setTimeout(() => t.remove(), 280);
-  }, 4000);
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   GSC ADMIN v4 — KV powered
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ── AUTH (stays local) ── */
-const USERS = {
-  admin:   { pass:'gsc2026',    role:'Администратор', name:'Администратор' },
-  manager: { pass:'manager123', role:'Менеджер',       name:'Менеджер' }
-};
-let ME = null;
-const eid = id => document.getElementById(id);
-const fd = d => new Date(d).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
-
-async function login() {
-  const u = eid('lu').value.trim(), p = eid('lp').value;
-  if (!u || !p) { eid('le').style.display = 'block'; return; }
-  // store credentials for Basic Auth API calls
-  const me = {
-    login: u,
-    pass: p,
-    role: (u === 'admin' ? 'Администратор' : 'Менеджер'),
-    name: (u === 'admin' ? 'Администратор' : 'Менеджер'),
-    exp: Date.now() + 8*60*60*1000
-  };
-  localStorage.setItem('gsc_session', JSON.stringify(me));
-  ME = me;
-  try {
-    // validate auth against protected endpoint
-    await apiFetch('leads?limit=1', 'GET', null, true);
-    eid('le').style.display = 'none';
-    initShell();
-  } catch (e) {
-    localStorage.removeItem('gsc_session');
-    ME = null;
-    eid('le').style.display = 'block';
-    eid('lp').value = '';
-    toast('Неверный логин/пароль (ADMIN_USER/ADMIN_PASS)', 'e');
-  }
-}
-function logout() {
-  localStorage.removeItem('gsc_session');
-  ME = null;
-  eid('sh').classList.remove('on');
-  eid('lw').style.display = 'flex';
-}
-['lu','lp'].forEach(id => eid(id)?.addEventListener('keydown', e => { if(e.key==='Enter') login(); }));
-eid('sbout')?.addEventListener('click', logout);
-
-/* Auto-login */
-(function() {
-  try {
-    const s = JSON.parse(localStorage.getItem('gsc_session'));
-    if (s && s.login && s.pass && (!s.exp || Date.now() < s.exp)) { ME = s; initShell(); }
-    else { localStorage.removeItem('gsc_session'); }
-  } catch(e) {}
-})();
-
-/* ── SHELL ── */
-async function initShell() {
-  // Quick connection test
-  try { await apiFetch('leads?limit=1', 'GET', null, true); }
-  catch(e){ showBanner('❌ Нет связи с API / неверная авторизация'); }
-  eid('lw').style.display = 'none';
-  eid('sh').classList.add('on');
-  eid('sbav').textContent  = ME.name[0];
-  eid('sbun').textContent  = ME.name;
-  eid('sbur').textContent  = ME.role;
-
-  await renderDash();
-}
-
-/* ── PANEL NAV ── */
-const TITLES = {dash:'Дашборд',leads:'Заявки',content:'Тексты сайта',
-  images:'Изображения',offices:'Офисы',reviews:'Отзывы',promo:'Акции',
-  tests:'Конструктор тестов',testres:'Результаты тестов',settings:'Настройки'};
-
-document.querySelectorAll('.sbi[data-p]').forEach(el => {
-  el.addEventListener('click', () => gp(el.getAttribute('data-p')));
-});
-
-function gp(id) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
-  const panel = eid('p-' + id);
-  if (panel) panel.classList.add('on');
-  document.querySelectorAll('.sbi[data-p]').forEach(i => i.classList.remove('on'));
-  const nav = document.querySelector('.sbi[data-p="'+id+'"]');
-  if (nav) nav.classList.add('on');
-  eid('tbt').textContent = TITLES[id] || id;
-  // Lazy load panels
-  if (id === 'leads')   renderLeads();
-  if (id === 'offices') renderOffices();
-  if (id === 'reviews') renderReviews();
-  if (id === 'promo')   renderPromo();
-  if (id === 'tests')   renderTests();
-  if (id === 'testres') renderTestResults();
-  if (id === 'content') loadContent();
-}
-
-eid('previewBtn')?.addEventListener('click', () => window.open('index.html','_blank'));
-eid('newLeadBtn')?.addEventListener('click', () => openM('ml'));
-eid('allLeadsBtn')?.addEventListener('click', () => gp('leads'));
-
-/* ── MODALS ── */
-function openM(id) { eid(id)?.classList.add('open'); }
-function closeM(id) { eid(id)?.classList.remove('open'); }
-document.querySelectorAll('[data-m]').forEach(btn =>
-  btn.addEventListener('click', () => closeM(btn.getAttribute('data-m')))
-);
-document.querySelectorAll('.mov').forEach(m =>
-  m.addEventListener('click', e => { if(e.target===m) closeM(m.id); })
-);
-
-/* ── BANNER ── */
-function showBanner(msg) {
-  const b = document.getElementById('supabaseBanner');
-  if (b) {
-    b.innerHTML = msg + `<span style="margin-left:auto;opacity:.6;cursor:pointer" onclick="this.parentElement.style.display='none'">✕</span>`;
-    b.style.display = 'flex';
-  }
-}
-
-/* ── DASHBOARD ── */
-async function renderDash() {
-  try {
-    const [leads, results] = await Promise.all([DB.getLeads(), DB.getTestResults()]);
-    const newC = leads.filter(l => l.status === 'new').length;
-    const enrolled = leads.filter(l => l.status === 'enrolled').length;
-    eid('s1').textContent  = leads.length;
-    eid('s1c').textContent = 'Новых: ' + newC;
-    eid('s2').textContent  = results.length;
-    eid('s4').textContent  = leads.length ? Math.round(enrolled/leads.length*100)+'%' : '—';
-    eid('lbadge').textContent = newC;
-    // Chart — last 7 days
-    const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-    const now = new Date();
-    const vals = days.map((_, i) => {
-      const d = new Date(now); d.setDate(d.getDate() - (6-i));
-      return leads.filter(l => new Date(l.created_at).toDateString() === d.toDateString()).length;
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Signing in...';
+    GSC.login(email, pass).then(function(){
+      showApp();
+    }).catch(function(err){
+      loginError.textContent = err.message || 'Login failed';
+      loginError.style.display = 'block';
+    }).finally(function(){
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Sign In';
     });
-    const mx = Math.max(...vals, 1);
-    eid('chart').innerHTML = vals.map((v,i) =>
-      `<div class="bit"><div class="bva">${v||''}</div><div class="bar" style="height:${Math.round(v/mx*75)+4}px"></div><div class="bla">${days[i]}</div></div>`
-    ).join('');
-    // Recent leads
-    const tb = eid('dtb');
-    if (tb) {
-      const SL = {new:'Новая',called:'Позвонили',enrolled:'Записался'};
-      const SC = {new:'wn',called:'no',enrolled:'ok'};
-      tb.innerHTML = leads.slice(0,6).map(l =>
-        `<tr><td><strong>${l.name}</strong></td><td>${l.phone}</td><td>${l.course}</td>
-         <td>${l.source}</td><td>${fd(l.created_at)}</td>
-         <td><span class="bdg ${SC[l.status]}">${SL[l.status]}</span></td>
-         <td class="tda"><button class="tb2 e" onclick="changeStatus(${l.id},'${l.status}')">→</button></td></tr>`
-      ).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--mu);padding:16px">Заявок нет</td></tr>';
+  }
+
+  loginBtn.addEventListener('click', doLogin);
+  loginPassword.addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+  loginEmail.addEventListener('keydown', function(e){ if(e.key==='Enter') loginPassword.focus(); });
+
+  $('#logout-btn').addEventListener('click', function(){
+    GSC.logout().then(function(){
+      $('#app').style.display = 'none';
+      $('#login-screen').style.display = 'flex';
+      loginPassword.value = '';
+    });
+  });
+
+  // Auto-session check
+  GSC.getSession().then(function(session){
+    if(session) showApp();
+  });
+
+  function showApp(){
+    $('#login-screen').style.display = 'none';
+    $('#app').style.display = 'block';
+    loadDashboard();
+  }
+
+  /* --- SIDEBAR NAV --- */
+  var navBtns = $$('#sidebar-nav button');
+  navBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var panel = btn.getAttribute('data-panel');
+      navBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      $$('.panel').forEach(function(p){ p.classList.remove('active'); });
+      $('#panel-' + panel).classList.add('active');
+      // close mobile sidebar
+      $('#sidebar').classList.remove('open');
+      // load data
+      switch(panel){
+        case 'dashboard': loadDashboard(); break;
+        case 'leads': loadLeads(); break;
+        case 'cms': loadCms(); break;
+        case 'offices': loadOffices(); break;
+        case 'reviews': loadReviews(); break;
+        case 'promos': loadPromos(); break;
+        case 'tests': loadTests(); break;
+        case 'writing': loadWriting(); break;
+        case 'settings': loadSettings(); break;
+      }
+    });
+  });
+
+  // mobile toggle
+  $('#mobile-toggle-btn').addEventListener('click', function(){
+    $('#sidebar').classList.toggle('open');
+  });
+
+  /* ==========================================
+     DASHBOARD
+  ========================================== */
+  function loadDashboard(){
+    Promise.all([GSC.getLeads(), GSC.getTestResults(), GSC.getWritingSubmissions(), GSC.getReviews()]).then(function(res){
+      leadsCache = res[0] || [];
+      testResultsCache = res[1] || [];
+      writingCache = res[2] || [];
+      reviewsCache = res[3] || [];
+
+      var newLeads = leadsCache.filter(function(l){ return l.status === 'new'; }).length;
+      var today = new Date().toDateString();
+      var todayLeads = leadsCache.filter(function(l){ return new Date(l.created_at).toDateString() === today; }).length;
+
+      $('#dash-stats').innerHTML =
+        '<div class="stat-card"><div class="label">Total Leads</div><div class="value">'+leadsCache.length+'</div><div class="sub">'+newLeads+' new</div></div>'+
+        '<div class="stat-card"><div class="label">Today\'s Leads</div><div class="value">'+todayLeads+'</div></div>'+
+        '<div class="stat-card"><div class="label">Test Results</div><div class="value">'+testResultsCache.length+'</div></div>'+
+        '<div class="stat-card"><div class="label">Writing Submissions</div><div class="value">'+writingCache.length+'</div></div>'+
+        '<div class="stat-card"><div class="label">Reviews</div><div class="value">'+reviewsCache.length+'</div></div>';
+
+      // recent 5 leads
+      var recent = leadsCache.slice(0,5);
+      var tb = $('#dash-recent-table tbody');
+      tb.innerHTML = recent.map(function(l){
+        return '<tr><td>'+E(l.name)+'</td><td>'+E(l.phone)+'</td><td>'+E(l.source||'')+'</td><td>'+statusBadge(l.status)+'</td><td>'+fmtDate(l.created_at)+'</td></tr>';
+      }).join('');
+      if(!recent.length) tb.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted)">No leads yet</td></tr>';
+    }).catch(function(err){
+      toast('Failed to load dashboard: '+err.message, 'error');
+    });
+  }
+
+  /* ==========================================
+     LEADS
+  ========================================== */
+  function loadLeads(){
+    GSC.getLeads().then(function(data){
+      leadsCache = data || [];
+      renderLeads();
+    }).catch(function(err){ toast('Failed to load leads: '+err.message,'error'); });
+  }
+
+  function renderLeads(){
+    var filter = $('#leads-filter').value;
+    var search = $('#leads-search').value.toLowerCase();
+    var list = leadsCache.filter(function(l){
+      if(filter && l.status !== filter) return false;
+      if(search && (l.name||'').toLowerCase().indexOf(search)===-1 && (l.phone||'').indexOf(search)===-1) return false;
+      return true;
+    });
+    var tb = $('#leads-table tbody');
+    if(!list.length){
+      tb.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--muted)">No leads found</td></tr>';
+      return;
     }
-    renderLeadsTable(leads);
-  } catch(e) {
-    showBanner('❌ ' + e.message);
+    tb.innerHTML = list.map(function(l){
+      return '<tr>'+
+        '<td>'+E(l.name)+'</td>'+
+        '<td>'+E(l.phone)+'</td>'+
+        '<td>'+E(l.email||'')+'</td>'+
+        '<td>'+E(l.city||'')+'</td>'+
+        '<td>'+E(l.source||'')+'</td>'+
+        '<td>'+E(l.product||'')+'</td>'+
+        '<td>'+statusBadge(l.status)+'</td>'+
+        '<td style="white-space:nowrap">'+fmtDate(l.created_at)+'</td>'+
+        '<td style="white-space:nowrap">'+
+          '<button class="btn btn-outline btn-sm lead-edit" data-id="'+l.id+'">Edit</button> '+
+          '<button class="btn btn-danger btn-sm lead-del" data-id="'+l.id+'">Del</button>'+
+        '</td></tr>';
+    }).join('');
+
+    // wire edit/delete buttons
+    tb.querySelectorAll('.lead-edit').forEach(function(b){
+      b.addEventListener('click', function(){ editLead(Number(b.dataset.id)); });
+    });
+    tb.querySelectorAll('.lead-del').forEach(function(b){
+      b.addEventListener('click', function(){ deleteLead(Number(b.dataset.id)); });
+    });
   }
-}
 
-/* ── LEADS ── */
-let curFilter = 'all';
-const SL = {new:'Новая',called:'Позвонили',enrolled:'Записался'};
-const SC = {new:'wn',called:'no',enrolled:'ok'};
+  $('#leads-filter').addEventListener('change', renderLeads);
+  $('#leads-search').addEventListener('input', renderLeads);
 
-async function renderLeads() {
-  try {
-    const leads = await DB.getLeads();
-    renderLeadsTable(leads);
-  } catch(e) { toast('Ошибка загрузки заявок','e'); }
-}
-
-function renderLeadsTable(leads) {
-  const fl = curFilter === 'all' ? leads : leads.filter(l => l.status === curFilter);
-  const tb = eid('ltb');
-  if (!tb) return;
-  tb.innerHTML = fl.map((l,i) =>
-    `<tr><td>${i+1}</td><td><strong>${l.name}</strong></td>
-     <td><a href="tel:${l.phone}" style="color:var(--bl)">${l.phone}</a></td>
-     <td>${l.course}</td><td>${l.source}</td><td>${l.manager||'—'}</td>
-     <td>${fd(l.created_at)}</td>
-     <td><span class="bdg ${SC[l.status]}">${SL[l.status]}</span></td>
-     <td class="tda">
-       <button class="tb2 e" onclick="changeStatus(${l.id},'${l.status}')">→</button>
-       <button class="tb2 d" onclick="delLead(${l.id})">✕</button>
-     </td></tr>`
-  ).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--mu);padding:20px">Нет заявок</td></tr>';
-}
-
-function setF(s) {
-  curFilter = s;
-  ['all','new','called','enrolled'].forEach(t => {
-    const b = eid('tf-'+t); if(!b) return;
-    b.style.background  = t===s ? 'var(--wh)' : 'none';
-    b.style.fontWeight  = t===s ? '700' : '500';
-    b.style.color       = t===s ? 'var(--ink)' : 'var(--mu)';
+  // Add lead
+  $('#add-lead-btn').addEventListener('click', function(){
+    $('#modal-lead-title').textContent = 'Add Lead';
+    $('#lead-edit-id').value = '';
+    $('#lead-name').value = '';
+    $('#lead-phone').value = '';
+    $('#lead-email').value = '';
+    $('#lead-city').value = '';
+    $('#lead-source').value = 'Admin';
+    $('#lead-product').value = '';
+    $('#lead-status').value = 'new';
+    $('#lead-note').value = '';
+    openModal('modal-lead');
   });
-  renderLeads();
-}
 
-async function changeStatus(id, cur) {
-  const next = {new:'called',called:'enrolled',enrolled:'new'};
-  try {
-    await DB.updateLeadStatus(id, next[cur]);
-    toast('Статус обновлён','s');
-    renderDash();
-  } catch(e) { toast('Ошибка','e'); }
-}
-
-async function delLead(id) {
-  if (!confirm('Удалить заявку?')) return;
-  try {
-    await DB.deleteLead(id);
-    toast('Удалено','i');
-    renderDash();
-  } catch(e) { toast('Ошибка','e'); }
-}
-
-eid('saveLeadBtn')?.addEventListener('click', async () => {
-  const n = eid('ln').value.trim(), ph = eid('lph').value.trim();
-  if (!n || !ph) { toast('Введите имя и телефон','e'); return; }
-  try {
-    await DB.addLead({ name:n, phone:ph, course:eid('lco').value, source:eid('lso').value, note:eid('lnt').value, manager:ME.name });
-    closeM('ml');
-    toast('Заявка добавлена!','s');
-    ['ln','lph','lnt'].forEach(id => eid(id).value='');
-    renderDash();
-  } catch(e) { toast('Ошибка: '+e.message,'e'); }
-});
-
-async function exportCSV() {
-  const leads = await DB.getLeads();
-  const rows = [['ID','Имя','Телефон','Курс','Источник','Менеджер','Статус','Дата']];
-  leads.forEach(l => rows.push([l.id,`"${l.name}"`,l.phone,`"${l.course}"`,l.source||'',l.manager||'',l.status,fd(l.created_at)]));
-  const csv = rows.map(r => r.join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
-  a.download = 'gsc_leads_' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-  toast('CSV скачан','s');
-}
-
-/* ── CONTENT ── */
-async function loadContent() {
-  try {
-    const C = await DB.getContent();
-    const set = (id, val) => { const e = eid(id); if(e && val !== undefined) e.value = Array.isArray(val) ? val.join('\n') : String(val); };
-    set('c-phrases',   C.phrases);
-    set('c-split_h',   C.split_h);
-    set('c-split_sub', C.split_sub);
-    set('c-abroad_h',  C.abroad_h);
-    set('c-abroad_sub',C.abroad_sub);
-    set('c-courses_h', C.courses_h);
-    set('c-courses_sub',C.courses_sub);
-    set('c-phone',     C.phone);
-    set('c-wa',        C.wa);
-    set('c-email',     C.email);
-    set('c-ig',        C.ig);
-  } catch(e) { toast('Ошибка загрузки контента','e'); }
-}
-
-async function saveC(section) {
-  const v = id => eid(id)?.value || '';
-  const updates = {
-    phrases:  { phrases:  v('c-phrases').split('\n').map(x=>x.trim()).filter(Boolean) },
-    split:    { split_h:  v('c-split_h'), split_sub: v('c-split_sub') },
-    abroad:   { abroad_h: v('c-abroad_h'), abroad_sub: v('c-abroad_sub') },
-    courses:  { courses_h:v('c-courses_h'), courses_sub:v('c-courses_sub') },
-    contacts: { phone:v('c-phone'), wa:v('c-wa'), email:v('c-email'), ig:v('c-ig') },
-  };
-  const data = updates[section];
-  if (!data) return;
-  try {
-    await Promise.all(Object.entries(data).map(([k,val]) => DB.setContent(k, val)));
-    toast('Сохранено! Сайт обновится автоматически.','s');
-  } catch(e) { toast('Ошибка сохранения','e'); }
-}
-
-/* ── OFFICES ── */
-async function renderOffices() {
-  const offices = await DB.getOffices();
-  const og = eid('og'); if(!og) return;
-  og.innerHTML = offices.map(o =>
-    `<div class="oc${o.is_main?' ocm':''}">
-      <div class="oname"><div class="odot" style="background:${o.is_main?'var(--bl)':'var(--gr)'}"></div>
-      <input value="${o.name}" data-oid="${o.id}" data-f="name" style="font-family:var(--fd);font-size:13px;font-weight:700;border:none;background:none;outline:none;color:var(--ink);flex:1"/>
-      ${o.is_main?'<span class="bdg ok">Главный</span>':''}</div>
-      <div class="fr"><label class="fl">Город</label><input class="fi" data-oid="${o.id}" data-f="city" value="${o.city}"/></div>
-      <div class="fr"><label class="fl">Адрес</label><input class="fi" data-oid="${o.id}" data-f="addr" value="${o.addr}"/></div>
-      <div class="fr"><label class="fl">График</label><input class="fi" data-oid="${o.id}" data-f="hrs" value="${o.hrs}"/></div>
-    </div>`
-  ).join('');
-}
-
-async function saveOffices() {
-  const inputs = document.querySelectorAll('[data-oid][data-f]');
-  const updates = {};
-  inputs.forEach(inp => {
-    const id = inp.getAttribute('data-oid');
-    const f  = inp.getAttribute('data-f');
-    if (!updates[id]) updates[id] = {};
-    updates[id][f] = inp.value;
-  });
-  try {
-    await Promise.all(Object.entries(updates).map(([id, data]) => DB.updateOffice(id, data)));
-    toast('Офисы сохранены!','s');
-  } catch(e) { toast('Ошибка','e'); }
-}
-
-/* ── REVIEWS ── */
-async function renderReviews() {
-  const rvs = await DB.getReviews();
-  const g = eid('rvg'); if(!g) return;
-  g.innerHTML = rvs.map(r =>
-    `<div class="rvc">
-      <div class="rvh">
-        <div class="rvav" style="background:${r.color}">${r.avatar||r.name[0]}</div>
-        <div><div class="rvnm">${r.name}</div><div class="rvdt">${r.date_label}</div></div>
-        <button class="tb2 d" style="margin-left:auto" onclick="delReview(${r.id})">✕</button>
-      </div>
-      <div class="rvst">★★★★★</div>
-      <div class="rvtx">${r.text}</div>
-      ${r.badge?`<div class="rvbd">${r.badge}</div>`:''}
-    </div>`
-  ).join('');
-}
-
-async function saveReview() {
-  const n = eid('rn').value.trim(), tx = eid('rt').value.trim();
-  if (!n||!tx) { toast('Заполните имя и текст','e'); return; }
-  try {
-    await DB.addReview({ name:n, avatar:n[0], color:eid('rc').value, date_label:eid('rd').value||'Сегодня', text:tx, badge:eid('rb').value });
-    await renderReviews();
-    closeM('mr');
-    toast('Отзыв добавлен!','s');
-  } catch(e) { toast('Ошибка','e'); }
-}
-
-async function delReview(id) {
-  await DB.deleteReview(id);
-  renderReviews();
-  toast('Удалён','i');
-}
-
-/* ── PROMO ── */
-async function renderPromo() {
-  const promos = await DB.getPromo();
-  const pg = eid('pg'); if(!pg) return;
-  pg.innerHTML = promos.map(s =>
-    `<div class="pcard">
-      <div><label class="fl">Тег</label><input class="fi" data-pid="${s.id}" data-pf="tag" value="${s.tag}"/></div>
-      <div><label class="fl">Заголовок</label><input class="fi" data-pid="${s.id}" data-pf="title" value="${s.title}"/></div>
-      <div><label class="fl">Подзаголовок</label><input class="fi" data-pid="${s.id}" data-pf="sub" value="${s.sub}"/></div>
-      <button class="tb2 d" style="align-self:flex-end" onclick="delPromo(${s.id})">✕</button>
-    </div>`
-  ).join('');
-}
-
-async function addPromo() {
-  await DB.addPromo({tag:'🆕 Новое',title:'Название акции',sub:'Описание',sort_order:99});
-  renderPromo();
-}
-
-async function savePromo() {
-  const inputs = document.querySelectorAll('[data-pid][data-pf]');
-  const updates = {};
-  inputs.forEach(inp => {
-    const id = inp.getAttribute('data-pid');
-    const f  = inp.getAttribute('data-pf');
-    if (!updates[id]) updates[id] = {};
-    updates[id][f] = inp.value;
-  });
-  try {
-    await Promise.all(Object.entries(updates).map(([id,data]) => DB.updatePromo(id,data)));
-    toast('Акции сохранены!','s');
-  } catch(e) { toast('Ошибка','e'); }
-}
-
-async function delPromo(id) {
-  await DB.deletePromo(id);
-  renderPromo();
-  toast('Удалено','i');
-}
-
-/* ── TEST BUILDER ── */
-let curTestType = 'ielts';
-let qsCache = { ielts: [], sat: [], english: [], kids: [] };
-let curQId = null;
-let contentCache = null;
-
-function normRowToQ(row) {
-  // Supabase schema: section/question/hint/options/answer
-  const o = row.options || row.o || row.opts;
-  const arr = Array.isArray(o)
-    ? o
-    : (typeof o === 'string'
-        ? (() => { try { return JSON.parse(o); } catch(e) { return null; } })()
-        : null);
-  const q = {
-    id: row.id,
-    sort_order: row.sort_order ?? row.sort ?? 0,
-    s: row.section ?? row.s ?? '',
-    t: row.question ?? row.t ?? row.text ?? '',
-    h: row.hint ?? row.h ?? '',
-    o: arr || [row.opt_a, row.opt_b, row.opt_c, row.opt_d].filter(x => x !== undefined),
-    a: (row.answer ?? row.a ?? row.answer_index ?? 0)
-  };
-  if (!Array.isArray(q.o) || q.o.length < 4) {
-    // Guarantee 4 options for UI
-    const base = Array.isArray(q.o) ? q.o.slice(0, 4) : [];
-    while (base.length < 4) base.push('');
-    q.o = base;
-  } else {
-    q.o = q.o.slice(0, 4);
+  function editLead(id){
+    var l = leadsCache.find(function(x){ return x.id === id; });
+    if(!l) return;
+    $('#modal-lead-title').textContent = 'Edit Lead';
+    $('#lead-edit-id').value = id;
+    $('#lead-name').value = l.name || '';
+    $('#lead-phone').value = l.phone || '';
+    $('#lead-email').value = l.email || '';
+    $('#lead-city').value = l.city || '';
+    $('#lead-source').value = l.source || '';
+    $('#lead-product').value = l.product || '';
+    $('#lead-status').value = l.status || 'new';
+    $('#lead-note').value = l.note || '';
+    openModal('modal-lead');
   }
-  q.a = Math.max(0, Math.min(3, parseInt(q.a, 10) || 0));
-  return q;
-}
 
-function qToRowPayload(type, q) {
-  // Matches Supabase schema exactly.
-  return {
-    test_type: type,
-    sort_order: q.sort_order ?? 0,
-    section: q.s || '',
-    question: q.t || '',
-    hint: q.h || '',
-    options: q.o || ['', '', '', ''],
-    answer: q.a ?? 0
-  };
-}
+  $('#modal-lead-cancel').addEventListener('click', function(){ closeModal('modal-lead'); });
 
-function renderQList() {
-  const list = eid('qlist');
-  if (!list) return;
-  const qs = qsCache[curTestType] || [];
-  list.innerHTML = qs.map(q => {
-    const on = (q.id === curQId);
-    const title = (q.t || '').trim() || '(без текста)';
-    return `<div class="qit ${on ? 'on' : ''}" onclick="selQ(${q.id})">
-      <div style="display:flex;gap:10px;align-items:flex-start">
-        <div style="width:24px;height:24px;border-radius:8px;background:${on ? 'var(--bl)' : 'var(--wh2)'};color:${on ? '#fff' : 'var(--mu)'};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">${String(qs.indexOf(q)+1)}</div>
-        <div style="flex:1">
-          <div style="font-size:12px;font-weight:700;color:var(--ink);line-height:1.25">${esc(title).slice(0, 80)}</div>
-          <div style="font-size:10px;color:var(--mu);margin-top:2px">${esc(q.s || '')}</div>
-        </div>
-        <button class="qdel" onclick="event.stopPropagation(); delQ(${q.id})">✕</button>
-      </div>
-    </div>`;
-  }).join('') || `<div style="padding:14px;border:1.5px dashed var(--br2);border-radius:14px;color:var(--mu);font-size:12px">Вопросов пока нет. Нажми “+ Вопрос”.</div>`;
-}
-
-function renderQEditor(q) {
-  const wrap = eid('qed');
-  if (!wrap) return;
-  if (!q) {
-    wrap.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;color:var(--mu);text-align:center">
-      <div style="font-size:36px;opacity:.3;margin-bottom:10px">📝</div>
-      <div style="font-size:13px;font-weight:600;margin-bottom:4px">Выберите вопрос</div>
-      <div style="font-size:11px">или добавьте новый</div>
-    </div>`;
-    return;
-  }
-  const opt = (q.o || ['', '', '', '']).map(function(x){
-    if (x && typeof x === 'object') return x;
-    return { text: String(x||''), img: '' };
-  });
-  wrap.innerHTML = `
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <div style="font-family:var(--fd);font-size:14px;font-weight:800">Вопрос</div>
-      <div style="display:flex;gap:8px">
-        <button class="btn g" onclick="dupQ()">Дублировать</button>
-        <button class="btn r" onclick="delQ(${q.id})">Удалить</button>
-      </div>
-    </div>
-    <div class="fr"><label class="fl">Раздел (опционально)</label><input class="fi" id="qe-s" value="${escAttr(q.s||'')}" placeholder="Grammar / Reading"></div>
-    <div class="fr"><label class="fl">Текст вопроса</label><textarea class="fi" id="qe-t" style="min-height:90px">${esc(q.t||'')}</textarea></div>
-    <div class="fr"><label class="fl">Подсказка (опционально)</label><textarea class="fi" id="qe-h" style="min-height:60px" placeholder="Подсказка…">${esc(q.h||'')}</textarea></div>
-    <div class="fr"><label class="fl">Варианты A/B/C/D (текст + картинка опционально)</label>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        ${['A','B','C','D'].map((l,i)=>`
-          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-            <div style="width:26px;height:26px;border-radius:50%;background:var(--wh2);border:1.5px solid var(--br2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--mu)">${l}</div>
-            <input class="fi" style="flex:1;min-width:220px" id="qe-o${i}" value="${escAttr(opt[i].text||'')}" placeholder="Вариант ${l} (текст)" />
-            <input class="fi" style="flex:1;min-width:220px" id="qe-oi${i}" value="${escAttr(opt[i].img||'')}" placeholder="Картинка URL (опционально)" />
-            <input type="file" accept="image/*" id="qe-of${i}" style="display:none" onchange="optFile(${i}, this.files[0])" />
-            <button class="btn g" type="button" onclick="eid('qe-of${i}').click()">🖼 Загрузить</button>
-            <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mu);white-space:nowrap">
-              <input type="radio" name="qe-a" value="${i}" ${q.a===i?'checked':''}/> верный
-            </label>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-    <div style="margin-top:14px;display:flex;justify-content:flex-end">
-      <button class="btn p" style="padding:10px 24px" onclick="saveQ()">💾 Сохранить вопрос</button>
-    </div>
-  `;
-}
-
-function esc(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-function escAttr(s){ return esc(s).replace(/\n/g,' '); }
-
-window.optFile = function(i, file){
-  if(!file) return;
-  if(file.size > 600*1024){ toast('Картинка слишком большая (макс ~600KB)', 'e'); return; }
-  var r = new FileReader();
-  r.onload = function(e){
-    var inp = eid('qe-oi'+i);
-    if(inp) inp.value = String(e.target.result || '');
-    toast('Картинка добавлена в вариант', 's');
-  };
-  r.readAsDataURL(file);
-};
-
-async function loadQuestions(type) {
-  const rows = await DB.getQuestions(type);
-  const qs = (rows || []).map(normRowToQ).sort((a,b)=> (a.sort_order||0)-(b.sort_order||0));
-  qsCache[type] = qs;
-  // Counters
-  const c = eid('tc-'+type);
-  if (c) c.textContent = String(qs.length);
-}
-
-async function renderTests() {
-  try {
-    await Promise.all(['ielts','sat','english','kids'].map(loadQuestions));
-    if (!contentCache) contentCache = await DB.getContent();
-    const wp = eid('wp');
-    if (wp) wp.value = (contentCache['writing_prompt_' + curTestType] || '');
-    curQId = (qsCache[curTestType] && qsCache[curTestType][0]) ? qsCache[curTestType][0].id : null;
-    renderQList();
-    renderQEditor(qsCache[curTestType].find(x => x.id === curQId));
-  } catch(e) {
-    toast('Ошибка загрузки тестов: ' + e.message, 'e');
-  }
-}
-
-window.selQ = function(id) {
-  curQId = id;
-  renderQList();
-  const q = (qsCache[curTestType] || []).find(x => x.id === id);
-  renderQEditor(q);
-};
-
-async function addQ() {
-  const base = { sort_order: (qsCache[curTestType]?.length || 0) + 1, s:'', t:'', h:'', o:[{text:'',img:''},{text:'',img:''},{text:'',img:''},{text:'',img:''}], a:0 };
-  try {
-    const created = await DB.addQuestion(qToRowPayload(curTestType, base));
-    // created may be representation array depending on Prefer
-    const row = Array.isArray(created) ? created[0] : created;
-    await loadQuestions(curTestType);
-    if (row && row.id) curQId = row.id;
-    renderQList();
-    const q = (qsCache[curTestType] || []).find(x => x.id === curQId);
-    renderQEditor(q);
-    toast('Вопрос добавлен', 's');
-  } catch(e) {
-    toast('Не удалось добавить вопрос: ' + e.message, 'e');
-  }
-}
-
-window.delQ = async function(id) {
-  if (!confirm('Удалить вопрос?')) return;
-  try {
-    await DB.deleteQuestion(id);
-    await loadQuestions(curTestType);
-    curQId = (qsCache[curTestType] && qsCache[curTestType][0]) ? qsCache[curTestType][0].id : null;
-    renderQList();
-    renderQEditor(qsCache[curTestType].find(x => x.id === curQId));
-    toast('Удалено', 'i');
-  } catch(e) { toast('Ошибка удаления: ' + e.message, 'e'); }
-};
-
-async function saveQ() {
-  const q = (qsCache[curTestType] || []).find(x => x.id === curQId);
-  if (!q) return;
-  const s = eid('qe-s')?.value || '';
-  const t = eid('qe-t')?.value || '';
-  const h = eid('qe-h')?.value || '';
-  const o = [0,1,2,3].map(i => ({ text:(eid('qe-o'+i)?.value||''), img:(eid('qe-oi'+i)?.value||'') }));
-  const a = parseInt((document.querySelector('input[name="qe-a"]:checked')||{}).value, 10);
-  const upd = { ...q, s, t, h, o, a: isFinite(a) ? a : 0 };
-  try {
-    await DB.updateQuestion(q.id, qToRowPayload(curTestType, upd));
-    await loadQuestions(curTestType);
-    renderQList();
-    renderQEditor((qsCache[curTestType] || []).find(x => x.id === curQId));
-    toast('Сохранено', 's');
-  } catch(e) {
-    toast('Не удалось сохранить: ' + e.message, 'e');
-  }
-}
-
-async function dupQ() {
-  const q = (qsCache[curTestType] || []).find(x => x.id === curQId);
-  if (!q) return;
-  try {
-    await DB.addQuestion(qToRowPayload(curTestType, { ...q, id: undefined, sort_order: (q.sort_order||0) + 1 }));
-    await loadQuestions(curTestType);
-    renderQList();
-    toast('Дубликат создан', 's');
-  } catch(e) { toast('Ошибка: ' + e.message, 'e'); }
-}
-
-function exportTestsJson() {
-  const out = {};
-  ['ielts','sat','english','kids'].forEach(t => {
-    out[t] = (qsCache[t] || []).map(q => ({ s:q.s, t:q.t, h:q.h, o:q.o, a:q.a }));
-  });
-  const a = document.createElement('a');
-  a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(out, null, 2));
-  a.download = 'gsc_test_questions.json';
-  a.click();
-  toast('JSON скачан', 's');
-}
-
-async function importTestsJson(file) {
-  const txt = await file.text();
-  const data = JSON.parse(txt);
-  const types = ['ielts','sat','english','kids'];
-  for (const type of types) {
-    if (!Array.isArray(data[type])) continue;
-    // naive import: append
-    for (let i=0;i<data[type].length;i++){
-      const q = data[type][i] || {};
-      await DB.addQuestion(qToRowPayload(type, { sort_order: i+1, s:q.s||'', t:q.t||'', h:q.h||'', o:q.o||['','','',''], a:q.a||0 }));
+  $('#modal-lead-save').addEventListener('click', function(){
+    var name = $('#lead-name').value.trim();
+    var phone = $('#lead-phone').value.trim();
+    if(!name || !phone){ toast('Name and phone are required','error'); return; }
+    var fields = {
+      name: name,
+      phone: phone,
+      email: $('#lead-email').value.trim(),
+      city: $('#lead-city').value.trim(),
+      source: $('#lead-source').value.trim(),
+      product: $('#lead-product').value.trim(),
+      status: $('#lead-status').value,
+      note: $('#lead-note').value.trim()
+    };
+    var editId = $('#lead-edit-id').value;
+    var promise;
+    if(editId){
+      promise = GSC.updateLead(Number(editId), fields);
+    } else {
+      promise = GSC.addLead(fields);
     }
-  }
-  await renderTests();
-  toast('Импорт завершён', 's');
-}
+    promise.then(function(){
+      toast(editId ? 'Lead updated' : 'Lead added');
+      closeModal('modal-lead');
+      loadLeads();
+    }).catch(function(err){ toast('Error: '+err.message,'error'); });
+  });
 
-// Wire events once
-(function initTestBuilderUI(){
-  const tabs = document.getElementById('testTabs');
-  if (tabs && !tabs._wired) {
-    tabs._wired = true;
-    tabs.querySelectorAll('.ttab').forEach(tab => {
-      tab.addEventListener('click', async () => {
-        tabs.querySelectorAll('.ttab').forEach(t => t.classList.remove('on'));
-        tab.classList.add('on');
-        curTestType = tab.getAttribute('data-t') || 'ielts';
-        await loadQuestions(curTestType);
-        if (!contentCache) contentCache = await DB.getContent();
-        const wp = eid('wp');
-        if (wp) wp.value = (contentCache['writing_prompt_' + curTestType] || '');
-        curQId = (qsCache[curTestType] && qsCache[curTestType][0]) ? qsCache[curTestType][0].id : null;
-        renderQList();
-        renderQEditor((qsCache[curTestType] || []).find(x => x.id === curQId));
+  function deleteLead(id){
+    if(!confirm('Delete this lead? This cannot be undone.')) return;
+    GSC.deleteLead(id).then(function(){
+      toast('Lead deleted');
+      loadLeads();
+    }).catch(function(err){ toast('Error: '+err.message,'error'); });
+  }
+
+  // CSV Export
+  $('#export-csv-btn').addEventListener('click', function(){
+    if(!leadsCache.length){ toast('No leads to export','info'); return; }
+    var headers = ['Name','Phone','Email','City','Source','Product','Status','Note','Date'];
+    var rows = leadsCache.map(function(l){
+      return [l.name, l.phone, l.email||'', l.city||'', l.source||'', l.product||'', l.status||'', l.note||'', l.created_at||''].map(function(v){
+        return '"' + String(v).replace(/"/g,'""') + '"';
+      }).join(',');
+    });
+    var csv = headers.join(',') + '\n' + rows.join('\n');
+    var blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'gsc-leads-' + new Date().toISOString().slice(0,10) + '.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('CSV exported');
+  });
+
+  /* ==========================================
+     CMS
+  ========================================== */
+  function loadCms(){
+    Promise.all([
+      GSC.getCms('hero'),
+      GSC.getCms('typing_phrases'),
+      GSC.getCms('contact'),
+      GSC.getCms('seo')
+    ]).then(function(res){
+      var hero = res[0] || {};
+      $('#cms-hero-title').value = hero.title || '';
+      $('#cms-hero-subtitle').value = hero.subtitle || '';
+
+      var phrases = res[1];
+      if(Array.isArray(phrases)){
+        $('#cms-typing').value = phrases.join('\n');
+      } else {
+        $('#cms-typing').value = phrases || '';
+      }
+
+      var contact = res[2] || {};
+      $('#cms-phone').value = contact.phone || '';
+      $('#cms-email').value = contact.email || '';
+      $('#cms-whatsapp').value = contact.whatsapp || '';
+
+      var seo = res[3] || {};
+      $('#cms-meta-title').value = seo.title || '';
+      $('#cms-meta-desc').value = seo.description || '';
+    }).catch(function(err){ toast('Failed to load CMS: '+err.message,'error'); });
+  }
+
+  $('#cms-save-hero').addEventListener('click', function(){
+    GSC.setCms('hero', {
+      title: $('#cms-hero-title').value.trim(),
+      subtitle: $('#cms-hero-subtitle').value.trim()
+    }).then(function(){ toast('Hero saved'); }).catch(function(err){ toast(err.message,'error'); });
+  });
+
+  $('#cms-save-typing').addEventListener('click', function(){
+    var lines = $('#cms-typing').value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+    GSC.setCms('typing_phrases', lines).then(function(){ toast('Phrases saved'); }).catch(function(err){ toast(err.message,'error'); });
+  });
+
+  $('#cms-save-contact').addEventListener('click', function(){
+    GSC.setCms('contact', {
+      phone: $('#cms-phone').value.trim(),
+      email: $('#cms-email').value.trim(),
+      whatsapp: $('#cms-whatsapp').value.trim()
+    }).then(function(){ toast('Contact info saved'); }).catch(function(err){ toast(err.message,'error'); });
+  });
+
+  $('#cms-save-seo').addEventListener('click', function(){
+    GSC.setCms('seo', {
+      title: $('#cms-meta-title').value.trim(),
+      description: $('#cms-meta-desc').value.trim()
+    }).then(function(){ toast('SEO saved'); }).catch(function(err){ toast(err.message,'error'); });
+  });
+
+  /* ==========================================
+     OFFICES
+  ========================================== */
+  function loadOffices(){
+    GSC.getOffices().then(function(data){
+      officesCache = data || [];
+      renderOffices();
+    }).catch(function(err){ toast('Failed to load offices: '+err.message,'error'); });
+  }
+
+  function renderOffices(){
+    var grid = $('#offices-grid');
+    if(!officesCache.length){
+      // create 4 empty cards
+      officesCache = [
+        {city:'',name:'',addr:'',hrs:'',is_main:true,sort_order:0},
+        {city:'',name:'',addr:'',hrs:'',is_main:false,sort_order:1},
+        {city:'',name:'',addr:'',hrs:'',is_main:false,sort_order:2},
+        {city:'',name:'',addr:'',hrs:'',is_main:false,sort_order:3}
+      ];
+    }
+    grid.innerHTML = officesCache.map(function(o, i){
+      return '<div class="office-card" data-idx="'+i+'">'+
+        '<div class="form-group"><label>Office Name</label><input type="text" class="off-name" value="'+E(o.name||'')+'"></div>'+
+        '<div class="form-group"><label>City</label><input type="text" class="off-city" value="'+E(o.city||'')+'"></div>'+
+        '<div class="form-group"><label>Address</label><input type="text" class="off-addr" value="'+E(o.addr||'')+'"></div>'+
+        '<div class="form-group"><label>Hours</label><input type="text" class="off-hrs" value="'+E(o.hrs||'')+'"></div>'+
+        '<div class="form-group"><label style="display:flex;align-items:center;gap:6px"><input type="checkbox" class="off-main" '+(o.is_main?'checked':'')+'>Main Office</label></div>'+
+      '</div>';
+    }).join('');
+  }
+
+  $('#save-offices-btn').addEventListener('click', function(){
+    var cards = $$('.office-card');
+    var arr = [];
+    cards.forEach(function(card, i){
+      arr.push({
+        name: card.querySelector('.off-name').value.trim(),
+        city: card.querySelector('.off-city').value.trim(),
+        addr: card.querySelector('.off-addr').value.trim(),
+        hrs: card.querySelector('.off-hrs').value.trim(),
+        is_main: card.querySelector('.off-main').checked,
+        sort_order: i
+      });
+    });
+    GSC.saveOffices(arr).then(function(){
+      toast('Offices saved');
+      loadOffices();
+    }).catch(function(err){ toast('Error: '+err.message,'error'); });
+  });
+
+  /* ==========================================
+     REVIEWS
+  ========================================== */
+  function loadReviews(){
+    GSC.getReviews().then(function(data){
+      reviewsCache = data || [];
+      renderReviews();
+    }).catch(function(err){ toast('Failed to load reviews: '+err.message,'error'); });
+  }
+
+  function renderReviews(){
+    var list = $('#reviews-list');
+    if(!reviewsCache.length){
+      list.innerHTML = '<div class="card" style="text-align:center;color:var(--muted)">No reviews yet</div>';
+      return;
+    }
+    list.innerHTML = reviewsCache.map(function(r){
+      var initial = E(r.avatar || (r.name||'?').charAt(0).toUpperCase());
+      var color = r.color || '#2563EB';
+      return '<div class="review-item">'+
+        '<div class="review-avatar" style="background:'+E(color)+'">'+initial+'</div>'+
+        '<div class="review-body">'+
+          '<div class="rname">'+E(r.name)+ (r.badge ? ' <span class="rbadge">'+E(r.badge)+'</span>' : '') +'</div>'+
+          '<div class="rtext">'+E(r.text)+'</div>'+
+        '</div>'+
+        '<button class="btn btn-danger btn-sm review-del" data-id="'+r.id+'">Delete</button>'+
+      '</div>';
+    }).join('');
+
+    list.querySelectorAll('.review-del').forEach(function(b){
+      b.addEventListener('click', function(){
+        if(!confirm('Delete this review?')) return;
+        GSC.deleteReview(Number(b.dataset.id)).then(function(){
+          toast('Review deleted');
+          loadReviews();
+        }).catch(function(err){ toast(err.message,'error'); });
       });
     });
   }
-  eid('addQBtn')?.addEventListener('click', addQ);
-  eid('addQBtn2')?.addEventListener('click', addQ);
-  eid('saveTestBtn')?.addEventListener('click', () => toast('Готово. Изменения уже сохранены в базе.', 's'));
-  eid('expTestBtn')?.addEventListener('click', exportTestsJson);
-  eid('impTestBtn')?.addEventListener('click', () => eid('impFile')?.click());
-  eid('impFile')?.addEventListener('change', async (e) => {
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
-    try { await importTestsJson(f); } catch(err) { toast('Ошибка импорта: ' + err.message, 'e'); }
-    e.target.value = '';
+
+  $('#add-review-btn').addEventListener('click', function(){
+    $('#review-name').value = '';
+    $('#review-avatar').value = '';
+    $('#review-color').value = '#2563EB';
+    $('#review-badge').value = '';
+    $('#review-date').value = '';
+    $('#review-text').value = '';
+    $('#review-sort').value = '0';
+    openModal('modal-review');
   });
 
-  eid('saveWpBtn')?.addEventListener('click', async () => {
-    try{
-      const wp = eid('wp'); if(!wp) return;
-      const val = String(wp.value || '').trim();
-      await DB.setContent('writing_prompt_' + curTestType, val);
-      contentCache = contentCache || {};
-      contentCache['writing_prompt_' + curTestType] = val;
-      toast('Writing prompt сохранён', 's');
-    } catch(err){
-      toast('Ошибка сохранения prompt: ' + err.message, 'e');
+  $('#modal-review-cancel').addEventListener('click', function(){ closeModal('modal-review'); });
+
+  $('#modal-review-save').addEventListener('click', function(){
+    var name = $('#review-name').value.trim();
+    var text = $('#review-text').value.trim();
+    if(!name || !text){ toast('Name and text required','error'); return; }
+    GSC.addReview({
+      name: name,
+      avatar: $('#review-avatar').value.trim() || name.charAt(0).toUpperCase(),
+      color: $('#review-color').value,
+      badge: $('#review-badge').value.trim(),
+      date_label: $('#review-date').value.trim(),
+      text: text,
+      sort_order: parseInt($('#review-sort').value) || 0,
+      is_active: true
+    }).then(function(){
+      toast('Review added');
+      closeModal('modal-review');
+      loadReviews();
+    }).catch(function(err){ toast(err.message,'error'); });
+  });
+
+  /* ==========================================
+     PROMOS
+  ========================================== */
+  function loadPromos(){
+    GSC.getPromos().then(function(data){
+      promosCache = data || [];
+      renderPromos();
+    }).catch(function(err){ toast('Failed to load promos: '+err.message,'error'); });
+  }
+
+  function renderPromos(){
+    var list = $('#promos-list');
+    if(!promosCache.length){
+      list.innerHTML = '<div class="card" style="text-align:center;color:var(--muted)">No promo slides yet</div>';
+      return;
+    }
+    list.innerHTML = promosCache.map(function(p){
+      return '<div class="promo-item">'+
+        '<div class="promo-preview" style="background:'+E(p.bg||'#2563EB')+'">'+E(p.tag||'')+'</div>'+
+        '<div class="promo-info">'+
+          '<div class="ptag">'+E(p.ey||'')+'</div>'+
+          '<div class="ptitle">'+E(p.title)+'</div>'+
+          '<div class="psub">'+E(p.sub||'')+'</div>'+
+        '</div>'+
+        '<button class="btn btn-outline btn-sm promo-edit" data-id="'+p.id+'">Edit</button> '+
+        '<button class="btn btn-danger btn-sm promo-del" data-id="'+p.id+'">Del</button>'+
+      '</div>';
+    }).join('');
+
+    list.querySelectorAll('.promo-edit').forEach(function(b){
+      b.addEventListener('click', function(){ editPromo(Number(b.dataset.id)); });
+    });
+    list.querySelectorAll('.promo-del').forEach(function(b){
+      b.addEventListener('click', function(){
+        if(!confirm('Delete this promo slide?')) return;
+        GSC.deletePromo(Number(b.dataset.id)).then(function(){
+          toast('Promo deleted');
+          loadPromos();
+        }).catch(function(err){ toast(err.message,'error'); });
+      });
+    });
+  }
+
+  $('#add-promo-btn').addEventListener('click', function(){
+    $('#modal-promo-title').textContent = 'Add Promo Slide';
+    $('#promo-edit-id').value = '';
+    $('#promo-tag').value = '';
+    $('#promo-ey').value = '';
+    $('#promo-title').value = '';
+    $('#promo-sub').value = '';
+    $('#promo-cta').value = '\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435 \u2192';
+    $('#promo-href').value = '#';
+    $('#promo-bg').value = '#2563EB';
+    $('#promo-hot').value = 'false';
+    $('#promo-sort').value = '0';
+    openModal('modal-promo');
+  });
+
+  function editPromo(id){
+    var p = promosCache.find(function(x){ return x.id === id; });
+    if(!p) return;
+    $('#modal-promo-title').textContent = 'Edit Promo Slide';
+    $('#promo-edit-id').value = id;
+    $('#promo-tag').value = p.tag || '';
+    $('#promo-ey').value = p.ey || '';
+    $('#promo-title').value = p.title || '';
+    $('#promo-sub').value = p.sub || '';
+    $('#promo-cta').value = p.cta || '\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435 \u2192';
+    $('#promo-href').value = p.href || '#';
+    $('#promo-bg').value = p.bg || '#2563EB';
+    $('#promo-hot').value = p.is_hot ? 'true' : 'false';
+    $('#promo-sort').value = p.sort_order || 0;
+    openModal('modal-promo');
+  }
+
+  $('#modal-promo-cancel').addEventListener('click', function(){ closeModal('modal-promo'); });
+
+  $('#modal-promo-save').addEventListener('click', function(){
+    var title = $('#promo-title').value.trim();
+    if(!title){ toast('Title is required','error'); return; }
+    var fields = {
+      tag: $('#promo-tag').value.trim(),
+      ey: $('#promo-ey').value.trim(),
+      title: title,
+      sub: $('#promo-sub').value.trim(),
+      cta: $('#promo-cta').value.trim() || '\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435 \u2192',
+      href: $('#promo-href').value.trim() || '#',
+      bg: $('#promo-bg').value,
+      is_hot: $('#promo-hot').value === 'true',
+      sort_order: parseInt($('#promo-sort').value) || 0
+    };
+    var editId = $('#promo-edit-id').value;
+    var promise;
+    if(editId){
+      promise = GSC.updatePromo(Number(editId), fields);
+    } else {
+      promise = GSC.addPromo(fields);
+    }
+    promise.then(function(){
+      toast(editId ? 'Promo updated' : 'Promo added');
+      closeModal('modal-promo');
+      loadPromos();
+    }).catch(function(err){ toast(err.message,'error'); });
+  });
+
+  /* ==========================================
+     TEST RESULTS
+  ========================================== */
+  function loadTests(){
+    GSC.getTestResults().then(function(data){
+      testResultsCache = data || [];
+      renderTests();
+    }).catch(function(err){ toast('Failed to load test results: '+err.message,'error'); });
+  }
+
+  function renderTests(){
+    var tb = $('#tests-table tbody');
+    if(!testResultsCache.length){
+      tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted)">No test results yet</td></tr>';
+      return;
+    }
+    tb.innerHTML = testResultsCache.map(function(t){
+      return '<tr>'+
+        '<td>'+E(t.name||'')+'</td>'+
+        '<td>'+E(t.phone||'')+'</td>'+
+        '<td>'+E(t.test_type||'')+'</td>'+
+        '<td>'+E(t.test_name||'')+'</td>'+
+        '<td>'+t.score+'/'+t.total+'</td>'+
+        '<td><span class="badge badge-qualified">'+E(t.level||'')+'</span></td>'+
+        '<td style="white-space:nowrap">'+fmtDate(t.created_at)+'</td>'+
+      '</tr>';
+    }).join('');
+  }
+
+  /* ==========================================
+     WRITING SUBMISSIONS
+  ========================================== */
+  function loadWriting(){
+    GSC.getWritingSubmissions().then(function(data){
+      writingCache = data || [];
+      renderWriting();
+    }).catch(function(err){ toast('Failed to load writing: '+err.message,'error'); });
+  }
+
+  function renderWriting(){
+    var tb = $('#writing-table tbody');
+    if(!writingCache.length){
+      tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted)">No writing submissions yet</td></tr>';
+      return;
+    }
+    tb.innerHTML = writingCache.map(function(w){
+      return '<tr>'+
+        '<td>'+E(w.name||'')+'</td>'+
+        '<td>'+E(w.phone||'')+'</td>'+
+        '<td>'+E(w.test_type||'')+'</td>'+
+        '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+E(w.prompt||'')+'</td>'+
+        '<td>'+w.word_count+'</td>'+
+        '<td style="white-space:nowrap">'+fmtDate(w.created_at)+'</td>'+
+        '<td><button class="btn btn-outline btn-sm writing-view" data-id="'+w.id+'">View</button></td>'+
+      '</tr>';
+    }).join('');
+
+    tb.querySelectorAll('.writing-view').forEach(function(b){
+      b.addEventListener('click', function(){
+        var w = writingCache.find(function(x){ return x.id == b.dataset.id; });
+        if(!w) return;
+        $('#modal-writing-title').textContent = E(w.name||'Student') + ' \u2014 ' + E(w.test_type||'Writing');
+        $('#modal-writing-prompt').textContent = w.prompt || '';
+        $('#modal-writing-text').textContent = w.response_text || '';
+        openModal('modal-writing');
+      });
+    });
+  }
+
+  $('#modal-writing-close').addEventListener('click', function(){ closeModal('modal-writing'); });
+
+  /* ==========================================
+     SETTINGS
+  ========================================== */
+  function loadSettings(){
+    GSC.getCms('settings').then(function(data){
+      var s = data || {};
+      $('#set-promo-banner').checked = s.promo_banner !== false;
+      $('#set-online-tests').checked = s.online_tests !== false;
+      $('#set-reviews').checked = s.reviews !== false;
+      $('#set-whatsapp').checked = s.whatsapp !== false;
+      $('#set-bitrix-url').value = s.bitrix_url || '';
+      $('#set-ga-id').value = s.ga_id || '';
+    }).catch(function(err){ toast('Failed to load settings: '+err.message,'error'); });
+  }
+
+  $('#save-settings-btn').addEventListener('click', function(){
+    var settings = {
+      promo_banner: $('#set-promo-banner').checked,
+      online_tests: $('#set-online-tests').checked,
+      reviews: $('#set-reviews').checked,
+      whatsapp: $('#set-whatsapp').checked,
+      bitrix_url: $('#set-bitrix-url').value.trim(),
+      ga_id: $('#set-ga-id').value.trim()
+    };
+    GSC.setCms('settings', settings).then(function(){
+      toast('Settings saved');
+    }).catch(function(err){ toast(err.message,'error'); });
+  });
+
+  /* --- Close modals on overlay click --- */
+  $$('.modal-overlay').forEach(function(ov){
+    ov.addEventListener('click', function(e){
+      if(e.target === ov) ov.classList.remove('open');
+    });
+  });
+
+  /* --- Close modals on Escape --- */
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      $$('.modal-overlay.open').forEach(function(ov){ ov.classList.remove('open'); });
     }
   });
+
 })();
-
-/* ── TEST RESULTS ── */
-async function renderTestResults() {
-  const res = await DB.getTestResults();
-  const cn = {ielts:0,sat:0,english:0,kids:0};
-  res.forEach(r => { if(cn[r.test_type]!==undefined) cn[r.test_type]++; });
-  [['ri','ielts'],['rs','sat'],['re','english'],['rk','kids']].forEach(([id,t]) => {
-    const el = eid(id); if(el) el.textContent = cn[t];
-  });
-  const tb = eid('trtb'); if(!tb) return;
-  tb.innerHTML = res.map(r =>
-    `<tr>
-      <td>${r.name||'—'}</td>
-      <td>${r.phone||'—'}</td>
-      <td>${r.test_name}</td>
-      <td><strong>${r.score}</strong>/${r.total} (${Math.round(r.score/r.total*100)}%)</td>
-      <td><strong>${r.level}</strong></td>
-      <td>${fd(r.created_at)}</td>
-      <td class="tda">
-        ${r.phone?`<a class="tb2 e" href="https://wa.me/${r.phone.replace(/[^0-9]/g,'')}?text=${encodeURIComponent('Привет '+r.name+'! Ваш результат: '+r.test_name+' '+r.level)}" target="_blank">💬 WA</a>`:''}
-      </td>
-    </tr>`
-  ).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--mu);padding:20px">Результаты появятся после прохождения тестов</td></tr>';
-}
-
-/* ── IMAGES (Vercel Blob + KV) ── */
-async function uploadImg(input, key) {
-  const file = input.files[0]; if(!file) return;
-  if (file.size > 6 * 1024 * 1024) { toast('Файл >6MB','e'); return; }
-  try{
-    const h = basicAuthHeader();
-    const res = await fetch('/api/blob-upload?folder=images&filename=' + encodeURIComponent(file.name), {
-      method: 'POST',
-      headers: { 'Authorization': h, 'Content-Type': file.type || 'application/octet-stream' },
-      body: file
-    });
-    const j = await res.json().catch(() => null);
-    if(!res.ok || !j || !j.ok) throw new Error((j&&j.error)||('http_'+res.status));
-    const imgs = (await DB.getIntegrations()).images || (await kvGet('images', {})) || {};
-    imgs[key] = j.url;
-    await kvSet('images', imgs);
-    localStorage.setItem('gsc_images', JSON.stringify(imgs));
-    const el = eid('img-'+key);
-    if (el) { el.src = j.url; el.style.display = 'block'; }
-    toast('Изображение загружено','s');
-  }catch(e){
-    toast('Не удалось загрузить изображение','e');
-  }
-}
-
-async function loadImages() {
-  const imgs = (await kvGet('images', {})) || {};
-  localStorage.setItem('gsc_images', JSON.stringify(imgs));
-  if (imgs.hero) { const e=eid('img-hero'); if(e){e.src=imgs.hero;e.style.display='block';} }
-}
-
-/* ── SETTINGS / INTEGRATIONS ── */
-async function loadSettings() {
-  try{
-    const cfg = (await DB.getCfg()) || {};
-    eid('cfg-active') && (eid('cfg-active').checked = cfg.active !== false);
-    eid('cfg-wa')     && (eid('cfg-wa').checked     = cfg.wa !== false);
-    eid('cfg-tests')  && (eid('cfg-tests').checked  = cfg.tests !== false);
-    eid('cfg-lang')   && (eid('cfg-lang').checked   = cfg.lang !== false);
-
-    const ints = (await DB.getIntegrations()) || {};
-    eid('cfg-ga')   && (eid('cfg-ga').value   = ints.ga || '');
-    eid('cfg-fbpx') && (eid('cfg-fbpx').value = ints.fbpx || '');
-    eid('cfg-2gis') && (eid('cfg-2gis').value = ints.gis2 || '');
-    const bx = await DB.getBitrixWebhook();
-    eid('cfg-bitrix') && (eid('cfg-bitrix').value = bx || '');
-  }catch(e){}
-}
-
-async function saveSettings() {
-  const cfg = {
-    active:  !!eid('cfg-active')?.checked,
-    wa:      !!eid('cfg-wa')?.checked,
-    tests:   !!eid('cfg-tests')?.checked,
-    lang:    !!eid('cfg-lang')?.checked
-  };
-  await DB.setCfg(cfg);
-  localStorage.setItem('gsc_cfg', JSON.stringify(cfg));
-  toast('Настройки сохранены','s');
-}
-
-async function saveIntegrations() {
-  const ints = {
-    ga:   (eid('cfg-ga')?.value || '').trim(),
-    fbpx: (eid('cfg-fbpx')?.value || '').trim(),
-    gis2: (eid('cfg-2gis')?.value || '').trim()
-  };
-  await DB.setIntegrations(ints);
-  localStorage.setItem('gsc_integrations', JSON.stringify(ints));
-  const bx = (eid('cfg-bitrix')?.value || '').trim();
-  await DB.setBitrixWebhook(bx);
-  toast('Интеграции сохранены','s');
-}
-
-/* ── INIT ── */
-eid('saveSettBtn')?.addEventListener('click', () => saveSettings().catch(() => toast('Не удалось сохранить','e')));
-eid('saveIntBtn')?.addEventListener('click', () => saveIntegrations().catch(() => toast('Не удалось сохранить','e')));
-loadImages();
-loadSettings();
-
 </script>
 </body>
 </html>

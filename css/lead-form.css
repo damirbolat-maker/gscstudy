@@ -1,0 +1,77 @@
+/* GSC Study — Lead Form Modal Styles */
+.lead-modal {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s ease;
+}
+.lead-modal.active { opacity: 1; pointer-events: auto; }
+.lead-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.55);
+}
+.lead-box {
+  position: relative; z-index: 1;
+  background: #fff; border-radius: 20px;
+  padding: 40px 36px; max-width: 440px; width: 92%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+  transform: translateY(20px) scale(.97);
+  transition: transform .3s ease;
+}
+.lead-modal.active .lead-box { transform: translateY(0) scale(1); }
+.lead-close {
+  position: absolute; top: 14px; right: 18px;
+  background: none; border: none; font-size: 28px;
+  color: #999; cursor: pointer; line-height: 1;
+}
+.lead-close:hover { color: #333; }
+.lead-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px; font-weight: 700; margin: 0 0 6px;
+  color: #1a1a2e;
+}
+.lead-sub { font-size: 14px; color: #666; margin: 0 0 24px; }
+.lead-field { margin-bottom: 16px; }
+.lead-field label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: #444; margin-bottom: 5px;
+}
+.lead-field input {
+  width: 100%; padding: 12px 14px;
+  border: 1.5px solid #ddd; border-radius: 10px;
+  font-size: 15px; font-family: inherit;
+  transition: border-color .2s;
+  box-sizing: border-box;
+}
+.lead-field input:focus { border-color: #2563EB; outline: none; }
+.lead-error {
+  color: #e53e3e; font-size: 13px;
+  min-height: 18px; margin-bottom: 8px;
+}
+.lead-btn {
+  width: 100%; padding: 14px;
+  background: #2563EB; color: #fff;
+  border: none; border-radius: 12px;
+  font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: background .2s;
+  font-family: inherit;
+}
+.lead-btn:hover { background: #1d4ed8; }
+.lead-btn:disabled { opacity: .6; cursor: not-allowed; }
+.lead-consent {
+  font-size: 11px; color: #999;
+  text-align: center; margin: 12px 0 0;
+}
+.lead-success { text-align: center; padding: 20px 0; }
+.lead-success-icon {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: #22c55e; color: #fff;
+  font-size: 32px; line-height: 60px;
+  margin: 0 auto 16px;
+}
+.lead-success h3 { font-size: 22px; margin: 0 0 8px; color: #1a1a2e; }
+.lead-success p { font-size: 14px; color: #666; margin: 0; }
+@media (max-width: 480px) {
+  .lead-box { padding: 28px 20px; border-radius: 16px; }
+  .lead-title { font-size: 20px; }
+}

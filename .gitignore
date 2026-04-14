@@ -4,3 +4,6 @@ node_modules/
 .pydeps/
 data/gsc-store.json
 .env
+dist_upload/
+gsc-website-update-*/
+клод код/

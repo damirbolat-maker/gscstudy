@@ -2,31 +2,72 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1457605725212021');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1457605725212021&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- Meta Pixel Code 2 -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4391523404460151');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code 2 -->
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Бесплатный тест уровня — GSC Study | IELTS, SAT, General English</title>
-<meta name="description" content="Определи свой уровень бесплатно. IELTS прогнозируемый балл, SAT Score, English A1–C2. Результат за 15 минут."/>
-<!-- (redirect removed) -->
+<title>Бесплатные тесты уровня — GSC Study | IELTS, SAT, General English</title>
+<meta name="description" content="Определи свой уровень бесплатно. IELTS прогнозируемый балл, SAT Score, English A1-C2. Результат за 15-30 минут.">
+<meta property="og:title" content="Бесплатные тесты — GSC Study">
+<meta property="og:description" content="IELTS, SAT, General English. Узнай свой уровень за 15 минут.">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563EB'/><text y='72' x='50' text-anchor='middle' font-size='58' font-weight='900' font-family='Arial' fill='white'>G</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/lead-form.css">
 <style>
 :root{
   --blue:#2563EB;--blue2:#1D4ED8;--blue3:#EFF4FF;--blue4:#DBEAFE;
   --ink:#0E0E14;--ink2:#1C1C28;--muted:#7B7885;--muted2:#B0ADB8;
   --white:#FAFAF8;--white2:#F2F0EB;--white3:#E8E5DE;
   --border:rgba(14,14,20,.1);--border2:rgba(14,14,20,.16);
-  --green:#22C55E;--red:#EF4444;
+  --lime:#C8FF00;--lime2:#B0E000;
   --fd:'Syne',sans-serif;--f:'DM Sans',sans-serif;
-  --r:10px;--rx:22px;--spring:cubic-bezier(.34,1.56,.64,1);--ease:cubic-bezier(.4,0,.2,1);
+  --r:10px;--rx:22px;--rxl:40px;
+  --spring:cubic-bezier(.34,1.56,.64,1);--ease:cubic-bezier(.4,0,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--f);background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
+body{font-family:var(--f);background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{text-decoration:none;color:inherit}
 
-#sp{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),#6D28D9);z-index:9999;transition:width .15s}
+/* SCROLL PROGRESS */
+#sp{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--lime));z-index:9999;transition:width .15s}
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:66px;display:flex;align-items:center;background:rgba(250,250,248,.92);backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:.3s}
+/* ══ NAV ══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:66px;display:flex;align-items:center;background:rgba(250,250,248,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:.3s}
 .nav.scrolled{border-bottom-color:var(--border);box-shadow:0 2px 20px rgba(14,14,20,.06)}
 .nav-inner{max-width:1280px;margin:0 auto;padding:0 28px;width:100%;display:flex;align-items:center;gap:24px}
 .logo{display:flex;align-items:center;gap:9px;text-decoration:none;margin-right:auto}
@@ -38,1029 +79,306 @@ body{font-family:var(--f);background:var(--white);color:var(--ink);-webkit-font-
 .nav-cta{padding:9px 20px;background:var(--blue);color:#fff;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none;margin-left:16px;transition:.2s var(--spring)}
 .nav-cta:hover{background:var(--blue2);transform:scale(1.04)}
 
-/* SELECT HERO */
-.select-hero{padding:110px 28px 60px;max-width:1280px;margin:0 auto;text-align:center}
+/* LANG TOGGLE */
+.lang-btn{padding:7px 10px;border-radius:10px;border:1px solid rgba(14,14,20,.12);background:#fff;color:var(--ink);font-weight:800;font-size:12px;cursor:pointer;transition:.15s;font-family:var(--f)}
+.lang-btn:hover{border-color:var(--blue);color:var(--blue)}
+.lang-btn.active{background:var(--blue3);border-color:var(--blue);color:var(--blue)}
+
+/* ══ HERO ══ */
+.hero-section{padding:120px 28px 50px;max-width:1280px;margin:0 auto;text-align:center}
 .hero-tag{display:inline-flex;align-items:center;gap:6px;background:var(--blue3);border:1.5px solid var(--blue4);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px;animation:sDown .5s var(--ease) both}
 @keyframes sDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 @keyframes sUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.select-h{font-family:var(--fd);font-size:clamp(36px,5.5vw,66px);font-weight:800;line-height:.97;letter-spacing:-.03em;margin-bottom:14px;animation:sUp .6s .1s var(--ease) both}
-.select-h em{font-style:normal;color:var(--blue)}
-.select-sub{font-size:17px;font-weight:300;color:var(--muted);max-width:500px;margin:0 auto 48px;line-height:1.7;animation:sUp .6s .18s var(--ease) both}
+.hero-h{font-family:var(--fd);font-size:clamp(36px,5.5vw,66px);font-weight:800;line-height:.97;letter-spacing:-.03em;margin-bottom:14px;animation:sUp .6s .1s var(--ease) both}
+.hero-h em{font-style:normal;color:var(--blue)}
+.hero-sub{font-size:17px;font-weight:300;color:var(--muted);max-width:520px;margin:0 auto 0;line-height:1.7;animation:sUp .6s .18s var(--ease) both}
 
-/* TEST CARDS */
-.tests-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1060px;margin:0 auto 80px;animation:sUp .6s .25s var(--ease) both}
-.tc{border-radius:var(--rx);overflow:hidden;cursor:pointer;border:2px solid var(--border2);text-decoration:none;display:block;background:var(--white);transition:transform .22s var(--spring),box-shadow .22s,border-color .2s}
+/* ══ TEST CARDS ══ */
+.tests-section{max-width:1100px;margin:0 auto;padding:40px 28px 80px}
+.tests-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;animation:sUp .6s .25s var(--ease) both}
+.tc{border-radius:var(--rx);overflow:hidden;cursor:pointer;border:2px solid var(--border2);text-decoration:none;display:flex;flex-direction:column;background:var(--white);transition:transform .22s var(--spring),box-shadow .22s,border-color .2s}
 .tc:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 20px 56px rgba(0,0,0,.14);border-color:transparent}
-.tc-hero{height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.tc-score{position:absolute;right:16px;top:16px;font-family:'Manrope',sans-serif;font-size:48px;font-weight:800;color:rgba(255,255,255,.2);line-height:1;letter-spacing:-.04em}
-.tc-icon{font-size:68px;position:relative;z-index:1;animation:float 4s ease-in-out infinite;filter:drop-shadow(0 4px 18px rgba(0,0,0,.25))}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.tc-body{padding:22px 22px 26px}
-.tc-name{font-family:var(--fd);font-size:23px;font-weight:800;color:var(--ink);margin-bottom:8px}
-.tc-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px}
+
+/* Card header */
+.tc-header{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.tc-score{position:absolute;right:16px;top:16px;font-family:'Manrope',sans-serif;font-size:48px;font-weight:800;color:rgba(255,255,255,.18);line-height:1;letter-spacing:-.04em}
+.tc-icon{font-size:64px;position:relative;z-index:1;animation:float 4s ease-in-out infinite;filter:drop-shadow(0 4px 18px rgba(0,0,0,.25))}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Card body */
+.tc-body{padding:24px 24px 28px;flex:1;display:flex;flex-direction:column}
+.tc-name{font-family:var(--fd);font-size:22px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.tc-desc{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:16px}
+
+/* Meta tags */
 .tc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
-.tc-m{font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;background:var(--white2);color:var(--muted);border:1px solid var(--border2)}
-.tc-row{display:flex;align-items:center;justify-content:space-between}
-.tc-btn{padding:10px 20px;border-radius:100px;font-size:13px;font-weight:700;border:none;cursor:pointer;color:#fff;transition:.18s var(--spring)}
+.tc-m{font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;background:var(--white2);color:var(--muted);border:1px solid var(--border2)}
+
+/* Card footer */
+.tc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.tc-btn{padding:11px 22px;border-radius:100px;font-size:13px;font-weight:700;border:none;cursor:pointer;color:#fff;transition:.18s var(--spring);font-family:var(--f)}
 .tc-btn:hover{transform:scale(1.07)}
 .tc-range{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted2)}
 
-/* PROGRESS */
-.pb-wrap{position:sticky;top:66px;z-index:50;height:4px;background:var(--white2)}
-.pb{height:100%;background:linear-gradient(90deg,var(--blue),#6D28D9);width:0;transition:width .5s var(--ease)}
+/* ══ INFO STRIP ══ */
+.info-strip{max-width:1100px;margin:0 auto 60px;padding:0 28px}
+.info-inner{display:flex;justify-content:center;gap:40px;padding:24px 32px;background:var(--white2);border-radius:16px;border:1px solid var(--border)}
+.info-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-weight:500}
+.info-icon{font-size:18px}
 
-/* QUESTION SCREEN */
-.q-screen{display:none;min-height:100vh;padding-top:66px}
-.q-screen.on{display:block}
-.q-shell{max-width:800px;margin:0 auto;padding:36px 24px 60px}
-.q-top{display:flex;align-items:center;gap:10px;margin-bottom:30px}
-.back-btn{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--f);transition:.15s;padding:4px 0;margin-right:auto}
-.back-btn:hover{color:var(--ink)}
-.q-badge{display:inline-flex;align-items:center;padding:4px 12px;border-radius:100px;font-size:10px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em}
-.q-timer{font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:var(--ink)}
-.q-timer.warn{color:var(--red);animation:tp .6s ease infinite alternate}
-@keyframes tp{from{opacity:1}to{opacity:.35}}
-.q-counter{font-size:12px;color:var(--muted);font-weight:500}
-.q-card{background:var(--white);border:2px solid var(--border2);border-radius:24px;padding:34px;animation:qIn .32s var(--ease) both}
-@keyframes qIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.q-sect{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
-.q-text{font-family:var(--fd);font-size:20px;font-weight:700;line-height:1.35;margin-bottom:8px}
-.q-hint{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:22px;line-height:1.6;border-left:3px solid var(--blue4);padding-left:12px}
-.opts{display:flex;flex-direction:column;gap:9px}
-.opt{display:flex;align-items:center;gap:13px;padding:13px 17px;border:2px solid var(--border2);border-radius:var(--r);cursor:pointer;transition:border-color .15s,background .15s,transform .18s var(--spring);font-size:14px;font-weight:500;user-select:none}
-.opt:hover{border-color:var(--blue);background:var(--blue3);transform:translateX(4px)}
-.opt.sel{border-color:var(--blue);background:var(--blue3);color:var(--blue)}
-.opt.ok{border-color:var(--green);background:#F0FDF4;color:#166534}
-.opt.no{border-color:var(--red);background:#FEF2F2;color:#991B1B}
-.opt-l{width:30px;height:30px;border-radius:50%;background:var(--white2);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:.15s}
-.opt.sel .opt-l{background:var(--blue);border-color:var(--blue);color:#fff}
-.opt.ok .opt-l{background:var(--green);border-color:var(--green);color:#fff}
-.opt.no .opt-l{background:var(--red);border-color:var(--red);color:#fff}
-.q-actions{display:flex;align-items:center;margin-top:16px;gap:14px}
-.q-fb{font-size:13px;font-weight:700;flex:1}
-.q-fb.ok{color:var(--green)}.q-fb.no{color:var(--red)}
-.btn-next{padding:12px 26px;background:var(--blue);color:#fff;border:none;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;transition:.18s var(--spring);margin-left:auto;display:flex;align-items:center;gap:7px}
-.btn-next:hover{background:var(--blue2);transform:scale(1.05)}
-.btn-next:disabled{opacity:.3;cursor:default;transform:none}
-
-/* RESULT */
-.r-screen{display:none;min-height:100vh;padding-top:66px;align-items:center;justify-content:center}
-.r-screen.on{display:flex}
-.r-wrap{max-width:600px;width:100%;padding:24px;margin:0 auto}
-.r-card{background:var(--white);border:2px solid var(--border2);border-radius:28px;padding:44px 36px;text-align:center;animation:qIn .5s var(--ease) both;box-shadow:0 8px 40px rgba(0,0,0,.07)}
-.r-icon{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 18px}
-.r-level{font-family:'Manrope',sans-serif;font-size:68px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:5px}
-.r-label{font-family:var(--fd);font-size:18px;font-weight:700;margin-bottom:10px}
-.r-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:26px;max-width:440px;margin-left:auto;margin-right:auto}
-.r-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
-.rs{background:var(--white2);border-radius:var(--r);padding:14px}
-.rs-n{font-family:'Manrope',sans-serif;font-size:28px;font-weight:800;line-height:1;margin-bottom:3px}
-.rs-l{font-size:10px;color:var(--muted);font-weight:500}
-.r-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;background:#25D366;color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-bottom:10px;text-decoration:none;transition:.2s var(--spring);font-family:var(--f)}
-.r-cta:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(37,211,102,.35)}
-.r-retry{padding:12px 24px;background:none;border:2px solid var(--border2);border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;width:100%;color:var(--ink);transition:.18s;font-family:var(--f)}
-.r-retry:hover{border-color:var(--blue);color:var(--blue)}
-
-/* WA */
+/* ══ WA FLOAT ══ */
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:200}
 .wa-btn{width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.4);text-decoration:none;transition:.2s var(--spring)}
 .wa-btn:hover{transform:scale(1.1)}
 .wa-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,.4);animation:wap 2s ease-in-out infinite}
 @keyframes wap{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.15);opacity:0}}
 
-/* FOOTER */
-.footer{background:var(--white2);border-top:1.5px solid var(--border);padding:28px;text-align:center;margin-top:60px}
-.footer p{font-size:12px;color:var(--muted2)}
-.footer a{font-size:12px;color:var(--muted);text-decoration:none;margin:0 10px;transition:.15s}
-.footer a:hover{color:var(--blue)}
+/* ══ FOOTER ══ */
+.footer{background:var(--ink2);margin-top:auto;padding:48px 28px 36px}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:32px}
+.footer-brand{max-width:320px}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.footer-logo-mark{width:34px;height:34px;border-radius:9px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:17px;font-weight:800;color:#fff}
+.footer-logo-name{font-family:var(--fd);font-size:16px;font-weight:700;color:#fff}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.65}
+.footer-links{display:flex;gap:40px}
+.footer-col h4{font-family:var(--fd);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.3);margin-bottom:12px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:8px;transition:.15s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{max-width:1100px;margin:24px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.3)}
+.footer-socials{display:flex;gap:12px}
+.footer-socials a{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:14px;transition:.15s}
+.footer-socials a:hover{background:rgba(255,255,255,.12)}
 
-@media(max-width:900px){.tests-grid{grid-template-columns:1fr 1fr}}
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .tests-grid{grid-template-columns:1fr 1fr}
+  .info-inner{flex-wrap:wrap;justify-content:center;gap:20px}
+  .footer-links{gap:24px}
+}
 @media(max-width:600px){
   .tests-grid{grid-template-columns:1fr}
-  .q-text{font-size:16px}
-  .q-card{padding:20px}
-  .r-card{padding:26px 18px}
-  .r-level{font-size:52px}
+  .hero-section{padding:100px 20px 36px}
+  .tests-section{padding:28px 20px 60px}
   .nav-links,.nav-cta{display:none}
+  .tc-header{height:150px}
+  .info-inner{flex-direction:column;align-items:center;gap:12px;padding:20px}
+  .footer-inner{flex-direction:column;gap:24px}
+  .footer-links{flex-direction:column;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
 }
-
-.cmod-overlay{
-  position:fixed;inset:0;z-index:9998;background:rgba(14,14,20,.5);
-  display:none;align-items:center;justify-content:center;padding:24px;
-  backdrop-filter:blur(6px);
-}
-.cmod-overlay.cmod-on{display:flex}
-.cmod-box{
-  background:var(--white,#FAFAF8);border-radius:24px;padding:36px;
-  max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);
-  animation:cmodIn .3s cubic-bezier(.34,1.56,.64,1) both;
-}
-@keyframes cmodIn{from{opacity:0;transform:scale(.93) translateY(10px)}to{opacity:1;transform:none}}
-.cmod-badge{display:inline-flex;padding:5px 13px;border-radius:100px;font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
-.cmod-h{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:7px}
-.cmod-sub{font-size:13px;color:var(--muted,#7B7885);margin-bottom:22px;line-height:1.6}
-.cmod-field{margin-bottom:12px}
-.cmod-lbl{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted,#7B7885);margin-bottom:4px}
-.cmod-inp{width:100%;padding:11px 13px;border:2px solid rgba(14,14,20,.16);border-radius:10px;font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:.18s;background:#fff;color:var(--ink,#0E0E14)}
-.cmod-inp:focus{border-color:var(--blue,#2563EB)}
-.cmod-inp::placeholder{color:var(--muted2,#B0ADB8)}
-.cmod-err{font-size:12px;color:#EF4444;margin-bottom:10px;display:none}
-.cmod-btn{width:100%;padding:13px;border:none;border-radius:100px;font-size:14px;font-weight:700;color:#fff;cursor:pointer;margin-top:4px;transition:.2s cubic-bezier(.34,1.56,.64,1);font-family:'DM Sans',sans-serif}
-.cmod-btn:hover{transform:scale(1.03)}
-.cmod-priv{font-size:11px;color:var(--muted2,#B0ADB8);text-align:center;margin-top:11px;line-height:1.5}
-
 </style>
 </head>
 <body>
 
+<!-- Scroll progress -->
 <div id="sp"></div>
 
+<!-- ══ NAVIGATION ══ -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="/index.html" class="logo">
-      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Crect%20width%3D%27100%27%20height%3D%27100%27%20rx%3D%2720%27%20fill%3D%27%232563EB%27/%3E%3Ctext%20x%3D%2750%27%20y%3D%2770%27%20text-anchor%3D%27middle%27%20font-size%3D%2758%27%20font-weight%3D%27900%27%20font-family%3D%27Arial%27%20fill%3D%27white%27%3EG%3C/text%3E%3C/svg%3E" class="logo-img" alt="GSC Study"/>
+    <a href="index.html" class="logo">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Crect%20width%3D%27100%27%20height%3D%27100%27%20rx%3D%2720%27%20fill%3D%27%232563EB%27/%3E%3Ctext%20x%3D%2750%27%20y%3D%2770%27%20text-anchor%3D%27middle%27%20font-size%3D%2758%27%20font-weight%3D%27900%27%20font-family%3D%27Arial%27%20fill%3D%27white%27%3EG%3C/text%3E%3C/svg%3E" class="logo-img" alt="GSC Study">
     </a>
     <div class="nav-links">
-      <a href="abroad.html" class="nl" data-i18n="nav_abroad">За рубеж</a>
-      <a href="courses.html" class="nl" data-i18n="nav_courses">Курсы</a>
-      <a href="index.html#programs" class="nl" data-i18n="nav_programs">Программы</a>
-      <a href="index.html#tests" class="nl active" data-i18n="nav_tests">Тесты</a>
-      <a href="index.html#offices" class="nl" data-i18n="nav_offices">Офисы</a>
+      <a href="index.html" class="nl">Главная</a>
+      <a href="abroad.html" class="nl">За рубеж</a>
+      <a href="courses.html" class="nl">Курсы</a>
+      <a href="about.html" class="nl">О нас</a>
+      <a href="faq.html" class="nl">FAQ</a>
     </div>
     <div style="display:flex;align-items:center;gap:10px">
       <div class="lang-sw" id="langSw" style="display:flex;gap:6px;align-items:center">
-        <button class="lang-btn active" onclick="setLang('ru')" data-lang="ru" style="padding:7px 10px;border-radius:10px;border:1px solid rgba(14,14,20,.12);background:#fff;color:var(--ink);font-weight:800;font-size:12px;cursor:pointer">RU</button>
-        <button class="lang-btn" onclick="setLang('kz')" data-lang="kz" style="padding:7px 10px;border-radius:10px;border:1px solid rgba(14,14,20,.12);background:#fff;color:var(--ink);font-weight:800;font-size:12px;cursor:pointer">KZ</button>
-        <button class="lang-btn" onclick="setLang('en')" data-lang="en" style="padding:7px 10px;border-radius:10px;border:1px solid rgba(14,14,20,.12);background:#fff;color:var(--ink);font-weight:800;font-size:12px;cursor:pointer">EN</button>
+        <button class="lang-btn active" onclick="setLang('ru')" data-lang="ru">RU</button>
+        <button class="lang-btn" onclick="setLang('kz')" data-lang="kz">KZ</button>
+        <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
       </div>
-      <a href="https://wa.me/77718080828?text=Хочу записаться на курс" target="_blank" class="nav-cta" data-i18n="nav_cta">Консультация</a>
+      <a href="https://wa.me/77718080828?text=Хочу записаться на курс" target="_blank" class="nav-cta">Консультация</a>
     </div>
   </div>
 </nav>
 
-<!-- ══ SELECT SCREEN ══ -->
-<div id="scrSel">
-  <div class="select-hero">
-    <div class="hero-tag" data-i18n="hero_tag">🎓 Бесплатно · Без регистрации</div>
-    <h1 class="select-h" data-i18n="hero_title">Определи свой <em>уровень</em></h1>
-    <p class="select-sub" data-i18n="hero_sub">Выбери тест — получи результат за 10–20 минут. Наш консультант подберёт подходящий курс.</p>
+<!-- ══ HERO SECTION ══ -->
+<section class="hero-section">
+  <div class="hero-tag">Бесплатно и без регистрации</div>
+  <h1 class="hero-h">Бесплатные <em>тесты</em></h1>
+  <p class="hero-sub">Узнай свой уровень за 15-30 минут. Выбери тест и получи результат мгновенно.</p>
+</section>
 
-    <div class="tests-grid">
+<!-- ══ TEST CARDS ══ -->
+<section class="tests-section">
+  <div class="tests-grid">
 
-      <a class="tc" href="#" onclick="event.preventDefault();startTest('ielts')">
-        <div class="tc-hero" style="background:linear-gradient(135deg,#0B1D4A,#2563EB)">
-          <div class="tc-icon">📝</div>
-          <div class="tc-score">7.0</div>
+    <!-- General English -->
+    <a class="tc" href="test.html?type=english">
+      <div class="tc-header" style="background:linear-gradient(135deg,#042A18,#00A060)">
+        <div class="tc-icon">🗣</div>
+        <div class="tc-score">C1</div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-name">General English 13+</div>
+        <div class="tc-desc">Grammar, Vocabulary, Reading + Writing Task. Определи свой уровень по международной шкале CEFR от A1 до C2.</div>
+        <div class="tc-meta">
+          <span class="tc-m">25 вопросов + writing</span>
+          <span class="tc-m">15 мин</span>
+          <span class="tc-m">CEFR</span>
         </div>
-        <div class="tc-body">
-          <div class="tc-name">IELTS</div>
-          <div class="tc-desc" data-i18n="card_ielts_desc">Vocabulary, Grammar, Reading. Узнай прогнозируемый Band Score для Academic или General Training.</div>
-          <div class="tc-meta">
-            <span class="tc-m" data-i18n="card_ielts_time">⏱ 15 мин</span>
-            <span class="tc-m" data-i18n="card_ielts_q">📝 20 вопросов</span>
-            <span class="tc-m">British Council</span>
-          </div>
-          <div class="tc-row">
-            <button class="tc-btn" style="background:#2563EB" onclick="event.stopPropagation();startTest('ielts')" data-i18n="btn_start">Начать →</button>
-            <span class="tc-range">Band 4.0–8.0</span>
-          </div>
+        <div class="tc-footer">
+          <button class="tc-btn" style="background:#00A060" onclick="event.stopPropagation()">Начать тест</button>
+          <span class="tc-range">Уровень A1 - C2</span>
         </div>
-      </a>
+      </div>
+    </a>
 
-      <a class="tc" href="#" onclick="event.preventDefault();startTest('sat')">
-        <div class="tc-hero" style="background:linear-gradient(135deg,#14003a,#6D28D9)">
-          <div class="tc-icon">📐</div>
-          <div class="tc-score">1400</div>
+    <!-- SAT -->
+    <a class="tc" href="test.html?type=sat">
+      <div class="tc-header" style="background:linear-gradient(135deg,#14003a,#6D28D9)">
+        <div class="tc-icon">📐</div>
+        <div class="tc-score">1400</div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-name">SAT Placement Test</div>
+        <div class="tc-desc">Reading & Writing + Math. Оцени готовность к Digital SAT и получи прогнозируемый балл для поступления.</div>
+        <div class="tc-meta">
+          <span class="tc-m">30 вопросов</span>
+          <span class="tc-m">25 мин</span>
+          <span class="tc-m">Digital SAT</span>
         </div>
-        <div class="tc-body">
-          <div class="tc-name">SAT</div>
-          <div class="tc-desc" data-i18n="card_sat_desc">Reading & Writing + Math. Digital SAT 2024. Оцени готовность к поступлению в зарубежный вуз.</div>
-          <div class="tc-meta">
-            <span class="tc-m" data-i18n="card_sat_time">⏱ 20 мин</span>
-            <span class="tc-m" data-i18n="card_sat_q">📝 20 вопросов</span>
-            <span class="tc-m">Digital SAT 2024</span>
-          </div>
-          <div class="tc-row">
-            <button class="tc-btn" style="background:#6D28D9" onclick="event.stopPropagation();startTest('sat')" data-i18n="btn_start">Начать →</button>
-            <span class="tc-range">Score 800–1600</span>
-          </div>
+        <div class="tc-footer">
+          <button class="tc-btn" style="background:#6D28D9" onclick="event.stopPropagation()">Начать тест</button>
+          <span class="tc-range">Score 800 - 1600</span>
         </div>
-      </a>
+      </div>
+    </a>
 
-      <a class="tc" href="#" onclick="event.preventDefault();startTest('english')">
-        <div class="tc-hero" style="background:linear-gradient(135deg,#042A18,#00A060)">
-          <div class="tc-icon">🗣</div>
-          <div class="tc-score">C1</div>
+    <!-- IELTS -->
+    <a class="tc" href="test.html?type=ielts">
+      <div class="tc-header" style="background:linear-gradient(135deg,#0B1D4A,#2563EB)">
+        <div class="tc-icon">📝</div>
+        <div class="tc-score">7.0</div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-name">IELTS Placement Test</div>
+        <div class="tc-desc">Vocabulary, Grammar, Reading + Listening. Узнай прогнозируемый Band Score для Academic или General Training.</div>
+        <div class="tc-meta">
+          <span class="tc-m">28 вопросов + listening</span>
+          <span class="tc-m">30 мин</span>
+          <span class="tc-m">British Council</span>
         </div>
-        <div class="tc-body">
-          <div class="tc-name">General English</div>
-          <div class="tc-desc" data-i18n="card_eng_desc">Grammar, Vocabulary, Reading. Определи уровень от A1 до C2 по шкале CEFR за 12 минут.</div>
-          <div class="tc-meta">
-            <span class="tc-m" data-i18n="card_eng_time">⏱ 12 мин</span>
-            <span class="tc-m" data-i18n="card_eng_q">📝 20 вопросов</span>
-            <span class="tc-m">CEFR A1→C2</span>
-          </div>
-          <div class="tc-row">
-            <button class="tc-btn" style="background:#00A060" onclick="event.stopPropagation();startTest('english')" data-i18n="btn_start">Начать →</button>
-            <span class="tc-range" data-i18n="card_eng_range">Уровень A1–C2</span>
-          </div>
+        <div class="tc-footer">
+          <button class="tc-btn" style="background:#2563EB" onclick="event.stopPropagation()">Начать тест</button>
+          <span class="tc-range">Band 4.0 - 7.5</span>
         </div>
-      </a>
+      </div>
+    </a>
 
+  </div>
+</section>
+
+<!-- ══ INFO STRIP ══ -->
+<section class="info-strip">
+  <div class="info-inner">
+    <div class="info-item">
+      <span class="info-icon">&#9201;</span>
+      <span>Результат мгновенно</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">&#128274;</span>
+      <span>Без регистрации</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">&#127891;</span>
+      <span>15 лет экспертизы</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">&#128100;</span>
+      <span>15 000+ студентов</span>
     </div>
   </div>
+</section>
 
-  <footer class="footer">
-    <p>© 2026 GSC Study. Все права защищены. &nbsp;|&nbsp;
-      <a href="index.html" data-i18n="footer_home">Главная</a>
-      <a href="courses.html" data-i18n="nav_courses">Курсы</a>
-      <a href="abroad.html" data-i18n="nav_abroad">За рубеж</a>
-      <a href="https://wa.me/77718080828" target="_blank">WhatsApp</a>
-    </p>
-  </footer>
-</div>
-
-<!-- ══ QUESTION SCREEN ══ -->
-<div class="q-screen" id="scrQ">
-  <div class="pb-wrap"><div class="pb" id="pb"></div></div>
-  <div class="q-shell">
-    <div class="q-top">
-      <button class="back-btn" onclick="resetTest()" data-i18n="btn_back">&#8592; Назад</button>
-      <div class="q-badge" id="qBadge"></div>
-      <div class="q-timer" id="qTimer">&#9201; 20:00</div>
-      <div class="q-counter" id="qCounter">1 / 20</div>
-    </div>
-    <div class="q-card" id="qCard">
-      <div class="q-sect" id="qSect"></div>
-      <div class="q-text" id="qText"></div>
-      <div class="q-hint" id="qHint" style="display:none"></div>
-      <div class="opts" id="qOpts"></div>
-    </div>
-    <div class="q-actions">
-      <div class="q-fb" id="qFb"></div>
-      <button class="btn-next" id="btnNext" disabled onclick="nextQ()" data-i18n="btn_next">Далее &#8250;</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ RESULT SCREEN ══ -->
-<div class="r-screen" id="scrR">
-  <div class="r-wrap">
-    <div class="r-card">
-      <div class="r-icon" id="rIcon"></div>
-      <div class="r-level" id="rLvl"></div>
-      <div class="r-label" id="rLbl"></div>
-      <div class="r-desc" id="rDesc"></div>
-      <div class="r-stats" id="rStats"></div>
-      <a class="r-cta" id="rCTA" target="_blank" data-i18n="res_wa">&#128172; Получить рекомендации в WhatsApp</a>
-      <button class="r-retry" onclick="resetTest()" data-i18n="res_retry">&#8592; Пройти другой тест</button>
-    </div>
-  </div>
-</div>
-
-<!-- WA -->
+<!-- ══ WHATSAPP FLOAT ══ -->
 <div class="wa-float">
-  <div class="wa-pulse"></div>
-  <a class="wa-btn" href="https://wa.me/77718080828" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
-      <path d="M24 4C13 4 4 13 4 24c0 3.6 1 6.9 2.7 9.8L4 44l10.5-2.7C17.2 43 20.5 44 24 44c11 0 20-9 20-20S35 4 24 4z" fill="#fff"/>
-      <path d="M24 7.5C14.9 7.5 7.5 14.9 7.5 24c0 3.2.9 6.3 2.5 8.9L8 40l7.3-1.9C17.8 39.3 20.8 40.5 24 40.5c9.1 0 16.5-7.4 16.5-16.5S33.1 7.5 24 7.5z" fill="#25D366"/>
-      <path d="M33.5 28.6c-.5-.2-2.8-1.4-3.2-1.5-.4-.2-.7-.2-1 .2-.3.4-1.2 1.5-1.4 1.8-.3.3-.5.4-1 .1-.5-.2-2-.7-3.8-2.3-1.4-1.2-2.3-2.7-2.6-3.2-.3-.5 0-.7.2-1 .2-.2.5-.5.7-.8.2-.3.3-.5.5-.8.2-.3.1-.6 0-.8-.1-.2-1-2.5-1.4-3.4-.4-.9-.8-.8-1-.8h-.9c-.3 0-.8.1-1.2.6-.4.5-1.6 1.5-1.6 3.7s1.6 4.3 1.8 4.6c.2.3 3.1 4.8 7.6 6.7 1.1.5 1.9.8 2.6 1 1.1.3 2.1.3 2.9.2.9-.1 2.8-1.1 3.2-2.2.4-1.1.4-2 .3-2.2-.2-.3-.5-.4-1-.6z" fill="#fff"/>
-    </svg>
+  <a href="https://wa.me/77718080828?text=Привет! Хочу узнать про тесты" target="_blank" class="wa-btn" aria-label="WhatsApp">
+    <div class="wa-pulse"></div>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 </div>
 
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-mark">G</div>
+        <div class="footer-logo-name">GSC Study</div>
+      </div>
+      <p class="footer-desc">15 лет. British Council Partner. 4 офиса в Казахстане. IELTS, SAT, английский и поступление за рубеж.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Навигация</h4>
+        <a href="index.html">Главная</a>
+        <a href="abroad.html">За рубеж</a>
+        <a href="courses.html">Курсы</a>
+        <a href="about.html">О нас</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Тесты</h4>
+        <a href="test.html?type=english">General English</a>
+        <a href="test.html?type=sat">SAT</a>
+        <a href="test.html?type=ielts">IELTS</a>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <a href="tel:+77718080828">+7 771 808 08 28</a>
+        <a href="https://wa.me/77718080828" target="_blank">WhatsApp</a>
+        <a href="mailto:info@gscstudy.kz">info@gscstudy.kz</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2026 GSC Study. Все права защищены.</span>
+    <div class="footer-socials">
+      <a href="https://instagram.com/gscstudy" target="_blank" aria-label="Instagram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,.5)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCRIPTS ══ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/lead-form.js"></script>
 <script>
-var TESTS = {
-  ielts:{
-    name:'IELTS',color:'#2563EB',icon:'📝',bg:'linear-gradient(135deg,#0B1D4A,#2563EB)',time:900,
-    qs:[
-      {s:'Vocabulary',t:'Choose the correct word:',h:'The speaker sounded very _____ about the project.',o:['enthusiastic','enthusiasm','enthuse','enthusiastically'],a:0},
-      {s:'Vocabulary',t:'Choose the synonym for "abundant":',o:['scarce','plentiful','moderate','precise'],a:1},
-      {s:'Grammar',t:'Which sentence is correct?',o:['She has been working here since three years.','She has been working here for three years.','She is working here since three years.','She works here since three years.'],a:1},
-      {s:'Grammar',t:'Complete the sentence:',h:'By the time he arrived, the meeting _____.', o:['already ended','had already ended','has already ended','already had ended'],a:1},
-      {s:'Reading',t:'Read and answer:',h:'"Despite the challenges, researchers remained optimistic about renewable energy." Attitude is:',o:['pessimistic','uncertain','hopeful','indifferent'],a:2},
-      {s:'Vocabulary',t:'What does "nevertheless" mean?',o:['as a result','however','additionally','therefore'],a:1},
-      {s:'Grammar',t:'Choose the passive form:',h:'The report _____ by the committee next week.',o:['will be reviewed','will review','is reviewing','has been reviewing'],a:0},
-      {s:'Grammar',t:'Identify the error:',h:'"I wish I would have studied harder."',o:['"wish"','"would have"','"studied"','"harder"'],a:1},
-      {s:'Grammar',t:'Correct conditional:',h:'If the train _____ on time, we _____ the meeting.',o:['arrives / will catch','would arrive / catch','arrived / would catch','arrives / catch'],a:0},
-      {s:'Vocabulary',t:'Choose for academic writing:',h:'The data _____ a significant increase.',o:['shows','demonstrate','indicating','demonstrated'],a:3},
-      {s:'Vocabulary',t:'What does "proliferate" mean?',o:['to decrease','to remain stable','to increase rapidly','to disappear'],a:2},
-      {s:'Reading',t:'"Implemented with alacrity." Alacrity means:',o:['reluctance','speed and eagerness','confusion','difficulty'],a:1},
-      {s:'Grammar',t:'Correct relative clause:',h:'The scientist _____ discovery changed medicine won the Nobel Prize.',o:['who','whose','whom','which'],a:1},
-      {s:'Vocabulary',t:'Correct collocation:',o:['make a research','do a research','conduct research','perform a research'],a:2},
-      {s:'Grammar',t:'Correct form:',h:'"I had difficulty _____ the concept."',o:['understand','to understand','understood','understanding'],a:3},
-      {s:'Reading',t:"Author's main purpose:",o:['entertain','criticize','provide factual information','persuade to act'],a:2},
-      {s:'Vocabulary',t:'"Detrimental" is closest in meaning to:',o:['beneficial','harmful','neutral','uncertain'],a:1},
-      {s:'Grammar',t:'Correct subjunctive:',o:['The committee recommended that he attends.','The committee recommended that he attend.','The committee recommended that he attended.','The committee recommended that he would attend.'],a:1},
-      {s:'Grammar',t:'Correct inversion:',o:['Never I have seen such a view.','Never have I seen such a beautiful view.','I have never seen such a view.','I never have seen such a view.'],a:1},
-      {s:'Vocabulary',t:'"Ubiquitous" means:',o:['unique and rare','present everywhere','unclear or vague','very expensive'],a:1}
-    ]
-  },
-  sat:{
-    name:'SAT',color:'#6D28D9',icon:'📐',bg:'linear-gradient(135deg,#14003a,#6D28D9)',time:1200,
-    qs:[
-      {s:'Reading & Writing',t:'Best completes the sentence:',h:"The scientist's findings were so _____ that they challenged decades of accepted theory.",o:['mundane','revolutionary','predictable','ambiguous'],a:1},
-      {s:'Reading & Writing',t:'"Inconclusive" most nearly means:',o:['definitive','uncertain','impressive','straightforward'],a:1},
-      {s:'Reading & Writing',t:'Best improves the sentence:',h:'"Many studies shows that sleep affects cognition."',o:['Many studies showed that sleep affects cognition.','Many studies show that sleep affects cognition.','Many studies are showing that sleep affects cognition.','Many studies have shows that sleep affects cognition.'],a:1},
-      {s:'Reading & Writing',t:'Best transition:',h:'"The new policy was expensive. _____, it proved effective in the long run."',o:['Therefore','Similarly','Nevertheless','Consequently'],a:2},
-      {s:'Reading & Writing',t:'Correct comma usage:',o:['The experiment which took three years, produced remarkable results.','The experiment, which took three years produced remarkable results.','The experiment, which took three years, produced remarkable results.','The experiment which took three years produced remarkable results.'],a:2},
-      {s:'Math',t:'If 3x + 7 = 22, what is x?',o:['3','5','7','4'],a:1},
-      {s:'Math',t:'20% discount on $80. Sale price?',o:['$16','$60','$64','$72'],a:2},
-      {s:'Math',t:'Slope of line through (2,3) and (6,11)?',o:['1','2','3','4'],a:1},
-      {s:'Math',t:'f(x) = 2x² - 3x + 1. f(3) = ?',o:['8','10','12','14'],a:1},
-      {s:'Math',t:'Class of 30, 40% boys. How many girls?',o:['12','16','18','20'],a:2},
-      {s:'Reading & Writing',t:'Best formal tone:',h:'"The policy has _____ consequences for public health."',o:['huge','massive','significant','big'],a:2},
-      {s:'Reading & Writing',t:'Grammatical error:',h:'"Between you and I, the project needs more work."',o:['"Between"','"you"','"I"','"needs"'],a:2},
-      {s:'Math',t:'Solve: |2x - 5| = 9',o:['x=7 or x=-2','x=7 only','x=-2 only','x=7 or x=2'],a:0},
-      {s:'Math',t:'Triangle sides 5, 12, 13. Type?',o:['Equilateral','Isosceles','Right','Obtuse'],a:2},
-      {s:'Reading & Writing',t:"Author's purpose?",h:'"The evidence overwhelmingly demonstrates early intervention reduces recidivism."',o:['To entertain','To argue for early intervention','To question evidence','To present multiple viewpoints'],a:1},
-      {s:'Math',t:'If 2^x = 32, x = ?',o:['4','5','6','7'],a:1},
-      {s:'Math',t:'Vertex of y = x² - 4x + 4:',o:['(2,0)','(4,0)','(0,4)','(-2,0)'],a:0},
-      {s:'Reading & Writing',t:'NOT parallel structure:',o:['She likes to swim, to run, and cycling.','She likes swimming, running, and cycling.','She likes to swim, to run, and to cycle.','She likes swimming and running, though she prefers cycling.'],a:0},
-      {s:'Math',t:'Car: 240 mi in 4 hrs. Distance in 7 hrs?',o:['380 miles','400 miles','420 miles','440 miles'],a:2},
-      {s:'Math',t:'15% of 240 = ?',o:['30','34','36','38'],a:2}
-    ]
-  },
-  english:{
-    name:'General English',color:'#00A060',icon:'🗣',bg:'linear-gradient(135deg,#042A18,#00A060)',time:720,
-    qs:[
-      {s:'A1',t:'Choose the correct answer:',h:'What ___ your name?',o:['am','is','are','be'],a:1},
-      {s:'A1',t:'Choose the correct word:',h:'I ___ from Kazakhstan.',o:['am','is','are','have'],a:0},
-      {s:'A2',t:'Complete the sentence:',h:'She ___ to school every day.',o:['go','goes','going','gone'],a:1},
-      {s:'A2',t:'Correct past tense:',h:'Yesterday I ___ a good film.',o:['see','seen','saw','sees'],a:2},
-      {s:'B1',t:'Correct sentence:',o:['I have seen this film last week.','I saw this film last week.','I had seen this film last week.','I seen this film last week.'],a:1},
-      {s:'B1',t:'Correct option:',h:'If it ___ tomorrow, we ___ stay home.',o:['rain / would','rains / will','will rain / would','rained / would'],a:1},
-      {s:'B1',t:'"To get better after illness" means:',o:['recover','disappear','escape','manage'],a:0},
-      {s:'B2',t:'Correct passive:',h:'The building ___ in 1990.',o:['built','was built','has built','is built'],a:1},
-      {s:'B2',t:'Correct form:',h:'"I wish I ___ more time."',o:['had','have','will have','would have'],a:0},
-      {s:'B2',t:'"Despite" is used to:',o:['show cause','show contrast','show time','show result'],a:1},
-      {s:'C1',t:'Grammatically correct sentence:',o:['The work having been finished, we left.','The work have been finished, we left.','Having the work finished, we left.','The work was having finished, we left.'],a:0},
-      {s:'C1',t:'Correct phrasal verb:',h:'"The meeting has been _____ until next week."',o:['put off','put out','put up','put through'],a:0},
-      {s:'C1',t:'"Notwithstanding" means:',o:['because of','in addition to','in spite of','as a result of'],a:2},
-      {s:'B2',t:'Correct inversion:',o:['Rarely I have met such a talented person.','Rarely have I met such a talented person.','I rarely have met such a talented person.','I have rarely met such a talented person.'],a:1},
-      {s:'C1',t:'Complete correctly:',h:'"_____ as it may seem, the solution was simple."',o:['Strange','Strangely','Stranger','Strangest'],a:0},
-      {s:'B1',t:'Complete:',h:'"I\'ve lived here _____ 5 years."',o:['since','for','during','from'],a:1},
-      {s:'B2',t:'Most appropriate:',h:'"The company _____ significant financial losses last year."',o:['made','experienced','had','done'],a:1},
-      {s:'C1',t:'"Ubiquitous" means:',o:['unique and rare','present everywhere','unclear or vague','very expensive'],a:1},
-      {s:'C2',t:'Best mixed conditional:',o:['If I studied more, I would pass.','If I had studied more, I would have passed.','If I had studied more, I would be in university now.','If I study more, I will pass.'],a:2},
-      {s:'C2',t:'Which uses cleft structure?',o:['John solved the problem.','The problem was solved by John.','It was John who solved the problem.','John had solved the problem.'],a:2}
-    ]
-  }
-};
-
-/* ══ KV CMS PULL (questions + writing prompt) ══ */
-(function(){
-  function safeJson(txt){ try{ return JSON.parse(txt);}catch(e){ return null; } }
-  async function kvGet(key){
-    try{
-      var r = await fetch('/api/data?key=' + encodeURIComponent(key));
-      if(!r.ok) return null;
-      var j = await r.json().catch(function(){return null;});
-      return j && ('value' in j) ? j.value : null;
-    }catch(e){ return null; }
-  }
-  function normQ(row){
-    if(!row) return null;
-    var o = row.options || row.o || row.opts;
-    var arr = Array.isArray(o) ? o : (typeof o === 'string' ? safeJson(o) : null);
-    if(!Array.isArray(arr)) arr = [row.opt_a,row.opt_b,row.opt_c,row.opt_d].filter(function(x){return x!==undefined;});
-    // normalize options to strings
-    var opts = (arr||[]).slice(0,4).map(function(x){
-      if(x && typeof x === 'object') return (x.text || '');
-      return String(x||'');
-    });
-    while(opts.length < 4) opts.push('');
-    var a = row.answer ?? row.a ?? row.answer_index ?? 0;
-    a = Math.max(0, Math.min(3, parseInt(a,10)||0));
-    return { s: row.section || row.s || '', t: row.question || row.t || row.text || '', h: row.hint || row.h || '', o: opts, a: a };
-  }
-
-  document.addEventListener('DOMContentLoaded', async function(){
-    var types = ['ielts','sat','english','kids'];
-    // Questions
-    for (var i=0;i<types.length;i++){
-      var type = types[i];
-      var rows = await kvGet('test_questions_' + type);
-      if(rows && Array.isArray(rows) && TESTS[type]){
-        var qs = rows
-          .slice()
-          .sort(function(a,b){ return (a.sort_order||0) - (b.sort_order||0); })
-          .map(normQ)
-          .filter(Boolean);
-        if(qs.length) TESTS[type].qs = qs;
-      }
-    }
-    // Writing prompt stored inside content KV object (admin saves there)
-    var content = await kvGet('content');
-    if(content && typeof content === 'object'){
-      types.forEach(function(type){
-        var k = 'writing_prompt_' + type;
-        if(content[k] && TESTS[type]) TESTS[type].writing_prompt = String(content[k]);
-      });
-    }
-  });
-})();
-
-var ST = {type:null,qi:0,correct:0,tmr:null,tl:0,answered:false};
-
-/* ── I18N (RU/KZ/EN) ── */
-var I18N = {
-  ru:{
-    nav_abroad:'За рубеж', nav_courses:'Курсы', nav_programs:'Программы', nav_tests:'Тесты', nav_offices:'Офисы', nav_cta:'Консультация',
-    hero_tag:'🎓 Бесплатно · Без регистрации',
-    hero_title:'Определи свой <em>уровень</em>',
-    hero_sub:'Выбери тест — получи результат за 10–20 минут. Наш консультант подберёт подходящий курс.',
-    btn_start:'Начать →',
-    btn_back:'← Назад',
-    btn_next:'Далее ›',
-    res_wa:'💬 Получить рекомендации в WhatsApp',
-    res_retry:'← Пройти другой тест',
-    footer_home:'Главная',
-    card_ielts_desc:'Vocabulary, Grammar, Reading. Узнай прогнозируемый Band Score для Academic или General Training.',
-    card_ielts_time:'⏱ 15 мин',
-    card_ielts_q:'📝 20 вопросов',
-    card_sat_desc:'Reading & Writing + Math. Digital SAT 2024. Оцени готовность к поступлению в зарубежный вуз.',
-    card_sat_time:'⏱ 20 мин',
-    card_sat_q:'📝 20 вопросов',
-    card_eng_desc:'Grammar, Vocabulary, Reading. Определи уровень от A1 до C2 по шкале CEFR за 12 минут.',
-    card_eng_time:'⏱ 12 мин',
-    card_eng_q:'📝 20 вопросов',
-    card_eng_range:'Уровень A1–C2',
-    fb_ok:'✓ Правильно!',
-    fb_no:'✗ Неверно',
-    stat_correct:'Правильных',
-    stat_wrong:'Ошибок',
-    stat_accuracy:'Точность',
-    res_lbl_ielts:'Прогнозируемый IELTS Band',
-    res_lbl_sat:'Прогнозируемый SAT Score',
-    res_lbl_eng:'Уровень English по шкале CEFR',
-    wa_ielts:'Привет! Я {name}. Прошёл IELTS тест на GSC Study. Результат: Band {level} ({pct}%). Хочу рекомендации по курсу. Мой номер: {phone}',
-    wa_sat:'Привет! Я {name}. Прошёл SAT тест на GSC Study. Результат: ~{level} ({pct}%). Хочу записаться на подготовку. Мой номер: {phone}',
-    wa_eng:'Привет! Я {name}. Прошёл тест уровня English на GSC Study. Уровень: {level} ({pct}%). Хочу записаться на курс. Мой номер: {phone}'
-  },
-  kz:{
-    nav_abroad:'Шетелге', nav_courses:'Курстар', nav_programs:'Бағдарламалар', nav_tests:'Тесттер', nav_offices:'Офистер', nav_cta:'Кеңес алу',
-    hero_tag:'🎓 Тегін · Тіркеусіз',
-    hero_title:'Өз <em>деңгейіңді</em> анықта',
-    hero_sub:'Тестті таңда — 10–20 минутта нәтиже ал. Кеңесшіміз саған лайық курсты ұсынады.',
-    btn_start:'Бастау →',
-    btn_back:'← Артқа',
-    btn_next:'Келесі ›',
-    res_wa:'💬 WhatsApp-та ұсыныс алу',
-    res_retry:'← Басқа тест таңдау',
-    footer_home:'Басты бет',
-    card_ielts_desc:'Vocabulary, Grammar, Reading. Academic немесе General Training үшін болжамды Band Score-ды біл.',
-    card_ielts_time:'⏱ 15 мин',
-    card_ielts_q:'📝 20 сұрақ',
-    card_sat_desc:'Reading & Writing + Math. Digital SAT 2024. Шетелдік ЖОО-ға дайындықты бағала.',
-    card_sat_time:'⏱ 20 мин',
-    card_sat_q:'📝 20 сұрақ',
-    card_eng_desc:'Grammar, Vocabulary, Reading. CEFR бойынша A1–C2 деңгейіңді 12 минутта анықта.',
-    card_eng_time:'⏱ 12 мин',
-    card_eng_q:'📝 20 сұрақ',
-    card_eng_range:'Деңгей A1–C2',
-    fb_ok:'✓ Дұрыс!',
-    fb_no:'✗ Қате',
-    stat_correct:'Дұрыс',
-    stat_wrong:'Қате',
-    stat_accuracy:'Дәлдік',
-    res_lbl_ielts:'Болжамды IELTS Band',
-    res_lbl_sat:'Болжамды SAT Score',
-    res_lbl_eng:'English деңгейі (CEFR)',
-    wa_ielts:'Сәлем! Мен {name}. GSC Study сайтында IELTS тестінен өттім. Нәтиже: Band {level} ({pct}%). Курс бойынша кеңес керек. Нөмірім: {phone}',
-    wa_sat:'Сәлем! Мен {name}. GSC Study сайтында SAT тестінен өттім. Нәтиже: ~{level} ({pct}%). Дайындыққа жазылғым келеді. Нөмірім: {phone}',
-    wa_eng:'Сәлем! Мен {name}. GSC Study сайтында English level тестінен өттім. Деңгей: {level} ({pct}%). Курсқа жазылғым келеді. Нөмірім: {phone}'
-  },
-  en:{
-    nav_abroad:'Abroad', nav_courses:'Courses', nav_programs:'Programs', nav_tests:'Tests', nav_offices:'Offices', nav_cta:'Consultation',
-    hero_tag:'🎓 Free · No registration',
-    hero_title:'Find your <em>level</em>',
-    hero_sub:'Choose a test and get results in 10–20 minutes. Our advisor will recommend the best program.',
-    btn_start:'Start →',
-    btn_back:'← Back',
-    btn_next:'Next ›',
-    res_wa:'💬 Get recommendations on WhatsApp',
-    res_retry:'← Take another test',
-    footer_home:'Home',
-    card_ielts_desc:'Vocabulary, Grammar, Reading. Get an estimated Band Score for Academic or General Training.',
-    card_ielts_time:'⏱ 15 min',
-    card_ielts_q:'📝 20 questions',
-    card_sat_desc:'Reading & Writing + Math. Digital SAT 2024. Check your readiness for admission.',
-    card_sat_time:'⏱ 20 min',
-    card_sat_q:'📝 20 questions',
-    card_eng_desc:'Grammar, Vocabulary, Reading. Determine your CEFR level from A1 to C2 in 12 minutes.',
-    card_eng_time:'⏱ 12 min',
-    card_eng_q:'📝 20 questions',
-    card_eng_range:'Level A1–C2',
-    fb_ok:'✓ Correct!',
-    fb_no:'✗ Incorrect',
-    stat_correct:'Correct',
-    stat_wrong:'Wrong',
-    stat_accuracy:'Accuracy',
-    res_lbl_ielts:'Estimated IELTS Band',
-    res_lbl_sat:'Estimated SAT Score',
-    res_lbl_eng:'English level (CEFR)',
-    wa_ielts:'Hi! I am {name}. I took the IELTS test on GSC Study. Result: Band {level} ({pct}%). I want course recommendations. My phone: {phone}',
-    wa_sat:'Hi! I am {name}. I took the SAT test on GSC Study. Result: ~{level} ({pct}%). I want SAT prep. My phone: {phone}',
-    wa_eng:'Hi! I am {name}. I took the English level test on GSC Study. Level: {level} ({pct}%). I want to enroll. My phone: {phone}'
-  }
-};
-
-var curLang = 'ru';
-try{ curLang = (localStorage.getItem('gsc_lang')||'ru').trim() || 'ru'; }catch(e){}
-if(!I18N[curLang]) curLang='ru';
-
-function setLang(lang){
-  if(!I18N[lang]) lang='ru';
-  curLang=lang;
-  try{ localStorage.setItem('gsc_lang', lang); }catch(e){}
-  applyLang(lang);
-}
-
-function applyLang(lang){
-  var t=I18N[lang]||I18N.ru;
-  document.querySelectorAll('[data-i18n]').forEach(function(el){
-    var k=el.getAttribute('data-i18n');
-    if(!k || !t[k]) return;
-    el.innerHTML = t[k];
-  });
-  document.querySelectorAll('.lang-btn').forEach(function(b){
-    b.classList.toggle('active', b.getAttribute('data-lang')===lang);
-    if(b.classList.contains('active')){ b.style.background='var(--blue,#2563EB)'; b.style.color='#fff'; }
-    else { b.style.background='#fff'; b.style.color='var(--ink,#0E0E14)'; }
-  });
-  document.documentElement.lang = (lang==='kz') ? 'kk' : lang;
-}
-
-function tr(key){
-  var t=I18N[curLang]||I18N.ru;
-  return t[key] || (I18N.ru[key]||key);
-}
-
-function fmt(template, vars){
-  return (template||'').replace(/\{(\w+)\}/g, function(_,k){return (vars && vars[k]!=null)?String(vars[k]):'';});
-}
-
-function dateLocale(){
-  if(curLang==='kz') return 'kk-KZ';
-  if(curLang==='en') return 'en-US';
-  return 'ru-RU';
-}
-
-document.addEventListener('DOMContentLoaded', function(){
-  applyLang(curLang);
+// Scroll progress bar
+window.addEventListener('scroll',()=>{
+  const sp=document.getElementById('sp');
+  const h=document.documentElement;
+  const pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+  sp.style.width=pct+'%';
 });
 
-function show(id) {
-  ['scrSel','scrQ','scrR'].forEach(function(s){
-    var el=document.getElementById(s);
-    if(!el) return;
-    el.style.display='none';
-    el.classList.remove('on');
+// Nav scroll effect
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>30);
+});
+
+// Language toggle
+function setLang(lang){
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active',b.dataset.lang===lang);
   });
-  var t=document.getElementById(id);
-  if(t){t.style.display=id==='scrR'?'flex':'block';t.classList.add('on');}
-  window.scrollTo(0,0);
+  localStorage.setItem('gsc_lang',lang);
 }
-
-function setPB(pct){var b=document.getElementById('pb');if(b)b.style.width=pct+'%';}
-
-function startTest(type) {
-  // Open a dedicated page for the selected test:
-  // lead form → start test
-  window.location.href = '/test.html?type=' + encodeURIComponent(type);
-}
-
-function openContactForm(type) {
-  var test = TESTS[type];
-  if(!test) return;
-  _pendingType = type;
-  var badge = document.getElementById('cBadge');
-  if(badge){ badge.textContent = test.icon + ' ' + test.name; badge.style.background = test.color; }
-  var btn = document.getElementById('cStartBtn');
-  if(btn) btn.style.background = test.color;
-  var err = document.getElementById('cErr'); if(err) err.style.display='none';
-  var modal = document.getElementById('contactModal');
-  if(modal){ modal.classList.add('cmod-on'); document.body.style.overflow='hidden'; }
-  setTimeout(function(){ var n=document.getElementById('cName'); if(n&&!n.value) n.focus(); },200);
-}
-
-var _pendingType = null;
-function contactGo() {
-  var name=(document.getElementById('cName').value||'').trim();
-  var phone=(document.getElementById('cPhone').value||'').trim();
-  if(!name||!phone||phone.length<7){ document.getElementById('cErr').style.display='block'; return; }
-  document.getElementById('cErr').style.display='none';
-  // Save lead
-  try{
-    var leads=JSON.parse(localStorage.getItem('gsc_leads')||'[]');
-    leads.unshift({id:Date.now(),name:name,phone:phone,course:'Тест: '+TESTS[_pendingType].name,source:'Тест уровня',status:'new',date:new Date().toLocaleDateString(dateLocale()),manager:''});
-    localStorage.setItem('gsc_leads',JSON.stringify(leads));
-  }catch(e){}
-  // Store for results
-  _cName=name; _cPhone=phone;
-  // Close modal
-  document.getElementById('contactModal').classList.remove('cmod-on');
-  document.body.style.overflow='';
-  // Start actual test
-  _doStartTest(_pendingType);
-}
-var _cName='',_cPhone='';
-
-function _doStartTest(type){
-  var test=TESTS[type];if(!test)return;
-  // Update URL hash
-  if(window.location.hash !== '#'+type) history.replaceState(null,'','#'+type);
-  ST={type:type,qi:0,correct:0,tmr:null,tl:test.time,answered:false};
-  var badge=document.getElementById('qBadge');
-  if(badge){badge.textContent=test.name;badge.style.background=test.color;}
-  updateTmr();
-  clearInterval(ST.tmr);
-  ST.tmr=setInterval(function(){
-    ST.tl--;updateTmr();
-    if(ST.tl<=0){clearInterval(ST.tmr);finishTest();}
-  },1000);
-  show('scrQ');setPB(0);renderQ();
-
-}
-
-function updateTmr(){
-  var m=Math.floor(ST.tl/60).toString().padStart(2,'0');
-  var s=(ST.tl%60).toString().padStart(2,'0');
-  var el=document.getElementById('qTimer');
-  if(el){el.textContent='⏱ '+m+':'+s;el.className='q-timer'+(ST.tl<60?' warn':'');}
-}
-
-function renderQ(){
-  var test=TESTS[ST.type];
-  var q=test.qs[ST.qi];
-  var total=test.qs.length;
-  setPB(Math.round(ST.qi/total*100));
-  var ctr=document.getElementById('qCounter');if(ctr)ctr.textContent=(ST.qi+1)+' / '+total;
-  var card=document.getElementById('qCard');
-  if(card){card.style.animation='none';void card.offsetWidth;card.style.animation='';}
-  var sect=document.getElementById('qSect');if(sect)sect.textContent=q.s||'';
-  var txt=document.getElementById('qText');if(txt)txt.textContent=q.t;
-  var hint=document.getElementById('qHint');if(hint){hint.textContent=q.h||'';hint.style.display=q.h?'block':'none';}
-  var fb=document.getElementById('qFb');if(fb){fb.textContent='';fb.className='q-fb';}
-  var nxt=document.getElementById('btnNext');if(nxt)nxt.disabled=true;
-  ST.answered=false;
-  var opts=document.getElementById('qOpts');if(!opts)return;
-  opts.innerHTML=q.o.map(function(opt,i){
-    return '<div class="opt" data-i="'+i+'" onclick="selAns('+i+')">'
-      +'<div class="opt-l">'+'ABCD'[i]+'</div>'+opt+'</div>';
-  }).join('');
-}
-
-function selAns(i){
-  if(ST.answered)return;
-  ST.answered=true;
-  var q=TESTS[ST.type].qs[ST.qi];
-  var ok=(i===q.a);
-  if(ok)ST.correct++;
-  document.querySelectorAll('.opt').forEach(function(el){
-    var idx=parseInt(el.getAttribute('data-i'));
-    if(idx===q.a)el.classList.add('ok');
-    else if(idx===i&&!ok)el.classList.add('no');
-  });
-  var fb=document.getElementById('qFb');
-  if(fb){fb.textContent=ok?tr('fb_ok'):tr('fb_no');fb.className='q-fb '+(ok?'ok':'no');}
-  var nxt=document.getElementById('btnNext');if(nxt)nxt.disabled=false;
-}
-
-function nextQ(){
-  ST.qi++;
-  if(ST.qi>=TESTS[ST.type].qs.length)finishTest();
-  else{ST.answered=false;renderQ();}
-}
-
-function finishTest(){
-  clearInterval(ST.tmr);setPB(100);
-  var test=TESTS[ST.type];
-  var total=test.qs.length;
-  var score=ST.correct;
-  var pct=Math.round(score/total*100);
-  var level,label,desc,iconBg,color,waMsg;
-
-  if(ST.type==='ielts'){
-    var band=pct<30?4.0:pct<45?4.5:pct<55?5.0:pct<65?5.5:pct<75?6.0:pct<83?6.5:pct<92?7.0:7.5;
-    level=band.toFixed(1);label=tr('res_lbl_ielts');
-    desc=band<5?'Рекомендуем начать с базовой подготовки. Интенсивный курс поднимет балл на 1.0–1.5 за 3 месяца.'
-        :band<6?'Хорошая база. 3–4 месяца интенсива — и 6.5+ достижим.'
-        :band<7?'Уверенный уровень. Фокус на Writing и Speaking — и 7.0+ гарантирован.'
-        :'Отличный результат! Готов к Academic IELTS на высокий балл.';
-    iconBg='#EFF4FF';color='#2563EB';
-    waMsg=fmt(tr('wa_ielts'),{name:_cName||'Student',phone:_cPhone||'',level:band,pct:pct});
-
-  } else if(ST.type==='sat'){
-    var sat=Math.round(800+pct/100*800);
-    level=sat;label=tr('res_lbl_sat');
-    desc=sat<1000?'Рекомендуем интенсивную подготовку от основ. 4–5 месяцев.'
-        :sat<1200?'Средний уровень. Фокус на Math + Critical Reading.'
-        :sat<1350?'Хороший результат! 2–3 месяца доведут до 1400+.'
-        :'Отличный Score! Топ-вузы в досягаемости.';
-    iconBg='#F5F3FF';color='#6D28D9';
-    waMsg=fmt(tr('wa_sat'),{name:_cName||'Student',phone:_cPhone||'',level:sat,pct:pct});
-
-  } else {
-    var lvlMap=[[20,'A1'],[35,'A2'],[50,'B1'],[65,'B2'],[80,'C1'],[101,'C2']];
-    var lvl='A1';
-    for(var k=0;k<lvlMap.length;k++){if(pct<lvlMap[k][0]){lvl=lvlMap[k][1];break;}}
-    var descs={A1:'Начальный уровень. Рекомендуем курс General English: группа A1.',A2:'Базовые знания. Подойдёт A2 или Elementary группа.',B1:'Независимый пользователь. Intermediate + Speaking Club.',B2:'Уверенный уровень. Upper-Intermediate + подготовка к IELTS.',C1:'Продвинутый. Advanced / Business English / IELTS Academic.',C2:'Превосходный уровень! Практически носитель.'};
-    level=lvl;label=tr('res_lbl_eng');desc=descs[lvl];
-    iconBg='#F0FDF4';color='#00A060';
-    waMsg=fmt(tr('wa_eng'),{name:_cName||'Student',phone:_cPhone||'',level:lvl,pct:pct});
-  }
-
-  var icon=document.getElementById('rIcon');
-  var rLvl=document.getElementById('rLvl');
-  var rLbl=document.getElementById('rLbl');
-  var rDesc=document.getElementById('rDesc');
-  var rSts=document.getElementById('rStats');
-  var rCTA=document.getElementById('rCTA');
-
-  if(icon){icon.textContent=test.icon;icon.style.background=iconBg;}
-  if(rLvl){rLvl.textContent=level;rLvl.style.color=color;}
-  if(rLbl)rLbl.textContent=label;
-  if(rDesc)rDesc.textContent=desc;
-  if(rSts)rSts.innerHTML=
-    '<div class="rs"><div class="rs-n" style="color:'+color+'">'+score+'</div><div class="rs-l">'+tr('stat_correct')+'</div></div>'+
-    '<div class="rs"><div class="rs-n">'+(total-score)+'</div><div class="rs-l">'+tr('stat_wrong')+'</div></div>'+
-    '<div class="rs"><div class="rs-n">'+pct+'%</div><div class="rs-l">'+tr('stat_accuracy')+'</div></div>';
-  if(rCTA)rCTA.href='https://wa.me/77718080828?text='+encodeURIComponent(waMsg);
-
-  // Save result + lead to API (KV)
-  (async function(){
-    try{
-      await fetch('/api/test-results', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name:_cName||'',phone:_cPhone||'',test_type:ST.type,test_name:test.name,score:score,total:total,level:String(level)})
-      });
-    }catch(e){
-      try{var res=JSON.parse(localStorage.getItem('gsc_test_results')||'[]');res.unshift({type:ST.type,typeName:test.name,name:_cName||'',phone:_cPhone||'',score:score,total:total,level:String(level),date:new Date().toLocaleDateString(dateLocale())});localStorage.setItem('gsc_test_results',JSON.stringify(res));}catch(e2){}
-    }
-    if(_cPhone){
-      try{
-        await fetch('/api/leads', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({name:_cName||'',phone:_cPhone,course:'Тест: '+test.name+' → '+String(level),source:'Тест уровня'})
-        });
-      }catch(e){}
-    }
-  })();
-
-  show('scrR');
-}
-
-function resetTest(){
-  clearInterval(ST.tmr);
-  ST={type:null,qi:0,correct:0,tmr:null,tl:0,answered:false};
-  setPB(0);
-  show('scrSel');
-}
-
-/* Nav scroll */
-var _sp=document.getElementById('sp');
-var _nav=document.getElementById('nav');
-window.addEventListener('scroll',function(){
-  var t=document.body.scrollHeight-window.innerHeight;
-  if(_sp)_sp.style.width=t>0?(window.scrollY/t*100)+'%':'0';
-  if(_nav)_nav.classList.toggle('scrolled',window.scrollY>40);
-},{passive:true});
-
-// ── Hash-based auto-start ──────────────────────────────────
-(function() {
-  var validTests = ['ielts','sat','english','kids'];
-  function handleHash(){
-    var h = window.location.hash.replace('#','').toLowerCase().trim();
-    if(h==='kids') h='english';
-    if (validTests.indexOf(window.location.hash.replace('#','').toLowerCase().trim()) !== -1) startTest(h);
-    else resetTest();
-  }
-  handleHash();
-  window.addEventListener('hashchange', handleHash);
-})();
-</script>
-
-<div class="cmod-overlay" id="contactModal" onclick="if(event.target===this){this.classList.remove('cmod-on');document.body.style.overflow=''}">
-  <div class="cmod-box">
-    <div class="cmod-badge" id="cBadge">📝 IELTS</div>
-    <div class="cmod-h">Куда отправить результат?</div>
-    <div class="cmod-sub">Оставь контакт — отправим результат и рекомендации по курсу.</div>
-    <div class="cmod-field">
-      <label class="cmod-lbl">Твоё имя</label>
-      <input class="cmod-inp" id="cName" type="text" placeholder="Алибек" autocomplete="given-name"/>
-    </div>
-    <div class="cmod-field">
-      <label class="cmod-lbl">WhatsApp / Телефон</label>
-      <input class="cmod-inp" id="cPhone" type="tel" placeholder="+7 700 000 00 00"/>
-    </div>
-    <div class="cmod-err" id="cErr">Введите имя и номер телефона</div>
-    <button class="cmod-btn" id="cStartBtn" onclick="contactGo()">Начать тест →</button>
-    <div class="cmod-priv">🔒 Только для консультантов GSC Study</div>
-  </div>
-</div>
-
-<style>
-/* Lead modal (tests page) */
-.lead-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999}
-.lead-modal.on{display:flex}
-.lead-ov{position:absolute;inset:0;background:rgba(10,10,14,.55);backdrop-filter:blur(6px)}
-.lead-box{position:relative;max-width:520px;width:min(520px,calc(100vw - 32px));background:#FAFAF8;border-radius:24px;padding:28px 26px;box-shadow:0 20px 60px rgba(0,0,0,.25);border:1px solid rgba(14,14,20,.08)}
-.lead-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
-.lead-h{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin:0}
-.lead-x{width:34px;height:34px;border-radius:10px;border:1px solid rgba(14,14,20,.12);background:#fff;cursor:pointer;font-weight:900}
-.lead-sub{color:rgba(14,14,20,.6);font-size:13px;line-height:1.5;margin:0 0 16px}
-.lead-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:520px){.lead-row{grid-template-columns:1fr}}
-.lead-f{margin-bottom:10px}
-.lead-l{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:rgba(14,14,20,.55);margin:0 0 5px}
-.lead-i{width:100%;padding:11px 12px;border:2px solid rgba(14,14,20,.14);border-radius:12px;font-size:15px;outline:none;background:#fff;font-family:'DM Sans',sans-serif}
-.lead-i:focus{border-color:var(--blue,#2563EB)}
-.lead-err{display:none;color:#EF4444;font-size:12px;margin:8px 0 0}
-.lead-btn{width:100%;margin-top:12px;padding:13px 16px;border-radius:999px;border:0;background:var(--blue,#2563EB);color:#fff;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif}
-.lead-priv{margin-top:10px;color:rgba(14,14,20,.45);font-size:11px;line-height:1.4;text-align:center}
-</style>
-<div class="lead-modal" id="leadModal" aria-hidden="true">
-  <div class="lead-ov" data-lead-close></div>
-  <div class="lead-box" role="dialog" aria-modal="true" aria-label="Заявка">
-    <div class="lead-head">
-      <div class="lead-top">
-        <h3 class="lead-h" id="leadTitle">Оставить заявку</h3>
-        <button class="lead-x" type="button" data-lead-close>✕</button>
-      </div>
-      <p class="lead-sub" id="leadSub">Оставь контакты — мы подберём программу и свяжемся в ближайшее время.</p>
-    </div>
-    <div class="lead-body">
-    <form id="leadForm">
-      <div class="lead-row">
-        <div class="lead-f">
-          <label class="lead-l">Имя</label>
-          <input class="lead-i" name="name" placeholder="Например: Дамир" autocomplete="name" required>
-        </div>
-        <div class="lead-f">
-          <label class="lead-l">Город</label>
-          <input class="lead-i" name="city" placeholder="Астана / Алматы" autocomplete="address-level2" required>
-        </div>
-      </div>
-      <div class="lead-row">
-        <div class="lead-f">
-          <label class="lead-l">Телефон</label>
-          <input class="lead-i" name="phone" placeholder="+7 ___ ___ __ __" autocomplete="tel" required>
-        </div>
-        <div class="lead-f">
-          <label class="lead-l">Email (необязательно)</label>
-          <input class="lead-i" name="email" placeholder="name@example.com" autocomplete="email">
-        </div>
-      </div>
-      <input type="hidden" name="source" id="leadSource">
-      <input type="hidden" name="product" id="leadProduct">
-      <div class="lead-err" id="leadErr"></div>
-      <button class="lead-btn" type="submit" id="leadSubmit">Отправить →</button>
-      <div class="lead-priv">Нажимая «Отправить», ты соглашаешься на обработку персональных данных.</div>
-    </form>
-    </div>
-  </div>
-</div>
-<script>
+// Restore saved lang
 (function(){
-  var modal=document.getElementById('leadModal');
-  if(!modal) return;
-  var form=document.getElementById('leadForm');
-  var err=document.getElementById('leadErr');
-  var srcInp=document.getElementById('leadSource');
-  var prodInp=document.getElementById('leadProduct');
-  var titleEl=document.getElementById('leadTitle');
-  var submitBtn=document.getElementById('leadSubmit');
-  var lastFocus=null;
-
-  function openLead(product, source){
-    lastFocus=document.activeElement;
-    srcInp.value=source||'Сайт';
-    prodInp.value=product||'';
-    if(titleEl){
-      titleEl.textContent = product ? ('Оставить заявку — ' + product) : 'Оставить заявку';
-    }
-    err.style.display='none'; err.textContent='';
-    modal.classList.add('on'); modal.setAttribute('aria-hidden','false');
-    document.body.classList.add('mob-open'); /* reuse existing overflow lock */
-    setTimeout(function(){
-      var first=form.querySelector('input[name="name"]'); first && first.focus();
-    },0);
-  }
-  function closeLead(){
-    modal.classList.remove('on'); modal.setAttribute('aria-hidden','true');
-    document.body.classList.remove('mob-open');
-    if(lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-
-  modal.addEventListener('click', function(e){
-    if(e.target && e.target.hasAttribute('data-lead-close')) closeLead();
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key==='Escape' && modal.classList.contains('on')) closeLead();
-  });
-
-  function cleanPhone(p){return (p||'').toString().replace(/[^\d+]/g,'').trim();}
-  function isEmail(v){return !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
-
-  function getUtm(){
-    try{
-      var u=new URL(location.href);
-      var keys=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-      var out=[];
-      keys.forEach(function(k){var v=u.searchParams.get(k); if(v) out.push(k+'='+v);});
-      return out.join('&');
-    }catch(e){return '';}
-  }
-
-  async function sendLeadToApi(lead){
-    var res=await fetch('/api/leads', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)});
-    var json=null;
-    try{json=await res.json();}catch(e){}
-    if(!res.ok || !json || !json.ok) throw new Error((json&&json.error)||('http_'+res.status));
-    return json;
-  }
-
-  function queueLocal(lead){
-    try{
-      var k='gsc_leads_queue';
-      var arr=JSON.parse(localStorage.getItem(k)||'[]');
-      arr.unshift(lead);
-      localStorage.setItem(k, JSON.stringify(arr.slice(0,200)));
-    }catch(e){}
-  }
-
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    var fd=new FormData(form);
-    var lead={
-      name:(fd.get('name')||'').toString().trim(),
-      city:(fd.get('city')||'').toString().trim(),
-      phone:cleanPhone(fd.get('phone')),
-      email:(fd.get('email')||'').toString().trim(),
-      source:(fd.get('source')||'').toString().trim()||'Сайт',
-      product:(fd.get('product')||'').toString().trim(),
-      page:location.pathname + location.hash,
-      utm:getUtm(),
-      created_at:new Date().toISOString()
-    };
-    if(!lead.name || !lead.city || !lead.phone){
-      err.textContent='Заполни: имя, город и телефон.'; err.style.display='block'; return;
-    }
-    if(!isEmail(lead.email)){
-      err.textContent='Проверь email (или оставь пустым).'; err.style.display='block'; return;
-    }
-    submitBtn.disabled=true; submitBtn.textContent='Отправляем...';
-    queueLocal(lead);
-    try{
-      var resp = await sendLeadToApi(lead);
-      try{
-        if(window._LEAD_AFTER_SUCCESS) window._LEAD_AFTER_SUCCESS(lead, resp);
-      }catch(e2){}
-      submitBtn.textContent='Отправлено ✓';
-      setTimeout(function(){closeLead(); submitBtn.disabled=false; submitBtn.textContent='Отправить →'; form.reset();},700);
-    }catch(ex){
-      err.textContent='Не удалось отправить. Заявка сохранена на устройстве, попробуй позже.'; err.style.display='block';
-      submitBtn.disabled=false; submitBtn.textContent='Отправить →';
-    }
-  });
-
-  function shouldOpenFor(el){
-    if(!el) return false;
-    if(el.closest && el.closest('a[href^="tel:"],a[href^="mailto:"],a[href^="https://wa.me"],a[target="_blank"][href*="wa.me"]')) return false;
-    if(el.closest && el.closest('.nav-cta,.pc-card,.pc-cta,.quiz-btn-p,.quiz-btn-s,.split-cta,.cta-btn-p,.cta-btn-s')) return true;
-    var t=(el.textContent||'').trim().toLowerCase();
-    return /запис|заявк|консультац|заброни|подать/.test(t);
-  }
-
-  document.addEventListener('click', function(e){
-    var el=e.target;
-    if(!shouldOpenFor(el)) return;
-    var a=el.closest && el.closest('a'); if(a) e.preventDefault();
-    var card=el.closest && el.closest('.pc-card,.test-card'); 
-    var source='Сайт';
-    var product='';
-    if(card){
-      var t=(card.querySelector && card.querySelector('.pc-title'))?card.querySelector('.pc-title').textContent:'';
-      product=(t||card.textContent||'').trim().split('\n').join(' ').slice(0,120);
-      source='Промо / Программа';
-    } else if(el.closest && el.closest('.split-cta')){
-      product=(el.closest('.split-cta').textContent||'').trim().replace(/\s+/g,' ').slice(0,120);
-      source='Лендинг';
-    } else if(el.closest && el.closest('.nav-cta')){
-      product='Консультация';
-      source='Навигация';
-    } else {
-      product=(el.textContent||'').trim().replace(/\s+/g,' ').slice(0,120);
-    }
-    openLead(product, source);
-  }, true);
+  const saved=localStorage.getItem('gsc_lang');
+  if(saved) setLang(saved);
 })();
 </script>
-
 </body>
 </html>

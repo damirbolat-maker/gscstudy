@@ -2,6 +2,40 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8"/>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1457605725212021');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1457605725212021&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- Meta Pixel Code 2 -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4391523404460151');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code 2 -->
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>GSC Study — IELTS, SAT, Английский и поступление за рубеж | Астана, Алматы</title>
 <meta name="description" content="GSC Study — 15 лет. IELTS, SAT, курсы английского, поступление в UK, Германию, Канаду. British Council. 4 офиса в Казахстане."/>
@@ -854,6 +888,7 @@ a{text-decoration:none;color:inherit}
   50%{transform:scale(1.08)}
 }
 </style>
+<link rel="stylesheet" href="css/lead-form.css">
 </head>
 <body>
 
@@ -881,7 +916,7 @@ a{text-decoration:none;color:inherit}
         <button class="lang-btn" onclick="setLang('kz')" data-lang="kz">KZ</button>
         <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
       </div>
-      <a href="#quiz" class="nav-cta" data-i18n="nav_cta">Консультация</a>
+      <a href="#quiz" class="nav-cta" data-lead="nav" data-product="Консультация" data-i18n="nav_cta">Консультация</a>
     </div>
     <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню">
       <span></span><span></span><span></span>
@@ -1697,117 +1732,98 @@ function startTest(type){
 })();</script>
 
 <script>
-/* ══ GSC CMS LOADER v2 — syncs admin localStorage to frontend ══ */
+/* ══ GSC CMS LOADER v3 — reads from Supabase via GSC.* ══ */
 (function(){
-  var PFX='gsc_';
-  function L(k,d){try{var v=localStorage.getItem(PFX+k);return v!==null?JSON.parse(v):d;}catch(e){return d;}}
-  function S(k,v){try{localStorage.setItem(PFX+k, JSON.stringify(v));}catch(e){}}
-  async function pull(k){
-    try{
-      var r=await fetch('/api/data?key='+encodeURIComponent(k));
-      if(!r.ok) return;
-      var j=await r.json().catch(function(){return null;});
-      if(!j || !('value' in j) || j.value==null) return;
-      S(k, j.value);
-    }catch(e){}
-  }
-
   document.addEventListener('DOMContentLoaded',function(){
+    if(!window.GSC) return;
     (async function(){
-      // Pull latest admin data from KV (no auth required for GET)
-      await Promise.all([
-        pull('content'),
-        pull('offices'),
-        pull('google_reviews'),
-        pull('promo_slides'),
-        pull('images'),
-        pull('cfg'),
-        pull('integrations')
-      ]);
-    })().finally(function(){
-    var C = L('content',{});
+      try{
+        var results = await Promise.allSettled([
+          GSC.getCms('content'),
+          GSC.getOffices(),
+          GSC.getReviews(),
+          GSC.getPromos(),
+          GSC.getCms('images')
+        ]);
+        var C = (results[0].status==='fulfilled' && results[0].value) || {};
+        var offices = (results[1].status==='fulfilled' && results[1].value) || [];
+        var reviews = (results[2].status==='fulfilled' && results[2].value) || [];
+        var promos = (results[3].status==='fulfilled' && results[3].value) || [];
+        var imgs = (results[4].status==='fulfilled' && results[4].value) || {};
 
-    /* ── OFFICES ── */
-    var offices = L('offices', null);
-    var og = document.querySelector('.offices-grid');
-    if(og && offices && offices.length){
-      og.innerHTML = offices.map(function(o){
-        return '<div class="office-card'+(o.main?' office-main':'')+'"><div class="office-city">'+o.city+'</div><div class="office-name">'+o.name+'</div><div class="office-addr">📍 '+o.addr+'</div><div class="office-hrs">'+o.hrs+'</div></div>';
-      }).join('');
-    }
+        /* ── OFFICES ── */
+        var og = document.querySelector('.offices-grid');
+        if(og && offices.length){
+          og.innerHTML = offices.map(function(o){
+            return '<div class="office-card'+(o.main?' office-main':'')+'"><div class="office-city">'+o.city+'</div><div class="office-name">'+o.name+'</div><div class="office-addr">\ud83d\udccd '+o.addr+'</div><div class="office-hrs">'+o.hrs+'</div></div>';
+          }).join('');
+        }
 
-    /* ── REVIEWS ── */
-    var reviews = L('google_reviews', null);
-    var rg = document.getElementById('reviews-grid');
-    if(rg && reviews && reviews.length){
-      rg.innerHTML = reviews.map(function(r){
-        return '<div class="review-card"><div class="rv-head"><div class="rv-av" style="background:'+r.color+'">'+r.avatar+'</div><div><div class="rv-name">'+r.name+'</div><div class="rv-date">'+r.date+'</div></div></div><div class="rv-stars">★★★★★</div><p class="rv-text">'+r.text+'</p>'+(r.badge?'<div class="rv-badge">'+r.badge+'</div>':'')+'</div>';
-      }).join('');
-    }
+        /* ── REVIEWS ── */
+        var rg = document.getElementById('reviews-grid');
+        if(rg && reviews.length){
+          rg.innerHTML = reviews.map(function(r){
+            return '<div class="review-card"><div class="rv-head"><div class="rv-av" style="background:'+r.color+'">'+r.avatar+'</div><div><div class="rv-name">'+r.name+'</div><div class="rv-date">'+r.date+'</div></div></div><div class="rv-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="rv-text">'+r.text+'</p>'+(r.badge?'<div class="rv-badge">'+r.badge+'</div>':'')+'</div>';
+          }).join('');
+        }
 
-    /* ── PROMO SLIDES (pt element) ── */
-    var promos = L('promo_slides', null);
-    var pt = document.getElementById('pt');
-    if(pt && promos && promos.length){
-      pt.innerHTML = promos.map(function(p,i){
-        return '<div class="promo-slide'+(i===0?' active':'')+'" data-idx="'+i+'"><div class="ps-tag">'+p.tag+'</div><div class="ps-title">'+p.title+'</div><div class="ps-sub">'+p.sub+'</div></div>';
-      }).join('');
-      if(window._reinitPromoSlider) window._reinitPromoSlider();
-    }
+        /* ── PROMO SLIDES (pt element) ── */
+        var pt = document.getElementById('pt');
+        if(pt && promos.length){
+          pt.innerHTML = promos.map(function(p,i){
+            return '<div class="promo-slide'+(i===0?' active':'')+'" data-idx="'+i+'"><div class="ps-tag">'+p.tag+'</div><div class="ps-title">'+p.title+'</div><div class="ps-sub">'+p.sub+'</div></div>';
+          }).join('');
+          if(window._reinitPromoSlider) window._reinitPromoSlider();
+        }
 
-    /* ── TYPING PHRASES (index.html hero) ── */
-    if(C.phrases && C.phrases.length){
-      window._PHRASES = C.phrases.slice();
-      if(window._restartHeroTyping) window._restartHeroTyping();
-    }
+        /* ── TYPING PHRASES (index.html hero) ── */
+        if(C.phrases && C.phrases.length){
+          window._PHRASES = C.phrases.slice();
+          if(window._restartHeroTyping) window._restartHeroTyping();
+        }
 
-    /* ── TEXT CONTENT ── */
-    // Split section heading
-    var sh = document.querySelector('.split-h');
-    if(sh && C.split_h) sh.innerHTML = C.split_h;
-    var sp = document.querySelector('.split-p, .split-sub');
-    if(sp && C.split_sub) sp.textContent = C.split_sub;
+        /* ── TEXT CONTENT ── */
+        var sh = document.querySelector('.split-h');
+        if(sh && C.split_h) sh.innerHTML = C.split_h;
+        var sp = document.querySelector('.split-p, .split-sub');
+        if(sp && C.split_sub) sp.textContent = C.split_sub;
 
-    // Abroad hero
-    var ah = document.querySelector('.page-hero-h');
-    var as = document.querySelector('.page-hero-sub');
-    if(window.location.pathname.indexOf('abroad')>-1){
-      if(ah && C.abroad_h) ah.innerHTML = C.abroad_h;
-      if(as && C.abroad_sub) as.textContent = C.abroad_sub;
-    }
+        var ah = document.querySelector('.page-hero-h');
+        var as2 = document.querySelector('.page-hero-sub');
+        if(window.location.pathname.indexOf('abroad')>-1){
+          if(ah && C.abroad_h) ah.innerHTML = C.abroad_h;
+          if(as2 && C.abroad_sub) as2.textContent = C.abroad_sub;
+        }
+        if(window.location.pathname.indexOf('courses')>-1){
+          if(ah && C.courses_h) ah.innerHTML = C.courses_h;
+          if(as2 && C.courses_sub) as2.textContent = C.courses_sub;
+        }
 
-    // Courses hero
-    if(window.location.pathname.indexOf('courses')>-1){
-      if(ah && C.courses_h) ah.innerHTML = C.courses_h;
-      if(as && C.courses_sub) as.textContent = C.courses_sub;
-    }
+        /* ── CONTACTS ── */
+        if(C.phone){
+          document.querySelectorAll('a[href^="tel:"]').forEach(function(a){
+            var num=C.phone.replace(/[^\d+]/g,'');
+            a.href='tel:'+num; a.textContent=C.phone;
+          });
+        }
+        if(C.email){
+          document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
+            a.href='mailto:'+C.email; a.textContent=C.email;
+          });
+        }
+        if(C.wa_phone){
+          document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){
+            a.href=a.href.replace(/wa\.me\/\d+/,'wa.me/'+C.wa_phone.replace(/[^\d]/g,''));
+          });
+        }
 
-    /* ── CONTACTS ── */
-    if(C.phone){
-      document.querySelectorAll('a[href^="tel:"]').forEach(function(a){
-        var num=C.phone.replace(/[^\d+]/g,'');
-        a.href='tel:'+num; a.textContent=C.phone;
-      });
-    }
-    if(C.email){
-      document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
-        a.href='mailto:'+C.email; a.textContent=C.email;
-      });
-    }
-    if(C.wa_phone){
-      document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){
-        a.href=a.href.replace(/wa\.me\/\d+/,'wa.me/'+C.wa_phone.replace(/[^\d]/g,''));
-      });
-    }
-
-    /* ── HERO IMAGE ── */
-    var imgs=L('images',{});
-    if(imgs.hero){
-      var hi=document.querySelector('.hero-img,.hero-photo,.hero-bg-img');
-      if(hi){ if(hi.tagName==='IMG') hi.src=imgs.hero; else hi.style.backgroundImage='url('+imgs.hero+')';}
-    }
-
-  });
+        /* ── HERO IMAGE ── */
+        if(imgs.hero){
+          var hi=document.querySelector('.hero-img,.hero-photo,.hero-bg-img');
+          if(hi){ if(hi.tagName==='IMG') hi.src=imgs.hero; else hi.style.backgroundImage='url('+imgs.hero+')';}
+        }
+      }catch(e){ console.warn('CMS loader error:', e); }
+    })();
   });
 })();
 </script>
@@ -1824,228 +1840,8 @@ function startTest(type){
   }, true);
 })();
 </script>
-<style>
-/* Lead modal (shared) */
-.lead-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999}
-.lead-modal.on{display:flex}
-.lead-ov{position:absolute;inset:0;background:rgba(10,10,14,.55);backdrop-filter:blur(10px)}
-.lead-box{
-  position:relative;max-width:560px;width:min(560px,calc(100vw - 32px));
-  background:linear-gradient(180deg,#FFFFFF 0%, #FAFAF8 100%);
-  border-radius:28px;
-  box-shadow:0 26px 80px rgba(0,0,0,.28);
-  border:1px solid rgba(14,14,20,.08);
-  overflow:hidden;
-  animation:leadIn .26s var(--spring) both
-}
-@keyframes leadIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
-.lead-head{
-  padding:18px 22px 14px;
-  background:linear-gradient(135deg, rgba(37,99,235,.10) 0%, rgba(200,255,0,.16) 100%);
-  border-bottom:1px solid rgba(14,14,20,.06)
-}
-.lead-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
-.lead-h{font-family:'Manrope',sans-serif;font-size:20px;font-weight:800;margin:0;letter-spacing:-.02em}
-.lead-x{width:36px;height:36px;border-radius:12px;border:1px solid rgba(14,14,20,.10);background:rgba(255,255,255,.7);cursor:pointer;font-weight:900}
-.lead-x:hover{background:#fff}
-.lead-sub{color:rgba(14,14,20,.62);font-size:13px;line-height:1.55;margin:0}
-.lead-body{padding:18px 22px 22px}
-.lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.lead-row{grid-template-columns:1fr}}
-.lead-f{margin-bottom:10px}
-.lead-l{display:block;font-size:10px;font-weight:900;letter-spacing:.10em;text-transform:uppercase;color:rgba(14,14,20,.52);margin:0 0 6px}
-.lead-i{
-  width:100%;padding:12px 12px;border:2px solid rgba(14,14,20,.12);
-  border-radius:14px;font-size:15px;outline:none;background:#fff;
-  transition:border-color .18s, box-shadow .18s
-}
-.lead-i:focus{border-color:var(--blue,#2563EB);box-shadow:0 0 0 4px rgba(37,99,235,.10)}
-.lead-err{display:none;color:#EF4444;font-size:12px;margin:10px 0 0}
-.lead-btn{
-  width:100%;margin-top:12px;padding:14px 16px;border-radius:999px;border:0;
-  background:linear-gradient(135deg,var(--blue,#2563EB),#6D28D9);
-  color:#fff;font-weight:900;cursor:pointer;transition:transform .18s var(--spring), box-shadow .18s
-}
-.lead-btn:hover{transform:translateY(-1px) scale(1.01);box-shadow:0 14px 34px rgba(37,99,235,.28)}
-.lead-priv{margin-top:10px;color:rgba(14,14,20,.45);font-size:11px;line-height:1.45;text-align:center}
-</style>
-<div class="lead-modal" id="leadModal" aria-hidden="true">
-  <div class="lead-ov" data-lead-close></div>
-  <div class="lead-box" role="dialog" aria-modal="true" aria-label="Заявка">
-    <div class="lead-head">
-      <div class="lead-top">
-        <h3 class="lead-h" id="leadTitle">Оставить заявку</h3>
-        <button class="lead-x" type="button" data-lead-close>✕</button>
-      </div>
-      <p class="lead-sub" id="leadSub">Оставь контакты — мы подберём программу и свяжемся в ближайшее время.</p>
-    </div>
-    <div class="lead-body">
-    <form id="leadForm">
-      <div class="lead-row">
-        <div class="lead-f">
-          <label class="lead-l">Имя</label>
-          <input class="lead-i" name="name" placeholder="Например: Дамир" autocomplete="name" required>
-        </div>
-        <div class="lead-f">
-          <label class="lead-l">Город</label>
-          <input class="lead-i" name="city" placeholder="Астана / Алматы" autocomplete="address-level2" required>
-        </div>
-      </div>
-      <div class="lead-row">
-        <div class="lead-f">
-          <label class="lead-l">Телефон</label>
-          <input class="lead-i" name="phone" placeholder="+7 ___ ___ __ __" autocomplete="tel" required>
-        </div>
-        <div class="lead-f">
-          <label class="lead-l">Email (необязательно)</label>
-          <input class="lead-i" name="email" placeholder="name@example.com" autocomplete="email">
-        </div>
-      </div>
-      <input type="hidden" name="source" id="leadSource">
-      <input type="hidden" name="product" id="leadProduct">
-      <div class="lead-err" id="leadErr"></div>
-      <button class="lead-btn" type="submit" id="leadSubmit">Отправить →</button>
-      <div class="lead-priv">Нажимая «Отправить», ты соглашаешься на обработку персональных данных.</div>
-    </form>
-    </div>
-  </div>
-</div>
-<script>
-(function(){
-  var modal=document.getElementById('leadModal');
-  if(!modal) return;
-  var form=document.getElementById('leadForm');
-  var err=document.getElementById('leadErr');
-  var srcInp=document.getElementById('leadSource');
-  var prodInp=document.getElementById('leadProduct');
-  var titleEl=document.getElementById('leadTitle');
-  var submitBtn=document.getElementById('leadSubmit');
-  var lastFocus=null;
-
-  function openLead(product, source){
-    lastFocus=document.activeElement;
-    srcInp.value=source||'Сайт';
-    prodInp.value=product||'';
-    if(titleEl){
-      titleEl.textContent = product ? ('Оставить заявку — ' + product) : 'Оставить заявку';
-    }
-    err.style.display='none'; err.textContent='';
-    modal.classList.add('on'); modal.setAttribute('aria-hidden','false');
-    document.body.classList.add('mob-open'); /* reuse existing overflow lock */
-    setTimeout(function(){
-      var first=form.querySelector('input[name="name"]'); first && first.focus();
-    },0);
-  }
-  function closeLead(){
-    modal.classList.remove('on'); modal.setAttribute('aria-hidden','true');
-    document.body.classList.remove('mob-open');
-    if(lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-
-  modal.addEventListener('click', function(e){
-    if(e.target && e.target.hasAttribute('data-lead-close')) closeLead();
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key==='Escape' && modal.classList.contains('on')) closeLead();
-  });
-
-  function cleanPhone(p){return (p||'').toString().replace(/[^\d+]/g,'').trim();}
-  function isEmail(v){return !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
-
-  function getUtm(){
-    try{
-      var u=new URL(location.href);
-      var keys=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-      var out=[];
-      keys.forEach(function(k){var v=u.searchParams.get(k); if(v) out.push(k+'='+v);});
-      return out.join('&');
-    }catch(e){return '';}
-  }
-
-  async function sendLeadToApi(lead){
-    var res=await fetch('/api/leads', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)});
-    var json=null;
-    try{json=await res.json();}catch(e){}
-    if(!res.ok || !json || !json.ok) throw new Error((json&&json.error)||('http_'+res.status));
-    return json;
-  }
-
-  function queueLocal(lead){
-    try{
-      var k='gsc_leads_queue';
-      var arr=JSON.parse(localStorage.getItem(k)||'[]');
-      arr.unshift(lead);
-      localStorage.setItem(k, JSON.stringify(arr.slice(0,200)));
-    }catch(e){}
-  }
-
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    var fd=new FormData(form);
-    var lead={
-      name:(fd.get('name')||'').toString().trim(),
-      city:(fd.get('city')||'').toString().trim(),
-      phone:cleanPhone(fd.get('phone')),
-      email:(fd.get('email')||'').toString().trim(),
-      source:(fd.get('source')||'').toString().trim()||'Сайт',
-      product:(fd.get('product')||'').toString().trim(),
-      page:location.pathname + location.hash,
-      utm:getUtm(),
-      created_at:new Date().toISOString()
-    };
-    if(!lead.name || !lead.city || !lead.phone){
-      err.textContent='Заполни: имя, город и телефон.'; err.style.display='block'; return;
-    }
-    if(!isEmail(lead.email)){
-      err.textContent='Проверь email (или оставь пустым).'; err.style.display='block'; return;
-    }
-    submitBtn.disabled=true; submitBtn.textContent='Отправляем...';
-    queueLocal(lead);
-    try{
-      var resp = await sendLeadToApi(lead);
-      try{
-        if(window._LEAD_AFTER_SUCCESS) window._LEAD_AFTER_SUCCESS(lead, resp);
-      }catch(e2){}
-      submitBtn.textContent='Отправлено ✓';
-      setTimeout(function(){closeLead(); submitBtn.disabled=false; submitBtn.textContent='Отправить →'; form.reset();},700);
-    }catch(ex){
-      err.textContent='Не удалось отправить. Заявка сохранена на устройстве, попробуй позже.'; err.style.display='block';
-      submitBtn.disabled=false; submitBtn.textContent='Отправить →';
-    }
-  });
-
-  function shouldOpenFor(el){
-    if(!el) return false;
-    if(el.closest && el.closest('a[href^="tel:"],a[href^="mailto:"],a[href^="https://wa.me"],a[target="_blank"][href*="wa.me"]')) return false;
-    if(el.closest && el.closest('.nav-cta,.pc-card,.pc-cta,.quiz-btn-p,.quiz-btn-s,.split-cta,.cta-btn-p,.cta-btn-s')) return true;
-    var t=(el.textContent||'').trim().toLowerCase();
-    return /запис|заявк|консультац|заброни|подать/.test(t);
-  }
-
-  document.addEventListener('click', function(e){
-    var el=e.target;
-    if(!shouldOpenFor(el)) return;
-    var a=el.closest && el.closest('a'); if(a) e.preventDefault();
-    var card=el.closest && el.closest('.pc-card,.test-card'); 
-    var source='Сайт';
-    var product='';
-    if(card){
-      var t=(card.querySelector && card.querySelector('.pc-title'))?card.querySelector('.pc-title').textContent:'';
-      product=(t||card.textContent||'').trim().split('\n').join(' ').slice(0,120);
-      source='Промо / Программа';
-    } else if(el.closest && el.closest('.split-cta')){
-      product=(el.closest('.split-cta').textContent||'').trim().replace(/\s+/g,' ').slice(0,120);
-      source='Лендинг';
-    } else if(el.closest && el.closest('.nav-cta')){
-      product='Консультация';
-      source='Навигация';
-    } else {
-      product=(el.textContent||'').trim().replace(/\s+/g,' ').slice(0,120);
-    }
-    openLead(product, source);
-  }, true);
-})();
-</script>
+<!-- Lead modal injected by js/lead-form.js -->
+<!-- Lead form logic handled by js/lead-form.js -->
 
 <!-- ═══════════════════ LANGUAGE TESTS (Lead modal + Engine + Results) ═══════════════════ -->
 <style>
@@ -2211,7 +2007,7 @@ function startTest(type){
       <h3 id="res-rec-t"></h3>
       <p id="res-rec-p"></p>
       <div class="res-ctas">
-        <button class="btn-gold" onclick="closeLangResults();try{openLead('Записаться на курс','Результат теста');}catch(e){window.location.href='https://wa.me/77718080828';}">📞 Записаться на курс</button>
+        <button class="btn-gold" onclick="closeLangResults();try{openLead('Результат теста','Записаться на курс');}catch(e){window.location.href='https://wa.me/77718080828';}">📞 Записаться на курс</button>
         <button class="btn-white" onclick="closeLangResults();">Ок</button>
       </div>
     </div>
@@ -2282,9 +2078,11 @@ Which is x?",type:'mc',opts:["2","3","4","5"],ans:1}
 
   async function sendLead(lead){
     try{
-      const res=await fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)});
-      const j=await res.json().catch(()=>null);
-      return !!(res.ok && j && j.ok);
+      if(window.GSC && GSC.addLead){
+        await GSC.addLead(lead);
+        return true;
+      }
+      return false;
     }catch(e){return false;}
   }
 
@@ -2883,7 +2681,7 @@ function submitQzLead(country){
   }
   // ▶ СЮДА: отправить лид в Bitrix24 / AmoCRM / Webhook
   // sendLead({name, phone, country, answers: qzState.answers, source: 'abroad_quiz'});
-  try{fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,phone,product:'Квиз: поступление · '+country,source:'Abroad Quiz',page:location.pathname+location.hash,answers:qzState.answers})});}catch(e){}
+  try{if(window.GSC&&GSC.addLead){GSC.addLead({name:name,phone:phone,product:'Квиз: поступление · '+country,source:'Abroad Quiz',page:location.pathname+location.hash});}}catch(e){}
   console.log('Quiz lead:',{name,phone,country,answers:qzState.answers});
   document.querySelector('.qz-lead-form').innerHTML=`
     <div style="text-align:center;padding:20px 0">
@@ -2914,5 +2712,8 @@ function spawnConfetti(){
 }
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/lead-form.js"></script>
 </body>
 </html>
