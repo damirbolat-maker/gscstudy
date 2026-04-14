@@ -336,7 +336,7 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
   <!-- Nav -->
   <nav class="nav">
     <div class="nav-inner">
-      <a class="logo" href="index.html"><img class="logo-img" src="logo.png" alt="GSC Study"></a>
+      <a class="logo" href="index.html"><div style="width:40px;height:40px;border-radius:10px;background:#2563EB;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff">G</div><span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--ink)">GSC Study</span></a>
       <div class="nav-badge" id="navBadge" style="background:var(--blue)">TEST</div>
       <div class="nav-timer" id="navTimer"></div>
     </div>
@@ -363,6 +363,21 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
       <div class="q-actions">
         <div class="q-fb" id="qFb"></div>
         <button class="btn-next" id="btnNext" disabled>Далее &rsaquo;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact gate screen (before showing results) -->
+  <div class="r-screen" id="scrGate">
+    <div class="r-wrap">
+      <div class="r-card" style="text-align:center">
+        <div style="font-size:48px;margin-bottom:12px">🎓</div>
+        <div style="font-family:var(--fd);font-size:24px;font-weight:800;margin-bottom:8px">Тест завершён!</div>
+        <p style="font-size:15px;color:var(--muted);margin-bottom:24px;line-height:1.6">Оставьте контакт, чтобы узнать свой результат.<br>Наш эксперт также пришлёт персональные рекомендации.</p>
+        <input type="text" id="gateName" placeholder="Ваше имя *" style="width:100%;padding:13px 16px;border:2px solid var(--border2);border-radius:12px;font-size:15px;margin-bottom:10px;font-family:var(--f)">
+        <input type="tel" id="gatePhone" placeholder="+7 ___ ___ __ __" style="width:100%;padding:13px 16px;border:2px solid var(--border2);border-radius:12px;font-size:15px;margin-bottom:14px;font-family:var(--f)">
+        <button id="gateBtn" style="width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--f);transition:.2s var(--spring)">Узнать результат →</button>
+        <p id="gateErr" style="font-size:13px;color:var(--red);margin-top:8px"></p>
       </div>
     </div>
   </div>
@@ -643,9 +658,12 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
         if (i === idx && !isCorrect) el.classList.add('no');
       });
 
-      // Feedback
-      $qFb.textContent = isCorrect ? 'Верно!' : 'Неверно';
+      // Feedback with animation
+      $qFb.textContent = isCorrect ? '✓ Верно!' : '✗ Неверно';
       $qFb.className = 'q-fb ' + (isCorrect ? 'ok' : 'no');
+      $qFb.style.animation = 'none';
+      $qFb.offsetHeight;
+      $qFb.style.animation = 'fadeIn .3s var(--ease) both';
 
       // Record answer
       S.answers.push({
@@ -657,7 +675,15 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
         section: q.section || ''
       });
 
-      $btnNext.disabled = false;
+      // Auto-advance after 800ms
+      setTimeout(function() {
+        S.qi++;
+        if (S.qi >= S.questions.length) {
+          finishTest();
+        } else {
+          renderQuestion();
+        }
+      }, 800);
     }
 
     /* ── Fill Blank ── */
@@ -865,12 +891,23 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
     function finishTest() {
       clearInterval(S.timer);
       setPB(100);
+      $navTimer.textContent = '';
 
-      var result = calculateScore();
-      var breakdown = getSectionBreakdown();
+      S.result = calculateScore();
+      S.breakdown = getSectionBreakdown();
 
-      // Show result screen
+      // Show contact gate first (not results)
       $scrQ.classList.remove('active');
+      document.getElementById('scrGate').classList.add('active');
+      setupGate();
+      setTimeout(function() { document.getElementById('gateName').focus(); }, 200);
+    }
+
+    function showResultScreen() {
+      var result = S.result;
+      var breakdown = S.breakdown;
+
+      // Show result screen with animation
       $scrR.classList.add('active');
 
       // Icon
@@ -901,57 +938,34 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
       // Section breakdown
       var bdHtml = '<h4>Результаты по разделам</h4>';
       var sKeys = Object.keys(breakdown);
-      if (sKeys.length > 1) {
-        sKeys.forEach(function(s) {
-          var d = breakdown[s];
-          bdHtml += '<div class="rb-row"><span class="rb-name">' + esc(s) + '</span><span class="rb-score">' + d.correct + ' / ' + d.total + '</span></div>';
-        });
-      } else if (sKeys.length === 1) {
-        var d = breakdown[sKeys[0]];
-        bdHtml += '<div class="rb-row"><span class="rb-name">' + esc(sKeys[0]) + '</span><span class="rb-score">' + d.correct + ' / ' + d.total + '</span></div>';
-      }
+      sKeys.forEach(function(s) {
+        var d = breakdown[s];
+        bdHtml += '<div class="rb-row"><span class="rb-name">' + esc(s) + '</span><span class="rb-score">' + d.correct + ' / ' + d.total + '</span></div>';
+      });
       document.getElementById('rBreakdown').innerHTML = bdHtml;
 
       // WhatsApp CTA
-      var waText = 'Привет! Я прошёл тест ' + S.config.name + ' на сайте gscstudy.kz, мой результат: ' + result.level + '. Хотел бы записаться на курс.';
+      var waText = 'Привет! Я прошёл тест ' + S.config.name + ' на gscstudy.kz.\nРезультат: ' + result.level + ' (' + result.correct + '/' + result.total + ').\nХотел бы записаться на курс.';
       document.getElementById('rWhatsapp').href = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(waText);
 
-      // Enroll button opens lead form
+      // Enroll button
       document.getElementById('rEnroll').addEventListener('click', function() {
         if (typeof window.openLead === 'function') {
           window.openLead('Результат теста: ' + result.level, S.config.name);
         }
       });
 
-      // Hide timer
-      $navTimer.textContent = '';
-
-      // Show inline contact form on result screen to capture lead
-      showResultContactForm(result);
+      // Save to Supabase + Bitrix with full data
+      saveResults(result);
     }
 
     /* ═══════════════════════════════════════
-       RESULT CONTACT FORM
+       CONTACT GATE (before showing results)
     ═══════════════════════════════════════ */
-    function showResultContactForm(result) {
-      var rCard = document.querySelector('.r-card');
-      if (!rCard) return;
-
-      // Insert contact form before the WhatsApp button
-      var waBtn = document.getElementById('rWhatsapp');
-      var formHtml = '<div id="resultContactForm" style="background:var(--blue3);border-radius:16px;padding:20px;margin-bottom:16px;text-align:left">' +
-        '<p style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px;text-align:center">Оставьте контакт — мы пришлём подробный разбор</p>' +
-        '<input type="text" id="rName" placeholder="Ваше имя *" style="width:100%;padding:10px 14px;border:1.5px solid var(--border2);border-radius:10px;font-size:14px;margin-bottom:8px;font-family:var(--f);background:#fff">' +
-        '<input type="tel" id="rPhone" placeholder="+7 ___ ___ __ __" style="width:100%;padding:10px 14px;border:1.5px solid var(--border2);border-radius:10px;font-size:14px;margin-bottom:10px;font-family:var(--f);background:#fff">' +
-        '<button id="rContactBtn" style="width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--f);transition:.2s">Отправить</button>' +
-        '<p id="rContactMsg" style="font-size:12px;color:var(--muted);text-align:center;margin-top:6px"></p>' +
-        '</div>';
-
-      waBtn.insertAdjacentHTML('beforebegin', formHtml);
-
+    function setupGate() {
+      var gatePhone = document.getElementById('gatePhone');
       // Phone mask
-      var phoneInput = document.getElementById('rPhone');
-      phoneInput.addEventListener('input', function() {
+      gatePhone.addEventListener('input', function() {
         var raw = this.value.replace(/\D/g, '');
         if (raw.length === 0) { this.value = ''; return; }
         if (raw[0] === '8') raw = '7' + raw.slice(1);
@@ -964,42 +978,20 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
         this.value = f;
       });
 
-      // Submit handler
-      document.getElementById('rContactBtn').addEventListener('click', function() {
-        var name = document.getElementById('rName').value.trim();
-        var phone = document.getElementById('rPhone').value.trim();
-        var msg = document.getElementById('rContactMsg');
+      document.getElementById('gateBtn').addEventListener('click', function() {
+        var name = document.getElementById('gateName').value.trim();
+        var phone = gatePhone.value.trim();
+        var err = document.getElementById('gateErr');
 
-        if (!name || phone.replace(/\D/g, '').length < 11) {
-          msg.textContent = 'Введите имя и номер телефона';
-          msg.style.color = 'var(--red)';
-          return;
-        }
+        if (!name) { err.textContent = 'Введите ваше имя'; return; }
+        if (phone.replace(/\D/g, '').length < 11) { err.textContent = 'Введите корректный номер телефона'; return; }
 
         S.lead = { name: name, phone: phone, city: '', email: '' };
-        msg.textContent = 'Спасибо! Мы свяжемся с вами';
-        msg.style.color = 'var(--green)';
-        this.disabled = true;
-        this.textContent = '✓ Отправлено';
-        this.style.background = 'var(--green)';
 
-        // Save results with lead data
-        saveResults(result);
-
-        // Also send as a lead to Bitrix
-        if (window.GSC && window.GSC.addLead) {
-          GSC.addLead({
-            name: name,
-            phone: phone,
-            source: 'Тест на сайте',
-            product: S.config.name,
-            extra: {}
-          }).catch(function(e) { console.warn('Lead save error:', e); });
-        }
+        // Hide gate, show result
+        document.getElementById('scrGate').classList.remove('active');
+        showResultScreen();
       });
-
-      // Also save anonymous result immediately (without contact)
-      saveResults(result);
     }
 
     /* ═══════════════════════════════════════
@@ -1011,7 +1003,7 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
       var leadName = S.lead ? S.lead.name : '';
       var leadPhone = S.lead ? S.lead.phone : '';
 
-      // Save test result
+      // Save test result to Supabase
       try {
         await GSC.addTestResult({
           name: leadName,
@@ -1027,9 +1019,11 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
         console.warn('Failed to save test result:', e);
       }
 
-      // Save writing submissions
+      // Save writing submissions to Supabase
+      var writingTexts = [];
       for (var i = 0; i < S.writingAnswers.length; i++) {
         var w = S.writingAnswers[i];
+        writingTexts.push('Prompt: ' + w.prompt + '\nResponse (' + w.wordCount + ' words):\n' + w.text);
         try {
           await GSC.addWritingSubmission({
             name: leadName,
@@ -1040,6 +1034,42 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
           });
         } catch (e) {
           console.warn('Failed to save writing submission:', e);
+        }
+      }
+
+      // Send to Bitrix24 with FULL data (score + writing)
+      if (leadName && leadPhone) {
+        var comments = 'Тест: ' + S.config.name +
+          '\nРезультат: ' + result.level + ' (' + result.correct + '/' + result.total + ', ' + result.pct + '%)';
+
+        // Add section breakdown
+        var bd = getSectionBreakdown();
+        var bdKeys = Object.keys(bd);
+        if (bdKeys.length > 0) {
+          comments += '\n\nРазбивка по разделам:';
+          bdKeys.forEach(function(s) {
+            comments += '\n  ' + s + ': ' + bd[s].correct + '/' + bd[s].total;
+          });
+        }
+
+        // Add writing text
+        if (writingTexts.length > 0) {
+          comments += '\n\n--- WRITING ---\n' + writingTexts.join('\n\n');
+        }
+
+        try {
+          await GSC.sendToBitrix({
+            name: leadName,
+            phone: leadPhone,
+            source: 'Тест на сайте',
+            test_type: S.config.name,
+            test_result: result.level + ' (' + result.correct + '/' + result.total + ')',
+            product: S.config.name,
+            city: S.lead.city || '',
+            comments: comments
+          });
+        } catch (e) {
+          console.warn('Bitrix send failed:', e);
         }
       }
     }

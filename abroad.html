@@ -2323,10 +2323,17 @@ function submitQzLead(country){
     document.getElementById('qz-name').style.borderColor='var(--red)';
     document.getElementById('qz-name').focus();return;
   }
-  // ▶ СЮДА: отправить лид в Bitrix24 / AmoCRM / Webhook
-  // sendLead({name, phone, country, answers: qzState.answers, source: 'abroad_quiz'});
-  try{fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,phone,product:'Квиз: поступление · '+country,source:'Abroad Quiz',page:location.pathname+location.hash,answers:qzState.answers})});}catch(e){}
-  console.log('Quiz lead:',{name,phone,country,answers:qzState.answers});
+  // Send to Supabase + Bitrix24
+  if(window.GSC && window.GSC.addLead){
+    GSC.addLead({
+      name:name,
+      phone:phone,
+      city:'',
+      email:'',
+      source:'Abroad Quiz',
+      product:'Квиз: поступление · '+country
+    }).catch(function(e){console.warn('Lead save error:',e);});
+  }
   document.querySelector('.qz-lead-form').innerHTML=`
     <div style="text-align:center;padding:20px 0">
       <div style="font-size:52px;margin-bottom:14px;animation:pop-in .5s cubic-bezier(.34,1.56,.64,1)">✅</div>
