@@ -136,6 +136,80 @@ table tr:hover{background:#f9fafb}
 .toggle input:checked+.slider::before{transform:translateX(20px)}
 /* ===== WRITING MODAL ===== */
 .writing-text-preview{background:var(--bg);border-radius:var(--radius);padding:16px;font-size:13px;line-height:1.7;max-height:400px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+/* ===== TEST CONSTRUCTOR ===== */
+.test-tabs{display:flex;gap:8px;margin-bottom:20px}
+.test-tab{flex:1;padding:14px 16px;border:2px solid var(--border);border-radius:var(--radius);background:var(--card);cursor:pointer;text-align:center;font-weight:700;font-size:15px;transition:all .2s;position:relative}
+.test-tab:hover{border-color:var(--primary);background:#eff6ff}
+.test-tab.active{border-color:var(--primary);background:var(--primary);color:#fff}
+.test-tab .tab-count{display:block;font-size:11px;font-weight:500;margin-top:2px;opacity:.7}
+.test-tab.active .tab-count{opacity:.9}
+.q-stats-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.q-stat-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#f1f5f9;color:var(--dark3)}
+.q-stat-chip .chip-count{background:var(--primary);color:#fff;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:10px}
+.q-toolbar-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:box-shadow .2s}
+.q-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.q-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.q-card-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;font-weight:700;font-size:14px;flex-shrink:0;margin-right:10px}
+.q-card-badges{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.q-badge-section{background:#e0e7ff;color:#4338ca;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.q-badge-type{background:#fef3c7;color:#92400e;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.q-card-actions{display:flex;gap:6px;flex-shrink:0}
+.q-card-text{font-size:14px;line-height:1.6;margin-bottom:10px;white-space:pre-wrap;word-break:break-word}
+.q-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.q-option{padding:8px 12px;border-radius:6px;font-size:13px;background:#f9fafb;border:1px solid var(--border)}
+.q-option.correct{background:#d1fae5;border-color:#10b981;color:#065f46;font-weight:600}
+.q-option .opt-letter{font-weight:700;margin-right:6px}
+.q-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)}
+.q-meta span{display:inline-flex;align-items:center;gap:4px}
+.q-sort-controls{display:flex;flex-direction:column;gap:2px;margin-right:8px}
+.q-sort-btn{background:none;border:1px solid var(--border);border-radius:4px;width:24px;height:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .15s}
+.q-sort-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+/* Bulk import */
+.q-bulk-area{display:none;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.q-bulk-area.open{display:block}
+.q-bulk-area textarea{width:100%;min-height:180px;font-family:'Courier New',monospace;font-size:13px;padding:12px;border:1px solid var(--border);border-radius:var(--radius);resize:vertical}
+.q-bulk-area .bulk-help{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+/* Question modal improvements */
+.q-type-selector{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+.q-type-opt{padding:10px 8px;border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:center;transition:all .2s;font-size:12px;font-weight:600}
+.q-type-opt:hover{border-color:var(--primary);background:#eff6ff}
+.q-type-opt.selected{border-color:var(--primary);background:var(--primary);color:#fff}
+.q-type-opt .q-type-icon{font-size:20px;display:block;margin-bottom:4px}
+.q-section-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.q-section-chip{padding:4px 10px;border-radius:20px;font-size:11px;background:#f1f5f9;border:1px solid var(--border);cursor:pointer;transition:all .15s}
+.q-section-chip:hover{background:#e0e7ff;border-color:var(--primary)}
+.q-mcq-option-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.q-mcq-option-row input[type="text"]{flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px}
+.q-mcq-option-row input[type="radio"]{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+.q-mcq-option-row .opt-label{width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
+.q-conditional-block{display:none;border-top:1px solid var(--border);padding-top:16px;margin-top:16px}
+.q-conditional-block.visible{display:block}
+
+/* ===== PROMO CARDS IMPROVED ===== */
+.promo-card{border-radius:12px;overflow:hidden;margin-bottom:16px;border:1px solid var(--border);background:var(--card);transition:box-shadow .2s}
+.promo-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.promo-card-preview{padding:24px 20px;color:#fff;position:relative;min-height:120px;display:flex;flex-direction:column;justify-content:center}
+.promo-card-preview .pc-tag{display:inline-block;background:rgba(255,255,255,.2);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-bottom:6px;backdrop-filter:blur(4px);width:fit-content}
+.promo-card-preview .pc-ey{font-size:11px;opacity:.85;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.promo-card-preview .pc-title{font-size:18px;font-weight:700;line-height:1.3}
+.promo-card-preview .pc-sub{font-size:13px;opacity:.85;margin-top:6px;line-height:1.4}
+.promo-card-preview .pc-hot{position:absolute;top:12px;right:12px;background:#ef4444;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;animation:pulse-hot 2s infinite}
+.promo-card-preview .pc-cta{display:inline-block;margin-top:10px;padding:6px 14px;background:rgba(255,255,255,.2);border-radius:6px;font-size:12px;font-weight:600;backdrop-filter:blur(4px)}
+@keyframes pulse-hot{0%,100%{opacity:1}50%{opacity:.7}}
+.promo-card-footer{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;background:var(--card)}
+.promo-card-footer .pc-order{font-size:12px;color:var(--muted)}
+.promo-card-footer .pc-actions{display:flex;gap:6px;align-items:center}
+.promo-move-btn{background:none;border:1px solid var(--border);border-radius:4px;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .15s}
+.promo-move-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+/* Promo modal live preview */
+.promo-live-preview{border-radius:10px;padding:20px 16px;color:#fff;min-height:100px;margin-bottom:16px;display:flex;flex-direction:column;justify-content:center;transition:background .3s}
+.promo-live-preview .plp-tag{display:inline-block;background:rgba(255,255,255,.2);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-bottom:4px;width:fit-content}
+.promo-live-preview .plp-ey{font-size:11px;opacity:.85;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.promo-live-preview .plp-title{font-size:16px;font-weight:700}
+.promo-live-preview .plp-sub{font-size:12px;opacity:.85;margin-top:4px}
+.promo-live-preview .plp-cta{display:inline-block;margin-top:8px;padding:5px 12px;background:rgba(255,255,255,.2);border-radius:6px;font-size:11px;font-weight:600}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%)}
@@ -270,7 +344,9 @@ table tr:hover{background:#f9fafb}
     <section class="panel" id="panel-promos">
       <h2 class="panel-title">Promo Slides</h2>
       <div class="toolbar">
-        <button class="btn btn-primary btn-sm" id="add-promo-btn">+ Add Promo</button>
+        <button class="btn btn-primary btn-sm" id="add-promo-btn">+ Add Promo Slide</button>
+        <span style="flex:1"></span>
+        <span style="font-size:13px;color:var(--muted)" id="promos-total-count"></span>
       </div>
       <div id="promos-list"></div>
     </section>
@@ -291,37 +367,53 @@ table tr:hover{background:#f9fafb}
       </div>
     </section>
 
-    <!-- TEST QUESTIONS -->
+    <!-- TEST QUESTIONS (CONSTRUCTOR) -->
     <section class="panel" id="panel-questions">
-      <h2 class="panel-title">Test Questions</h2>
-      <div class="toolbar">
-        <select id="questions-filter">
-          <option value="">All Types</option>
-          <option value="english">English</option>
-          <option value="sat">SAT</option>
-          <option value="ielts">IELTS</option>
-        </select>
-        <button class="btn btn-primary btn-sm" id="add-question-btn">+ Add Question</button>
+      <h2 class="panel-title">Test Constructor</h2>
+      <!-- Test type tabs -->
+      <div class="test-tabs" id="test-tabs">
+        <div class="test-tab active" data-type="english">&#127468;&#127463; English<span class="tab-count" id="tab-count-english">0 questions</span></div>
+        <div class="test-tab" data-type="sat">&#128218; SAT<span class="tab-count" id="tab-count-sat">0 questions</span></div>
+        <div class="test-tab" data-type="ielts">&#127919; IELTS<span class="tab-count" id="tab-count-ielts">0 questions</span></div>
       </div>
-      <div class="card">
-        <div class="table-wrap">
-          <table id="questions-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Type</th>
-                <th>Section</th>
-                <th>Question</th>
-                <th>Q.Type</th>
-                <th>Answer</th>
-                <th>Sort</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+      <input type="hidden" id="questions-filter" value="english">
+      <!-- Stats bar -->
+      <div class="q-stats-bar" id="q-stats-bar"></div>
+      <!-- Toolbar -->
+      <div class="q-toolbar-row">
+        <button class="btn btn-primary btn-sm" id="add-question-btn">+ Add Question</button>
+        <button class="btn btn-outline btn-sm" id="bulk-import-btn">&#128230; Bulk Import</button>
+        <span style="flex:1"></span>
+        <input type="text" id="q-search-input" placeholder="Search questions..." style="padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;width:220px">
+      </div>
+      <!-- Bulk import area -->
+      <div class="q-bulk-area" id="q-bulk-area">
+        <h4 style="margin-bottom:8px">Bulk Import Questions</h4>
+        <textarea id="q-bulk-text" placeholder="Paste questions in this format (one per block, separated by blank line):
+
+Q: What is the capital of France?
+A) London
+B) Paris
+C) Berlin
+D) Madrid
+Answer: B
+Section: Geography
+Hint: It is also called the City of Lights
+
+Q: The sun _____ in the east.
+Type: fill_blank
+Answer: rises
+Section: Vocabulary &amp; Grammar"></textarea>
+        <div class="bulk-help">
+          <strong>Format:</strong> Start each question with <code>Q:</code>. For MCQ add <code>A)</code> <code>B)</code> <code>C)</code> <code>D)</code> options and <code>Answer:</code> (A/B/C/D). For fill_blank add <code>Type: fill_blank</code> and <code>Answer:</code> text. Add <code>Section:</code> and optional <code>Hint:</code>. Separate questions with a blank line.
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn btn-primary btn-sm" id="q-bulk-import-go">Import Questions</button>
+          <button class="btn btn-outline btn-sm" id="q-bulk-cancel">Cancel</button>
         </div>
       </div>
+      <!-- Questions list (cards) -->
+      <div id="questions-list"></div>
     </section>
 
     <!-- SETTINGS -->
@@ -397,23 +489,40 @@ table tr:hover{background:#f9fafb}
   </div>
 </div>
 
-<!-- Add/Edit Promo Modal -->
+<!-- Add/Edit Promo Modal (Improved with live preview) -->
 <div class="modal-overlay" id="modal-promo">
-  <div class="modal">
+  <div class="modal" style="width:560px">
     <h3 id="modal-promo-title">Add Promo Slide</h3>
     <input type="hidden" id="promo-edit-id">
-    <div class="form-group"><label>Tag</label><input type="text" id="promo-tag" placeholder="Hot offer"></div>
-    <div class="form-group"><label>Eyebrow text</label><input type="text" id="promo-ey" placeholder="Spring 2026"></div>
-    <div class="form-group"><label>Title *</label><input type="text" id="promo-title"></div>
-    <div class="form-group"><label>Subtitle</label><textarea id="promo-sub" rows="2"></textarea></div>
-    <div class="form-group"><label>CTA Text</label><input type="text" id="promo-cta" value="&#1055;&#1086;&#1076;&#1088;&#1086;&#1073;&#1085;&#1077;&#1077; &#8594;"></div>
-    <div class="form-group"><label>CTA Link</label><input type="text" id="promo-href" value="#"></div>
-    <div class="form-group"><label>Background Color</label><input type="color" id="promo-bg" value="#2563EB"></div>
-    <div class="form-group"><label>Is Hot?</label><select id="promo-hot"><option value="false">No</option><option value="true">Yes</option></select></div>
-    <div class="form-group"><label>Sort Order</label><input type="number" id="promo-sort" value="0"></div>
+
+    <!-- Live Preview -->
+    <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--dark3)">Preview</label>
+    <div class="promo-live-preview" id="promo-live-preview" style="background:#2563EB">
+      <div class="plp-tag" id="plp-tag" style="display:none"></div>
+      <div class="plp-ey" id="plp-ey"></div>
+      <div class="plp-title" id="plp-title">Slide Title</div>
+      <div class="plp-sub" id="plp-sub"></div>
+      <div class="plp-cta" id="plp-cta"></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group"><label>Tag</label><input type="text" id="promo-tag" placeholder="Hot offer" class="promo-preview-input"></div>
+      <div class="form-group"><label>Eyebrow text</label><input type="text" id="promo-ey" placeholder="Spring 2026" class="promo-preview-input"></div>
+    </div>
+    <div class="form-group"><label>Title *</label><input type="text" id="promo-title" class="promo-preview-input"></div>
+    <div class="form-group"><label>Subtitle</label><textarea id="promo-sub" rows="2" class="promo-preview-input"></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group"><label>CTA Text</label><input type="text" id="promo-cta" value="&#1055;&#1086;&#1076;&#1088;&#1086;&#1073;&#1085;&#1077;&#1077; &#8594;" class="promo-preview-input"></div>
+      <div class="form-group"><label>CTA Link</label><input type="text" id="promo-href" value="#"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+      <div class="form-group"><label>Background Color</label><input type="color" id="promo-bg" value="#2563EB" class="promo-preview-input" style="height:40px;cursor:pointer"></div>
+      <div class="form-group"><label>Is Hot?</label><select id="promo-hot"><option value="false">No</option><option value="true">Yes - HOT</option></select></div>
+      <div class="form-group"><label>Sort Order</label><input type="number" id="promo-sort" value="0"></div>
+    </div>
     <div class="modal-actions">
       <button class="btn btn-outline" id="modal-promo-cancel">Cancel</button>
-      <button class="btn btn-primary" id="modal-promo-save">Save</button>
+      <button class="btn btn-primary" id="modal-promo-save">Save Slide</button>
     </div>
   </div>
 </div>
@@ -430,73 +539,94 @@ table tr:hover{background:#f9fafb}
   </div>
 </div>
 
-<!-- Add/Edit Question Modal -->
+<!-- Add/Edit Question Modal (Improved) -->
 <div class="modal-overlay" id="modal-question">
-  <div class="modal" style="width:600px">
+  <div class="modal" style="width:660px">
     <h3 id="modal-question-title">Add Question</h3>
     <input type="hidden" id="q-edit-id">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div class="form-group">
-        <label>Test Type *</label>
-        <select id="q-test-type">
-          <option value="english">English</option>
-          <option value="sat">SAT</option>
-          <option value="ielts">IELTS</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Question Type *</label>
-        <select id="q-question-type">
-          <option value="mcq">MCQ</option>
-          <option value="fill_blank">Fill Blank</option>
-          <option value="writing">Writing</option>
-          <option value="passage_mcq">Passage MCQ</option>
-          <option value="true_false_ng">True/False/NG</option>
-        </select>
-      </div>
+
+    <!-- Test type (hidden, auto-set from tab) -->
+    <input type="hidden" id="q-test-type" value="english">
+
+    <!-- Question type selector with icons -->
+    <label style="display:block;font-size:13px;font-weight:600;margin-bottom:8px;color:var(--dark3)">Question Type</label>
+    <div class="q-type-selector" id="q-type-selector">
+      <div class="q-type-opt selected" data-val="mcq"><span class="q-type-icon">&#9745;</span>MCQ</div>
+      <div class="q-type-opt" data-val="fill_blank"><span class="q-type-icon">&#9998;</span>Fill Blank</div>
+      <div class="q-type-opt" data-val="writing"><span class="q-type-icon">&#128221;</span>Writing</div>
+      <div class="q-type-opt" data-val="passage_mcq"><span class="q-type-icon">&#128214;</span>Passage MCQ</div>
+      <div class="q-type-opt" data-val="true_false_ng"><span class="q-type-icon">&#10003;&#10007;</span>T/F/NG</div>
     </div>
+    <input type="hidden" id="q-question-type" value="mcq">
+
+    <!-- Section -->
     <div class="form-group">
       <label>Section *</label>
       <input type="text" id="q-section" placeholder="e.g. Vocabulary & Grammar, Reading, Listening, Math">
+      <div class="q-section-chips" id="q-section-chips"></div>
     </div>
+
+    <!-- Question text -->
     <div class="form-group">
-      <label>Question *</label>
-      <textarea id="q-question" rows="3" placeholder="Question text"></textarea>
+      <label>Question Text *</label>
+      <textarea id="q-question" rows="3" placeholder="Enter the question text"></textarea>
     </div>
-    <div class="form-group">
-      <label>Hint (optional)</label>
-      <input type="text" id="q-hint" placeholder="Optional hint for the student">
-    </div>
-    <div class="form-group">
-      <label>Passage (for reading questions)</label>
-      <textarea id="q-passage" rows="3" placeholder="Reading passage text (optional)"></textarea>
-    </div>
-    <div id="q-options-block">
-      <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--dark3)">Options (A-D)</label>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-        <input type="text" id="q-opt-a" placeholder="A) Option 1" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
-        <input type="text" id="q-opt-b" placeholder="B) Option 2" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
-        <input type="text" id="q-opt-c" placeholder="C) Option 3" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
-        <input type="text" id="q-opt-d" placeholder="D) Option 4" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
-      </div>
+
+    <!-- Passage block (conditional) -->
+    <div class="q-conditional-block" id="q-block-passage">
       <div class="form-group">
-        <label>Correct Answer</label>
-        <select id="q-answer">
-          <option value="0">A (index 0)</option>
-          <option value="1">B (index 1)</option>
-          <option value="2">C (index 2)</option>
-          <option value="3">D (index 3)</option>
-        </select>
+        <label>Reading Passage</label>
+        <textarea id="q-passage" rows="5" placeholder="Paste the reading passage here..."></textarea>
       </div>
     </div>
-    <div class="form-group">
-      <label>Correct Text (for fill_blank)</label>
-      <input type="text" id="q-correct-text" placeholder="Correct answer text for fill-in-the-blank">
+
+    <!-- MCQ options block (conditional) -->
+    <div class="q-conditional-block" id="q-block-mcq">
+      <label style="display:block;font-size:13px;font-weight:600;margin-bottom:8px;color:var(--dark3)">Answer Options (select the correct one)</label>
+      <div class="q-mcq-option-row">
+        <span class="opt-label">A</span>
+        <input type="text" id="q-opt-a" placeholder="Option A">
+        <input type="radio" name="q-correct-radio" value="0" checked>
+      </div>
+      <div class="q-mcq-option-row">
+        <span class="opt-label">B</span>
+        <input type="text" id="q-opt-b" placeholder="Option B">
+        <input type="radio" name="q-correct-radio" value="1">
+      </div>
+      <div class="q-mcq-option-row">
+        <span class="opt-label">C</span>
+        <input type="text" id="q-opt-c" placeholder="Option C">
+        <input type="radio" name="q-correct-radio" value="2">
+      </div>
+      <div class="q-mcq-option-row">
+        <span class="opt-label">D</span>
+        <input type="text" id="q-opt-d" placeholder="Option D">
+        <input type="radio" name="q-correct-radio" value="3">
+      </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <input type="hidden" id="q-answer" value="0">
+
+    <!-- Fill blank block (conditional) -->
+    <div class="q-conditional-block" id="q-block-fill">
       <div class="form-group">
-        <label>Word Limit (for writing)</label>
+        <label>Correct Answer Text</label>
+        <input type="text" id="q-correct-text" placeholder="The correct answer for fill-in-the-blank">
+      </div>
+    </div>
+
+    <!-- Writing block (conditional) -->
+    <div class="q-conditional-block" id="q-block-writing">
+      <div class="form-group">
+        <label>Word Limit</label>
         <input type="number" id="q-word-limit" placeholder="e.g. 250">
+      </div>
+    </div>
+
+    <!-- Hint & sort -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+      <div class="form-group">
+        <label>Hint (optional)</label>
+        <input type="text" id="q-hint" placeholder="Optional hint for the student">
       </div>
       <div class="form-group">
         <label>Sort Order</label>
@@ -507,9 +637,10 @@ table tr:hover{background:#f9fafb}
       <label>Audio URL (for listening)</label>
       <input type="text" id="q-audio-url" placeholder="https://...">
     </div>
+
     <div class="modal-actions">
       <button class="btn btn-outline" id="modal-question-cancel">Cancel</button>
-      <button class="btn btn-primary" id="modal-question-save">Save</button>
+      <button class="btn btn-primary" id="modal-question-save">Save Question</button>
     </div>
   </div>
 </div>
@@ -1001,7 +1132,7 @@ table tr:hover{background:#f9fafb}
   });
 
   /* ==========================================
-     PROMOS
+     PROMOS (Improved visual cards)
   ========================================== */
   function loadPromos(){
     GSC.getPromos().then(function(data){
@@ -1012,20 +1143,32 @@ table tr:hover{background:#f9fafb}
 
   function renderPromos(){
     var list = $('#promos-list');
+    var countEl = $('#promos-total-count');
+    countEl.textContent = promosCache.length + ' slide' + (promosCache.length !== 1 ? 's' : '');
     if(!promosCache.length){
-      list.innerHTML = '<div class="card" style="text-align:center;color:var(--muted)">No promo slides yet</div>';
+      list.innerHTML = '<div class="card" style="text-align:center;color:var(--muted);padding:40px">No promo slides yet. Click "+ Add Promo Slide" to create one.</div>';
       return;
     }
-    list.innerHTML = promosCache.map(function(p){
-      return '<div class="promo-item">'+
-        '<div class="promo-preview" style="background:'+E(p.bg||'#2563EB')+'">'+E(p.tag||'')+'</div>'+
-        '<div class="promo-info">'+
-          '<div class="ptag">'+E(p.ey||'')+'</div>'+
-          '<div class="ptitle">'+E(p.title)+'</div>'+
-          '<div class="psub">'+E(p.sub||'')+'</div>'+
+    list.innerHTML = promosCache.map(function(p, idx){
+      var bg = E(p.bg || '#2563EB');
+      return '<div class="promo-card" data-id="'+p.id+'">'+
+        '<div class="promo-card-preview" style="background:'+bg+'">'+
+          (p.tag ? '<div class="pc-tag">'+E(p.tag)+'</div>' : '')+
+          (p.ey ? '<div class="pc-ey">'+E(p.ey)+'</div>' : '')+
+          '<div class="pc-title">'+E(p.title)+'</div>'+
+          (p.sub ? '<div class="pc-sub">'+E(p.sub)+'</div>' : '')+
+          (p.is_hot ? '<div class="pc-hot">HOT</div>' : '')+
+          (p.cta ? '<div class="pc-cta">'+E(p.cta)+'</div>' : '')+
         '</div>'+
-        '<button class="btn btn-outline btn-sm promo-edit" data-id="'+p.id+'">Edit</button> '+
-        '<button class="btn btn-danger btn-sm promo-del" data-id="'+p.id+'">Del</button>'+
+        '<div class="promo-card-footer">'+
+          '<div class="pc-order">Order: '+p.sort_order+ (p.href && p.href !== '#' ? ' &middot; Link: '+E(p.href) : '') +'</div>'+
+          '<div class="pc-actions">'+
+            '<button class="promo-move-btn promo-up" data-id="'+p.id+'" title="Move up"'+(idx===0?' disabled style="opacity:.3"':'')+'>&#9650;</button>'+
+            '<button class="promo-move-btn promo-down" data-id="'+p.id+'" title="Move down"'+(idx===promosCache.length-1?' disabled style="opacity:.3"':'')+'>&#9660;</button>'+
+            '<button class="btn btn-outline btn-sm promo-edit" data-id="'+p.id+'">Edit</button>'+
+            '<button class="btn btn-danger btn-sm promo-del" data-id="'+p.id+'">Delete</button>'+
+          '</div>'+
+        '</div>'+
       '</div>';
     }).join('');
 
@@ -1041,6 +1184,30 @@ table tr:hover{background:#f9fafb}
         }).catch(function(err){ toast(err.message,'error'); });
       });
     });
+    // Move up/down
+    list.querySelectorAll('.promo-up').forEach(function(b){
+      b.addEventListener('click', function(){ movePromo(Number(b.dataset.id), -1); });
+    });
+    list.querySelectorAll('.promo-down').forEach(function(b){
+      b.addEventListener('click', function(){ movePromo(Number(b.dataset.id), 1); });
+    });
+  }
+
+  function movePromo(id, direction){
+    var idx = promosCache.findIndex(function(p){ return p.id === id; });
+    if(idx < 0) return;
+    var swapIdx = idx + direction;
+    if(swapIdx < 0 || swapIdx >= promosCache.length) return;
+    // swap sort_order values
+    var curOrder = promosCache[idx].sort_order;
+    var swapOrder = promosCache[swapIdx].sort_order;
+    if(curOrder === swapOrder){ swapOrder = curOrder + direction; }
+    Promise.all([
+      GSC.updatePromo(promosCache[idx].id, { sort_order: swapOrder }),
+      GSC.updatePromo(promosCache[swapIdx].id, { sort_order: curOrder })
+    ]).then(function(){
+      loadPromos();
+    }).catch(function(err){ toast('Error reordering: '+err.message,'error'); });
   }
 
   $('#add-promo-btn').addEventListener('click', function(){
@@ -1054,7 +1221,8 @@ table tr:hover{background:#f9fafb}
     $('#promo-href').value = '#';
     $('#promo-bg').value = '#2563EB';
     $('#promo-hot').value = 'false';
-    $('#promo-sort').value = '0';
+    $('#promo-sort').value = String(promosCache.length);
+    updatePromoPreview();
     openModal('modal-promo');
   });
 
@@ -1072,8 +1240,33 @@ table tr:hover{background:#f9fafb}
     $('#promo-bg').value = p.bg || '#2563EB';
     $('#promo-hot').value = p.is_hot ? 'true' : 'false';
     $('#promo-sort').value = p.sort_order || 0;
+    updatePromoPreview();
     openModal('modal-promo');
   }
+
+  // Live preview updater
+  function updatePromoPreview(){
+    var bg = $('#promo-bg').value || '#2563EB';
+    var tag = $('#promo-tag').value.trim();
+    var ey = $('#promo-ey').value.trim();
+    var title = $('#promo-title').value.trim() || 'Slide Title';
+    var sub = $('#promo-sub').value.trim();
+    var cta = $('#promo-cta').value.trim();
+    $('#promo-live-preview').style.background = bg;
+    var tagEl = $('#plp-tag');
+    if(tag){ tagEl.textContent = tag; tagEl.style.display = 'inline-block'; }
+    else { tagEl.style.display = 'none'; }
+    $('#plp-ey').textContent = ey;
+    $('#plp-title').textContent = title;
+    $('#plp-sub').textContent = sub;
+    $('#plp-cta').textContent = cta;
+    $('#plp-cta').style.display = cta ? 'inline-block' : 'none';
+  }
+
+  // Bind live preview to all promo inputs
+  $$('.promo-preview-input').forEach(function(inp){
+    inp.addEventListener('input', updatePromoPreview);
+  });
 
   $('#modal-promo-cancel').addEventListener('click', function(){ closeModal('modal-promo'); });
 
@@ -1177,67 +1370,297 @@ table tr:hover{background:#f9fafb}
   $('#modal-writing-close').addEventListener('click', function(){ closeModal('modal-writing'); });
 
   /* ==========================================
-     TEST QUESTIONS
+     TEST QUESTIONS (Full Constructor)
   ========================================== */
+  var activeTestType = 'english';
+
   function loadQuestions(){
     GSC.getAllTestQuestions().then(function(data){
       questionsCache = data || [];
+      updateTabCounts();
       renderQuestions();
     }).catch(function(err){ toast('Failed to load questions: '+err.message,'error'); });
   }
 
-  function renderQuestions(){
-    var filter = $('#questions-filter').value;
-    var list = questionsCache;
-    if(filter){
-      list = list.filter(function(q){ return q.test_type === filter; });
-    }
-    var tb = $('#questions-table tbody');
-    if(!list.length){
-      tb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted)">No questions found</td></tr>';
-      return;
-    }
-    tb.innerHTML = list.map(function(q, idx){
-      var qText = (q.question||'').length > 60 ? (q.question||'').substring(0,60)+'...' : (q.question||'');
-      var answerDisplay = '';
-      if(q.question_type === 'fill_blank'){
-        answerDisplay = E(q.correct_text||'');
-      } else if(q.options && q.options.length && q.answer != null){
-        var letters = ['A','B','C','D'];
-        answerDisplay = (letters[q.answer]||'?') + ': ' + E((q.options[q.answer]||'').substring(0,25));
-      } else {
-        answerDisplay = '\u2014';
-      }
-      return '<tr>'+
-        '<td>'+(idx+1)+'</td>'+
-        '<td><span class="badge badge-new">'+E(q.test_type||'')+'</span></td>'+
-        '<td>'+E(q.section||'')+'</td>'+
-        '<td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+E(q.question||'')+'">'+E(qText)+'</td>'+
-        '<td>'+E(q.question_type||'')+'</td>'+
-        '<td>'+answerDisplay+'</td>'+
-        '<td>'+q.sort_order+'</td>'+
-        '<td style="white-space:nowrap">'+
-          '<button class="btn btn-outline btn-sm q-edit" data-id="'+q.id+'">Edit</button> '+
-          '<button class="btn btn-danger btn-sm q-del" data-id="'+q.id+'">Del</button>'+
-        '</td></tr>';
-    }).join('');
-
-    tb.querySelectorAll('.q-edit').forEach(function(b){
-      b.addEventListener('click', function(){ editQuestion(Number(b.dataset.id)); });
-    });
-    tb.querySelectorAll('.q-del').forEach(function(b){
-      b.addEventListener('click', function(){ deleteQuestion(Number(b.dataset.id)); });
+  function updateTabCounts(){
+    var types = ['english','sat','ielts'];
+    types.forEach(function(t){
+      var count = questionsCache.filter(function(q){ return q.test_type === t; }).length;
+      var el = document.getElementById('tab-count-'+t);
+      if(el) el.textContent = count + ' question' + (count!==1?'s':'');
     });
   }
 
-  $('#questions-filter').addEventListener('change', renderQuestions);
+  // Tab switching
+  $$('#test-tabs .test-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      $$('#test-tabs .test-tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      activeTestType = tab.dataset.type;
+      $('#questions-filter').value = activeTestType;
+      renderQuestions();
+    });
+  });
+
+  function renderQuestions(){
+    var filter = activeTestType;
+    var search = ($('#q-search-input').value || '').toLowerCase();
+    var list = questionsCache.filter(function(q){ return q.test_type === filter; });
+    if(search){
+      list = list.filter(function(q){
+        return (q.question||'').toLowerCase().indexOf(search) !== -1 ||
+               (q.section||'').toLowerCase().indexOf(search) !== -1;
+      });
+    }
+    list.sort(function(a,b){ return (a.sort_order||0) - (b.sort_order||0); });
+
+    // Stats bar: count by section
+    var sectionCounts = {};
+    list.forEach(function(q){
+      var sec = q.section || 'Uncategorized';
+      sectionCounts[sec] = (sectionCounts[sec] || 0) + 1;
+    });
+    var statsBar = $('#q-stats-bar');
+    var statsHtml = '';
+    Object.keys(sectionCounts).forEach(function(sec){
+      statsHtml += '<div class="q-stat-chip"><span class="chip-count">'+sectionCounts[sec]+'</span>'+E(sec)+'</div>';
+    });
+    if(!Object.keys(sectionCounts).length) statsHtml = '<span style="font-size:13px;color:var(--muted)">No questions for this test yet</span>';
+    statsBar.innerHTML = statsHtml;
+
+    var container = $('#questions-list');
+    if(!list.length){
+      container.innerHTML = '<div class="card" style="text-align:center;color:var(--muted);padding:40px">No questions found. Click "+ Add Question" to create one.</div>';
+      return;
+    }
+
+    var letters = ['A','B','C','D'];
+    container.innerHTML = list.map(function(q, idx){
+      var optionsHtml = '';
+      if((q.question_type === 'mcq' || q.question_type === 'passage_mcq' || q.question_type === 'true_false_ng') && q.options && q.options.length){
+        optionsHtml = '<div class="q-options-grid">';
+        q.options.forEach(function(opt, oi){
+          var isCorrect = q.answer === oi;
+          optionsHtml += '<div class="q-option'+(isCorrect?' correct':'')+'"><span class="opt-letter">'+(letters[oi]||'?')+'</span>'+E(opt)+'</div>';
+        });
+        optionsHtml += '</div>';
+      }
+
+      var metaHtml = '';
+      if(q.question_type === 'fill_blank' && q.correct_text){
+        metaHtml += '<span>Answer: <strong style="color:var(--green)">'+E(q.correct_text)+'</strong></span>';
+      }
+      if(q.question_type === 'writing' && q.word_limit){
+        metaHtml += '<span>Word limit: <strong>'+q.word_limit+'</strong></span>';
+      }
+      if(q.hint){
+        metaHtml += '<span>Hint: '+E(q.hint)+'</span>';
+      }
+      metaHtml += '<span>Sort: '+q.sort_order+'</span>';
+
+      return '<div class="q-card" data-id="'+q.id+'">'+
+        '<div class="q-card-header">'+
+          '<div style="display:flex;align-items:flex-start">'+
+            '<div class="q-sort-controls">'+
+              '<button class="q-sort-btn q-move-up" data-id="'+q.id+'" title="Move up">&#9650;</button>'+
+              '<button class="q-sort-btn q-move-down" data-id="'+q.id+'" title="Move down">&#9660;</button>'+
+            '</div>'+
+            '<div class="q-card-num">'+(idx+1)+'</div>'+
+            '<div class="q-card-badges">'+
+              '<span class="q-badge-section">'+E(q.section||'')+'</span>'+
+              '<span class="q-badge-type">'+E(q.question_type||'')+'</span>'+
+            '</div>'+
+          '</div>'+
+          '<div class="q-card-actions">'+
+            '<button class="btn btn-outline btn-sm q-edit" data-id="'+q.id+'">Edit</button>'+
+            '<button class="btn btn-danger btn-sm q-del" data-id="'+q.id+'">Delete</button>'+
+          '</div>'+
+        '</div>'+
+        '<div class="q-card-text">'+E(q.question||'')+'</div>'+
+        optionsHtml+
+        (metaHtml ? '<div class="q-meta">'+metaHtml+'</div>' : '')+
+      '</div>';
+    }).join('');
+
+    // Wire events
+    container.querySelectorAll('.q-edit').forEach(function(b){
+      b.addEventListener('click', function(){ editQuestion(Number(b.dataset.id)); });
+    });
+    container.querySelectorAll('.q-del').forEach(function(b){
+      b.addEventListener('click', function(){ deleteQuestion(Number(b.dataset.id)); });
+    });
+    container.querySelectorAll('.q-move-up').forEach(function(b){
+      b.addEventListener('click', function(){ moveQuestion(Number(b.dataset.id), -1); });
+    });
+    container.querySelectorAll('.q-move-down').forEach(function(b){
+      b.addEventListener('click', function(){ moveQuestion(Number(b.dataset.id), 1); });
+    });
+  }
+
+  function moveQuestion(id, direction){
+    var filter = activeTestType;
+    var filtered = questionsCache.filter(function(q){ return q.test_type === filter; });
+    filtered.sort(function(a,b){ return (a.sort_order||0) - (b.sort_order||0); });
+    var idx = filtered.findIndex(function(q){ return q.id === id; });
+    if(idx < 0) return;
+    var swapIdx = idx + direction;
+    if(swapIdx < 0 || swapIdx >= filtered.length) return;
+    var curOrder = filtered[idx].sort_order;
+    var swapOrder = filtered[swapIdx].sort_order;
+    if(curOrder === swapOrder){ swapOrder = curOrder + direction; }
+    Promise.all([
+      GSC.updateTestQuestion(filtered[idx].id, { sort_order: swapOrder }),
+      GSC.updateTestQuestion(filtered[swapIdx].id, { sort_order: curOrder })
+    ]).then(function(){
+      loadQuestions();
+    }).catch(function(err){ toast('Error reordering: '+err.message,'error'); });
+  }
+
+  // Search
+  $('#q-search-input').addEventListener('input', renderQuestions);
+
+  // Bulk import toggle
+  $('#bulk-import-btn').addEventListener('click', function(){
+    var area = $('#q-bulk-area');
+    area.classList.toggle('open');
+  });
+  $('#q-bulk-cancel').addEventListener('click', function(){
+    $('#q-bulk-area').classList.remove('open');
+  });
+
+  // Bulk import processing
+  $('#q-bulk-import-go').addEventListener('click', function(){
+    var text = $('#q-bulk-text').value.trim();
+    if(!text){ toast('Paste some questions first','error'); return; }
+    var blocks = text.split(/\n\s*\n/);
+    var parsed = [];
+    blocks.forEach(function(block){
+      var lines = block.trim().split('\n');
+      if(!lines.length) return;
+      var q = { test_type: activeTestType, question_type: 'mcq', section: '', question: '', options: [], answer: 0, hint: null, correct_text: null, sort_order: 0 };
+      var currentLine = '';
+      lines.forEach(function(line){
+        line = line.trim();
+        if(line.match(/^Q:\s*/i)){
+          q.question = line.replace(/^Q:\s*/i,'');
+        } else if(line.match(/^A\)\s*/)){
+          q.options[0] = line.replace(/^A\)\s*/,'');
+        } else if(line.match(/^B\)\s*/)){
+          q.options[1] = line.replace(/^B\)\s*/,'');
+        } else if(line.match(/^C\)\s*/)){
+          q.options[2] = line.replace(/^C\)\s*/,'');
+        } else if(line.match(/^D\)\s*/)){
+          q.options[3] = line.replace(/^D\)\s*/,'');
+        } else if(line.match(/^Answer:\s*/i)){
+          var ans = line.replace(/^Answer:\s*/i,'').trim();
+          if(ans.length === 1 && 'ABCD'.indexOf(ans.toUpperCase()) !== -1){
+            q.answer = 'ABCD'.indexOf(ans.toUpperCase());
+          } else {
+            q.correct_text = ans;
+          }
+        } else if(line.match(/^Section:\s*/i)){
+          q.section = line.replace(/^Section:\s*/i,'');
+        } else if(line.match(/^Hint:\s*/i)){
+          q.hint = line.replace(/^Hint:\s*/i,'');
+        } else if(line.match(/^Type:\s*/i)){
+          q.question_type = line.replace(/^Type:\s*/i,'').trim();
+        }
+      });
+      if(!q.question) return;
+      if(q.question_type === 'fill_blank'){
+        q.options = null;
+        q.answer = null;
+      } else {
+        q.options = q.options.filter(Boolean);
+        if(!q.options.length){ q.options = null; q.answer = null; }
+      }
+      if(!q.section) q.section = 'Imported';
+      // Compute sort order
+      var existing = questionsCache.filter(function(x){ return x.test_type === activeTestType; });
+      var maxSort = existing.reduce(function(m, x){ return Math.max(m, x.sort_order||0); }, 0);
+      q.sort_order = maxSort + 1 + parsed.length;
+      parsed.push(q);
+    });
+    if(!parsed.length){ toast('Could not parse any questions','error'); return; }
+    // Add all questions
+    var promises = parsed.map(function(q){ return GSC.addTestQuestion(q); });
+    Promise.all(promises).then(function(){
+      toast(parsed.length + ' question(s) imported');
+      $('#q-bulk-text').value = '';
+      $('#q-bulk-area').classList.remove('open');
+      loadQuestions();
+    }).catch(function(err){ toast('Import error: '+err.message,'error'); });
+  });
+
+  // Question type selector in modal
+  $$('#q-type-selector .q-type-opt').forEach(function(opt){
+    opt.addEventListener('click', function(){
+      $$('#q-type-selector .q-type-opt').forEach(function(o){ o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      $('#q-question-type').value = opt.dataset.val;
+      updateQuestionModalFields();
+    });
+  });
+
+  function updateQuestionModalFields(){
+    var qtype = $('#q-question-type').value;
+    var mcqBlock = $('#q-block-mcq');
+    var fillBlock = $('#q-block-fill');
+    var writingBlock = $('#q-block-writing');
+    var passageBlock = $('#q-block-passage');
+    // hide all
+    mcqBlock.classList.remove('visible');
+    fillBlock.classList.remove('visible');
+    writingBlock.classList.remove('visible');
+    passageBlock.classList.remove('visible');
+    // show relevant
+    if(qtype === 'mcq' || qtype === 'passage_mcq' || qtype === 'true_false_ng'){
+      mcqBlock.classList.add('visible');
+    }
+    if(qtype === 'fill_blank'){
+      fillBlock.classList.add('visible');
+    }
+    if(qtype === 'writing'){
+      writingBlock.classList.add('visible');
+    }
+    if(qtype === 'passage_mcq'){
+      passageBlock.classList.add('visible');
+    }
+  }
+
+  // Section chips - show existing sections
+  function updateSectionChips(){
+    var existing = questionsCache.filter(function(q){ return q.test_type === activeTestType; });
+    var sections = [];
+    existing.forEach(function(q){
+      if(q.section && sections.indexOf(q.section) === -1) sections.push(q.section);
+    });
+    var chips = $('#q-section-chips');
+    chips.innerHTML = sections.map(function(s){
+      return '<span class="q-section-chip" data-section="'+E(s)+'">'+E(s)+'</span>';
+    }).join('');
+    chips.querySelectorAll('.q-section-chip').forEach(function(chip){
+      chip.addEventListener('click', function(){
+        $('#q-section').value = chip.dataset.section;
+      });
+    });
+  }
+
+  // Sync radio buttons to hidden q-answer
+  $$('input[name="q-correct-radio"]').forEach(function(radio){
+    radio.addEventListener('change', function(){
+      $('#q-answer').value = radio.value;
+    });
+  });
 
   // Add question
   $('#add-question-btn').addEventListener('click', function(){
     $('#modal-question-title').textContent = 'Add Question';
     $('#q-edit-id').value = '';
-    $('#q-test-type').value = 'english';
+    $('#q-test-type').value = activeTestType;
     $('#q-question-type').value = 'mcq';
+    $$('#q-type-selector .q-type-opt').forEach(function(o){ o.classList.remove('selected'); });
+    $$('#q-type-selector .q-type-opt')[0].classList.add('selected');
     $('#q-section').value = '';
     $('#q-question').value = '';
     $('#q-hint').value = '';
@@ -1247,10 +1670,16 @@ table tr:hover{background:#f9fafb}
     $('#q-opt-c').value = '';
     $('#q-opt-d').value = '';
     $('#q-answer').value = '0';
+    $$('input[name="q-correct-radio"]').forEach(function(r){ r.checked = r.value === '0'; });
     $('#q-correct-text').value = '';
     $('#q-word-limit').value = '';
-    $('#q-sort-order').value = '0';
+    // Auto-increment sort order
+    var existing = questionsCache.filter(function(q){ return q.test_type === activeTestType; });
+    var maxSort = existing.reduce(function(m, q){ return Math.max(m, q.sort_order||0); }, 0);
+    $('#q-sort-order').value = maxSort + 1;
     $('#q-audio-url').value = '';
+    updateQuestionModalFields();
+    updateSectionChips();
     openModal('modal-question');
   });
 
@@ -1260,7 +1689,12 @@ table tr:hover{background:#f9fafb}
     $('#modal-question-title').textContent = 'Edit Question';
     $('#q-edit-id').value = id;
     $('#q-test-type').value = q.test_type || 'english';
-    $('#q-question-type').value = q.question_type || 'mcq';
+    var qtype = q.question_type || 'mcq';
+    $('#q-question-type').value = qtype;
+    // Update type selector visual
+    $$('#q-type-selector .q-type-opt').forEach(function(o){
+      o.classList.toggle('selected', o.dataset.val === qtype);
+    });
     $('#q-section').value = q.section || '';
     $('#q-question').value = q.question || '';
     $('#q-hint').value = q.hint || '';
@@ -1270,11 +1704,15 @@ table tr:hover{background:#f9fafb}
     $('#q-opt-b').value = opts[1] || '';
     $('#q-opt-c').value = opts[2] || '';
     $('#q-opt-d').value = opts[3] || '';
-    $('#q-answer').value = (q.answer != null) ? q.answer : '0';
+    var ans = (q.answer != null) ? String(q.answer) : '0';
+    $('#q-answer').value = ans;
+    $$('input[name="q-correct-radio"]').forEach(function(r){ r.checked = r.value === ans; });
     $('#q-correct-text').value = q.correct_text || '';
     $('#q-word-limit').value = q.word_limit || '';
     $('#q-sort-order').value = q.sort_order || 0;
     $('#q-audio-url').value = q.audio_url || '';
+    updateQuestionModalFields();
+    updateSectionChips();
     openModal('modal-question');
   }
 

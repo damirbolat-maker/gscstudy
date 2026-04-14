@@ -2323,16 +2323,17 @@ function submitQzLead(country){
     document.getElementById('qz-name').style.borderColor='var(--red)';
     document.getElementById('qz-name').focus();return;
   }
-  // Send to Supabase + Bitrix24
+  // Send directly to Bitrix24 Edge Function + Supabase
+  var leadData = {name:name, phone:phone, city:'', email:'', source:'Abroad Quiz', product:'Квиз: поступление · '+country};
+  // Direct fetch to Edge Function (works even if GSC not loaded yet)
+  fetch('https://alzouuuaxqzwrcytrpvm.supabase.co/functions/v1/bitrix-lead',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(leadData)
+  }).catch(function(e){console.warn('Bitrix send error:',e);});
+  // Also save to Supabase if GSC is loaded
   if(window.GSC && window.GSC.addLead){
-    GSC.addLead({
-      name:name,
-      phone:phone,
-      city:'',
-      email:'',
-      source:'Abroad Quiz',
-      product:'Квиз: поступление · '+country
-    }).catch(function(e){console.warn('Lead save error:',e);});
+    GSC.addLead(leadData).catch(function(e){console.warn('Lead save error:',e);});
   }
   document.querySelector('.qz-lead-form').innerHTML=`
     <div style="text-align:center;padding:20px 0">
