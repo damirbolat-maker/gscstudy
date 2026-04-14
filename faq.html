@@ -121,6 +121,9 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
     .nl{padding:7px 12px;border-radius:100px;font-size:13px;color:var(--muted);transition:.18s}
     .nl:hover{background:var(--white2);color:var(--ink)}
     .nl.on{background:var(--blue3);color:var(--blue);font-weight:700}
+    .lang-btn{padding:7px 10px;border-radius:10px;border:1px solid rgba(14,14,20,.12);background:#fff;color:var(--ink);font-weight:800;font-size:12px;cursor:pointer;transition:.15s;font-family:var(--f)}
+    .lang-btn:hover{border-color:var(--blue);color:var(--blue)}
+    .lang-btn.active{background:var(--blue3);border-color:var(--blue);color:var(--blue)}
 
     header{padding:48px 0 18px}
     .tag{display:inline-flex;align-items:center;gap:8px;background:var(--blue3);border:1.5px solid var(--blue4);border-radius:100px;padding:6px 12px;font-size:11px;font-weight:800;color:var(--blue);letter-spacing:.08em;text-transform:uppercase}
@@ -172,6 +175,11 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
         <a class="nl" href="courses.html">Курсы</a>
         <a class="nl" href="about.html">О нас</a>
         <a class="nl on" href="faq.html">FAQ</a>
+      </div>
+      <div class="lang-sw" id="langSw" style="display:flex;gap:6px;align-items:center">
+        <button class="lang-btn active" onclick="setLang('ru')" data-lang="ru">RU</button>
+        <button class="lang-btn" onclick="setLang('kz')" data-lang="kz">KZ</button>
+        <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
       </div>
     </div>
   </nav>
@@ -288,6 +296,7 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-client.js"></script>
   <script src="js/lead-form.js"></script>
+  <script src="js/i18n.js"></script>
 </body>
 </html>
 
