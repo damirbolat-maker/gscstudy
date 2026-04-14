@@ -478,31 +478,9 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
        LEAD MODAL INTEGRATION
     ═══════════════════════════════════════ */
     function showLeadModal(callback) {
-      // Use the shared lead-form.js openLead function
-      // Set up callback for after success
-      window._LEAD_AFTER_SUCCESS = function() {
-        // Grab the lead data from the form fields
-        var nameEl = document.getElementById('lead-name');
-        var phoneEl = document.getElementById('lead-phone');
-        var cityEl = document.getElementById('lead-city');
-        var emailEl = document.getElementById('lead-email');
-        S.lead = {
-          name: nameEl ? nameEl.value.trim() : '',
-          phone: phoneEl ? phoneEl.value.trim() : '',
-          city: cityEl ? cityEl.value.trim() : '',
-          email: emailEl ? emailEl.value.trim() : ''
-        };
-        if (callback) callback();
-      };
-
-      var product = S.config ? S.config.name : 'Test';
-      if (typeof window.openLead === 'function') {
-        window.openLead('Тест: ' + product, product);
-      } else {
-        // Fallback: skip lead if modal not available
-        S.lead = { name: 'Guest', phone: '', city: '', email: '' };
-        if (callback) callback();
-      }
+      // Skip lead form — go straight to test, ask for contact at the end
+      S.lead = { name: '', phone: '', city: '', email: '' };
+      if (callback) callback();
     }
 
     /* ═══════════════════════════════════════
@@ -938,15 +916,89 @@ src="https://www.facebook.com/tr?id=4391523404460151&ev=PageView&noscript=1"
       var waText = 'Привет! Я прошёл тест ' + S.config.name + ' на сайте gscstudy.kz, мой результат: ' + result.level + '. Хотел бы записаться на курс.';
       document.getElementById('rWhatsapp').href = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(waText);
 
-      // Enroll button
+      // Enroll button opens lead form
       document.getElementById('rEnroll').addEventListener('click', function() {
-        showLeadModal(null);
+        if (typeof window.openLead === 'function') {
+          window.openLead('Результат теста: ' + result.level, S.config.name);
+        }
       });
 
       // Hide timer
       $navTimer.textContent = '';
 
-      // Save results to Supabase
+      // Show inline contact form on result screen to capture lead
+      showResultContactForm(result);
+    }
+
+    /* ═══════════════════════════════════════
+       RESULT CONTACT FORM
+    ═══════════════════════════════════════ */
+    function showResultContactForm(result) {
+      var rCard = document.querySelector('.r-card');
+      if (!rCard) return;
+
+      // Insert contact form before the WhatsApp button
+      var waBtn = document.getElementById('rWhatsapp');
+      var formHtml = '<div id="resultContactForm" style="background:var(--blue3);border-radius:16px;padding:20px;margin-bottom:16px;text-align:left">' +
+        '<p style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px;text-align:center">Оставьте контакт — мы пришлём подробный разбор</p>' +
+        '<input type="text" id="rName" placeholder="Ваше имя *" style="width:100%;padding:10px 14px;border:1.5px solid var(--border2);border-radius:10px;font-size:14px;margin-bottom:8px;font-family:var(--f);background:#fff">' +
+        '<input type="tel" id="rPhone" placeholder="+7 ___ ___ __ __" style="width:100%;padding:10px 14px;border:1.5px solid var(--border2);border-radius:10px;font-size:14px;margin-bottom:10px;font-family:var(--f);background:#fff">' +
+        '<button id="rContactBtn" style="width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--f);transition:.2s">Отправить</button>' +
+        '<p id="rContactMsg" style="font-size:12px;color:var(--muted);text-align:center;margin-top:6px"></p>' +
+        '</div>';
+
+      waBtn.insertAdjacentHTML('beforebegin', formHtml);
+
+      // Phone mask
+      var phoneInput = document.getElementById('rPhone');
+      phoneInput.addEventListener('input', function() {
+        var raw = this.value.replace(/\D/g, '');
+        if (raw.length === 0) { this.value = ''; return; }
+        if (raw[0] === '8') raw = '7' + raw.slice(1);
+        if (raw[0] !== '7') raw = '7' + raw;
+        var f = '+7';
+        if (raw.length > 1) f += ' ' + raw.slice(1, 4);
+        if (raw.length > 4) f += ' ' + raw.slice(4, 7);
+        if (raw.length > 7) f += ' ' + raw.slice(7, 9);
+        if (raw.length > 9) f += ' ' + raw.slice(9, 11);
+        this.value = f;
+      });
+
+      // Submit handler
+      document.getElementById('rContactBtn').addEventListener('click', function() {
+        var name = document.getElementById('rName').value.trim();
+        var phone = document.getElementById('rPhone').value.trim();
+        var msg = document.getElementById('rContactMsg');
+
+        if (!name || phone.replace(/\D/g, '').length < 11) {
+          msg.textContent = 'Введите имя и номер телефона';
+          msg.style.color = 'var(--red)';
+          return;
+        }
+
+        S.lead = { name: name, phone: phone, city: '', email: '' };
+        msg.textContent = 'Спасибо! Мы свяжемся с вами';
+        msg.style.color = 'var(--green)';
+        this.disabled = true;
+        this.textContent = '✓ Отправлено';
+        this.style.background = 'var(--green)';
+
+        // Save results with lead data
+        saveResults(result);
+
+        // Also send as a lead to Bitrix
+        if (window.GSC && window.GSC.addLead) {
+          GSC.addLead({
+            name: name,
+            phone: phone,
+            source: 'Тест на сайте',
+            product: S.config.name,
+            extra: {}
+          }).catch(function(e) { console.warn('Lead save error:', e); });
+        }
+      });
+
+      // Also save anonymous result immediately (without contact)
       saveResults(result);
     }
 

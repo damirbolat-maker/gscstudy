@@ -182,11 +182,11 @@ a{text-decoration:none;color:inherit}
       <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Crect%20width%3D%27100%27%20height%3D%27100%27%20rx%3D%2720%27%20fill%3D%27%232563EB%27/%3E%3Ctext%20x%3D%2750%27%20y%3D%2770%27%20text-anchor%3D%27middle%27%20font-size%3D%2758%27%20font-weight%3D%27900%27%20font-family%3D%27Arial%27%20fill%3D%27white%27%3EG%3C/text%3E%3C/svg%3E" class="logo-img" alt="GSC Study">
     </a>
     <div class="nav-links">
-      <a href="index.html" class="nl">Главная</a>
-      <a href="abroad.html" class="nl">За рубеж</a>
-      <a href="courses.html" class="nl">Курсы</a>
-      <a href="about.html" class="nl">О нас</a>
-      <a href="faq.html" class="nl">FAQ</a>
+      <a href="index.html" class="nl" data-i18n="nav_home">Главная</a>
+      <a href="abroad.html" class="nl" data-i18n="nav_abroad">За рубеж</a>
+      <a href="courses.html" class="nl" data-i18n="nav_courses">Курсы</a>
+      <a href="about.html" class="nl" data-i18n="nav_about">О нас</a>
+      <a href="faq.html" class="nl" data-i18n="nav_faq">FAQ</a>
     </div>
     <div style="display:flex;align-items:center;gap:10px">
       <div class="lang-sw" id="langSw" style="display:flex;gap:6px;align-items:center">
@@ -194,7 +194,7 @@ a{text-decoration:none;color:inherit}
         <button class="lang-btn" onclick="setLang('kz')" data-lang="kz">KZ</button>
         <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
       </div>
-      <a href="https://wa.me/77718080828?text=Хочу записаться на курс" target="_blank" class="nav-cta">Консультация</a>
+      <a href="https://wa.me/77718080828?text=Хочу записаться на курс" target="_blank" class="nav-cta" data-i18n="nav_cta">Консультация</a>
     </div>
   </div>
 </nav>
@@ -202,8 +202,8 @@ a{text-decoration:none;color:inherit}
 <!-- ══ HERO SECTION ══ -->
 <section class="hero-section">
   <div class="hero-tag">Бесплатно и без регистрации</div>
-  <h1 class="hero-h">Бесплатные <em>тесты</em></h1>
-  <p class="hero-sub">Узнай свой уровень за 15-30 минут. Выбери тест и получи результат мгновенно.</p>
+  <h1 class="hero-h" data-i18n="tests_title">Бесплатные <em>тесты</em></h1>
+  <p class="hero-sub" data-i18n="tests_sub">Узнай свой уровень за 15-30 минут. Выбери тест и получи результат мгновенно.</p>
 </section>
 
 <!-- ══ TEST CARDS ══ -->
@@ -217,15 +217,15 @@ a{text-decoration:none;color:inherit}
         <div class="tc-score">C1</div>
       </div>
       <div class="tc-body">
-        <div class="tc-name">General English 13+</div>
-        <div class="tc-desc">Grammar, Vocabulary, Reading + Writing Task. Определи свой уровень по международной шкале CEFR от A1 до C2.</div>
+        <div class="tc-name" data-i18n="test_card_english_title">General English 13+</div>
+        <div class="tc-desc" data-i18n="test_card_english_desc">Grammar, Vocabulary, Reading + Writing Task. Определи свой уровень по международной шкале CEFR от A1 до C2.</div>
         <div class="tc-meta">
           <span class="tc-m">25 вопросов + writing</span>
           <span class="tc-m">15 мин</span>
           <span class="tc-m">CEFR</span>
         </div>
         <div class="tc-footer">
-          <button class="tc-btn" style="background:#00A060" onclick="event.stopPropagation()">Начать тест</button>
+          <button class="tc-btn" style="background:#00A060" onclick="event.stopPropagation()" data-i18n="test_card_start">Начать тест</button>
           <span class="tc-range">Уровень A1 - C2</span>
         </div>
       </div>
@@ -238,15 +238,15 @@ a{text-decoration:none;color:inherit}
         <div class="tc-score">1400</div>
       </div>
       <div class="tc-body">
-        <div class="tc-name">SAT Placement Test</div>
-        <div class="tc-desc">Reading & Writing + Math. Оцени готовность к Digital SAT и получи прогнозируемый балл для поступления.</div>
+        <div class="tc-name" data-i18n="test_card_sat_title">SAT Placement Test</div>
+        <div class="tc-desc" data-i18n="test_card_sat_desc">Reading & Writing + Math. Оцени готовность к Digital SAT и получи прогнозируемый балл для поступления.</div>
         <div class="tc-meta">
           <span class="tc-m">30 вопросов</span>
           <span class="tc-m">25 мин</span>
           <span class="tc-m">Digital SAT</span>
         </div>
         <div class="tc-footer">
-          <button class="tc-btn" style="background:#6D28D9" onclick="event.stopPropagation()">Начать тест</button>
+          <button class="tc-btn" style="background:#6D28D9" onclick="event.stopPropagation()" data-i18n="test_card_start">Начать тест</button>
           <span class="tc-range">Score 800 - 1600</span>
         </div>
       </div>
@@ -259,15 +259,15 @@ a{text-decoration:none;color:inherit}
         <div class="tc-score">7.0</div>
       </div>
       <div class="tc-body">
-        <div class="tc-name">IELTS Placement Test</div>
-        <div class="tc-desc">Vocabulary, Grammar, Reading + Listening. Узнай прогнозируемый Band Score для Academic или General Training.</div>
+        <div class="tc-name" data-i18n="test_card_ielts_title">IELTS Placement Test</div>
+        <div class="tc-desc" data-i18n="test_card_ielts_desc">Vocabulary, Grammar, Reading + Listening. Узнай прогнозируемый Band Score для Academic или General Training.</div>
         <div class="tc-meta">
           <span class="tc-m">28 вопросов + listening</span>
           <span class="tc-m">30 мин</span>
           <span class="tc-m">British Council</span>
         </div>
         <div class="tc-footer">
-          <button class="tc-btn" style="background:#2563EB" onclick="event.stopPropagation()">Начать тест</button>
+          <button class="tc-btn" style="background:#2563EB" onclick="event.stopPropagation()" data-i18n="test_card_start">Начать тест</button>
           <span class="tc-range">Band 4.0 - 7.5</span>
         </div>
       </div>
@@ -318,21 +318,21 @@ a{text-decoration:none;color:inherit}
     </div>
     <div class="footer-links">
       <div class="footer-col">
-        <h4>Навигация</h4>
-        <a href="index.html">Главная</a>
-        <a href="abroad.html">За рубеж</a>
-        <a href="courses.html">Курсы</a>
-        <a href="about.html">О нас</a>
-        <a href="faq.html">FAQ</a>
+        <h4 data-i18n="footer_nav">Навигация</h4>
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="abroad.html" data-i18n="nav_abroad">За рубеж</a>
+        <a href="courses.html" data-i18n="nav_courses">Курсы</a>
+        <a href="about.html" data-i18n="nav_about">О нас</a>
+        <a href="faq.html" data-i18n="nav_faq">FAQ</a>
       </div>
       <div class="footer-col">
-        <h4>Тесты</h4>
+        <h4 data-i18n="footer_tests">Тесты</h4>
         <a href="test.html?type=english">General English</a>
         <a href="test.html?type=sat">SAT</a>
         <a href="test.html?type=ielts">IELTS</a>
       </div>
       <div class="footer-col">
-        <h4>Контакты</h4>
+        <h4 data-i18n="footer_contacts">Контакты</h4>
         <a href="tel:+77718080828">+7 771 808 08 28</a>
         <a href="https://wa.me/77718080828" target="_blank">WhatsApp</a>
         <a href="mailto:info@gscstudy.kz">info@gscstudy.kz</a>
@@ -340,7 +340,7 @@ a{text-decoration:none;color:inherit}
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">&copy; 2026 GSC Study. Все права защищены.</span>
+    <span class="footer-copy" data-i18n="footer_copyright">&copy; 2026 GSC Study. Все права защищены.</span>
     <div class="footer-socials">
       <a href="https://instagram.com/gscstudy" target="_blank" aria-label="Instagram">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,.5)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>

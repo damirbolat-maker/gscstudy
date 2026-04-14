@@ -186,6 +186,7 @@ table tr:hover{background:#f9fafb}
       <button data-panel="promos"><span class="icon">&#9888;</span>Promo Slides</button>
       <button data-panel="tests"><span class="icon">&#10003;</span>Test Results</button>
       <button data-panel="writing"><span class="icon">&#9997;</span>Writing Results</button>
+      <button data-panel="questions"><span class="icon">&#10067;</span>Questions</button>
       <button data-panel="settings"><span class="icon">&#9881;</span>Settings</button>
     </nav>
     <div class="sidebar-footer">
@@ -287,6 +288,39 @@ table tr:hover{background:#f9fafb}
       <h2 class="panel-title">Writing Submissions</h2>
       <div class="card">
         <div class="table-wrap"><table id="writing-table"><thead><tr><th>Name</th><th>Phone</th><th>Test Type</th><th>Prompt</th><th>Words</th><th>Date</th><th>View</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- TEST QUESTIONS -->
+    <section class="panel" id="panel-questions">
+      <h2 class="panel-title">Test Questions</h2>
+      <div class="toolbar">
+        <select id="questions-filter">
+          <option value="">All Types</option>
+          <option value="english">English</option>
+          <option value="sat">SAT</option>
+          <option value="ielts">IELTS</option>
+        </select>
+        <button class="btn btn-primary btn-sm" id="add-question-btn">+ Add Question</button>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table id="questions-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Type</th>
+                <th>Section</th>
+                <th>Question</th>
+                <th>Q.Type</th>
+                <th>Answer</th>
+                <th>Sort</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -396,6 +430,90 @@ table tr:hover{background:#f9fafb}
   </div>
 </div>
 
+<!-- Add/Edit Question Modal -->
+<div class="modal-overlay" id="modal-question">
+  <div class="modal" style="width:600px">
+    <h3 id="modal-question-title">Add Question</h3>
+    <input type="hidden" id="q-edit-id">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group">
+        <label>Test Type *</label>
+        <select id="q-test-type">
+          <option value="english">English</option>
+          <option value="sat">SAT</option>
+          <option value="ielts">IELTS</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Question Type *</label>
+        <select id="q-question-type">
+          <option value="mcq">MCQ</option>
+          <option value="fill_blank">Fill Blank</option>
+          <option value="writing">Writing</option>
+          <option value="passage_mcq">Passage MCQ</option>
+          <option value="true_false_ng">True/False/NG</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Section *</label>
+      <input type="text" id="q-section" placeholder="e.g. Vocabulary & Grammar, Reading, Listening, Math">
+    </div>
+    <div class="form-group">
+      <label>Question *</label>
+      <textarea id="q-question" rows="3" placeholder="Question text"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Hint (optional)</label>
+      <input type="text" id="q-hint" placeholder="Optional hint for the student">
+    </div>
+    <div class="form-group">
+      <label>Passage (for reading questions)</label>
+      <textarea id="q-passage" rows="3" placeholder="Reading passage text (optional)"></textarea>
+    </div>
+    <div id="q-options-block">
+      <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--dark3)">Options (A-D)</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <input type="text" id="q-opt-a" placeholder="A) Option 1" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
+        <input type="text" id="q-opt-b" placeholder="B) Option 2" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
+        <input type="text" id="q-opt-c" placeholder="C) Option 3" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
+        <input type="text" id="q-opt-d" placeholder="D) Option 4" style="padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
+      </div>
+      <div class="form-group">
+        <label>Correct Answer</label>
+        <select id="q-answer">
+          <option value="0">A (index 0)</option>
+          <option value="1">B (index 1)</option>
+          <option value="2">C (index 2)</option>
+          <option value="3">D (index 3)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Correct Text (for fill_blank)</label>
+      <input type="text" id="q-correct-text" placeholder="Correct answer text for fill-in-the-blank">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group">
+        <label>Word Limit (for writing)</label>
+        <input type="number" id="q-word-limit" placeholder="e.g. 250">
+      </div>
+      <div class="form-group">
+        <label>Sort Order</label>
+        <input type="number" id="q-sort-order" value="0">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Audio URL (for listening)</label>
+      <input type="text" id="q-audio-url" placeholder="https://...">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="modal-question-cancel">Cancel</button>
+      <button class="btn btn-primary" id="modal-question-save">Save</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div id="toast"></div>
 
@@ -413,6 +531,7 @@ table tr:hover{background:#f9fafb}
   var reviewsCache = [];
   var promosCache = [];
   var officesCache = [];
+  var questionsCache = [];
 
   /* --- HELPERS --- */
   var E = GSC.escHtml;
@@ -514,6 +633,7 @@ table tr:hover{background:#f9fafb}
         case 'promos': loadPromos(); break;
         case 'tests': loadTests(); break;
         case 'writing': loadWriting(); break;
+        case 'questions': loadQuestions(); break;
         case 'settings': loadSettings(); break;
       }
     });
@@ -1055,6 +1175,159 @@ table tr:hover{background:#f9fafb}
   }
 
   $('#modal-writing-close').addEventListener('click', function(){ closeModal('modal-writing'); });
+
+  /* ==========================================
+     TEST QUESTIONS
+  ========================================== */
+  function loadQuestions(){
+    GSC.getAllTestQuestions().then(function(data){
+      questionsCache = data || [];
+      renderQuestions();
+    }).catch(function(err){ toast('Failed to load questions: '+err.message,'error'); });
+  }
+
+  function renderQuestions(){
+    var filter = $('#questions-filter').value;
+    var list = questionsCache;
+    if(filter){
+      list = list.filter(function(q){ return q.test_type === filter; });
+    }
+    var tb = $('#questions-table tbody');
+    if(!list.length){
+      tb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted)">No questions found</td></tr>';
+      return;
+    }
+    tb.innerHTML = list.map(function(q, idx){
+      var qText = (q.question||'').length > 60 ? (q.question||'').substring(0,60)+'...' : (q.question||'');
+      var answerDisplay = '';
+      if(q.question_type === 'fill_blank'){
+        answerDisplay = E(q.correct_text||'');
+      } else if(q.options && q.options.length && q.answer != null){
+        var letters = ['A','B','C','D'];
+        answerDisplay = (letters[q.answer]||'?') + ': ' + E((q.options[q.answer]||'').substring(0,25));
+      } else {
+        answerDisplay = '\u2014';
+      }
+      return '<tr>'+
+        '<td>'+(idx+1)+'</td>'+
+        '<td><span class="badge badge-new">'+E(q.test_type||'')+'</span></td>'+
+        '<td>'+E(q.section||'')+'</td>'+
+        '<td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+E(q.question||'')+'">'+E(qText)+'</td>'+
+        '<td>'+E(q.question_type||'')+'</td>'+
+        '<td>'+answerDisplay+'</td>'+
+        '<td>'+q.sort_order+'</td>'+
+        '<td style="white-space:nowrap">'+
+          '<button class="btn btn-outline btn-sm q-edit" data-id="'+q.id+'">Edit</button> '+
+          '<button class="btn btn-danger btn-sm q-del" data-id="'+q.id+'">Del</button>'+
+        '</td></tr>';
+    }).join('');
+
+    tb.querySelectorAll('.q-edit').forEach(function(b){
+      b.addEventListener('click', function(){ editQuestion(Number(b.dataset.id)); });
+    });
+    tb.querySelectorAll('.q-del').forEach(function(b){
+      b.addEventListener('click', function(){ deleteQuestion(Number(b.dataset.id)); });
+    });
+  }
+
+  $('#questions-filter').addEventListener('change', renderQuestions);
+
+  // Add question
+  $('#add-question-btn').addEventListener('click', function(){
+    $('#modal-question-title').textContent = 'Add Question';
+    $('#q-edit-id').value = '';
+    $('#q-test-type').value = 'english';
+    $('#q-question-type').value = 'mcq';
+    $('#q-section').value = '';
+    $('#q-question').value = '';
+    $('#q-hint').value = '';
+    $('#q-passage').value = '';
+    $('#q-opt-a').value = '';
+    $('#q-opt-b').value = '';
+    $('#q-opt-c').value = '';
+    $('#q-opt-d').value = '';
+    $('#q-answer').value = '0';
+    $('#q-correct-text').value = '';
+    $('#q-word-limit').value = '';
+    $('#q-sort-order').value = '0';
+    $('#q-audio-url').value = '';
+    openModal('modal-question');
+  });
+
+  function editQuestion(id){
+    var q = questionsCache.find(function(x){ return x.id === id; });
+    if(!q) return;
+    $('#modal-question-title').textContent = 'Edit Question';
+    $('#q-edit-id').value = id;
+    $('#q-test-type').value = q.test_type || 'english';
+    $('#q-question-type').value = q.question_type || 'mcq';
+    $('#q-section').value = q.section || '';
+    $('#q-question').value = q.question || '';
+    $('#q-hint').value = q.hint || '';
+    $('#q-passage').value = q.passage || '';
+    var opts = q.options || [];
+    $('#q-opt-a').value = opts[0] || '';
+    $('#q-opt-b').value = opts[1] || '';
+    $('#q-opt-c').value = opts[2] || '';
+    $('#q-opt-d').value = opts[3] || '';
+    $('#q-answer').value = (q.answer != null) ? q.answer : '0';
+    $('#q-correct-text').value = q.correct_text || '';
+    $('#q-word-limit').value = q.word_limit || '';
+    $('#q-sort-order').value = q.sort_order || 0;
+    $('#q-audio-url').value = q.audio_url || '';
+    openModal('modal-question');
+  }
+
+  $('#modal-question-cancel').addEventListener('click', function(){ closeModal('modal-question'); });
+
+  $('#modal-question-save').addEventListener('click', function(){
+    var question = $('#q-question').value.trim();
+    var section = $('#q-section').value.trim();
+    if(!question || !section){ toast('Question and section are required','error'); return; }
+
+    var options = [
+      $('#q-opt-a').value.trim(),
+      $('#q-opt-b').value.trim(),
+      $('#q-opt-c').value.trim(),
+      $('#q-opt-d').value.trim()
+    ].filter(Boolean);
+
+    var fields = {
+      test_type: $('#q-test-type').value,
+      question_type: $('#q-question-type').value,
+      section: section,
+      question: question,
+      hint: $('#q-hint').value.trim() || null,
+      passage: $('#q-passage').value.trim() || null,
+      options: options.length ? options : null,
+      answer: options.length ? parseInt($('#q-answer').value) : null,
+      correct_text: $('#q-correct-text').value.trim() || null,
+      word_limit: $('#q-word-limit').value ? parseInt($('#q-word-limit').value) : null,
+      sort_order: parseInt($('#q-sort-order').value) || 0,
+      audio_url: $('#q-audio-url').value.trim() || null
+    };
+
+    var editId = $('#q-edit-id').value;
+    var promise;
+    if(editId){
+      promise = GSC.updateTestQuestion(Number(editId), fields);
+    } else {
+      promise = GSC.addTestQuestion(fields);
+    }
+    promise.then(function(){
+      toast(editId ? 'Question updated' : 'Question added');
+      closeModal('modal-question');
+      loadQuestions();
+    }).catch(function(err){ toast('Error: '+err.message,'error'); });
+  });
+
+  function deleteQuestion(id){
+    if(!confirm('Delete this question? This cannot be undone.')) return;
+    GSC.deleteTestQuestion(id).then(function(){
+      toast('Question deleted');
+      loadQuestions();
+    }).catch(function(err){ toast('Error: '+err.message,'error'); });
+  }
 
   /* ==========================================
      SETTINGS

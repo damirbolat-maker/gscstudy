@@ -140,6 +140,30 @@
     return res.data;
   }
 
+  async function getAllTestQuestions() {
+    var res = await sb.from('test_questions').select('*').order('test_type', { ascending: true }).order('sort_order', { ascending: true });
+    if (res.error) throw new Error(res.error.message);
+    return res.data;
+  }
+
+  async function addTestQuestion(q) {
+    var res = await sb.from('test_questions').insert(q).select().single();
+    if (res.error) throw new Error(res.error.message);
+    return res.data;
+  }
+
+  async function updateTestQuestion(id, fields) {
+    var res = await sb.from('test_questions').update(fields).eq('id', id);
+    if (res.error) throw new Error(res.error.message);
+    return res.data;
+  }
+
+  async function deleteTestQuestion(id) {
+    var res = await sb.from('test_questions').delete().eq('id', id);
+    if (res.error) throw new Error(res.error.message);
+    return true;
+  }
+
   // ——— CMS (content table) ———
   async function getCms(key) {
     var res = await sb.from('content').select('value').eq('key', key).single();
@@ -264,6 +288,10 @@
     getWritingSubmissions: getWritingSubmissions,
     // Test questions
     getTestQuestions: getTestQuestions,
+    getAllTestQuestions: getAllTestQuestions,
+    addTestQuestion: addTestQuestion,
+    updateTestQuestion: updateTestQuestion,
+    deleteTestQuestion: deleteTestQuestion,
     // CMS
     getCms: getCms,
     setCms: setCms,
