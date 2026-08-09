@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { site } from "@/lib/site";
+import Icon from "@/components/Icon";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -83,7 +84,7 @@ export default function ConsultSection({
                 target="_blank"
                 rel="noopener"
               >
-                <span className="material-symbols-outlined">chat</span>
+                <Icon name="chat" />
                 WhatsApp
               </a>
             </div>
@@ -94,7 +95,7 @@ export default function ConsultSection({
             {status === "success" ? (
               <div className="bg-white rounded-xl p-8 lg:p-10 shadow-2xl relative text-center">
                 <div className="w-16 h-16 bg-clever-green/10 text-clever-green rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="material-symbols-outlined text-3xl">check</span>
+                  <Icon name="check" className="text-3xl" />
                 </div>
                 <h3 className="font-headline-md text-headline-md text-primary mb-2">
                   Заявка отправлена!

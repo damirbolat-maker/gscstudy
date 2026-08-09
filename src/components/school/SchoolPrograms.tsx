@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Icon from "@/components/Icon";
 
 type Course = {
   title: string;
@@ -194,9 +195,10 @@ export default function SchoolPrograms() {
                 href="#consult"
               >
                 Записаться
-                <span className="material-symbols-outlined ml-1 group-hover:translate-x-1 transition-transform">
-                  arrow_forward
-                </span>
+                <Icon
+                  name="arrow_forward"
+                  className="ml-1 group-hover:translate-x-1 transition-transform"
+                />
               </a>
             </div>
           ))}

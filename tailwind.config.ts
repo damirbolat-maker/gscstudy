@@ -99,6 +99,8 @@ const config: Config = {
       boxShadow: {
         cta: "0 10px 20px -6px rgba(177, 0, 90, 0.35)",
         "cta-hover": "0 16px 28px -8px rgba(177, 0, 90, 0.45)",
+        soft: "0 4px 20px rgba(19, 86, 133, 0.08)",
+        glow: "0 0 40px rgba(177, 0, 90, 0.15)",
       },
     },
   },

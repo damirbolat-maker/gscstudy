@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AbroadConsult from "@/components/abroad/AbroadConsult";
+import Icon from "@/components/Icon";
 
 export const metadata: Metadata = {
   title: "Образование за рубежом — поступление в вузы 25+ стран | GSC Study",
@@ -136,9 +137,7 @@ export default function AbroadPage() {
                 <Link className="hover:text-primary transition-colors" href="/">
                   Главная
                 </Link>
-                <span className="material-symbols-outlined text-sm">
-                  chevron_right
-                </span>
+                <Icon name="chevron_right" className="text-sm" />
                 <span className="text-primary">Образование за рубежом</span>
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-on-surface leading-[1.1] tracking-tight mb-8">
@@ -158,9 +157,7 @@ export default function AbroadPage() {
                   className="bg-secondary text-white px-8 py-4 rounded-lg text-base font-bold hover:bg-secondary/90 transition-colors shadow-lg shadow-secondary/20 flex items-center justify-center gap-2"
                 >
                   Подобрать программу
-                  <span className="material-symbols-outlined text-sm">
-                    arrow_forward
-                  </span>
+                  <Icon name="arrow_forward" className="text-sm" />
                 </a>
                 <a
                   href="#countries"
@@ -191,7 +188,7 @@ export default function AbroadPage() {
               <div className="glass-card rounded-lg p-8 shadow-2xl relative z-10">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                    <span className="material-symbols-outlined">school</span>
+                    <Icon name="school" />
                   </div>
                   <div>
                     <div className="text-sm font-bold text-on-surface">
@@ -342,7 +339,7 @@ export default function AbroadPage() {
                   href="#consult"
                 >
                   Получить план действий
-                  <span className="material-symbols-outlined">arrow_forward</span>
+                  <Icon name="arrow_forward" />
                 </a>
               </div>
               <div className="lg:col-span-7 space-y-6">
@@ -632,9 +629,10 @@ export default function AbroadPage() {
                     <span className="font-bold text-lg text-on-surface pr-8">
                       {item.q}
                     </span>
-                    <span className="material-symbols-outlined text-primary transition group-open:rotate-180">
-                      expand_more
-                    </span>
+                    <Icon
+                      name="expand_more"
+                      className="text-primary transition group-open:rotate-180"
+                    />
                   </summary>
                   <div className="px-6 pb-6">
                     <p className="text-on-surface-variant leading-relaxed">

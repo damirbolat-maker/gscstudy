@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { site } from "@/lib/site";
+import Icon from "@/components/Icon";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -59,9 +60,7 @@ export default function AbroadConsult() {
             {info.map((it) => (
               <div key={it.label} className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-white">
-                    {it.icon}
-                  </span>
+                  <Icon name={it.icon} className="text-white" />
                 </div>
                 <div>
                   <div className="text-xs text-white/60 uppercase tracking-wider font-bold">
@@ -73,9 +72,7 @@ export default function AbroadConsult() {
             ))}
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                <span className="material-symbols-outlined text-white">
-                  payments
-                </span>
+                <Icon name="payments" className="text-white" />
               </div>
               <div>
                 <div className="text-xs text-white/60 uppercase tracking-wider font-bold">
@@ -92,7 +89,7 @@ export default function AbroadConsult() {
               className="bg-white/10 border border-white/20 text-white px-8 py-4 rounded-lg text-base font-bold hover:bg-white/20 transition-colors flex items-center justify-center gap-2"
               href={`tel:${site.phone.tel}`}
             >
-              <span className="material-symbols-outlined text-sm">call</span>
+              <Icon name="call" className="text-sm" />
               {site.phone.display}
             </a>
             <a
@@ -110,7 +107,7 @@ export default function AbroadConsult() {
           {status === "success" ? (
             <div className="bg-white rounded-lg p-8 md:p-10 shadow-2xl relative text-center">
               <div className="w-16 h-16 bg-clever-green/10 text-clever-green rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="material-symbols-outlined text-3xl">check</span>
+                <Icon name="check" className="text-3xl" />
               </div>
               <h3 className="text-2xl font-bold text-on-surface mb-2">
                 Заявка отправлена!

@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SchoolPrograms from "@/components/school/SchoolPrograms";
 import ConsultSection from "@/components/ConsultSection";
+import Icon from "@/components/Icon";
 
 export const metadata: Metadata = {
   title: "Языковая школа — курсы английского A1–C2 в Алматы и Астане | GSC Study",
@@ -93,9 +94,7 @@ export default function SchoolPage() {
                   className="inline-flex justify-center items-center px-8 py-4 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all hover:-translate-y-1"
                 >
                   Уровни A1–C2
-                  <span className="material-symbols-outlined ml-2">
-                    arrow_downward
-                  </span>
+                  <Icon name="arrow_downward" className="ml-2" />
                 </a>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 border-t border-border-subtle pt-10">
@@ -462,9 +461,10 @@ export default function SchoolPage() {
                 >
                   <summary className="flex items-center justify-between cursor-pointer list-none p-6 font-headline-sm text-[18px] text-primary">
                     <span>{item.q}</span>
-                    <span className="transition group-open:rotate-180 material-symbols-outlined text-secondary">
-                      expand_more
-                    </span>
+                    <Icon
+                      name="expand_more"
+                      className="transition group-open:rotate-180 text-secondary"
+                    />
                   </summary>
                   <div className="font-body-md text-body-md text-on-surface-variant px-6 pb-6 pt-0 leading-relaxed">
                     {item.a}
