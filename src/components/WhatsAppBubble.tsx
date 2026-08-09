@@ -1,6 +1,13 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
 
 export default function WhatsAppBubble() {
+  const pathname = usePathname();
+  // не показываем в админке
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <a
       href={`${site.whatsapp.link}?text=Здравствуйте!%20У%20меня%20есть%20вопрос`}

@@ -14,7 +14,9 @@ Digital SAT, поступление в зарубежные вузы.
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+cp .env.example .env      # заполнить (для локали значения по умолчанию подходят)
+npm run db:push           # создать локальную базу SQLite (prisma/dev.db)
+npm run dev               # http://localhost:3000
 ```
 
 Прод-сборка локально:
@@ -23,6 +25,22 @@ npm run dev      # http://localhost:3000
 npm run build
 npm start
 ```
+
+## Админка
+
+Панель управления — по адресу **`/admin`** (логин/пароль из `.env`:
+`ADMIN_USERNAME` / `ADMIN_PASSWORD`).
+
+Разделы: Обзор, Страницы, Тесты уровня, **Заявки** (все обращения с форм сайта),
+Лагеря, Настройки. Заявки с форм автоматически сохраняются в базу и видны в
+разделе «Заявки».
+
+## База данных
+
+- ORM: **Prisma**, локально — **SQLite** (`prisma/dev.db`).
+- Схема: `prisma/schema.prisma`. После изменений — `npm run db:push`.
+- На проде можно переключить на PostgreSQL, поменяв `DATABASE_URL` и
+  `provider` в схеме.
 
 ## Структура
 

@@ -28,3 +28,7 @@ next-env.d.ts
 
 # legacy static site (kept locally for reference, not tracked)
 _legacy/
+
+# sqlite dev db
+/prisma/dev.db
+/prisma/*.db-journal
