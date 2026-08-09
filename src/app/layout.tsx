@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import WhatsAppBubble from "@/components/WhatsAppBubble";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -21,9 +22,16 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru" className={manrope.variable}>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        />
+      </head>
       <body className="antialiased">
         <div className="fixed inset-0 z-[-1] dots-pattern pointer-events-none" />
         {children}
+        <WhatsAppBubble />
       </body>
     </html>
   );

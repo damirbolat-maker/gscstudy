@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 
+const manrope = ["var(--font-manrope)", "sans-serif"];
+
 const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
@@ -23,6 +25,7 @@ const config: Config = {
         "tertiary-container": "#cca741",
         "surface-variant": "#e3e2e0",
         "primary-fixed": "#cee5ff",
+        "primary-fixed-dim": "#98cbff",
         "on-secondary": "#ffffff",
         "surface-container": "#efeeec",
         "surface-container-high": "#e9e8e6",
@@ -35,10 +38,46 @@ const config: Config = {
         "on-surface": "#1a1c1b",
         "deep-charcoal": "#2E2D2C",
         "surface-container-low": "#f4f3f1",
+        "surface-tint": "#266292",
         outline: "#717880",
         "outline-variant": "#c1c7d0",
         "primary-container": "#135685",
+        "inverse-primary": "#98cbff",
+        "inverse-surface": "#2f3130",
+        tertiary: "#765b00",
+        "on-tertiary": "#ffffff",
+        "on-tertiary-container": "#503d00",
         "border-subtle": "rgba(19, 86, 133, 0.08)",
+      },
+      fontFamily: {
+        sans: manrope,
+        "display-lg": manrope,
+        "display-lg-mobile": manrope,
+        "headline-md": manrope,
+        "headline-sm": manrope,
+        "body-lg": manrope,
+        "body-md": manrope,
+        "label-caps": manrope,
+        button: manrope,
+      },
+      fontSize: {
+        "display-lg": [
+          "48px",
+          { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800" },
+        ],
+        "display-lg-mobile": [
+          "32px",
+          { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "800" },
+        ],
+        "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "700" }],
+        "headline-sm": ["24px", { lineHeight: "1.4", fontWeight: "700" }],
+        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+        "label-caps": [
+          "12px",
+          { lineHeight: "1.0", letterSpacing: "0.08em", fontWeight: "600" },
+        ],
+        button: ["16px", { lineHeight: "1.0", fontWeight: "600" }],
       },
       borderRadius: {
         DEFAULT: "0.25rem",
@@ -54,8 +93,12 @@ const config: Config = {
         "stack-lg": "2rem",
         "grid-gutter": "1.5rem",
       },
-      fontFamily: {
-        sans: ["var(--font-manrope)", "sans-serif"],
+      maxWidth: {
+        "container-max": "1280px",
+      },
+      boxShadow: {
+        cta: "0 10px 20px -6px rgba(177, 0, 90, 0.35)",
+        "cta-hover": "0 16px 28px -8px rgba(177, 0, 90, 0.45)",
       },
     },
   },

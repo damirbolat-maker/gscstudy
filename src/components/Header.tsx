@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
 
 const langs = ["RU", "KZ", "EN"] as const;
@@ -9,6 +10,10 @@ const langs = ["RU", "KZ", "EN"] as const;
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [lang, setLang] = useState<(typeof langs)[number]>("RU");
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    href.startsWith("/#") ? false : pathname === href;
 
   return (
     <>
@@ -30,7 +35,11 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm font-semibold text-gray-700 hover:text-primary transition-colors"
+                  className={`text-sm font-semibold transition-colors ${
+                    isActive(item.href)
+                      ? "text-primary border-b-2 border-primary"
+                      : "text-gray-700 hover:text-primary"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -55,10 +64,10 @@ export default function Header() {
                 ))}
               </div>
               <a
-                href={`tel:${site.phones.almaty.tel}`}
+                href={`tel:${site.phone.tel}`}
                 className="text-sm font-bold text-gray-900 hover:text-primary"
               >
-                {site.phones.almaty.display}
+                {site.phone.display}
               </a>
               <a
                 href="#consult"
@@ -96,9 +105,7 @@ export default function Header() {
       </header>
 
       {/* Mobile Menu */}
-      <div
-        className={`fixed inset-0 z-40 bg-white ${menuOpen ? "" : "hidden"}`}
-      >
+      <div className={`fixed inset-0 z-40 bg-white ${menuOpen ? "" : "hidden"}`}>
         <div className="pt-20 pb-6 px-4 h-full overflow-y-auto">
           <div className="flex justify-end mb-6">
             <button
@@ -136,10 +143,10 @@ export default function Header() {
           </nav>
           <div className="mt-12 border-t border-gray-200 pt-8">
             <a
-              href={`tel:${site.phones.almaty.tel}`}
+              href={`tel:${site.phone.tel}`}
               className="block text-xl font-bold text-gray-900 mb-4"
             >
-              {site.phones.almaty.display}
+              {site.phone.display}
             </a>
             <a
               href="#consult"

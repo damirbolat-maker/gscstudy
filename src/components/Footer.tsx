@@ -36,7 +36,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href="#"
+                href={site.instagram}
                 aria-label="Instagram"
                 className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-primary hover:bg-secondary hover:text-white transition-all duration-300"
               >
@@ -45,7 +45,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href={site.whatsapp}
+                href={site.whatsapp.link}
                 aria-label="WhatsApp"
                 className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-primary hover:bg-whatsapp-green hover:text-white transition-all duration-300"
               >
@@ -96,24 +96,24 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex flex-col">
                 <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">
-                  Алматы
+                  Колл-центр
                 </span>
                 <a
-                  href={`tel:${site.phones.almaty.tel}`}
+                  href={`tel:${site.phone.tel}`}
                   className="text-gray-900 font-bold hover:text-secondary"
                 >
-                  {site.phones.almaty.display}
+                  {site.phone.display}
                 </a>
               </li>
               <li className="flex flex-col">
                 <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">
-                  Астана
+                  WhatsApp
                 </span>
                 <a
-                  href={`tel:${site.phones.astana.tel}`}
+                  href={site.whatsapp.link}
                   className="text-gray-900 font-bold hover:text-secondary"
                 >
-                  {site.phones.astana.display}
+                  {site.whatsapp.display}
                 </a>
               </li>
               <li className="flex flex-col">
@@ -126,6 +126,12 @@ export default function Footer() {
                 >
                   {site.email}
                 </a>
+              </li>
+              <li className="flex flex-col">
+                <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">
+                  Часы работы
+                </span>
+                <span className="text-gray-600 text-sm">{site.workingHours}</span>
               </li>
             </ul>
           </div>

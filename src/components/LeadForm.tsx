@@ -150,7 +150,7 @@ export default function LeadForm() {
           Быстрее —{" "}
           <a
             className="text-whatsapp-green font-semibold hover:underline"
-            href={site.whatsapp}
+            href={site.whatsapp.link}
           >
             написать в WhatsApp
           </a>
