@@ -22,6 +22,42 @@ body {
   position: relative;
 }
 
+/* About page helpers */
+.bg-dots {
+  background-image: radial-gradient(
+    circle,
+    rgba(19, 86, 133, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(19, 86, 133, 0.08);
+  box-shadow: 0px 10px 30px rgba(19, 86, 133, 0.05);
+}
+.hover-card-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 14px 40px rgba(19, 86, 133, 0.1);
+}
+.readability-track {
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.blob-bg {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* Camps page grid */
 .bg-grid-pattern {
   background-image: linear-gradient(

@@ -130,6 +130,56 @@ const paths: Record<string, React.ReactNode> = {
   phone: (
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
   ),
+  workspace_premium: (
+    <>
+      <circle cx="12" cy="8" r="6" />
+      <path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5" />
+    </>
+  ),
+  calendar_month: (
+    <>
+      <rect x="3" y="4" width="18" height="18" rx="2" />
+      <path d="M3 10h18M8 2v4M16 2v4" />
+    </>
+  ),
+  location_city: (
+    <>
+      <path d="M4 21V8l5-3v3l5-3v4l6-2v14z" />
+      <path d="M9 21v-3M14 21v-3" />
+    </>
+  ),
+  public: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z" />
+    </>
+  ),
+  verified: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+    </>
+  ),
+  trending_up: (
+    <>
+      <path d="M3 17l6-6 4 4 7-7" />
+      <path d="M17 8h4v4" />
+    </>
+  ),
+  visibility: (
+    <>
+      <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  travel_explore: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="M4 11h14M11 4a13 13 0 0 1 0 14 13 13 0 0 1 0-14z" />
+      <path d="M21 21l-3.5-3.5" />
+    </>
+  ),
   menu: (
     <>
       <path d="M4 6h16" />

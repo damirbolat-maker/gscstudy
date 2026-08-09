@@ -92,6 +92,8 @@ const config: Config = {
         "section-gap": "5rem",
         "stack-lg": "2rem",
         "grid-gutter": "1.5rem",
+        "desktop-margin": "5rem",
+        "mobile-margin": "1.25rem",
       },
       maxWidth: {
         "container-max": "1280px",
