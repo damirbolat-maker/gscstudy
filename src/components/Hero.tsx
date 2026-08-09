@@ -164,7 +164,7 @@ export default function Hero() {
           </div>
 
           {/* Right: form */}
-          <div className="lg:col-span-5 relative">
+          <div id="consult" className="lg:col-span-5 relative scroll-mt-28">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-2xl transform rotate-3 scale-105 blur-lg" />
             <LeadForm />
           </div>
