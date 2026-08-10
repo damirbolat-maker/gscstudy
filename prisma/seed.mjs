@@ -10,18 +10,42 @@ const tests = [
     kind: "placement",
     audience: "adults",
     description:
-      "Определяет уровень английского по шкале A1–C2 — с него начинается любая подготовка.",
-    timeLimit: 15,
+      "25 вопросов с нарастающей сложностью в формате Cambridge. Определяет уровень английского по шкале A1–C2 — с него начинается любая подготовка.",
+    timeLimit: 20,
     order: 1,
+    // Формат Cambridge General English: 25 вопросов, сложность нарастает A1 → C2.
     questions: [
-      ["I ___ a student.", ["am", "is", "are", "be"], 0],
-      ["She ___ coffee every morning.", ["drink", "drinks", "drinking", "drank"], 1],
-      ["They went to the cinema ___ Saturday.", ["in", "at", "on", "by"], 2],
-      ["I have lived here ___ 2015.", ["since", "for", "from", "at"], 0],
-      ["If it rains, we ___ at home.", ["stay", "will stay", "stayed", "would stay"], 1],
-      ["This is the book ___ I told you about.", ["who", "which", "what", "whose"], 1],
-      ["By next year, she ___ her degree.", ["will finish", "will have finished", "finishes", "finished"], 1],
-      ["He spoke as though he ___ everything.", ["knows", "knew", "had known", "has known"], 2],
+      // A1
+      ["Hello, ___ name is Anna.", ["my", "me", "I", "mine"], 0],
+      ["There ___ two books on the table.", ["is", "are", "am", "be"], 1],
+      ["She ___ from Italy.", ["am", "are", "is", "be"], 2],
+      ["___ you speak English?", ["Do", "Are", "Does", "Is"], 0],
+      ["I like ___ football at the weekend.", ["play", "plays", "playing", "played"], 2],
+      // A2
+      ["We ___ to the beach yesterday.", ["go", "went", "gone", "going"], 1],
+      ["He is taller ___ his brother.", ["then", "as", "than", "that"], 2],
+      ["There isn't ___ milk in the fridge.", ["some", "any", "many", "a"], 1],
+      ["I have never ___ sushi before.", ["eat", "ate", "eaten", "eating"], 2],
+      ["She is good ___ playing the piano.", ["in", "on", "at", "for"], 2],
+      // B1
+      ["If it rains tomorrow, we ___ at home.", ["stay", "will stay", "stayed", "would stay"], 1],
+      ["She has been living here ___ ten years.", ["since", "for", "from", "during"], 1],
+      ["You ___ smoke here — it's forbidden.", ["mustn't", "don't have to", "needn't", "could"], 0],
+      ["This is the man ___ car was stolen.", ["who", "which", "whose", "whom"], 2],
+      ["The film was ___ boring that I fell asleep.", ["so", "such", "too", "very"], 0],
+      // B2
+      ["By the time we arrived, the train ___.", ["left", "has left", "had left", "was leaving"], 2],
+      ["I'd rather you ___ tell anyone about this.", ["don't", "didn't", "won't", "not"], 1],
+      ["I wish I ___ more free time.", ["have", "will have", "had", "having"], 2],
+      ["The report needs ___ before Friday.", ["finish", "finishing", "to finishing", "finish it"], 1],
+      ["Choose the synonym of 'reluctant':", ["eager", "unwilling", "cheerful", "rapid"], 1],
+      // C1
+      ["Not until she left ___ how much he missed her.", ["he realised", "he did realise", "did he realise", "realised he"], 2],
+      ["Had he studied harder, he ___ the exam.", ["would pass", "will pass", "would have passed", "passed"], 2],
+      ["The new regulation will come into ___ next month.", ["affect", "effect", "result", "place"], 1],
+      // C2
+      ["Little ___ that his life was about to change forever.", ["he knew", "did he know", "he did know", "knew he"], 1],
+      ["Her argument was so ___ that no one could refute it.", ["incoherent", "trivial", "cogent", "vague"], 2],
     ],
   },
   {
