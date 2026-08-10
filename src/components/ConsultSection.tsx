@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { site } from "@/lib/site";
 import Icon from "@/components/Icon";
+import { useLocale } from "@/i18n/useLocale";
+import { getSchoolDict } from "@/i18n/pages/school";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -15,17 +17,24 @@ type Props = {
 };
 
 export default function ConsultSection({
-  eyebrow = "Первый шаг",
-  title = (
-    <>
-      Тест уровня и пробный урок — <br />
-      <em className="text-secondary not-italic">бесплатно</em>
-    </>
-  ),
-  text = "Определим уровень, подберём группу и формат, назовём стоимость. Без обязательств.",
+  eyebrow,
+  title,
+  text,
   courses,
   source = "consult-section",
 }: Props) {
+  const locale = useLocale();
+  const t = getSchoolDict(locale);
+
+  const eyebrowText = eyebrow ?? t.consult.eyebrow;
+  const titleNode = title ?? (
+    <>
+      {t.consult.title1} <br />
+      <em className="text-secondary not-italic">{t.consult.title2}</em>
+    </>
+  );
+  const textStr = text ?? t.consult.text;
+
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({
     name: "",
@@ -63,13 +72,13 @@ export default function ConsultSection({
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <span className="inline-block py-1 px-3 rounded-full bg-white/10 text-white font-label-caps text-label-caps tracking-wider uppercase mb-6 border border-white/20">
-              {eyebrow}
+              {eyebrowText}
             </span>
             <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight">
-              {title}
+              {titleNode}
             </h2>
             <p className="font-body-lg text-body-lg text-primary-fixed mb-10 leading-relaxed">
-              {text}
+              {textStr}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
@@ -98,19 +107,19 @@ export default function ConsultSection({
                   <Icon name="check" className="text-3xl" />
                 </div>
                 <h3 className="font-headline-md text-headline-md text-primary mb-2">
-                  Заявка отправлена!
+                  {t.consult.successTitle}
                 </h3>
                 <p className="font-body-md text-on-surface-variant">
-                  Менеджер свяжется с вами в ближайшее время.
+                  {t.consult.successText}
                 </p>
               </div>
             ) : (
               <div className="bg-white rounded-xl p-8 lg:p-10 shadow-2xl relative">
                 <h3 className="font-headline-md text-headline-md text-primary mb-2">
-                  Записаться на пробный урок
+                  {t.consult.formTitle}
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant mb-8">
-                  Менеджер свяжется с вами в ближайшее время.
+                  {t.consult.formSubtitle}
                 </p>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -119,12 +128,12 @@ export default function ConsultSection({
                         className="block font-label-caps text-[14px] text-primary mb-2"
                         htmlFor="s-name"
                       >
-                        Имя
+                        {t.consult.name}
                       </label>
                       <input
                         className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
                         id="s-name"
-                        placeholder="Айгерим"
+                        placeholder={t.consult.namePh}
                         required
                         type="text"
                         value={form.name}
@@ -136,7 +145,7 @@ export default function ConsultSection({
                         className="block font-label-caps text-[14px] text-primary mb-2"
                         htmlFor="s-city"
                       >
-                        Город
+                        {t.consult.city}
                       </label>
                       <select
                         className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
@@ -145,10 +154,10 @@ export default function ConsultSection({
                         value={form.city}
                         onChange={(e) => setForm({ ...form, city: e.target.value })}
                       >
-                        <option value="">Выберите</option>
-                        <option>Алматы</option>
-                        <option>Астана</option>
-                        <option>Другой город — онлайн</option>
+                        <option value="">{t.consult.cityChoose}</option>
+                        <option>{t.consult.cityAlmaty}</option>
+                        <option>{t.consult.cityAstana}</option>
+                        <option>{t.consult.cityOther}</option>
                       </select>
                     </div>
                   </div>
@@ -158,7 +167,7 @@ export default function ConsultSection({
                         className="block font-label-caps text-[14px] text-primary mb-2"
                         htmlFor="s-phone"
                       >
-                        Телефон
+                        {t.consult.phone}
                       </label>
                       <input
                         className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
@@ -175,7 +184,7 @@ export default function ConsultSection({
                         className="block font-label-caps text-[14px] text-primary mb-2"
                         htmlFor="s-email"
                       >
-                        Email — необяз.
+                        {t.consult.emailOptional}
                       </label>
                       <input
                         className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
@@ -193,7 +202,7 @@ export default function ConsultSection({
                         className="block font-label-caps text-[14px] text-primary mb-2"
                         htmlFor="s-course"
                       >
-                        Курс
+                        {t.consult.course}
                       </label>
                       <select
                         className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
@@ -221,8 +230,7 @@ export default function ConsultSection({
                         className="font-body-md text-[14px] text-on-surface-variant cursor-pointer"
                         htmlFor="consent2"
                       >
-                        Согласен(а) на обработку персональных данных в соответствии
-                        с законом РК.
+                        {t.consult.consent}
                       </label>
                     </div>
                   </div>
@@ -231,12 +239,11 @@ export default function ConsultSection({
                     type="submit"
                     disabled={status === "loading"}
                   >
-                    {status === "loading" ? "Отправляем…" : "Отправить заявку"}
+                    {status === "loading" ? t.consult.sending : t.consult.submit}
                   </button>
                   {status === "error" && (
                     <p className="text-sm text-error text-center">
-                      Что-то пошло не так. Попробуйте ещё раз или напишите в
-                      WhatsApp.
+                      {t.consult.error}
                     </p>
                   )}
                 </form>

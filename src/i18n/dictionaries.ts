@@ -103,6 +103,32 @@ const ru = {
   reviews: {
     eyebrow: "Отзывы",
     title: "Что говорят студенты",
+    items: [
+      {
+        text: "Сдал IELTS на 7.5 благодаря отличной подготовке! Преподаватели очень внимательны к деталям.",
+        author: "Алихан, Астана",
+        course: "Курс IELTS Academic",
+        accent: false,
+      },
+      {
+        text: "Поступила в Канаду, весь процесс прошел гладко. Помогли с выбором вуза и оформлением визы.",
+        author: "Мадина, Алматы",
+        course: "Поступление за рубеж",
+        accent: true,
+      },
+      {
+        text: "Отличные преподаватели и атмосфера. Подтянул английский с B1 до C1 за полгода интенсивных занятий.",
+        author: "Данияр, Алматы",
+        course: "Общий английский",
+        accent: false,
+      },
+      {
+        text: "Ребёнок в восторге от летнего лагеря! Практика языка каждый день плюс отличная культурная программа.",
+        author: "Динара, Астана",
+        course: "Летние лагеря",
+        accent: true,
+      },
+    ],
   },
   offices: {
     eyebrow: "Контакты",
@@ -246,6 +272,32 @@ const kz: Dict = {
   reviews: {
     eyebrow: "Пікірлер",
     title: "Студенттер не дейді",
+    items: [
+      {
+        text: "Тамаша дайындықтың арқасында IELTS-тен 7.5 алдым! Оқытушылар әр бөлшекке мұқият қарайды.",
+        author: "Алихан, Астана",
+        course: "IELTS Academic курсы",
+        accent: false,
+      },
+      {
+        text: "Канадаға оқуға түстім, бүкіл процесс тегіс өтті. Университет таңдауға және виза рәсімдеуге көмектесті.",
+        author: "Мәдина, Алматы",
+        course: "Шетелде оқу",
+        accent: true,
+      },
+      {
+        text: "Керемет оқытушылар мен орта. Жарты жылдық қарқынды сабақта ағылшынымды B1-ден C1-ге дейін көтердім.",
+        author: "Данияр, Алматы",
+        course: "Жалпы ағылшын тілі",
+        accent: false,
+      },
+      {
+        text: "Балам жазғы лагерьден қатты риза! Күн сайын тіл практикасы және тамаша мәдени бағдарлама.",
+        author: "Динара, Астана",
+        course: "Жазғы лагерьлер",
+        accent: true,
+      },
+    ],
   },
   offices: {
     eyebrow: "Байланыс",
@@ -387,6 +439,32 @@ const en: Dict = {
   reviews: {
     eyebrow: "Reviews",
     title: "What students say",
+    items: [
+      {
+        text: "Scored 7.5 on IELTS thanks to excellent prep! The teachers pay close attention to every detail.",
+        author: "Alikhan, Astana",
+        course: "IELTS Academic course",
+        accent: false,
+      },
+      {
+        text: "Got into a university in Canada and the whole process went smoothly. They helped me choose the school and handle the visa.",
+        author: "Madina, Almaty",
+        course: "Study abroad",
+        accent: true,
+      },
+      {
+        text: "Great teachers and atmosphere. I moved my English from B1 to C1 in six months of intensive classes.",
+        author: "Daniyar, Almaty",
+        course: "General English",
+        accent: false,
+      },
+      {
+        text: "My child loved the summer camp! Language practice every day plus a wonderful cultural program.",
+        author: "Dinara, Astana",
+        course: "Summer camps",
+        accent: true,
+      },
+    ],
   },
   offices: {
     eyebrow: "Contacts",

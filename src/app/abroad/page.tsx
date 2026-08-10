@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AbroadConsult from "@/components/abroad/AbroadConsult";
 import Icon from "@/components/Icon";
+import { getServerLocale } from "@/lib/locale";
+import { getAbroadDict } from "@/i18n/pages/abroad";
 
 export const metadata: Metadata = {
   title: "Образование за рубежом — поступление в вузы 25+ стран | GSC Study",
@@ -11,117 +13,39 @@ export const metadata: Metadata = {
     "Поступление в университеты Великобритании, Германии, Канады, ОАЭ и США. Подбор программы, документы, мотивационное письмо и сопровождение до зачисления. Foundation, Bachelor, Pre-Master.",
 };
 
-const countries = [
-  {
-    code: "UK",
-    name: "Британия",
-    color: "#00247d",
-    rows: [
-      ["Уровни", "Foundation, Bachelor"],
-      ["Язык", "IELTS 6.0–7.0"],
-      ["Подача", "UCAS"],
-      ["Дедлайн", "январь"],
-    ] as [string, string][],
-  },
-  {
-    code: "DE",
-    name: "Германия",
-    color: "#FFCE00",
-    text: "#000000",
-    rows: [
-      ["Уровни", "Foundation, Bachelor"],
-      ["Язык", "IELTS / немецкий B2"],
-      ["Госвузы", "без платы за обучение"],
-      ["Дедлайн", "июль и январь"],
-    ] as [string, string][],
-    accentRow: 2,
-  },
-  {
-    code: "CA",
-    name: "Канада",
-    color: "#FF0000",
-    rows: [
-      ["Уровни", "Foundation, Bachelor"],
-      ["Язык", "IELTS 6.0–6.5"],
-      ["После учёбы", "work permit"],
-      ["Дедлайн", "январь–март"],
-    ] as [string, string][],
-    primaryRow: 2,
-  },
-  {
-    code: "AE",
-    name: "ОАЭ",
-    color: "#00732f",
-    rows: [
-      ["Уровни", "Foundation, Bachelor"],
-      ["Язык", "IELTS 5.5–6.5"],
-      ["Кампусы", "филиалы вузов UK и US"],
-      ["Дедлайн", "несколько наборов в год"],
-    ] as [string, string][],
-  },
-  {
-    code: "US",
-    name: "США",
-    color: "#3C3B6E",
-    rows: [
-      ["Уровни", "Bachelor, Pre-Master"],
-      ["Экзамены", "Digital SAT + IELTS"],
-      ["Подача", "Common App"],
-      ["Дедлайн", "ноябрь и январь"],
-    ] as [string, string][],
-  },
-];
+const countriesMeta = [
+  { code: "UK", color: "#00247d" },
+  { code: "DE", color: "#FFCE00", text: "#000000", accentRow: 2 },
+  { code: "CA", color: "#FF0000", primaryRow: 2 },
+  { code: "AE", color: "#00732f" },
+  { code: "US", color: "#3C3B6E" },
+] as {
+  code: string;
+  color: string;
+  text?: string;
+  accentRow?: number;
+  primaryRow?: number;
+}[];
 
-const who = [
-  {
-    num: "01",
-    title: "Выпускникам 11 класса",
-    text: "До подачи остаётся один сезон. Нужно быстро определить реалистичный список вузов, добрать языковой балл и не пропустить дедлайны.",
-  },
-  {
-    num: "02",
-    title: "Ученикам 9–10 классов",
-    text: "Есть два-три года в запасе — самая выигрышная позиция. Можно спокойно поднять язык, собрать портфолио и целиться в конкурсные программы.",
-  },
-  {
-    num: "03",
-    title: "Тем, кому важно финансирование",
-    text: "Учёба за рубежом не обязательно означает полную оплату. Разбираем, где есть гранты и стипендии и что нужно, чтобы на них претендовать.",
-  },
-  {
-    num: "04",
-    title: "Тем, кто уже получил отказ",
-    text: "Разбираем, что именно не сработало — балл, письмо или выбор программы — и готовим подачу на следующий набор.",
-  },
-];
+const whoNums = ["01", "02", "03", "04"];
 
-const whatWeDo = [
-  { n: 1, title: "Подбор университета", text: "Список из нескольких вузов: с запасом, по профилю и надёжный вариант. Смотрим на аттестат, баллы, бюджет и шансы, а не на позицию в рейтинге." },
-  { n: 2, title: "Мотивационное письмо", text: "Помогаем собрать текст, который отвечает на вопрос приёмной комиссии, а не пересказывает биографию. Разбираем черновики построчно." },
-  { n: 3, title: "Документы и переводы", text: "Аттестат, транскрипт, рекомендации, справки. Проверяем комплект под требования каждого вуза — они различаются сильнее, чем кажется." },
-  { n: 4, title: "Подача заявок", text: "UCAS для Британии, Common App для США, порталы вузов для остальных стран. Следим за дедлайнами, чтобы заявка не ушла в последнюю ночь." },
-  { n: 5, title: "Общение с вузом", text: "Отвечаем на запросы приёмной комиссии, отслеживаем статус и напоминаем о подтверждении места, когда придёт оффер." },
-  { n: 6, title: "Подготовка к визе", text: "Собираем пакет документов, разбираем типичные вопросы собеседования и порядок подачи в конкретной стране." },
-];
+const whatWeDoNums = [1, 2, 3, 4, 5, 6];
 
-const timeline = [
-  { when: "За 12 месяцев", title: "Определяем страну и уровень", text: "Разбираем аттестат, бюджет и цель. На этом этапе становится понятно, нужен ли Foundation и какой языковой балл придётся набрать.", edge: true },
-  { when: "За 10 месяцев", title: "Готовимся к экзаменам", text: "IELTS, при необходимости Digital SAT. Закладываем запас на пересдачу — с первого раза нужный балл получают не все." },
-  { when: "За 6 месяцев", title: "Собираем документы", text: "Транскрипт, рекомендации, мотивационное письмо. Письмо переписывается несколько раз, поэтому начинаем заранее." },
-  { when: "За 4 месяца", title: "Подаём заявки", text: "UCAS, Common App или порталы вузов. Подаём в несколько университетов сразу, чтобы не зависеть от одного ответа." },
-  { when: "За 2 месяца", title: "Оффер и виза", text: "Подтверждаем место, вносим депозит, собираем визовый пакет и готовимся к собеседованию." },
-  { when: "Август–сентябрь", title: "Отъезд", text: "Жильё, страховка, билеты и первые недели на месте. На связи остаёмся и после зачисления.", last: true },
-];
+const budgetAccent = [true, false, false, false, false];
 
-const faqs = [
-  { q: "Хватит ли казахстанского аттестата?", a: "Для части стран — да, для Британии и ряда программ Канады обычно требуется Foundation, потому что там школа длится дольше. Это не отказ, а дополнительный год при университете, после которого вы переходите на первый курс." },
-  { q: "Можно ли учиться бесплатно?", a: "В государственных вузах Германии нет платы за обучение — остаются только сбор за семестр и расходы на жизнь. В остальных странах бывают стипендии и гранты, но они конкурсные и требуют высоких баллов." },
-  { q: "Когда начинать подготовку?", a: "За год до предполагаемого старта учёбы. Большую часть этого времени занимает язык: подтянуть уровень с B1 до нужного балла за пару месяцев не получается, а без сертификата заявку не примут." },
-  { q: "В сколько вузов подавать?", a: "Обычно в четыре-пять: один-два амбициозных, два по профилю и один надёжный. UCAS ограничивает пятью программами за сезон, у остальных стран лимитов, как правило, нет." },
-  { q: "Что если придёт отказ?", a: "Поэтому и подаём в несколько вузов. Если отказали везде, разбираем причину — чаще это балл или слабое мотивационное письмо — и готовим подачу на следующий набор или на Foundation." },
-];
+const timelineMeta = [
+  { edge: true },
+  {},
+  {},
+  {},
+  {},
+  { last: true },
+] as { edge?: boolean; last?: boolean }[];
 
-export default function AbroadPage() {
+export default async function AbroadPage() {
+  const locale = await getServerLocale();
+  const t = getAbroadDict(locale);
+
   return (
     <>
       <Header />
@@ -135,44 +59,37 @@ export default function AbroadPage() {
             <div className="lg:col-span-7">
               <div className="flex items-center gap-2 text-sm font-semibold text-on-surface-variant mb-6 uppercase tracking-wider">
                 <Link className="hover:text-primary transition-colors" href="/">
-                  Главная
+                  {t.hero.breadcrumbHome}
                 </Link>
                 <Icon name="chevron_right" className="text-sm" />
-                <span className="text-primary">Образование за рубежом</span>
+                <span className="text-primary">{t.hero.breadcrumbCurrent}</span>
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-on-surface leading-[1.1] tracking-tight mb-8">
-                Поступление в вузы <br />
+                {t.hero.title1} <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                  25+ стран
+                  {t.hero.title2}
                 </span>
               </h1>
               <p className="text-lg md:text-xl text-on-surface-variant leading-relaxed mb-10 max-w-2xl">
-                Подбираем университет под аттестат, баллы и бюджет, готовим
-                документы и ведём до письма о зачислении. Не «отправим заявку», а
-                доведём до результата.
+                {t.hero.text}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-16">
                 <a
                   href="#consult"
                   className="bg-secondary text-white px-8 py-4 rounded-lg text-base font-bold hover:bg-secondary/90 transition-colors shadow-lg shadow-secondary/20 flex items-center justify-center gap-2"
                 >
-                  Подобрать программу
+                  {t.hero.ctaPrimary}
                   <Icon name="arrow_forward" className="text-sm" />
                 </a>
                 <a
                   href="#countries"
                   className="bg-white text-on-surface border border-border-subtle px-8 py-4 rounded-lg text-base font-bold hover:bg-surface-container-low hover:border-outline-variant transition-all flex items-center justify-center gap-2"
                 >
-                  Страны и требования
+                  {t.hero.ctaSecondary}
                 </a>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-border-subtle">
-                {[
-                  ["25+", "Стран поступления"],
-                  ["3", "Уровня: Foundation, Bachelor, Pre-Master"],
-                  ["12", "Месяцев — типичный цикл подачи"],
-                  ["0 ₸", "Первичная консультация"],
-                ].map(([v, l]) => (
+                {t.hero.stats.map(([v, l]) => (
                   <div key={l}>
                     <div className="text-3xl font-extrabold text-primary mb-1">
                       {v}
@@ -192,10 +109,10 @@ export default function AbroadPage() {
                   </div>
                   <div>
                     <div className="text-sm font-bold text-on-surface">
-                      Ваш путь к зачислению
+                      {t.hero.card.title}
                     </div>
                     <div className="text-xs text-on-surface-variant">
-                      Мы берём на себя всю бюрократию
+                      {t.hero.card.subtitle}
                     </div>
                   </div>
                 </div>
@@ -209,10 +126,10 @@ export default function AbroadPage() {
                     </div>
                     <div className="pt-1">
                       <div className="text-sm font-bold text-on-surface">
-                        Подбор вуза и стратегии
+                        {t.hero.card.steps[0][0]}
                       </div>
                       <div className="text-xs text-on-surface-variant mt-1">
-                        Оценка шансов, выбор направления
+                        {t.hero.card.steps[0][1]}
                       </div>
                     </div>
                   </div>
@@ -225,10 +142,10 @@ export default function AbroadPage() {
                     </div>
                     <div className="pt-1">
                       <div className="text-sm font-bold text-on-surface">
-                        Сбор документов
+                        {t.hero.card.steps[1][0]}
                       </div>
                       <div className="text-xs text-on-surface-variant mt-1">
-                        Переводы, мотивационное письмо
+                        {t.hero.card.steps[1][1]}
                       </div>
                     </div>
                   </div>
@@ -240,10 +157,10 @@ export default function AbroadPage() {
                     </div>
                     <div className="pt-1">
                       <div className="text-sm font-bold text-on-surface">
-                        Зачисление и виза
+                        {t.hero.card.steps[2][0]}
                       </div>
                       <div className="text-xs text-on-surface-variant mt-1">
-                        Подача заявки, получение оффера
+                        {t.hero.card.steps[2][1]}
                       </div>
                     </div>
                   </div>
@@ -260,18 +177,17 @@ export default function AbroadPage() {
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
-                Направления
+                {t.countries.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
-                Пять основных стран
+                {t.countries.title}
               </h2>
               <p className="text-lg text-on-surface-variant">
-                С этими системами работаем чаще всего и знаем их дедлайны
-                наизусть. Остальные страны — по запросу.
+                {t.countries.text}
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {countries.map((c) => (
+              {countriesMeta.map((c, ci) => (
                 <a key={c.code} href="#consult" className="group block card-21st p-6">
                   <div className="flex items-center gap-4 mb-6">
                     <div
@@ -285,15 +201,15 @@ export default function AbroadPage() {
                       {c.code}
                     </div>
                     <h3 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">
-                      {c.name}
+                      {t.countries.items[ci].name}
                     </h3>
                   </div>
                   <div className="space-y-3">
-                    {c.rows.map(([k, v], idx) => (
+                    {t.countries.items[ci].rows.map(([k, v], idx) => (
                       <div
                         key={k}
                         className={`flex justify-between items-center py-2 ${
-                          idx < c.rows.length - 1
+                          idx < t.countries.items[ci].rows.length - 1
                             ? "border-b border-border-subtle"
                             : ""
                         }`}
@@ -325,31 +241,30 @@ export default function AbroadPage() {
             <div className="grid lg:grid-cols-12 gap-16 items-start">
               <div className="lg:col-span-5 lg:sticky lg:top-32">
                 <span className="inline-block py-1 px-3 rounded-full bg-secondary/10 text-secondary text-xs font-bold tracking-widest uppercase mb-4">
-                  Кому подходит
+                  {t.who.eyebrow}
                 </span>
                 <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
-                  Узнаёте себя?
+                  {t.who.title}
                 </h2>
                 <p className="text-lg text-on-surface-variant mb-8">
-                  Мы работаем не только с выпускниками. Чем раньше начать, тем
-                  больше вариантов остаётся открытыми.
+                  {t.who.text}
                 </p>
                 <a
                   className="inline-flex items-center gap-2 text-primary font-bold hover:text-secondary transition-colors"
                   href="#consult"
                 >
-                  Получить план действий
+                  {t.who.cta}
                   <Icon name="arrow_forward" />
                 </a>
               </div>
               <div className="lg:col-span-7 space-y-6">
-                {who.map((w) => (
+                {t.who.items.map((w, wi) => (
                   <div
-                    key={w.num}
+                    key={whoNums[wi]}
                     className="flex gap-6 p-6 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border border-transparent hover:border-border-subtle shadow-sm"
                   >
                     <div className="text-4xl font-black text-primary/20">
-                      {w.num}
+                      {whoNums[wi]}
                     </div>
                     <div>
                       <h4 className="text-xl font-bold text-on-surface mb-2">
@@ -371,52 +286,47 @@ export default function AbroadPage() {
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
-                Уровни
+                {t.levels.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
-                С чего начинать именно вам
+                {t.levels.title}
               </h2>
               <p className="text-lg text-on-surface-variant">
-                Зависит от аттестата и языкового уровня. Казахстанская школа не
-                всегда даёт прямой вход на бакалавриат — и это нормально.
+                {t.levels.text}
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="card-21st p-8 flex flex-col h-full hover-lift">
                 <div className="mb-6">
                   <span className="inline-block py-1 px-3 rounded-full bg-secondary/10 text-secondary text-xs font-bold mb-4">
-                    1 год · переход на Bachelor
+                    {t.levels.foundation.badge}
                   </span>
                   <h4 className="text-2xl font-bold text-on-surface">Foundation</h4>
                 </div>
                 <p className="text-sm text-on-surface-variant leading-relaxed flex-grow">
-                  Подготовительный год при университете для тех, чей аттестат не
-                  проходит напрямую. Заканчивается переводом на первый курс того же
-                  вуза.
+                  {t.levels.foundation.text}
                 </p>
               </div>
               <div className="bg-primary p-8 rounded-xl shadow-xl flex flex-col h-full transform md:-translate-y-4 hover-lift">
                 <div className="mb-6">
                   <span className="inline-block py-1 px-3 rounded-full bg-white/20 text-white text-xs font-bold mb-4">
-                    3–4 года
+                    {t.levels.bachelor.badge}
                   </span>
                   <h4 className="text-2xl font-bold text-white">Bachelor</h4>
                 </div>
                 <p className="text-sm text-white/80 leading-relaxed flex-grow">
-                  Основная программа после школы. Нужны аттестат, языковой
-                  сертификат, мотивационное письмо, иногда SAT.
+                  {t.levels.bachelor.text}
                 </p>
               </div>
               <div className="card-21st p-8 flex flex-col h-full hover-lift">
                 <div className="mb-6">
                   <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
-                    6–12 месяцев
+                    {t.levels.premaster.badge}
                   </span>
                   <h4 className="text-2xl font-bold text-on-surface">Pre-Master</h4>
                 </div>
                 <p className="text-sm text-on-surface-variant leading-relaxed flex-grow">
-                  Мост между бакалавриатом и магистратурой за рубежом, если
-                  академического профиля не хватает для прямого поступления.
+                  {t.levels.premaster.text}
                 </p>
               </div>
             </div>
@@ -429,21 +339,20 @@ export default function AbroadPage() {
           <div className="max-w-[1280px] mx-auto px-6 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
-                Сопровождение
+                {t.whatWeDo.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
-                Что мы берём на себя
+                {t.whatWeDo.title}
               </h2>
               <p className="text-lg text-on-surface-variant">
-                Всё, кроме экзаменов и визового собеседования — их вы проходите
-                сами, но подготовим к обоим.
+                {t.whatWeDo.text}
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
-              {whatWeDo.map((w) => (
-                <div key={w.n} className="relative pl-12 group">
+              {t.whatWeDo.items.map((w, wi) => (
+                <div key={whatWeDoNums[wi]} className="relative pl-12 group">
                   <div className="absolute left-0 top-0 w-8 h-8 rounded-lg bg-surface border border-border-subtle group-hover:border-primary group-hover:bg-primary group-hover:text-white flex items-center justify-center text-sm font-bold text-on-surface-variant transition-colors shadow-sm">
-                    {w.n}
+                    {whatWeDoNums[wi]}
                   </div>
                   <h4 className="text-lg font-bold text-on-surface mb-2 pt-1">
                     {w.title}
@@ -462,44 +371,35 @@ export default function AbroadPage() {
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
-                Финансирование
+                {t.money.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
-                Сколько это стоит на самом деле
+                {t.money.title}
               </h2>
               <p className="text-lg text-on-surface-variant">
-                Самый частый стоп-фактор — уверенность, что учёба за рубежом
-                доступна единицам. Разбираем бюджет честно, до подачи документов.
+                {t.money.text}
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white rounded-lg p-8 md:p-12 shadow-sm border border-border-subtle">
                 <span className="inline-block py-1 px-3 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold mb-6">
-                  Из чего складывается бюджет
+                  {t.money.budget.badge}
                 </span>
                 <h3 className="text-2xl font-bold text-on-surface mb-4">
-                  Обучение — не единственная статья
+                  {t.money.budget.title}
                 </h3>
                 <p className="text-sm text-on-surface-variant mb-8">
-                  Считать нужно всё сразу, иначе к третьему курсу деньги
-                  заканчиваются. На консультации собираем полную смету по конкретной
-                  стране.
+                  {t.money.budget.text}
                 </p>
                 <div className="space-y-4">
-                  {[
-                    ["Обучение", "от 0 ₸ в госвузах Германии", true],
-                    ["Проживание", "основная статья расходов", false],
-                    ["Виза и страховка", "разовые платежи", false],
-                    ["Депозит на счёте", "требуют почти везде", false],
-                    ["Подработка", "разрешена не во всех странах", false],
-                  ].map(([k, v, accent]) => (
+                  {t.money.budget.rows.map(([k, v], bi) => (
                     <div
-                      key={k as string}
+                      key={k}
                       className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-border-subtle"
                     >
                       <span className="text-sm text-on-surface-variant">{k}</span>
                       <strong
-                        className={`text-sm ${accent ? "text-primary" : "text-on-surface"}`}
+                        className={`text-sm ${budgetAccent[bi] ? "text-primary" : "text-on-surface"}`}
                       >
                         {v}
                       </strong>
@@ -509,23 +409,16 @@ export default function AbroadPage() {
               </div>
               <div className="bg-primary rounded-lg p-8 md:p-12 shadow-xl text-white">
                 <span className="inline-block py-1 px-3 rounded-full bg-white/20 text-white text-xs font-bold mb-6">
-                  Гранты и стипендии
+                  {t.money.grants.badge}
                 </span>
                 <h3 className="text-2xl font-bold text-white mb-4">
-                  Как снизить стоимость
+                  {t.money.grants.title}
                 </h3>
                 <p className="text-sm text-white/80 mb-8">
-                  Полное покрытие получают немногие, а частичное — вполне реально.
-                  Но заявку на стипендию готовят параллельно с поступлением, а не
-                  после.
+                  {t.money.grants.text}
                 </p>
                 <div className="space-y-4 mb-8">
-                  {[
-                    ["Стипендии вузов", "за академические результаты"],
-                    ["Госпрограммы", "у каждой страны свои"],
-                    ["Что решает", "баллы, эссе, портфолио"],
-                    ["Когда подавать", "вместе с заявкой в вуз"],
-                  ].map(([k, v]) => (
+                  {t.money.grants.rows.map(([k, v]) => (
                     <div
                       key={k}
                       className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-white/20"
@@ -535,9 +428,9 @@ export default function AbroadPage() {
                     </div>
                   ))}
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-white/20">
-                    <span className="text-sm text-white/80">Германия</span>
+                    <span className="text-sm text-white/80">{t.money.grants.special[0]}</span>
                     <strong className="text-sm text-secondary bg-white px-2 py-0.5 rounded">
-                      обучение бесплатно и без гранта
+                      {t.money.grants.special[1]}
                     </strong>
                   </div>
                 </div>
@@ -545,7 +438,7 @@ export default function AbroadPage() {
                   className="inline-flex items-center justify-center w-full py-4 rounded-lg border-2 border-white/30 font-bold hover:bg-white hover:text-primary transition-colors"
                   href="#consult"
                 >
-                  Обсудить бюджет
+                  {t.money.grants.cta}
                 </a>
               </div>
             </div>
@@ -557,50 +450,52 @@ export default function AbroadPage() {
           <div className="max-w-[1000px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
-                Сроки
+                {t.timeline.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
-                Год до поступления
+                {t.timeline.title}
               </h2>
               <p className="text-lg text-on-surface-variant">
-                Типичный цикл для осеннего набора. Главная ошибка — начинать за три
-                месяца до дедлайна, когда язык уже не успеть подтянуть.
+                {t.timeline.text}
               </p>
             </div>
             <div className="relative space-y-8 before:absolute before:inset-0 before:ml-4 md:before:ml-[25%] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border-subtle before:to-transparent">
-              {timeline.map((t, i) => (
+              {t.timeline.items.map((item, i) => {
+                const meta = timelineMeta[i];
+                return (
                 <div
                   key={i}
                   className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
                 >
                   <div
                     className={`flex items-center justify-center w-8 h-8 rounded-full border-4 border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ml-[2px] md:ml-0 ${
-                      t.edge || t.last
+                      meta.edge || meta.last
                         ? "bg-primary text-white"
                         : "bg-surface-container-high text-on-surface-variant group-hover:bg-primary/20 transition-colors"
                     }`}
                   />
                   <div
                     className={`w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-6 rounded-lg border shadow-sm transition-all hover:shadow-md ml-4 md:ml-0 group-odd:mr-auto group-even:ml-auto ${
-                      t.last
+                      meta.last
                         ? "border-primary/20 bg-primary/5 hover:border-primary/40"
                         : "border-border-subtle bg-white hover:border-primary/30"
                     }`}
                   >
                     <div
                       className={`text-sm font-bold mb-2 uppercase tracking-wider ${
-                        t.edge || t.last ? "text-primary" : "text-on-surface-variant"
-                      } ${t.edge ? "text-secondary" : ""}`}
+                        meta.edge || meta.last ? "text-primary" : "text-on-surface-variant"
+                      } ${meta.edge ? "text-secondary" : ""}`}
                     >
-                      {t.when}
+                      {item.when}
                     </div>
                     <h4 className="text-lg font-bold text-on-surface mb-2">
-                      {t.title}
+                      {item.title}
                     </h4>
-                    <p className="text-sm text-on-surface-variant">{t.text}</p>
+                    <p className="text-sm text-on-surface-variant">{item.text}</p>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -613,14 +508,14 @@ export default function AbroadPage() {
           <div className="max-w-[820px] mx-auto px-6">
             <div className="mb-12">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
-                Вопросы
+                {t.faq.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface">
-                О поступлении за рубеж
+                {t.faq.title}
               </h2>
             </div>
             <div className="space-y-4">
-              {faqs.map((item, i) => (
+              {t.faq.items.map((item, i) => (
                 <details
                   key={i}
                   className="group border border-border-subtle rounded-lg bg-white overflow-hidden"

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { site } from "@/lib/site";
 import Icon from "@/components/Icon";
+import { useLocale } from "@/i18n/useLocale";
+import { getExamsDict } from "@/i18n/pages/exams";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -10,6 +12,8 @@ const inputCls =
   "w-full rounded-lg border-surface-variant/60 bg-surface-container-low text-on-surface focus:ring-primary focus:border-primary p-3.5 shadow-sm transition-shadow focus:shadow-md";
 
 export default function ExamsConsult() {
+  const locale = useLocale();
+  const t = getExamsDict(locale).consult;
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({
     name: "",
@@ -52,15 +56,14 @@ export default function ExamsConsult() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           <div>
             <span className="inline-block py-1.5 px-4 rounded-full bg-white/10 text-white/90 text-label-caps tracking-widest uppercase mb-6 border border-white/20 shadow-sm">
-              Первый шаг
+              {t.eyebrow}
             </span>
             <h2 className="text-display-lg-mobile md:text-[56px] font-extrabold mb-8 leading-[1.1] tracking-tight">
-              Начните с <br />
-              <span className="text-primary-fixed">диагностики</span>
+              {t.title1} <br />
+              <span className="text-primary-fixed">{t.title2}</span>
             </h2>
             <p className="text-lg text-white/80 mb-10 max-w-md leading-relaxed">
-              Пробный тест покажет реальный стартовый балл, а мы скажем, сколько
-              времени нужно до вашей цели.
+              {t.text}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
@@ -87,30 +90,30 @@ export default function ExamsConsult() {
                 <Icon name="check" className="text-3xl" />
               </div>
               <h3 className="text-2xl font-bold mb-3 tracking-tight">
-                Заявка отправлена!
+                {t.successTitle}
               </h3>
               <p className="text-on-surface-variant text-sm">
-                Менеджер свяжется с вами в ближайшее время.
+                {t.successText}
               </p>
             </div>
           ) : (
             <div className="bg-surface-container-lowest text-on-surface p-8 sm:p-10 rounded-2xl shadow-2xl border border-surface-variant/50">
               <h3 className="text-2xl font-bold mb-3 tracking-tight">
-                Записаться на диагностику
+                {t.formTitle}
               </h3>
               <p className="text-on-surface-variant text-sm mb-8">
-                Менеджер свяжется с вами в ближайшее время.
+                {t.formSubtitle}
               </p>
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-bold text-on-surface mb-2" htmlFor="e-name">
-                      Имя
+                      {t.name}
                     </label>
                     <input
                       className={inputCls}
                       id="e-name"
-                      placeholder="Айгерим"
+                      placeholder={t.namePh}
                       required
                       type="text"
                       value={form.name}
@@ -119,7 +122,7 @@ export default function ExamsConsult() {
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-on-surface mb-2" htmlFor="e-city">
-                      Город
+                      {t.city}
                     </label>
                     <select
                       className={inputCls}
@@ -128,17 +131,17 @@ export default function ExamsConsult() {
                       value={form.city}
                       onChange={(e) => setForm({ ...form, city: e.target.value })}
                     >
-                      <option value="">Выберите</option>
-                      <option>Алматы</option>
-                      <option>Астана</option>
-                      <option>Другой город — онлайн</option>
+                      <option value="">{t.cityChoose}</option>
+                      {t.cities.map((c) => (
+                        <option key={c}>{c}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-bold text-on-surface mb-2" htmlFor="e-phone">
-                      Телефон
+                      {t.phone}
                     </label>
                     <input
                       className={inputCls}
@@ -152,7 +155,7 @@ export default function ExamsConsult() {
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-on-surface mb-2" htmlFor="e-email">
-                      Email — необяз.
+                      {t.emailLabel}
                     </label>
                     <input
                       className={inputCls}
@@ -167,7 +170,7 @@ export default function ExamsConsult() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-bold text-on-surface mb-2" htmlFor="e-exam">
-                      Экзамен
+                      {t.examLabel}
                     </label>
                     <select
                       className={inputCls}
@@ -178,12 +181,12 @@ export default function ExamsConsult() {
                       <option>IELTS Academic</option>
                       <option>IELTS General Training</option>
                       <option>Digital SAT</option>
-                      <option>Ещё не решил(а)</option>
+                      <option>{t.examUndecided}</option>
                     </select>
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-on-surface mb-2" htmlFor="e-goal">
-                      Целевой балл
+                      {t.goalLabel}
                     </label>
                     <select
                       className={inputCls}
@@ -196,7 +199,7 @@ export default function ExamsConsult() {
                       <option>IELTS 7.0+</option>
                       <option>SAT 1200+</option>
                       <option>SAT 1300+</option>
-                      <option>Пока не знаю</option>
+                      <option>{t.goalUnknown}</option>
                     </select>
                   </div>
                 </div>
@@ -213,8 +216,7 @@ export default function ExamsConsult() {
                     className="text-xs text-on-surface-variant cursor-pointer leading-tight"
                     htmlFor="e-consent"
                   >
-                    Согласен(а) на обработку персональных данных в соответствии с
-                    законом РК.
+                    {t.consent}
                   </label>
                 </div>
                 <button
@@ -222,12 +224,11 @@ export default function ExamsConsult() {
                   type="submit"
                   disabled={status === "loading"}
                 >
-                  {status === "loading" ? "Отправляем…" : "Отправить заявку"}
+                  {status === "loading" ? t.sending : t.submit}
                 </button>
                 {status === "error" && (
                   <p className="text-sm text-error text-center">
-                    Что-то пошло не так. Попробуйте ещё раз или напишите в
-                    WhatsApp.
+                    {t.error}
                   </p>
                 )}
               </form>

@@ -3,17 +3,20 @@
 import { useState } from "react";
 import { site } from "@/lib/site";
 import Icon from "@/components/Icon";
+import { useLocale } from "@/i18n/useLocale";
+import { getCampsDict } from "@/i18n/pages/camps";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function CampsConsult() {
+  const t = getCampsDict(useLocale()).consult;
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({
     name: "",
     phone: "",
-    camp: "Лондон",
-    age: "12–13 лет",
-    city: "Алматы",
+    camp: t.campOptions[0],
+    age: t.ageOptions[0],
+    city: t.cityOptions[0],
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -44,15 +47,14 @@ export default function CampsConsult() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <span className="inline-block py-1 px-3 rounded-full bg-white/10 text-white font-bold text-sm tracking-wider uppercase mb-6 border border-white/20">
-              Лето 2026
+              {t.eyebrow}
             </span>
             <h2 className="text-4xl lg:text-6xl font-extrabold mb-6 leading-tight">
-              Забронируйте место <br />
-              <em className="text-secondary not-italic">заранее</em>
+              {t.title1} <br />
+              <em className="text-secondary not-italic">{t.title2}</em>
             </h2>
             <p className="text-xl text-primary-fixed mb-10 leading-relaxed">
-              Расскажем про направления, покажем программу смены и условия,
-              ответим на вопросы о безопасности и визе.
+              {t.text}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
@@ -63,7 +65,7 @@ export default function CampsConsult() {
               </a>
               <a
                 className="inline-flex justify-center items-center px-8 py-4 text-lg font-bold rounded-full shadow-lg text-white bg-whatsapp-green hover:bg-[#20bd5a] transition-all gap-2"
-                href={`${site.whatsapp.link}?text=Здравствуйте!%20Интересует%20языковой%20лагерь`}
+                href={`${site.whatsapp.link}?text=${encodeURIComponent(t.waPrefill)}`}
                 target="_blank"
                 rel="noopener"
               >
@@ -81,19 +83,19 @@ export default function CampsConsult() {
                   <Icon name="check" className="text-3xl" />
                 </div>
                 <h3 className="text-3xl font-extrabold text-on-surface mb-2">
-                  Заявка отправлена!
+                  {t.successTitle}
                 </h3>
                 <p className="text-on-surface-variant">
-                  Менеджер свяжется с вами в ближайшее время.
+                  {t.successText}
                 </p>
               </div>
             ) : (
               <div className="bg-white rounded-3xl p-8 lg:p-10 shadow-2xl relative">
                 <h3 className="text-3xl font-extrabold text-on-surface mb-2">
-                  Заявка на лагерь
+                  {t.formTitle}
                 </h3>
                 <p className="text-on-surface-variant mb-8">
-                  Менеджер свяжется с вами в ближайшее время.
+                  {t.formSubtitle}
                 </p>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -102,12 +104,12 @@ export default function CampsConsult() {
                         className="block text-sm font-bold text-on-surface mb-2"
                         htmlFor="k-name"
                       >
-                        Имя родителя
+                        {t.nameLabel}
                       </label>
                       <input
                         className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
                         id="k-name"
-                        placeholder="Гульнара"
+                        placeholder={t.namePh}
                         required
                         type="text"
                         value={form.name}
@@ -119,7 +121,7 @@ export default function CampsConsult() {
                         className="block text-sm font-bold text-on-surface mb-2"
                         htmlFor="k-phone"
                       >
-                        Телефон
+                        {t.phoneLabel}
                       </label>
                       <input
                         className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
@@ -138,7 +140,7 @@ export default function CampsConsult() {
                         className="block text-sm font-bold text-on-surface mb-2"
                         htmlFor="k-camp"
                       >
-                        Направление
+                        {t.campLabel}
                       </label>
                       <select
                         className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
@@ -146,11 +148,9 @@ export default function CampsConsult() {
                         value={form.camp}
                         onChange={(e) => setForm({ ...form, camp: e.target.value })}
                       >
-                        <option>Лондон</option>
-                        <option>Дубай</option>
-                        <option>Торонто</option>
-                        <option>Берлин</option>
-                        <option>Ещё не решили</option>
+                        {t.campOptions.map((o) => (
+                          <option key={o}>{o}</option>
+                        ))}
                       </select>
                     </div>
                     <div>
@@ -158,7 +158,7 @@ export default function CampsConsult() {
                         className="block text-sm font-bold text-on-surface mb-2"
                         htmlFor="k-age"
                       >
-                        Возраст ребёнка
+                        {t.ageLabel}
                       </label>
                       <select
                         className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
@@ -166,9 +166,9 @@ export default function CampsConsult() {
                         value={form.age}
                         onChange={(e) => setForm({ ...form, age: e.target.value })}
                       >
-                        <option>12–13 лет</option>
-                        <option>14–15 лет</option>
-                        <option>16–17 лет</option>
+                        {t.ageOptions.map((o) => (
+                          <option key={o}>{o}</option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export default function CampsConsult() {
                       className="block text-sm font-bold text-on-surface mb-2"
                       htmlFor="k-city"
                     >
-                      Город вылета
+                      {t.cityLabel}
                     </label>
                     <select
                       className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
@@ -185,9 +185,9 @@ export default function CampsConsult() {
                       value={form.city}
                       onChange={(e) => setForm({ ...form, city: e.target.value })}
                     >
-                      <option>Алматы</option>
-                      <option>Астана</option>
-                      <option>Другой город</option>
+                      {t.cityOptions.map((o) => (
+                        <option key={o}>{o}</option>
+                      ))}
                     </select>
                   </div>
                   <div className="flex items-start">
@@ -204,8 +204,7 @@ export default function CampsConsult() {
                         className="font-medium text-on-surface-variant cursor-pointer"
                         htmlFor="k-consent"
                       >
-                        Согласен(а) на обработку персональных данных в соответствии
-                        с законом РК.
+                        {t.consent}
                       </label>
                     </div>
                   </div>
@@ -214,12 +213,11 @@ export default function CampsConsult() {
                     type="submit"
                     disabled={status === "loading"}
                   >
-                    {status === "loading" ? "Отправляем…" : "Отправить заявку"}
+                    {status === "loading" ? t.sending : t.submit}
                   </button>
                   {status === "error" && (
                     <p className="text-sm text-error text-center">
-                      Что-то пошло не так. Попробуйте ещё раз или напишите в
-                      WhatsApp.
+                      {t.error}
                     </p>
                   )}
                 </form>

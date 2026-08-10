@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import { site } from "@/lib/site";
+import { useLocale } from "@/i18n/useLocale";
+import { getTestsDict } from "@/i18n/pages/tests";
 
 type Option = { id: string; text: string };
 type Question = { id: string; text: string; options: Option[] };
@@ -25,6 +27,7 @@ export default function TestRunner({
   timeLimit,
   questions,
 }: Props) {
+  const t = getTestsDict(useLocale());
   const [step, setStep] = useState<Step>("intro");
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [idx, setIdx] = useState(0);
@@ -67,7 +70,7 @@ export default function TestRunner({
   if (step === "intro") {
     return (
       <Card>
-        <span className="tag-pill">Тест уровня</span>
+        <span className="tag-pill">{t.intro.eyebrow}</span>
         <h1 className="text-3xl md:text-4xl font-extrabold text-primary mb-3">
           {title}
         </h1>
@@ -75,9 +78,9 @@ export default function TestRunner({
           <p className="text-on-surface-variant mb-6">{description}</p>
         )}
         <div className="flex flex-wrap gap-6 mb-8 text-sm">
-          <Meta label="Вопросов" value={String(total)} />
-          <Meta label="Время" value={timeLimit ? `${timeLimit} мин` : "без лимита"} />
-          <Meta label="Стоимость" value="бесплатно" />
+          <Meta label={t.intro.metaQuestions} value={String(total)} />
+          <Meta label={t.intro.metaTime} value={timeLimit ? `${timeLimit} ${t.intro.minutes}` : t.intro.noLimit} />
+          <Meta label={t.intro.metaCost} value={t.intro.free} />
         </div>
         <form
           onSubmit={(e) => {
@@ -88,38 +91,37 @@ export default function TestRunner({
         >
           <div className="grid sm:grid-cols-2 gap-4">
             <Field
-              label="Имя"
+              label={t.intro.nameLabel}
               value={form.name}
               onChange={(v) => setForm({ ...form, name: v })}
-              placeholder="Айгерим"
+              placeholder={t.intro.namePh}
               required
             />
             <Field
-              label="Телефон"
+              label={t.intro.phoneLabel}
               value={form.phone}
               onChange={(v) => setForm({ ...form, phone: v })}
-              placeholder="+7 700 000 00 00"
+              placeholder={t.intro.phonePh}
               type="tel"
               required
             />
           </div>
           <Field
-            label="Email — необязательно"
+            label={t.intro.emailLabel}
             value={form.email}
             onChange={(v) => setForm({ ...form, email: v })}
-            placeholder="you@example.com"
+            placeholder={t.intro.emailPh}
             type="email"
           />
           <label className="flex items-start gap-3 text-sm text-on-surface-variant pt-1">
             <input type="checkbox" required className="mt-1 rounded text-primary focus:ring-primary" />
-            Согласен(а) на обработку персональных данных, чтобы получить результат
-            и разбор.
+            {t.intro.consent}
           </label>
           <button
             type="submit"
             className="btn-accent w-full py-4 rounded-xl font-bold text-lg mt-2"
           >
-            Начать тест
+            {t.intro.startBtn}
           </button>
         </form>
       </Card>
@@ -133,7 +135,7 @@ export default function TestRunner({
         <div className="mb-6">
           <div className="flex justify-between text-sm text-on-surface-variant mb-2">
             <span>
-              Вопрос {idx + 1} из {total}
+              {t.quiz.question} {idx + 1} {t.quiz.of} {total}
             </span>
             <span>{progress}%</span>
           </div>
@@ -173,7 +175,7 @@ export default function TestRunner({
             onClick={() => setIdx(idx - 1)}
             className="mt-6 text-sm font-semibold text-on-surface-variant hover:text-primary"
           >
-            ← Назад
+            {t.quiz.back}
           </button>
         )}
       </Card>
@@ -186,7 +188,7 @@ export default function TestRunner({
       <Card>
         <div className="py-16 text-center">
           <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-on-surface-variant">Считаем результат…</p>
+          <p className="text-on-surface-variant">{t.loading.text}</p>
         </div>
       </Card>
     );
@@ -200,30 +202,29 @@ export default function TestRunner({
           <div className="w-16 h-16 rounded-full bg-clever-green/10 text-clever-green flex items-center justify-center mx-auto mb-6">
             <Icon name="check" className="text-3xl" />
           </div>
-          <p className="text-on-surface-variant mb-2">Ваш результат</p>
+          <p className="text-on-surface-variant mb-2">{t.result.yourResult}</p>
           <div className="text-4xl md:text-5xl font-extrabold text-primary mb-3">
             {result.level}
           </div>
           <p className="text-on-surface-variant mb-8">
-            Правильных ответов: <b>{result.score}</b> из {result.total}
+            {t.result.correctAnswers} <b>{result.score}</b> {t.result.of} {result.total}
           </p>
           <div className="bg-surface-container-low rounded-xl p-5 text-sm text-on-surface-variant mb-8">
-            Заявка отправлена — менеджер свяжется с вами, подберёт программу и
-            пришлёт подробный разбор.
+            {t.result.note}
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href={`${site.whatsapp.link}?text=Здравствуйте!%20Прошёл(ла)%20тест%20«${encodeURIComponent(
-                title
-              )}»,%20результат:%20${encodeURIComponent(result.level)}`}
+              href={`${site.whatsapp.link}?text=${encodeURIComponent(
+                `${t.result.waIntro}${title}${t.result.waResult}${result.level}`
+              )}`}
               target="_blank"
               rel="noopener"
               className="btn-accent px-6 py-3 rounded-xl font-bold"
             >
-              Написать в WhatsApp
+              {t.result.waButton}
             </a>
             <Link href="/" className="btn-outline px-6 py-3 rounded-xl font-bold bg-white">
-              На главную
+              {t.result.home}
             </Link>
           </div>
         </div>
@@ -236,13 +237,13 @@ export default function TestRunner({
     <Card>
       <div className="py-12 text-center">
         <p className="text-error font-semibold mb-4">
-          Не удалось сохранить результат.
+          {t.error.text}
         </p>
         <button
           onClick={() => submit(answers)}
           className="btn-primary px-6 py-3 rounded-xl font-bold"
         >
-          Попробовать ещё раз
+          {t.error.retry}
         </button>
       </div>
     </Card>

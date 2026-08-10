@@ -3,22 +3,24 @@
 import { useState } from "react";
 import { site } from "@/lib/site";
 import Icon from "@/components/Icon";
+import { useLocale } from "@/i18n/useLocale";
+import { getAbroadDict } from "@/i18n/pages/abroad";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-const info = [
-  { icon: "videocam", label: "Формат", value: "Zoom или встреча в центре" },
-  { icon: "schedule", label: "Длительность", value: "около 45 минут" },
-];
+const infoIcons = ["videocam", "schedule"];
 
 export default function AbroadConsult() {
+  const locale = useLocale();
+  const t = getAbroadDict(locale).consult;
+
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({
     name: "",
     phone: "",
-    country: "Великобритания",
-    level: "Foundation",
-    year: "2026",
+    country: t.form.countries[0],
+    level: t.form.levels[0],
+    year: t.form.years[0],
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -44,23 +46,22 @@ export default function AbroadConsult() {
       <div className="max-w-[1280px] mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
         <div className="text-white">
           <span className="inline-block py-1 px-3 rounded-full bg-white/20 text-white text-xs font-bold tracking-widest uppercase mb-4">
-            Первый шаг
+            {t.eyebrow}
           </span>
           <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-            Разберём ваши шансы{" "}
+            {t.title1}{" "}
             <span className="text-secondary bg-white px-2 rounded-lg">
-              бесплатно
+              {t.titleHighlight}
             </span>
           </h2>
           <p className="text-lg text-white/80 mb-10 max-w-lg">
-            Посмотрим аттестат и баллы, назовём реалистичный список стран и вузов и
-            скажем, чего не хватает.
+            {t.text}
           </p>
           <div className="space-y-6 mb-10">
-            {info.map((it) => (
+            {t.info.map((it, ii) => (
               <div key={it.label} className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                  <Icon name={it.icon} className="text-white" />
+                  <Icon name={infoIcons[ii]} className="text-white" />
                 </div>
                 <div>
                   <div className="text-xs text-white/60 uppercase tracking-wider font-bold">
@@ -76,10 +77,10 @@ export default function AbroadConsult() {
               </div>
               <div>
                 <div className="text-xs text-white/60 uppercase tracking-wider font-bold">
-                  Стоимость
+                  {t.costLabel}
                 </div>
                 <div className="font-bold text-secondary bg-white px-2 rounded inline-block">
-                  бесплатно
+                  {t.costValue}
                 </div>
               </div>
             </div>
@@ -110,19 +111,19 @@ export default function AbroadConsult() {
                 <Icon name="check" className="text-3xl" />
               </div>
               <h3 className="text-2xl font-bold text-on-surface mb-2">
-                Заявка отправлена!
+                {t.successTitle}
               </h3>
               <p className="text-sm text-on-surface-variant">
-                Менеджер свяжется с вами в ближайшее время.
+                {t.successText}
               </p>
             </div>
           ) : (
             <div className="bg-white rounded-lg p-8 md:p-10 shadow-2xl relative">
               <h3 className="text-2xl font-bold text-on-surface mb-2">
-                Подобрать программу
+                {t.formTitle}
               </h3>
               <p className="text-sm text-on-surface-variant mb-8">
-                Менеджер свяжется с вами в ближайшее время.
+                {t.formText}
               </p>
               <form className="space-y-5" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-5">
@@ -131,12 +132,12 @@ export default function AbroadConsult() {
                       className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2"
                       htmlFor="a-name"
                     >
-                      Имя
+                      {t.form.nameLabel}
                     </label>
                     <input
                       className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
                       id="a-name"
-                      placeholder="Айгерим"
+                      placeholder={t.form.namePh}
                       required
                       type="text"
                       value={form.name}
@@ -148,12 +149,12 @@ export default function AbroadConsult() {
                       className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2"
                       htmlFor="a-phone"
                     >
-                      Телефон
+                      {t.form.phoneLabel}
                     </label>
                     <input
                       className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
                       id="a-phone"
-                      placeholder="+7 700 000 00 00"
+                      placeholder={t.form.phonePh}
                       required
                       type="tel"
                       value={form.phone}
@@ -167,7 +168,7 @@ export default function AbroadConsult() {
                       className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2"
                       htmlFor="a-country"
                     >
-                      Страна
+                      {t.form.countryLabel}
                     </label>
                     <select
                       className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
@@ -177,12 +178,9 @@ export default function AbroadConsult() {
                         setForm({ ...form, country: e.target.value })
                       }
                     >
-                      <option>Великобритания</option>
-                      <option>Германия</option>
-                      <option>Канада</option>
-                      <option>ОАЭ</option>
-                      <option>США</option>
-                      <option>Ещё не решил(а)</option>
+                      {t.form.countries.map((c) => (
+                        <option key={c}>{c}</option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -190,7 +188,7 @@ export default function AbroadConsult() {
                       className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2"
                       htmlFor="a-level"
                     >
-                      Уровень
+                      {t.form.levelLabel}
                     </label>
                     <select
                       className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
@@ -198,10 +196,9 @@ export default function AbroadConsult() {
                       value={form.level}
                       onChange={(e) => setForm({ ...form, level: e.target.value })}
                     >
-                      <option>Foundation</option>
-                      <option>Bachelor</option>
-                      <option>Pre-Master</option>
-                      <option>Пока не знаю</option>
+                      {t.form.levels.map((l) => (
+                        <option key={l}>{l}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -210,7 +207,7 @@ export default function AbroadConsult() {
                     className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2"
                     htmlFor="a-year"
                   >
-                    Год поступления
+                    {t.form.yearLabel}
                   </label>
                   <select
                     className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
@@ -218,9 +215,9 @@ export default function AbroadConsult() {
                     value={form.year}
                     onChange={(e) => setForm({ ...form, year: e.target.value })}
                   >
-                    <option>2026</option>
-                    <option>2027</option>
-                    <option>Ещё не решил(а)</option>
+                    {t.form.years.map((y) => (
+                      <option key={y}>{y}</option>
+                    ))}
                   </select>
                 </div>
                 <label className="flex items-start gap-3 cursor-pointer pt-2">
@@ -230,8 +227,7 @@ export default function AbroadConsult() {
                     type="checkbox"
                   />
                   <span className="text-xs text-on-surface-variant leading-tight">
-                    Согласен(а) на обработку персональных данных в соответствии с
-                    законом РК.
+                    {t.form.consent}
                   </span>
                 </label>
                 <button
@@ -239,12 +235,11 @@ export default function AbroadConsult() {
                   type="submit"
                   disabled={status === "loading"}
                 >
-                  {status === "loading" ? "Отправляем…" : "Отправить заявку"}
+                  {status === "loading" ? t.form.sending : t.form.submit}
                 </button>
                 {status === "error" && (
                   <p className="text-sm text-error text-center">
-                    Что-то пошло не так. Попробуйте ещё раз или напишите в
-                    WhatsApp.
+                    {t.form.error}
                   </p>
                 )}
               </form>

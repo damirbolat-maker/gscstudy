@@ -1,31 +1,13 @@
-const reviews = [
-  {
-    text: "Сдал IELTS на 7.5 благодаря отличной подготовке! Преподаватели очень внимательны к деталям.",
-    author: "Алихан, Астана",
-    course: "Курс IELTS Academic",
-    accent: false,
-  },
-  {
-    text: "Поступила в Канаду, весь процесс прошел гладко. Помогли с выбором вуза и оформлением визы.",
-    author: "Мадина, Алматы",
-    course: "Поступление за рубеж",
-    accent: true,
-  },
-  {
-    text: "Отличные преподаватели и атмосфера. Подтянул английский с B1 до C1 за полгода интенсивных занятий.",
-    author: "Данияр, Алматы",
-    course: "Общий Английский",
-    accent: false,
-  },
-  {
-    text: "Ребенок в восторге от летнего лагеря! Практика языка каждый день плюс отличная культурная программа.",
-    author: "Динара, Астана",
-    course: "Летние лагеря",
-    accent: true,
-  },
-];
+import { getServerDict } from "@/lib/locale";
 
-function ReviewCard({ r }: { r: (typeof reviews)[number] }) {
+type Review = {
+  text: string;
+  author: string;
+  course: string;
+  accent: boolean;
+};
+
+function ReviewCard({ r }: { r: Review }) {
   return (
     <div className="card-premium p-8 w-80 flex-shrink-0 bg-white/95 backdrop-blur">
       <p className="text-gray-600 mb-4 text-sm leading-relaxed">
@@ -41,10 +23,9 @@ function ReviewCard({ r }: { r: (typeof reviews)[number] }) {
   );
 }
 
-import { getServerDict } from "@/lib/locale";
-
 export default async function Reviews() {
   const { dict } = await getServerDict();
+  const reviews = dict.reviews.items;
   return (
     <section
       id="reviews"

@@ -2,117 +2,15 @@
 
 import { useState } from "react";
 import Icon from "@/components/Icon";
-
-type Course = {
-  title: string;
-  tag: string;
-  cat: "general" | "academic" | "kids" | "exam";
-  desc: string;
-  rows: [string, string][];
-  highlight?: boolean;
-};
-
-const courses: Course[] = [
-  {
-    title: "General English",
-    tag: "Общий",
-    cat: "general",
-    desc: "Базовый курс для всех уровней. Speaking, listening, reading и writing в равной пропорции.",
-    rows: [
-      ["Уровни", "A1–C2"],
-      ["Формат", "Группа / онлайн"],
-      ["Занятий в неделю", "2–3"],
-    ],
-  },
-  {
-    title: "Academic English",
-    tag: "Академический",
-    cat: "academic",
-    desc: "Академическое письмо, чтение научных текстов, презентации и семинары — для учёбы за рубежом.",
-    rows: [
-      ["Уровень входа", "B1+"],
-      ["Формат", "Группа / инд."],
-      ["Для кого", "Поступающие"],
-    ],
-  },
-  {
-    title: "Business English",
-    tag: "Общий",
-    cat: "general",
-    desc: "Переговоры, деловая переписка, презентации и собеседования на английском языке.",
-    rows: [
-      ["Уровень входа", "B1+"],
-      ["Формат", "Инд. / онлайн"],
-      ["Для кого", "Специалисты"],
-    ],
-  },
-  {
-    title: "English for Kids",
-    tag: "Детям",
-    cat: "kids",
-    desc: "Игровой формат для 7–12 лет: короткие блоки, много практики и отчёты для родителей.",
-    rows: [
-      ["Возраст", "7–12 лет"],
-      ["Формат", "Малая группа"],
-      ["Пробный урок", "бесплатно"],
-    ],
-  },
-  {
-    title: "English for Teens",
-    tag: "Детям",
-    cat: "kids",
-    desc: "Для 13–17 лет: школьная программа, подготовка к олимпиадам и первый шаг к IELTS.",
-    rows: [
-      ["Возраст", "13–17 лет"],
-      ["Формат", "Группа"],
-      ["Уровни", "A2–B2"],
-    ],
-  },
-  {
-    title: "Speaking Club",
-    tag: "Общий",
-    cat: "general",
-    desc: "Разговорный клуб с носителями языка. Живые темы, никакой оценки и страха ошибиться.",
-    rows: [
-      ["Преподаватели", "Носители языка"],
-      ["Уровень входа", "A2+"],
-      ["Формат", "Еженедельно"],
-    ],
-  },
-  {
-    title: "Китайский язык",
-    tag: "Общий",
-    cat: "general",
-    desc: "Путунхуа с нуля: произношение, иероглифика и разговорная практика.",
-    rows: [
-      ["Уровни", "HSK 1–4"],
-      ["Формат", "Группа / инд."],
-      ["Старт", "с нуля"],
-    ],
-  },
-  {
-    title: "Интенсив",
-    tag: "Интенсив",
-    cat: "exam",
-    desc: "Ускоренная программа за 1–2 месяца, когда экзамен или дедлайн поступления уже близко.",
-    rows: [
-      ["Срок", "1–2 месяца"],
-      ["Нагрузка", "4–5 занятий в неделю"],
-      ["Формат", "Инд. / малая группа"],
-    ],
-    highlight: true,
-  },
-];
-
-const filters = [
-  { key: "all", label: "Все" },
-  { key: "general", label: "Общий" },
-  { key: "academic", label: "Академический" },
-  { key: "kids", label: "Детям" },
-  { key: "exam", label: "Экзамены" },
-] as const;
+import { useLocale } from "@/i18n/useLocale";
+import { getSchoolDict } from "@/i18n/pages/school";
 
 export default function SchoolPrograms() {
+  const locale = useLocale();
+  const t = getSchoolDict(locale);
+  const courses = t.courses;
+  const filters = t.filters;
+
   const [active, setActive] = useState<string>("all");
 
   const shown = courses.filter((c) => active === "all" || c.cat === active);
@@ -125,14 +23,13 @@ export default function SchoolPrograms() {
       <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
-            Программы
+            {t.programs.eyebrow}
           </span>
           <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
-            Восемь курсов языковой школы
+            {t.programs.title}
           </h2>
           <p className="font-body-lg text-body-lg text-on-surface-variant">
-            Стоимость зависит от формата и интенсивности — назовём её на
-            консультации после теста уровня.
+            {t.programs.text}
           </p>
         </div>
 
@@ -194,7 +91,7 @@ export default function SchoolPrograms() {
                 className="inline-flex items-center text-secondary font-button group hover:text-[#8f0048] transition-colors"
                 href="#consult"
               >
-                Записаться
+                {t.programs.signUp}
                 <Icon
                   name="arrow_forward"
                   className="ml-1 group-hover:translate-x-1 transition-transform"

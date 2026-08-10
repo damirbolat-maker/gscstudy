@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import SchoolPrograms from "@/components/school/SchoolPrograms";
 import ConsultSection from "@/components/ConsultSection";
 import Icon from "@/components/Icon";
+import { getServerLocale } from "@/lib/locale";
+import { getSchoolDict } from "@/i18n/pages/school";
 
 export const metadata: Metadata = {
   title: "Языковая школа — курсы английского A1–C2 в Алматы и Астане | GSC Study",
@@ -12,50 +14,14 @@ export const metadata: Metadata = {
     "Курсы английского языка от A1 до C2: общий, академический, деловой и детский. Группы до восьми человек, индивидуальные занятия и онлайн. Тест уровня и пробный урок бесплатно.",
 };
 
-const levels = [
-  { code: "A1", name: "Beginner", desc: "Рассказать о себе, семье и работе простыми фразами", note: "с нуля · 4–5 месяцев" },
-  { code: "A2", name: "Elementary", desc: "Бытовые ситуации: магазин, аэропорт, отель, знакомство", note: "4–5 месяцев" },
-  { code: "B1", name: "Intermediate", desc: "Поддержать разговор на знакомую тему, объяснить своё мнение", note: "5–6 месяцев · порог для IELTS" },
-  { code: "B2", name: "Upper-Intermediate", desc: "Свободное общение, рабочая переписка, фильмы без субтитров", note: "5–6 месяцев · IELTS 6.0–6.5" },
-  { code: "C1", name: "Advanced", desc: "Учёба в зарубежном вузе, переговоры, сложные тексты", note: "6 месяцев · IELTS 7.0+" },
-  { code: "C2", name: "Proficiency", desc: "Уровень, близкий к носителю, включая нюансы и юмор", note: "6 месяцев" },
-];
+export default async function SchoolPage() {
+  const locale = await getServerLocale();
+  const t = getSchoolDict(locale);
+  const levels = t.levels;
+  const formats = t.formats;
+  const lesson = t.lesson;
+  const faqs = t.faqs;
 
-const formats = [
-  { num: "01", title: "Группа до восьми человек", text: "Основной формат. Малый размер группы означает, что говорит каждый, а не только двое самых смелых. Группы стартуют ежемесячно." },
-  { num: "02", title: "Индивидуально", text: "Когда нужен свой темп, нестандартная цель или жёсткий дедлайн. Программа собирается под вас, расписание — тоже." },
-  { num: "03", title: "Онлайн", text: "Те же преподаватели и программа для тех, кто не в Алматы и Астане или не хочет тратить время на дорогу." },
-];
-
-const lesson = [
-  { time: "10 минут", title: "Разогрев", text: "Короткий разговор на свободную тему, чтобы переключиться на английский и снять зажатость." },
-  { time: "15 минут", title: "Разбор домашнего", text: "Не сдача на оценку, а работа с ошибками: почему именно так и где это встретится снова." },
-  { time: "25 минут", title: "Новая тема", text: "Грамматика или лексика вводится через ситуацию, а не через правило на доске." },
-  { time: "30 минут", title: "Практика в парах", text: "Диалоги, ролевые ситуации, обсуждение. Главная часть занятия — здесь говорит каждый." },
-  { time: "10 минут", title: "Итог и задание", text: "Закрепляем, что выучили, и разбираем домашнее задание, чтобы дома не буксовать." },
-];
-
-const faqs = [
-  { q: "Как определяют мой уровень?", a: "Бесплатным онлайн-тестом на 15 минут: он показывает балл и уровень по шкале A1–C2. Результат обсуждаем на консультации и при необходимости уточняем короткой устной частью, потому что говорение тест не измеряет." },
-  { q: "Сколько длится один уровень?", a: "В среднем 4–6 месяцев при двух-трёх занятиях в неделю. На интенсиве тот же объём проходят за 1–2 месяца, но нагрузка заметно выше и нужен свободный график." },
-  { q: "Можно присоединиться к уже идущей группе?", a: "Да, если группа ушла недалеко и ваш уровень совпадает. Если разрыв большой, предложим следующий старт или несколько индивидуальных занятий, чтобы догнать." },
-  { q: "Что если я пропущу занятие?", a: "Материал занятия и домашнее задание останутся у вас, а преподаватель разберёт сложные места на следующей встрече. При длительном отсутствии можно взять индивидуальную отработку." },
-  { q: "Сколько стоит обучение?", a: "Зависит от курса, формата и интенсивности, поэтому цену называем после консультации — когда понятны ваш уровень и цель. Оставьте заявку, и менеджер пришлёт расчёт по выбранной программе." },
-];
-
-const courseOptions = [
-  "General English",
-  "Academic English",
-  "Business English",
-  "English for Kids",
-  "English for Teens",
-  "Speaking Club",
-  "Китайский язык",
-  "Интенсив",
-  "Ещё не решил(а)",
-];
-
-export default function SchoolPage() {
   return (
     <>
       <Header />
@@ -68,42 +34,35 @@ export default function SchoolPage() {
             <div className="max-w-3xl">
               <nav className="flex items-center space-x-2 font-button text-button text-on-surface-variant mb-8">
                 <Link className="hover:text-primary transition-colors" href="/">
-                  Главная
+                  {t.hero.breadcrumbHome}
                 </Link>
                 <span>·</span>
-                <span className="text-primary">Языковая школа</span>
+                <span className="text-primary">{t.hero.breadcrumbCurrent}</span>
               </nav>
               <h1 className="font-display-lg text-display-lg text-primary mb-6 leading-tight">
-                Английский <br />
-                <em className="text-secondary not-italic">от нуля до свободного</em>
+                {t.hero.title1} <br />
+                <em className="text-secondary not-italic">{t.hero.title2}</em>
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 leading-relaxed max-w-2xl">
-                Восемь программ для всех уровней и возрастов. Группу подбираем по
-                результату теста, чтобы вы не переучивали пройденное и не тонули в
-                чужом темпе.
+                {t.hero.text}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-16">
                 <a
                   href="#consult"
                   className="inline-flex justify-center items-center px-8 py-4 font-button text-button rounded-xl text-white bg-secondary hover:bg-[#8f0048] transition-all hover:-translate-y-1 shadow-cta hover:shadow-cta-hover"
                 >
-                  Подобрать курс за 1 минуту
+                  {t.hero.ctaPrimary}
                 </a>
                 <a
                   href="#levels"
                   className="inline-flex justify-center items-center px-8 py-4 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all hover:-translate-y-1"
                 >
-                  Уровни A1–C2
+                  {t.hero.ctaSecondary}
                   <Icon name="arrow_downward" className="ml-2" />
                 </a>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 border-t border-border-subtle pt-10">
-                {[
-                  ["A1–C2", "все уровни по шкале Cambridge"],
-                  ["8", "максимум человек в группе"],
-                  ["3", "формата: группа, индивидуально, онлайн"],
-                  ["0 ₸", "тест уровня и пробный урок"],
-                ].map(([v, l]) => (
+                {t.hero.stats.map(([v, l]) => (
                   <div key={l}>
                     <div className="font-display-lg text-[32px] font-extrabold text-primary mb-1 leading-tight">
                       {v}
@@ -128,14 +87,13 @@ export default function SchoolPage() {
               <div className="md:col-span-4">
                 <div className="sticky top-28">
                   <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
-                    Уровни
+                    {t.levelsSection.eyebrow}
                   </span>
                   <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
-                    Шесть ступеней до свободного английского
+                    {t.levelsSection.title}
                   </h2>
                   <p className="font-body-lg text-body-lg text-on-surface-variant">
-                    Каждая ступень — это отдельный курс со своим финальным
-                    результатом. Стартовую определяем тестом, а не на глаз.
+                    {t.levelsSection.text}
                   </p>
                 </div>
               </div>
@@ -176,10 +134,10 @@ export default function SchoolPage() {
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
-                Форматы
+                {t.formatsSection.eyebrow}
               </span>
               <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
-                Как проходят занятия
+                {t.formatsSection.title}
               </h2>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
@@ -208,36 +166,28 @@ export default function SchoolPage() {
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
-                Где заниматься
+                {t.where.eyebrow}
               </span>
               <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
-                В центре или онлайн
+                {t.where.title}
               </h2>
               <p className="font-body-lg text-body-lg text-on-surface-variant">
-                Программа и преподаватели одинаковые. Разница — в том, что вам
-                удобнее и что лучше держит дисциплину.
+                {t.where.text}
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="spot bg-white rounded-xl p-8 lg:p-10 border border-border-subtle flex flex-col">
                 <span className="inline-block w-fit px-3 py-1 rounded-md bg-secondary/10 text-secondary font-label-caps text-[11px] uppercase mb-6">
-                  Офлайн
+                  {t.where.offline.tag}
                 </span>
                 <h3 className="font-headline-md text-headline-md text-primary mb-4">
-                  Занятия в учебном центре
+                  {t.where.offline.title}
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant mb-8 flex-1">
-                  Живое общение в группе, куда сложнее не прийти. Подходит тем,
-                  кому нужна внешняя дисциплина и общение с реальными людьми, а не
-                  с окошками на экране.
+                  {t.where.offline.text}
                 </p>
                 <div className="grid grid-cols-2 gap-y-4 gap-x-6 mb-8">
-                  {[
-                    ["Города", "Алматы, Астана"],
-                    ["Группа", "до 8 человек"],
-                    ["Занятие", "90 минут"],
-                    ["В неделю", "2–3 занятия"],
-                  ].map(([k, v]) => (
+                  {t.where.offline.rows.map(([k, v]) => (
                     <div key={k}>
                       <span className="block text-on-surface-variant text-sm mb-1">
                         {k}
@@ -250,28 +200,21 @@ export default function SchoolPage() {
                   href="/#offices"
                   className="inline-flex justify-center items-center w-full px-6 py-3 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all"
                 >
-                  Адреса центров
+                  {t.where.offline.cta}
                 </Link>
               </div>
               <div className="spot bg-white rounded-xl p-8 lg:p-10 border border-border-subtle flex flex-col">
                 <span className="inline-block w-fit px-3 py-1 rounded-md bg-secondary/10 text-secondary font-label-caps text-[11px] uppercase mb-6">
-                  Онлайн
+                  {t.where.online.tag}
                 </span>
                 <h3 className="font-headline-md text-headline-md text-primary mb-4">
-                  Занятия из любого города
+                  {t.where.online.title}
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant mb-8 flex-1">
-                  Те же преподаватели и та же программа. Подходит, если вы не в
-                  Алматы и Астане, много ездите или не хотите тратить час на
-                  дорогу ради полутора часов урока.
+                  {t.where.online.text}
                 </p>
                 <div className="grid grid-cols-2 gap-y-4 gap-x-6 mb-8">
-                  {[
-                    ["Где угодно", "весь Казахстан"],
-                    ["Группа", "до 8 человек"],
-                    ["Материалы", "остаются у вас"],
-                    ["Пропуск", "разбор потом"],
-                  ].map(([k, v]) => (
+                  {t.where.online.rows.map(([k, v]) => (
                     <div key={k}>
                       <span className="block text-on-surface-variant text-sm mb-1">
                         {k}
@@ -284,7 +227,7 @@ export default function SchoolPage() {
                   href="#consult"
                   className="inline-flex justify-center items-center w-full px-6 py-3 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all"
                 >
-                  Подобрать формат
+                  {t.where.online.cta}
                 </a>
               </div>
             </div>
@@ -296,14 +239,13 @@ export default function SchoolPage() {
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
-                Занятие
+                {t.lessonSection.eyebrow}
               </span>
               <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
-                Как проходит урок
+                {t.lessonSection.title}
               </h2>
               <p className="font-body-lg text-body-lg text-on-surface-variant">
-                Полтора часа, из которых студент говорит большую часть времени.
-                Лекций и монолога преподавателя у доски нет.
+                {t.lessonSection.text}
               </p>
             </div>
             <div className="max-w-3xl mx-auto space-y-6">
@@ -335,23 +277,16 @@ export default function SchoolPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="spot bg-white rounded-xl p-8 lg:p-10 border border-border-subtle flex flex-col">
                 <span className="inline-block w-fit px-3 py-1 rounded-md bg-secondary/10 text-secondary font-label-caps text-[11px] uppercase mb-6">
-                  Пробный урок
+                  {t.trialWho.trial.tag}
                 </span>
                 <h3 className="font-headline-md text-headline-md text-primary mb-4">
-                  Что происходит на первом занятии
+                  {t.trialWho.trial.title}
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant mb-8 flex-1">
-                  Вы попадаете на настоящее занятие своей группы, а не на
-                  показательную встречу для новичков. Решение принимаете после
-                  него.
+                  {t.trialWho.trial.text}
                 </p>
                 <div className="space-y-4 mb-8">
-                  {[
-                    ["Формат", "реальное занятие группы"],
-                    ["Длительность", "полтора часа"],
-                    ["Стоимость", "бесплатно"],
-                    ["Обязательства", "никаких"],
-                  ].map(([k, v]) => (
+                  {t.trialWho.trial.rows.map(([k, v]) => (
                     <div
                       key={k}
                       className="flex justify-between border-b border-border-subtle pb-2"
@@ -365,28 +300,21 @@ export default function SchoolPage() {
                   href="#consult"
                   className="inline-flex justify-center items-center w-full px-6 py-3 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all"
                 >
-                  Записаться
+                  {t.trialWho.trial.cta}
                 </a>
               </div>
               <div className="spot bg-white rounded-xl p-8 lg:p-10 border border-border-subtle flex flex-col">
                 <span className="inline-block w-fit px-3 py-1 rounded-md bg-secondary/10 text-secondary font-label-caps text-[11px] uppercase mb-6">
-                  Кому подходит
+                  {t.trialWho.who.tag}
                 </span>
                 <h3 className="font-headline-md text-headline-md text-primary mb-4">
-                  С чем к нам приходят
+                  {t.trialWho.who.title}
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant mb-8 flex-1">
-                  Цель определяет программу: одному нужен разговорный английский к
-                  отпуску, другому — 7.0 для британского вуза.
+                  {t.trialWho.who.text}
                 </p>
                 <div className="space-y-4 mb-8">
-                  {[
-                    ["Свободно говорить", "General English"],
-                    ["Учиться за рубежом", "Academic English"],
-                    ["Работа и карьера", "Business English"],
-                    ["Ребёнку 7–12 лет", "English for Kids"],
-                    ["Сдать экзамен", "IELTS и SAT"],
-                  ].map(([k, v]) => (
+                  {t.trialWho.who.rows.map(([k, v]) => (
                     <div
                       key={k}
                       className="flex justify-between border-b border-border-subtle pb-2"
@@ -400,7 +328,7 @@ export default function SchoolPage() {
                   href="/exams"
                   className="inline-flex justify-center items-center w-full px-6 py-3 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all"
                 >
-                  Подготовка к экзаменам
+                  {t.trialWho.who.cta}
                 </Link>
               </div>
             </div>
@@ -413,15 +341,13 @@ export default function SchoolPage() {
             <div className="bg-primary/5 rounded-2xl p-8 lg:p-12 border border-primary/10 flex flex-col lg:flex-row items-center gap-10">
               <div className="flex-1">
                 <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
-                  Результат
+                  {t.certificate.eyebrow}
                 </span>
                 <h4 className="font-headline-md text-headline-md text-primary mb-4">
-                  Сертификат по окончании каждого уровня
+                  {t.certificate.title}
                 </h4>
                 <p className="font-body-md text-on-surface-variant">
-                  В конце курса — итоговый тест. Сдали — получаете сертификат с
-                  уровнем по шкале CEFR: общеевропейскому стандарту, который
-                  понимают работодатели и приёмные комиссии.
+                  {t.certificate.text}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
@@ -446,10 +372,10 @@ export default function SchoolPage() {
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
-                Вопросы
+                {t.faqSection.eyebrow}
               </span>
               <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
-                О языковых курсах
+                {t.faqSection.title}
               </h2>
             </div>
             <div className="space-y-4">
@@ -477,8 +403,8 @@ export default function SchoolPage() {
 
         {/* Consult */}
         <ConsultSection
-          eyebrow="Первый шаг"
-          courses={courseOptions}
+          eyebrow={t.consult.eyebrow}
+          courses={t.courseOptions}
           source="school-consult"
         />
       </main>

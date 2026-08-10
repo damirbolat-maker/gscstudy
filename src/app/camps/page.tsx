@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import CampsConsult from "@/components/camps/CampsConsult";
 import Icon from "@/components/Icon";
 import { prisma } from "@/lib/prisma";
+import { getServerLocale } from "@/lib/locale";
+import { getCampsDict } from "@/i18n/pages/camps";
 
 export const dynamic = "force-dynamic";
 
@@ -23,49 +25,29 @@ const gradients = [
   "from-[#2d5f5a] to-[#3f9c8f]",
 ];
 
-const included = [
-  { n: "01", icon: "menu_book", title: "Уроки английского", text: "Пятнадцать уроков в неделю в международных группах. Ребёнок оказывается среди ровесников из других стран, где английский — единственный общий язык." },
-  { n: "02", icon: "hotel", title: "Проживание и питание", text: "Кампус или резиденция, комнаты на двоих, трёхразовое питание. Все площадки лицензированы и работают с подростками много лет." },
-  { n: "03", icon: "local_activity", title: "Экскурсии и досуг", text: "Программа на вторую половину дня и выходные: город, музеи, спорт, поездки за пределы города. Свободного времени без присмотра нет." },
-  { n: "04", icon: "group", title: "Сопровождающий", text: "Наш сотрудник летит вместе с группой и остаётся на всю смену. Он на связи с родителями и решает вопросы на месте." },
-  { n: "05", icon: "flight_takeoff", title: "Виза и перелёт", text: "Готовим визовый пакет и подаём документы, бронируем групповой перелёт. Родителям остаётся собрать справки и сдать биометрию." },
-  { n: "06", icon: "health_and_safety", title: "Страховка", text: "Медицинская страховка на весь период поездки, включая дни перелёта." },
+// Иконки/номера/время — статичные; тексты берём из словаря по индексу.
+const includedMeta = [
+  { n: "01", icon: "menu_book" },
+  { n: "02", icon: "hotel" },
+  { n: "03", icon: "local_activity" },
+  { n: "04", icon: "group" },
+  { n: "05", icon: "flight_takeoff" },
+  { n: "06", icon: "health_and_safety" },
 ];
 
-const schedule = [
-  { icon: "restaurant", title: "Завтрак", time: "8:00", text: "В столовой кампуса вместе с группой." },
-  { icon: "school", title: "Уроки английского", time: "9:00 – 12:30", text: "Три урока в международной группе своего уровня. Уровень определяют тестом в первый день." },
-  { icon: "lunch_dining", title: "Обед", time: "13:00", text: "И свободный час на территории." },
-  { icon: "directions_walk", title: "Экскурсия или активность", time: "14:00 – 18:00", text: "Город, музей, спорт или мастер-класс — по программе смены." },
-  { icon: "celebration", title: "Ужин и вечерняя программа", time: "19:00", text: "Игры, кино, дискотека или квиз с другими группами." },
-  { icon: "bedtime", title: "Отбой", time: "22:00", text: "Вожатые проверяют комнаты, сопровождающий пишет родителям в общий чат." },
-];
-
-const safety = [
-  ["Сопровождающий", "с группой всю смену"],
-  ["Связь с родителями", "ежедневно, общий чат"],
-  ["Площадки", "лицензированные центры"],
-  ["Страховка", "на весь период"],
-  ["Свободное время", "только на территории"],
-];
-
-const booking = [
-  ["Заявка", "форма или WhatsApp"],
-  ["Консультация", "подбор направления"],
-  ["Договор и депозит", "фиксируют место"],
-  ["Документы на визу", "за 2–3 месяца до вылета"],
-  ["Встреча группы", "за неделю до отъезда"],
-];
-
-const faqs = [
-  { q: "Какой уровень английского нужен?", a: "Достаточно A2 — базового школьного. В первый день ребёнка тестируют и определяют в группу своего уровня, поэтому он не окажется среди тех, кто говорит намного лучше." },
-  { q: "Ребёнок никогда не летал один. Это безопасно?", a: "Он летит не один: группа собирается в Алматы или Астане и летит вместе с сопровождающим от GSC Study, который остаётся с ними до возвращения. Родители получают сообщения каждый день." },
-  { q: "Что если не дадут визу?", a: "Мы готовим пакет документов и заранее оцениваем риски. Условия возврата при отказе прописываются в договоре — обсуждаем их до внесения депозита, а не после." },
-  { q: "Сколько стоит смена?", a: "Зависит от направления, дат и курса валют, поэтому цену называем на консультации. В неё входит всё, кроме карманных денег: обучение, проживание, питание, экскурсии, перелёт, виза и страховка." },
-  { q: "Когда нужно определиться?", a: "Оптимально за три-четыре месяца до вылета. Визовые сроки и групповые тарифы на билеты не позволяют бронировать позже, а места в группе ограничены." },
+const scheduleMeta = [
+  { icon: "restaurant", time: "8:00" },
+  { icon: "school", time: "9:00 – 12:30" },
+  { icon: "lunch_dining", time: "13:00" },
+  { icon: "directions_walk", time: "14:00 – 18:00" },
+  { icon: "celebration", time: "19:00" },
+  { icon: "bedtime", time: "22:00" },
 ];
 
 export default async function CampsPage() {
+  const locale = await getServerLocale();
+  const t = getCampsDict(locale);
+
   const dbCamps = await prisma.camp.findMany({
     where: { published: true },
     orderBy: { order: "asc" },
@@ -74,15 +56,15 @@ export default async function CampsPage() {
   const camps = dbCamps.map((c, i) => {
     const [from, to] = gradients[i % gradients.length].split(" ");
     const rows: [string, string][] = [
-      ["Страна", c.country],
-      ["Даты", c.dates ?? ""],
-      ["Возраст", c.ageRange ?? ""],
-      ["Проживание", c.housing ?? ""],
+      [t.camps.labels.country, c.country],
+      [t.camps.labels.dates, c.dates ?? ""],
+      [t.camps.labels.age, c.ageRange ?? ""],
+      [t.camps.labels.housing, c.housing ?? ""],
     ].filter(([, v]) => v) as [string, string][];
     return {
       num: String(i + 1).padStart(2, "0"),
       city: c.city,
-      seats: c.seats ? `${c.seats} мест` : c.price || "",
+      seats: c.seats ? `${c.seats} ${t.camps.seatsSuffix}` : c.price || "",
       desc: c.summary ?? "",
       rows,
       from,
@@ -103,44 +85,37 @@ export default async function CampsPage() {
             <div className="max-w-3xl">
               <nav className="flex items-center space-x-2 text-sm font-semibold text-on-surface-variant mb-8">
                 <Link className="hover:text-primary transition-colors" href="/">
-                  Главная
+                  {t.breadcrumb.home}
                 </Link>
                 <span>·</span>
-                <span className="text-primary">Лагеря за рубежом</span>
+                <span className="text-primary">{t.breadcrumb.current}</span>
               </nav>
               <h1 className="text-5xl lg:text-7xl font-extrabold text-on-surface tracking-tight mb-6 leading-tight">
-                Лето 2026: <br />
+                {t.hero.title1} <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                  четыре направления
+                  {t.hero.title2}
                 </span>
               </h1>
               <p className="text-xl text-on-surface-variant mb-10 leading-relaxed max-w-2xl">
-                Две-три недели языковой практики в стране языка: уроки в первой
-                половине дня, экскурсии во второй, ровесники со всего мира вокруг.
-                Для школьников 12–17 лет.
+                {t.hero.text}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-16">
                 <a
                   className="inline-flex justify-center items-center px-8 py-4 text-lg font-bold rounded-full shadow-lg text-white bg-secondary hover:bg-[#8f0048] transition-all hover:-translate-y-1"
                   href="#consult"
                 >
-                  Забронировать место
+                  {t.hero.bookCta}
                 </a>
                 <a
                   className="inline-flex justify-center items-center px-8 py-4 border-2 border-primary text-lg font-bold rounded-full text-primary hover:bg-primary hover:text-white transition-all hover:-translate-y-1"
                   href="#camps"
                 >
-                  Смотреть направления
+                  {t.hero.seeCta}
                   <Icon name="arrow_downward" className="ml-2" />
                 </a>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 border-t border-border-subtle pt-10">
-                {[
-                  ["12–17", "возраст участников"],
-                  ["2–3", "недели длится смена"],
-                  ["15", "уроков английского в неделю"],
-                  ["1", "сопровождающий от GSC Study в каждой группе"],
-                ].map(([v, l]) => (
+                {t.hero.stats.map(([v, l]) => (
                   <div key={l}>
                     <div className="text-3xl font-extrabold text-primary mb-1">
                       {v}
@@ -160,14 +135,13 @@ export default async function CampsPage() {
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-bold text-sm tracking-wider uppercase mb-4">
-                Направления
+                {t.camps.eyebrow}
               </span>
               <h2 className="text-4xl lg:text-5xl font-extrabold text-on-surface mb-6">
-                Куда едем этим летом
+                {t.camps.title}
               </h2>
               <p className="text-lg text-on-surface-variant">
-                Места ограничены размером группы — сопровождающий физически не
-                может вести больше двадцати подростков.
+                {t.camps.text}
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
@@ -217,30 +191,29 @@ export default async function CampsPage() {
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-secondary/10 text-secondary font-bold text-sm tracking-wider uppercase mb-4">
-                Что входит
+                {t.included.eyebrow}
               </span>
               <h2 className="text-4xl lg:text-5xl font-extrabold text-on-surface mb-6">
-                Всё, кроме карманных денег
+                {t.included.title}
               </h2>
               <p className="text-lg text-on-surface-variant">
-                Стоимость смены зависит от направления и дат — назовём на
-                консультации.
+                {t.included.text}
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {included.map((it) => (
+              {includedMeta.map((meta, i) => (
                 <div
-                  key={it.n}
+                  key={meta.n}
                   className="p-8 rounded-2xl bg-surface-container-low border border-border-subtle hover:border-primary/30 transition-colors"
                 >
                   <div className="text-5xl font-black text-primary/10 mb-4 leading-none">
-                    {it.n}
+                    {meta.n}
                   </div>
                   <h4 className="text-xl font-bold text-on-surface mb-3 flex items-center gap-2">
-                    <Icon name={it.icon} className="text-secondary" />
-                    {it.title}
+                    <Icon name={meta.icon} className="text-secondary" />
+                    {t.included.items[i].title}
                   </h4>
-                  <p className="text-on-surface-variant">{it.text}</p>
+                  <p className="text-on-surface-variant">{t.included.items[i].text}</p>
                 </div>
               ))}
             </div>
@@ -252,17 +225,17 @@ export default async function CampsPage() {
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-bold text-sm tracking-wider uppercase mb-4">
-                Распорядок
+                {t.schedule.eyebrow}
               </span>
               <h2 className="text-4xl lg:text-5xl font-extrabold text-on-surface mb-6">
-                Как выглядит день в лагере
+                {t.schedule.title}
               </h2>
               <p className="text-lg text-on-surface-variant">
-                Расписание отличается по направлениям, но структура одинаковая.
+                {t.schedule.text}
               </p>
             </div>
             <div className="max-w-3xl mx-auto relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-primary/20 before:to-transparent">
-              {schedule.map((s, i) => (
+              {scheduleMeta.map((s, i) => (
                 <div
                   key={i}
                   className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group mb-8 last:mb-0"
@@ -273,13 +246,13 @@ export default async function CampsPage() {
                   <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-sm border border-border-subtle">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-bold text-lg text-on-surface">
-                        {s.title}
+                        {t.schedule.items[i].title}
                       </h4>
                       <span className="font-extrabold text-secondary">
                         {s.time}
                       </span>
                     </div>
-                    <p className="text-on-surface-variant">{s.text}</p>
+                    <p className="text-on-surface-variant">{t.schedule.items[i].text}</p>
                   </div>
                 </div>
               ))}
@@ -293,19 +266,18 @@ export default async function CampsPage() {
             <div className="grid lg:grid-cols-2 gap-8">
               <div className="bg-primary/5 rounded-3xl p-8 lg:p-12 border border-primary/10">
                 <span className="inline-block py-1 px-3 rounded-full bg-primary/20 text-primary font-bold text-sm tracking-wider uppercase mb-6">
-                  Родителям
+                  {t.safety.eyebrow}
                 </span>
                 <h3 className="text-3xl font-extrabold text-on-surface mb-6">
-                  Как мы отвечаем за безопасность
+                  {t.safety.title}
                 </h3>
                 <p className="text-on-surface-variant mb-8 text-lg">
-                  Главный страх при отправке ребёнка за границу — что он останется
-                  без присмотра. Поэтому группа не остаётся одна ни на одном этапе.
+                  {t.safety.text}
                 </p>
                 <ul className="space-y-4">
-                  {safety.map(([t, d]) => (
+                  {t.safety.items.map(([title, d]) => (
                     <li
-                      key={t}
+                      key={title}
                       className="flex items-start gap-3 border-b border-border-subtle pb-4 last:border-0 last:pb-0"
                     >
                       <Icon
@@ -314,7 +286,7 @@ export default async function CampsPage() {
                       />
                       <div>
                         <span className="font-semibold text-on-surface block">
-                          {t}
+                          {title}
                         </span>
                         <span className="text-on-surface-variant">{d}</span>
                       </div>
@@ -324,20 +296,18 @@ export default async function CampsPage() {
               </div>
               <div className="bg-surface-container-low rounded-3xl p-8 lg:p-12 border border-border-subtle">
                 <span className="inline-block py-1 px-3 rounded-full bg-secondary/10 text-secondary font-bold text-sm tracking-wider uppercase mb-6">
-                  Бронирование
+                  {t.booking.eyebrow}
                 </span>
                 <h3 className="text-3xl font-extrabold text-on-surface mb-6">
-                  Как забронировать место
+                  {t.booking.title}
                 </h3>
                 <p className="text-on-surface-variant mb-8 text-lg">
-                  Места закрываются задолго до лета: визовые сроки и групповые
-                  тарифы на перелёт не позволяют принимать заявки в последний
-                  момент.
+                  {t.booking.text}
                 </p>
                 <ul className="space-y-4 mb-10">
-                  {booking.map(([t, d], i) => (
+                  {t.booking.items.map(([title, d], i) => (
                     <li
-                      key={t}
+                      key={title}
                       className="flex gap-4 border-b border-border-subtle pb-4 last:border-0 last:pb-0"
                     >
                       <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white font-bold text-sm shrink-0">
@@ -345,7 +315,7 @@ export default async function CampsPage() {
                       </span>
                       <div>
                         <span className="font-semibold text-on-surface block">
-                          {t}
+                          {title}
                         </span>
                         <span className="text-on-surface-variant">{d}</span>
                       </div>
@@ -356,7 +326,7 @@ export default async function CampsPage() {
                   className="inline-flex justify-center items-center w-full px-6 py-3.5 border-2 border-primary text-base font-bold rounded-xl text-primary hover:bg-primary hover:text-white transition-all"
                   href="#consult"
                 >
-                  Забронировать
+                  {t.booking.cta}
                 </a>
               </div>
             </div>
@@ -368,14 +338,14 @@ export default async function CampsPage() {
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-bold text-sm tracking-wider uppercase mb-4">
-                Вопросы
+                {t.faq.eyebrow}
               </span>
               <h2 className="text-4xl lg:text-5xl font-extrabold text-on-surface mb-6">
-                О лагерях
+                {t.faq.title}
               </h2>
             </div>
             <div className="space-y-4">
-              {faqs.map((item, i) => (
+              {t.faq.items.map((item, i) => (
                 <details
                   key={i}
                   className="group bg-white rounded-2xl border border-border-subtle open:border-primary/30 transition-colors"
