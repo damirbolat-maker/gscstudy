@@ -86,10 +86,8 @@ const ru = {
   },
   testsBlock: {
     eyebrow: "Тестирование",
-    title: "Пробные тесты",
-    text: "Оцените свой уровень перед реальным экзаменом.",
-    ielts: { title: "Пробный IELTS", text: "Полная симуляция экзамена с проверкой всех секций." },
-    sat: { title: "Пробный Digital SAT", text: "Официальный формат на платформе Bluebook." },
+    title: "Тесты на определение уровня",
+    text: "Пройдите онлайн бесплатно и сразу узнайте свой уровень — мы пришлём разбор и подберём программу.",
   },
   steps: {
     eyebrow: "Как начать",
@@ -255,10 +253,8 @@ const kz: Dict = {
   },
   testsBlock: {
     eyebrow: "Тестілеу",
-    title: "Сынама тесттер",
-    text: "Нақты емтиханға дейін деңгейіңізді бағалаңыз.",
-    ielts: { title: "Сынама IELTS", text: "Барлық секцияны тексеретін толық емтихан симуляциясы." },
-    sat: { title: "Сынама Digital SAT", text: "Bluebook платформасындағы ресми формат." },
+    title: "Деңгейді анықтау тесттері",
+    text: "Онлайн тегін өтіп, деңгейіңізді бірден біліңіз — біз талдау жіберіп, бағдарлама таңдап береміз.",
   },
   steps: {
     eyebrow: "Қалай бастау керек",
@@ -422,10 +418,8 @@ const en: Dict = {
   },
   testsBlock: {
     eyebrow: "Testing",
-    title: "Mock tests",
-    text: "Check your level before the real exam.",
-    ielts: { title: "Mock IELTS", text: "A full exam simulation with all sections marked." },
-    sat: { title: "Mock Digital SAT", text: "Official format on the Bluebook platform." },
+    title: "Level placement tests",
+    text: "Take one online for free and see your level right away — we'll send feedback and suggest a program.",
   },
   steps: {
     eyebrow: "How to start",
