@@ -14,7 +14,7 @@ export default function WhatsAppBubble() {
       target="_blank"
       rel="noopener"
       aria-label="Написать в WhatsApp"
-      className="fixed bottom-6 right-6 group z-50 flex items-center gap-3 bg-white pl-4 pr-1.5 py-1.5 rounded-full shadow-lg border border-border-subtle hover:shadow-xl transition-all duration-300"
+      className="hidden md:flex fixed bottom-6 right-6 group z-50 items-center gap-3 bg-white pl-4 pr-1.5 py-1.5 rounded-full shadow-lg border border-border-subtle hover:shadow-xl transition-all duration-300"
     >
       <span className="text-sm font-semibold text-primary hidden md:block group-hover:text-whatsapp-green transition-colors">
         Есть вопросы?

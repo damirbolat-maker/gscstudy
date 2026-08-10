@@ -5,9 +5,9 @@ import Tests from "@/components/Tests";
 import Steps from "@/components/Steps";
 import Reviews from "@/components/Reviews";
 import Offices from "@/components/Offices";
-import Blog from "@/components/Blog";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 
 export default function Home() {
   return (
@@ -15,13 +15,24 @@ export default function Home() {
       <Header />
       <main className="pt-20 relative z-10">
         <Hero />
-        <Directions />
-        <Tests />
-        <Steps />
-        <Reviews />
-        <Offices />
-        <Blog />
-        <Faq />
+        <Reveal>
+          <Directions />
+        </Reveal>
+        <Reveal>
+          <Tests />
+        </Reveal>
+        <Reveal>
+          <Steps />
+        </Reveal>
+        <Reveal>
+          <Reviews />
+        </Reveal>
+        <Reveal>
+          <Offices />
+        </Reveal>
+        <Reveal>
+          <Faq />
+        </Reveal>
       </main>
       <Footer />
     </>

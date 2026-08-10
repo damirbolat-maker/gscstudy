@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import WhatsAppBubble from "@/components/WhatsAppBubble";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -23,9 +24,13 @@ export default function RootLayout({
   return (
     <html lang="ru" className={manrope.variable}>
       <body className="antialiased">
+        <noscript>
+          <style>{`.reveal-init{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <div className="fixed inset-0 z-[-1] dots-pattern pointer-events-none" />
         {children}
         <WhatsAppBubble />
+        <StickyMobileCTA />
       </body>
     </html>
   );

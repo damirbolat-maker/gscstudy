@@ -59,14 +59,19 @@ const stats = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(1);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
+    if (paused) return;
     const timer = setInterval(
       () => setCurrent((c) => (c + 1) % slides.length),
-      5000
+      6500
     );
     return () => clearInterval(timer);
-  }, []);
+  }, [paused]);
+
+  const go = (dir: number) =>
+    setCurrent((c) => (c + dir + slides.length) % slides.length);
 
   return (
     <section className="hero-section min-h-[90vh] flex items-center pt-24 pb-32 rounded-b-[3rem] shadow-sm">
@@ -75,7 +80,11 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid lg:grid-cols-12 gap-16 items-center">
           {/* Left: slider */}
-          <div className="lg:col-span-7">
+          <div
+            className="lg:col-span-7"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
             <div className="relative">
               {slides.map((slide, i) => (
                 <div
@@ -127,16 +136,38 @@ export default function Hero() {
                 </div>
               ))}
 
-              {/* Slider dots */}
-              <div className="flex items-center gap-3 mt-12">
-                {slides.map((_, i) => (
+              {/* Slider controls */}
+              <div className="flex items-center gap-4 mt-12">
+                <div className="flex items-center gap-3">
+                  {slides.map((_, i) => (
+                    <button
+                      key={i}
+                      aria-label={`Слайд ${i + 1}`}
+                      onClick={() => setCurrent(i)}
+                      className={`slider-dot ${i === current ? "active" : ""}`}
+                    />
+                  ))}
+                </div>
+                <div className="flex items-center gap-2 ml-2">
                   <button
-                    key={i}
-                    aria-label={`Слайд ${i + 1}`}
-                    onClick={() => setCurrent(i)}
-                    className={`slider-dot ${i === current ? "active" : ""}`}
-                  />
-                ))}
+                    aria-label="Предыдущий слайд"
+                    onClick={() => go(-1)}
+                    className="w-9 h-9 rounded-full border border-gray-300 bg-white/70 text-gray-600 hover:text-primary hover:border-primary flex items-center justify-center transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                    </svg>
+                  </button>
+                  <button
+                    aria-label="Следующий слайд"
+                    onClick={() => go(1)}
+                    className="w-9 h-9 rounded-full border border-gray-300 bg-white/70 text-gray-600 hover:text-primary hover:border-primary flex items-center justify-center transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                    </svg>
+                  </button>
+                </div>
               </div>
 
               {/* Features */}

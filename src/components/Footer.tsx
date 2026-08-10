@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
+import Logo from "@/components/Logo";
 
 const programs = [
   { label: "Языковая школа", href: "/school" },
@@ -11,10 +12,9 @@ const programs = [
 
 const company = [
   { label: "О нас", href: "/about" },
-  { label: "Блог", href: "/#blog" },
   { label: "Наши центры", href: "/#offices" },
   { label: "Отзывы", href: "/#reviews" },
-  { label: "Карьера", href: "/#consult" },
+  { label: "Языковая школа", href: "/school" },
 ];
 
 export default function Footer() {
@@ -25,11 +25,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-3">
-              <span className="font-bold text-2xl tracking-tight text-primary">
-                GSC Study
-              </span>
-            </Link>
+            <Logo markSize="h-11 w-11" textClass="text-2xl text-primary" />
             <p className="text-gray-600 text-base leading-relaxed max-w-xs">
               Образование без границ с 2011 года. Мы помогаем студентам достигать
               академических высот в лучших вузах мира.
@@ -152,6 +148,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* отступ под липкую мобильную панель */}
+      <div className="h-16 md:hidden" />
 
       {/* Watermark */}
       <div className="absolute bottom-[-2rem] left-0 w-full pointer-events-none select-none opacity-[0.03] flex justify-center">

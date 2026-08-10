@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
+import Logo from "@/components/Logo";
 
 const langs = ["RU", "KZ", "EN"] as const;
 
@@ -22,11 +23,7 @@ export default function Header() {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="flex items-center gap-3">
-                <span className="font-bold text-xl tracking-tight text-primary">
-                  GSC Study
-                </span>
-              </Link>
+              <Logo />
             </div>
 
             {/* Desktop Nav */}
