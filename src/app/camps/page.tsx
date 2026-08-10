@@ -7,14 +7,22 @@ import Icon from "@/components/Icon";
 import { prisma } from "@/lib/prisma";
 import { getServerLocale } from "@/lib/locale";
 import { getCampsDict } from "@/i18n/pages/camps";
+import { getPageContent } from "@/lib/page-content";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Языковые лагеря за рубежом — лето 2026 для школьников | GSC Study",
-  description:
-    "Языковые лагеря за рубежом для школьников 12–17 лет. Уроки английского, экскурсии, проживание и сопровождающий от GSC Study.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const ov = await getPageContent("camps", locale);
+  return {
+    title:
+      ov.metaTitle ??
+      "Языковые лагеря за рубежом — лето 2026 для школьников | GSC Study",
+    description:
+      ov.metaDescription ??
+      "Языковые лагеря за рубежом для школьников 12–17 лет. Уроки английского, экскурсии, проживание и сопровождающий от GSC Study.",
+  };
+}
 
 const gradients = [
   "from-[#1e3a5f] to-[#2c5f8a]",
@@ -47,6 +55,7 @@ const scheduleMeta = [
 export default async function CampsPage() {
   const locale = await getServerLocale();
   const t = getCampsDict(locale);
+  const ov = await getPageContent("camps", locale);
 
   const dbCamps = await prisma.camp.findMany({
     where: { published: true },
@@ -88,16 +97,24 @@ export default async function CampsPage() {
                   {t.breadcrumb.home}
                 </Link>
                 <span>·</span>
-                <span className="text-primary">{t.breadcrumb.current}</span>
+                <span className="text-primary">
+                  {ov.heroEyebrow ?? t.breadcrumb.current}
+                </span>
               </nav>
               <h1 className="text-5xl lg:text-7xl font-extrabold text-on-surface tracking-tight mb-6 leading-tight">
-                {t.hero.title1} <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                  {t.hero.title2}
-                </span>
+                {ov.heroTitle ? (
+                  ov.heroTitle
+                ) : (
+                  <>
+                    {t.hero.title1} <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                      {t.hero.title2}
+                    </span>
+                  </>
+                )}
               </h1>
               <p className="text-xl text-on-surface-variant mb-10 leading-relaxed max-w-2xl">
-                {t.hero.text}
+                {ov.heroSubtitle ?? t.hero.text}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-16">
                 <a

@@ -5,6 +5,7 @@ import Icon from "@/components/Icon";
 import TestMetaForm from "@/components/admin/TestMetaForm";
 import QuestionEditor from "@/components/admin/QuestionEditor";
 import AddQuestionButton from "@/components/admin/AddQuestionButton";
+import BulkImport from "@/components/admin/BulkImport";
 
 export const dynamic = "force-dynamic";
 
@@ -70,6 +71,8 @@ export default async function EditTestPage({
           />
         ))}
       </div>
+
+      <BulkImport testId={test.id} />
 
       <AddQuestionButton testId={test.id} />
 

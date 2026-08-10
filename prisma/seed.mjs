@@ -58,12 +58,29 @@ const tests = [
     timeLimit: 10,
     order: 2,
     questions: [
+      // colours
       ["What colour is the sun?", ["Yellow", "Blue", "Green"], 0],
+      ["What colour is the grass?", ["Red", "Green", "Purple"], 1],
+      // animals
       ["A cat says ___.", ["Meow", "Woof", "Moo"], 0],
-      ["Choose the correct one: 'I ___ happy.'", ["am", "is", "are"], 0],
+      ["A dog says ___.", ["Meow", "Woof", "Moo"], 1],
+      // numbers
       ["How many legs does a dog have?", ["Two", "Four", "Six"], 1],
+      ["Count: one, two, ___.", ["three", "five", "ten"], 0],
+      // to be / to have
+      ["Choose the correct one: 'I ___ happy.'", ["am", "is", "are"], 0],
+      ["Choose the correct one: 'She ___ a cat.'", ["have", "has", "haves"], 1],
+      // family
+      ["My father's wife is my ___.", ["mother", "sister", "brother"], 0],
+      // plurals
+      ["One dog, two ___.", ["dog", "dogs", "doges"], 1],
+      // prepositions of place
+      ["The cat is ___ the box. (inside)", ["in", "on", "under"], 0],
+      ["The book is ___ the table. (on top)", ["under", "on", "in"], 1],
+      // simple vocabulary
       ["An apple is a ___.", ["Fruit", "Animal", "Colour"], 0],
       ["The opposite of 'big' is ___.", ["Small", "Tall", "Long"], 0],
+      ["The opposite of 'day' is ___.", ["night", "sun", "morning"], 0],
     ],
   },
   {
@@ -75,15 +92,33 @@ const tests = [
       "Показывает примерный балл IELTS и сколько нужно готовиться до целевого результата.",
     timeLimit: 15,
     order: 3,
+    // IELTS placement: academic grammar, collocations, linkers, synonyms and
+    // transformation-style MCQs, difficulty rising B1 → C1.
     questions: [
+      // B1
       ["The results were ___ with our expectations.", ["consistent", "consist", "consisting", "consistency"], 0],
+      ["Choose the synonym of 'significant':", ["minor", "important", "quiet", "late"], 1],
+      ["She has a wide ___ of vocabulary.", ["row", "range", "line", "scale"], 1],
+      ["The graph ___ a sharp increase in prices.", ["show", "showing", "shows", "shown"], 2],
+      ["It was expensive; ___, we bought it.", ["therefore", "however", "moreover", "because"], 1],
       ["Despite ___ hard, he failed the exam.", ["study", "studying", "studied", "to study"], 1],
-      ["Choose the synonym of 'significant':", ["important", "small", "quiet", "late"], 0],
-      ["The graph ___ a sharp increase in prices.", ["shows", "show", "showing", "shown"], 0],
-      ["It was expensive; ___, we bought it.", ["however", "therefore", "moreover", "because"], 0],
-      ["She has a wide ___ of vocabulary.", ["range", "row", "line", "scale"], 0],
-      ["Not only ___ late, but he also forgot the report.", ["was he", "he was", "he is", "is he"], 0],
-      ["Choose the synonym of 'crucial':", ["essential", "optional", "minor", "rare"], 0],
+      ["Choose the synonym of 'crucial':", ["optional", "minor", "essential", "rare"], 2],
+      // B2
+      ["He made a ___ decision to quit his job.", ["conscious", "conscience", "consciously", "consciousness"], 0],
+      ["The two theories are broadly ___ with each other.", ["compatible", "compatibly", "compatibility", "comparing"], 0],
+      ["___ the bad weather, the match went ahead.", ["Despite", "Because", "However", "Unless"], 0],
+      ["It is difficult to ___ a firm conclusion from such limited data.", ["draw", "pull", "take", "catch"], 0],
+      ["The findings ___ that exercise improves memory.", ["suggests", "suggest", "suggesting", "to suggest"], 1],
+      ["Choose the synonym of 'abundant':", ["scarce", "plentiful", "tiny", "rare"], 1],
+      ["___ finishing her degree, she moved abroad.", ["On", "In", "For", "To"], 0],
+      // Transformation-style
+      ["'He started working here five years ago.' = He ___ here for five years.", ["has worked", "worked", "is working", "works"], 0],
+      ["'It is not necessary to bring your passport.' = You ___ bring your passport.", ["needn't", "mustn't", "can't", "shouldn't"], 0],
+      ["'Perhaps she forgot the meeting.' = She ___ forgotten the meeting.", ["must have", "may have", "should have", "would have"], 1],
+      // C1
+      ["The proposal was rejected ___ its high cost.", ["owing to", "despite", "whereas", "unless"], 0],
+      ["Choose the synonym of 'meticulous':", ["careless", "hasty", "thorough", "vague"], 2],
+      ["Rarely ___ such a compelling argument.", ["have I heard", "I have heard", "I heard", "did I heard"], 0],
     ],
   },
   {
@@ -95,15 +130,32 @@ const tests = [
       "Оценивает готовность к Digital SAT по секциям Verbal и Math и показывает пробелы.",
     timeLimit: 15,
     order: 4,
+    // Digital-SAT-style placement: balanced Verbal (grammar/usage, concision,
+    // vocabulary-in-context) and Math (arithmetic, percentages, linear
+    // equations, geometry, ratios). Every math answer is unambiguous.
     questions: [
-      ["Each of the students ___ a laptop.", ["has", "have", "having", "haved"], 0],
+      // --- Verbal ---
+      ["Each of the students ___ a laptop.", ["have", "has", "having", "haved"], 1],
       ["Choose the most concise option:", ["Because", "Due to the fact that", "On account of the fact that", "In light of the fact that"], 0],
-      ["If 3x = 12, then x = ?", ["4", "3", "6", "9"], 0],
+      ["Choose the synonym of 'ambiguous':", ["obvious", "unclear", "bright", "loud"], 1],
+      ["The committee ___ its decision yesterday.", ["announce", "announced", "announcing", "announces"], 1],
+      ["Neither the manager nor the employees ___ satisfied.", ["was", "were", "is", "has been"], 1],
+      ["In 'a novel approach', 'novel' most nearly means:", ["new", "book", "ancient", "dull"], 0],
+      ["Choose the correctly punctuated sentence:", ["We left early; the show was over.", "We left early, the show was over.", "We left early the show was over.", "We left, early; the show was over."], 0],
+      ["The dog wagged ___ tail.", ["it's", "its", "its'", "it is"], 1],
+      ["In 'compelling evidence', 'compelling' most nearly means:", ["convincing", "boring", "optional", "quiet"], 0],
+      ["The report, along with the charts, ___ ready.", ["is", "are", "were", "have"], 0],
+      // --- Math ---
+      ["If 3x = 12, then x = ?", ["3", "4", "6", "9"], 1],
       ["What is 15% of 200?", ["30", "15", "20", "45"], 0],
-      ["Solve: 2(x + 3) = 14. x = ?", ["4", "5", "7", "8"], 0],
-      ["The average of 4, 8 and 12 is:", ["8", "6", "12", "24"], 0],
-      ["Choose the synonym of 'ambiguous':", ["unclear", "obvious", "bright", "loud"], 0],
-      ["A rectangle has length 6 and width 4. Its area is:", ["24", "10", "20", "12"], 0],
+      ["Solve: 2(x + 3) = 14. x = ?", ["5", "4", "7", "8"], 1],
+      ["The average (arithmetic mean) of 4, 8 and 12 is:", ["6", "8", "12", "24"], 1],
+      ["A rectangle has length 6 and width 4. Its area is:", ["10", "24", "20", "12"], 1],
+      ["If the ratio of boys to girls is 2:3 and there are 10 boys, how many girls are there?", ["12", "15", "6", "20"], 1],
+      ["A shirt costs $40 and is discounted 25%. Its new price is:", ["$30", "$35", "$32", "$10"], 0],
+      ["Solve: 5x - 3 = 2x + 9. x = ?", ["4", "3", "6", "2"], 0],
+      ["What is 20% of 20% of 100?", ["40", "4", "20", "8"], 1],
+      ["A triangle has base 10 and height 6. Its area is:", ["60", "30", "16", "15"], 1],
     ],
   },
 ];

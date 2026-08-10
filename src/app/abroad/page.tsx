@@ -6,12 +6,20 @@ import AbroadConsult from "@/components/abroad/AbroadConsult";
 import Icon from "@/components/Icon";
 import { getServerLocale } from "@/lib/locale";
 import { getAbroadDict } from "@/i18n/pages/abroad";
+import { getPageContent } from "@/lib/page-content";
 
-export const metadata: Metadata = {
-  title: "Образование за рубежом — поступление в вузы 25+ стран | GSC Study",
-  description:
-    "Поступление в университеты Великобритании, Германии, Канады, ОАЭ и США. Подбор программы, документы, мотивационное письмо и сопровождение до зачисления. Foundation, Bachelor, Pre-Master.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const ov = await getPageContent("abroad", locale);
+  return {
+    title:
+      ov.metaTitle ??
+      "Образование за рубежом — поступление в вузы 25+ стран | GSC Study",
+    description:
+      ov.metaDescription ??
+      "Поступление в университеты Великобритании, Германии, Канады, ОАЭ и США. Подбор программы, документы, мотивационное письмо и сопровождение до зачисления. Foundation, Bachelor, Pre-Master.",
+  };
+}
 
 const countriesMeta = [
   { code: "UK", color: "#00247d" },
@@ -45,6 +53,7 @@ const timelineMeta = [
 export default async function AbroadPage() {
   const locale = await getServerLocale();
   const t = getAbroadDict(locale);
+  const ov = await getPageContent("abroad", locale);
 
   return (
     <>
@@ -62,16 +71,24 @@ export default async function AbroadPage() {
                   {t.hero.breadcrumbHome}
                 </Link>
                 <Icon name="chevron_right" className="text-sm" />
-                <span className="text-primary">{t.hero.breadcrumbCurrent}</span>
+                <span className="text-primary">
+                  {ov.heroEyebrow ?? t.hero.breadcrumbCurrent}
+                </span>
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-on-surface leading-[1.1] tracking-tight mb-8">
-                {t.hero.title1} <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                  {t.hero.title2}
-                </span>
+                {ov.heroTitle ? (
+                  ov.heroTitle
+                ) : (
+                  <>
+                    {t.hero.title1} <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                      {t.hero.title2}
+                    </span>
+                  </>
+                )}
               </h1>
               <p className="text-lg md:text-xl text-on-surface-variant leading-relaxed mb-10 max-w-2xl">
-                {t.hero.text}
+                {ov.heroSubtitle ?? t.hero.text}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-16">
                 <a

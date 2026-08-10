@@ -1,5 +1,7 @@
 // Отправка заявки в Bitrix24 через входящий вебхук (crm.lead.add).
-// Работает только если задан BITRIX_WEBHOOK_URL. Ошибки не роняют основной запрос.
+// Вебхук берётся из настроек в БД, затем из BITRIX_WEBHOOK_URL. Ошибки не роняют основной запрос.
+
+import { getBitrixWebhookUrl } from "@/lib/settings";
 
 type LeadPayload = {
   name: string;
@@ -11,7 +13,7 @@ type LeadPayload = {
 };
 
 export async function sendLeadToBitrix(lead: LeadPayload): Promise<boolean> {
-  const url = process.env.BITRIX_WEBHOOK_URL;
+  const url = await getBitrixWebhookUrl();
   if (!url) return false;
 
   const fields: Record<string, unknown> = {

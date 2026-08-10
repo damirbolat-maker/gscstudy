@@ -74,6 +74,25 @@ model Option {
   correct    Boolean  @default(false)
 }
 
+// Настройки сайта (ключ-значение): Bitrix webhook, контакты и т.д.
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+// Редактируемый контент страниц (CMS), по одной записи на страницу+язык
+model PageContent {
+  id        String   @id @default(cuid())
+  slug      String // home | school | exams | abroad | camps | about
+  locale    String // ru | kz | en
+  // JSON с переопределяемыми полями: heroEyebrow, heroTitle, heroSubtitle, metaTitle, metaDescription
+  data      String   @default("{}")
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale])
+}
+
 // Языковые лагеря
 model Camp {
   id        String   @id @default(cuid())

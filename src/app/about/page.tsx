@@ -5,12 +5,18 @@ import Footer from "@/components/Footer";
 import Icon from "@/components/Icon";
 import { getServerLocale } from "@/lib/locale";
 import { getAboutDict } from "@/i18n/pages/about";
+import { getPageContent } from "@/lib/page-content";
 
-export const metadata: Metadata = {
-  title: "О нас — GSC Study",
-  description:
-    "GSC Study — образование без границ с 2011 года. Более 15 000 студентов, центры в Алматы и Астане, поступление в вузы 25+ стран.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const ov = await getPageContent("about", locale);
+  return {
+    title: ov.metaTitle ?? "О нас — GSC Study",
+    description:
+      ov.metaDescription ??
+      "GSC Study — образование без границ с 2011 года. Более 15 000 студентов, центры в Алматы и Астане, поступление в вузы 25+ стран.",
+  };
+}
 
 const statsMeta = [
   { icon: "calendar_month", color: "text-clever-green" },
@@ -31,6 +37,7 @@ const partners = ["CAMBRIDGE", "IELTS", "BRITISH COUNCIL", "TOEFL"];
 export default async function AboutPage() {
   const locale = await getServerLocale();
   const t = getAboutDict(locale);
+  const ov = await getPageContent("about", locale);
   const stats = statsMeta.map((m, i) => ({ ...m, ...t.stats[i] }));
   const values = valuesMeta.map((m, i) => ({ ...m, ...t.values.items[i] }));
   return (
@@ -45,13 +52,13 @@ export default async function AboutPage() {
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="w-full md:w-1/2 flex flex-col gap-stack-lg">
               <span className="font-label-caps text-label-caps uppercase tracking-widest bg-secondary-fixed/40 text-secondary inline-block w-max px-3 py-1 rounded-full">
-                {t.hero.eyebrow}
+                {ov.heroEyebrow ?? t.hero.eyebrow}
               </span>
               <h1 className="text-display-lg-mobile md:text-display-lg text-primary text-balance">
-                {t.hero.title}
+                {ov.heroTitle ?? t.hero.title}
               </h1>
               <p className="text-body-lg text-on-surface-variant max-w-lg">
-                {t.hero.text}
+                {ov.heroSubtitle ?? t.hero.text}
               </p>
               <div className="flex gap-4">
                 <a

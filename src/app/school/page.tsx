@@ -7,16 +7,25 @@ import ConsultSection from "@/components/ConsultSection";
 import Icon from "@/components/Icon";
 import { getServerLocale } from "@/lib/locale";
 import { getSchoolDict } from "@/i18n/pages/school";
+import { getPageContent } from "@/lib/page-content";
 
-export const metadata: Metadata = {
-  title: "Языковая школа — курсы английского A1–C2 в Алматы и Астане | GSC Study",
-  description:
-    "Курсы английского языка от A1 до C2: общий, академический, деловой и детский. Группы до восьми человек, индивидуальные занятия и онлайн. Тест уровня и пробный урок бесплатно.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const ov = await getPageContent("school", locale);
+  return {
+    title:
+      ov.metaTitle ??
+      "Языковая школа — курсы английского A1–C2 в Алматы и Астане | GSC Study",
+    description:
+      ov.metaDescription ??
+      "Курсы английского языка от A1 до C2: общий, академический, деловой и детский. Группы до восьми человек, индивидуальные занятия и онлайн. Тест уровня и пробный урок бесплатно.",
+  };
+}
 
 export default async function SchoolPage() {
   const locale = await getServerLocale();
   const t = getSchoolDict(locale);
+  const ov = await getPageContent("school", locale);
   const levels = t.levels;
   const formats = t.formats;
   const lesson = t.lesson;
@@ -37,14 +46,24 @@ export default async function SchoolPage() {
                   {t.hero.breadcrumbHome}
                 </Link>
                 <span>·</span>
-                <span className="text-primary">{t.hero.breadcrumbCurrent}</span>
+                <span className="text-primary">
+                  {ov.heroEyebrow ?? t.hero.breadcrumbCurrent}
+                </span>
               </nav>
               <h1 className="font-display-lg text-display-lg text-primary mb-6 leading-tight">
-                {t.hero.title1} <br />
-                <em className="text-secondary not-italic">{t.hero.title2}</em>
+                {ov.heroTitle ? (
+                  ov.heroTitle
+                ) : (
+                  <>
+                    {t.hero.title1} <br />
+                    <em className="text-secondary not-italic">
+                      {t.hero.title2}
+                    </em>
+                  </>
+                )}
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 leading-relaxed max-w-2xl">
-                {t.hero.text}
+                {ov.heroSubtitle ?? t.hero.text}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-16">
                 <a
