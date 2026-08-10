@@ -7,7 +7,7 @@ export default async function Steps() {
   return (
     <section
       id="steps"
-      className="py-24 bg-white-layered my-8 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 shadow-sm"
+      className="py-24 md:py-28 bg-white-layered my-8 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 shadow-sm"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -18,7 +18,7 @@ export default async function Steps() {
         </div>
         <div className="grid md:grid-cols-3 gap-8 text-center">
           {t.items.map((it, i) => (
-            <div key={i}>
+            <div key={i} className="card-premium card-spotlight rounded-2xl p-8 bg-white/95 backdrop-blur">
               <div
                 className={`w-16 h-16 ${
                   i === 2 ? "bg-secondary shadow-secondary/20" : "bg-primary shadow-primary/20"

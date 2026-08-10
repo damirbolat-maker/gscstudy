@@ -26,7 +26,7 @@ export default async function Directions() {
           {t.directions.cards.map((d, i) => (
             <div
               key={i}
-              className="card-premium p-10 flex flex-col h-full group hover:bg-primary hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl rounded-2xl bg-white/95 backdrop-blur"
+              className="card-premium card-spotlight card-ring p-10 flex flex-col h-full group hover:bg-primary hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl rounded-2xl bg-white/95 backdrop-blur"
             >
               <div className="text-5xl font-black text-gray-200 group-hover:text-white/20 mb-6 transition-colors">
                 {String(i + 1).padStart(2, "0")}

@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Icon from "@/components/Icon";
 import ExamsConsult from "@/components/exams/ExamsConsult";
+import Aurora from "@/components/ui/Aurora";
+import Reveal from "@/components/Reveal";
 import { getServerLocale } from "@/lib/locale";
 import { getExamsDict } from "@/i18n/pages/exams";
 import { getPageContent } from "@/lib/page-content";
@@ -22,10 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const container = "max-w-[1280px] mx-auto px-6 lg:px-8";
-const card =
-  "bg-surface-container-lowest border border-surface-variant/60 rounded-xl p-8 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_32px_-12px_rgba(0,0,0,0.1)]";
+const card = "card-premium card-spotlight rounded-2xl p-8";
 const btnOutline =
-  "inline-flex items-center justify-center border border-outline-variant text-on-surface font-semibold rounded-lg px-6 py-3 transition-colors hover:border-primary hover:text-primary hover:bg-surface-container-lowest";
+  "inline-flex items-center justify-center btn-outline rounded-xl px-6 py-3 font-semibold";
 
 const methodMeta = [
   { n: "01", accent: true },
@@ -47,7 +48,8 @@ export default async function ExamsPage() {
       <Header />
       <main className="pt-20">
         {/* Hero */}
-        <section className="relative py-20 md:py-32 overflow-hidden bg-surface-container-lowest">
+        <section className="relative py-24 md:py-32 overflow-hidden bg-surface-container-lowest">
+          <Aurora intensity="subtle" />
           <div
             className="absolute inset-0 opacity-[0.02] pointer-events-none"
             style={{
@@ -55,7 +57,7 @@ export default async function ExamsPage() {
               backgroundSize: "32px 32px",
             }}
           />
-          <div className={`${container} relative z-10`}>
+          <Reveal className={`${container} relative z-10`}>
             <div className="max-w-3xl md:mx-0">
               <div className="flex items-center gap-2 text-sm font-medium text-on-surface-variant mb-8">
                 <Link className="hover:text-primary transition-colors" href="/">
@@ -72,7 +74,7 @@ export default async function ExamsPage() {
                 ) : (
                   <>
                     {t.hero.title1} <br />
-                    <span className="text-primary">{t.hero.title2}</span>
+                    <span className="text-gradient">{t.hero.title2}</span>
                   </>
                 )}
               </h1>
@@ -81,13 +83,13 @@ export default async function ExamsPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center gap-4 mb-20">
                 <a
-                  className="inline-flex items-center justify-center bg-secondary text-white font-semibold rounded-lg px-6 py-3 transition-all hover:bg-[#8f0048] w-full sm:w-auto"
+                  className="btn-primary inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold w-full sm:w-auto"
                   href="#consult"
                 >
                   {t.hero.ctaPrimary}
                 </a>
                 <a
-                  className="inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold bg-surface-container-high text-on-surface hover:bg-surface-variant transition-all w-full sm:w-auto group"
+                  className="btn-outline inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold w-full sm:w-auto group"
                   href="#how"
                 >
                   {t.hero.ctaSecondary}
@@ -102,9 +104,9 @@ export default async function ExamsPage() {
               {t.hero.stats.map(([v, l]) => (
                 <div
                   key={l}
-                  className="bg-surface p-6 rounded-xl border border-surface-variant/50"
+                  className="card-premium card-spotlight rounded-2xl p-6"
                 >
-                  <div className="text-[32px] md:text-[40px] font-extrabold text-primary mb-2 leading-none">
+                  <div className="text-[32px] md:text-[40px] font-extrabold number-gradient mb-2 leading-none">
                     {v}
                   </div>
                   <div className="text-sm font-medium text-on-surface-variant leading-snug">
@@ -113,14 +115,14 @@ export default async function ExamsPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* Two exams */}
-        <section className="py-20 md:py-32 bg-surface">
-          <div className={container}>
+        <section className="py-24 md:py-28 bg-surface">
+          <Reveal className={container}>
             <div className="max-w-3xl mb-16 text-center mx-auto">
-              <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary text-label-caps tracking-widest uppercase mb-6">
+              <span className="tag-pill mb-6">
                 {t.exams.eyebrow}
               </span>
               <h2 className="text-[32px] md:text-[40px] font-extrabold text-on-surface mb-6 tracking-tight">
@@ -132,7 +134,7 @@ export default async function ExamsPage() {
             </div>
             <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
               {/* IELTS */}
-              <div className={`${card} flex flex-col h-full border-t-[6px] border-t-primary`}>
+              <div className={`${card} card-ring flex flex-col h-full border-t-[6px] border-t-primary`}>
                 <div className="mb-8 flex justify-between items-start gap-4">
                   <h3 className="text-2xl font-bold text-on-surface leading-tight">
                     {t.exams.ielts.title}
@@ -168,7 +170,7 @@ export default async function ExamsPage() {
                 </a>
               </div>
               {/* SAT */}
-              <div className={`${card} flex flex-col h-full border-t-[6px] border-t-secondary`}>
+              <div className={`${card} card-ring flex flex-col h-full border-t-[6px] border-t-secondary`}>
                 <div className="mb-8 flex justify-between items-start gap-4">
                   <h3 className="text-2xl font-bold text-on-surface leading-tight">
                     {t.exams.sat.title}
@@ -204,14 +206,14 @@ export default async function ExamsPage() {
                 </a>
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* Method */}
-        <section id="how" className="py-20 md:py-32 bg-surface-container-lowest scroll-mt-20">
-          <div className={container}>
+        <section id="how" className="py-24 md:py-28 bg-surface-container-lowest scroll-mt-20">
+          <Reveal className={container}>
             <div className="max-w-3xl mx-auto text-center mb-20">
-              <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary text-label-caps tracking-widest uppercase mb-6">
+              <span className="tag-pill mb-6">
                 {t.method.eyebrow}
               </span>
               <h2 className="text-[32px] md:text-[40px] font-extrabold text-on-surface mb-6 tracking-tight">
@@ -226,7 +228,7 @@ export default async function ExamsPage() {
               {methodMeta.map((m, i) => (
                 <div
                   key={m.n}
-                  className="relative bg-surface p-6 rounded-xl border border-surface-variant/50 shadow-sm md:bg-transparent md:p-0 md:border-none md:shadow-none h-full flex flex-col"
+                  className="relative bg-surface p-6 rounded-2xl border border-surface-variant/50 shadow-sm md:bg-transparent md:p-0 md:border-none md:shadow-none h-full flex flex-col"
                 >
                   <div
                     className={`w-16 h-16 rounded-2xl flex items-center justify-center font-extrabold text-2xl mb-6 shadow-sm border mx-auto md:mx-0 ${
@@ -251,14 +253,14 @@ export default async function ExamsPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* Free tests */}
-        <section id="tests" className="py-20 md:py-32 bg-surface">
-          <div className={container}>
+        <section id="tests" className="py-24 md:py-28 bg-surface">
+          <Reveal className={container}>
             <div className="max-w-3xl mb-16 mx-auto text-center">
-              <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary text-label-caps tracking-widest uppercase mb-6">
+              <span className="tag-pill mb-6">
                 {t.placement.eyebrow}
               </span>
               <h2 className="text-[32px] md:text-[40px] font-extrabold text-on-surface mb-6 tracking-tight">
@@ -269,7 +271,7 @@ export default async function ExamsPage() {
               </p>
               <Link
                 href="/tests"
-                className="inline-flex items-center gap-1 mt-4 font-bold text-primary hover:text-secondary transition-colors"
+                className="link-underline inline-flex items-center gap-1 mt-4 font-bold text-primary transition-colors"
               >
                 {t.placement.allTestsLink}
                 <Icon name="arrow_forward" className="text-sm" />
@@ -279,7 +281,7 @@ export default async function ExamsPage() {
               {t.placement.items.map((item, i) => (
                 <div
                   key={item.title}
-                  className={`${card} flex flex-col !p-6 sm:!p-8 hover:-translate-y-1 transition-transform duration-300`}
+                  className={`${card} flex flex-col !p-6 sm:!p-8`}
                 >
                   <h3 className="text-xl font-bold text-on-surface mb-4">
                     {item.title}
@@ -289,7 +291,7 @@ export default async function ExamsPage() {
                   </p>
                   <div className="flex gap-6 mb-8 pt-6 border-t border-surface-variant/60">
                     <div>
-                      <div className="text-[20px] font-extrabold text-on-surface mb-1">
+                      <div className="text-[20px] font-extrabold number-gradient mb-1">
                         {t.placement.timeValue}
                       </div>
                       <div className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">
@@ -297,7 +299,7 @@ export default async function ExamsPage() {
                       </div>
                     </div>
                     <div>
-                      <div className="text-[20px] font-extrabold text-on-surface mb-1">
+                      <div className="text-[20px] font-extrabold number-gradient mb-1">
                         {item.result}
                       </div>
                       <div className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">
@@ -311,15 +313,15 @@ export default async function ExamsPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* Targets */}
-        <section className="py-20 md:py-32 bg-surface-container-lowest">
-          <div className={container}>
+        <section className="py-24 md:py-28 bg-surface-container-lowest">
+          <Reveal className={container}>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div className="max-w-2xl">
-                <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary text-label-caps tracking-widest uppercase mb-6">
+                <span className="tag-pill mb-6">
                   {t.targets.eyebrow}
                 </span>
                 <h2 className="text-[32px] md:text-[40px] font-extrabold text-on-surface mb-4 tracking-tight">
@@ -344,9 +346,9 @@ export default async function ExamsPage() {
               {t.targets.items.map((item, i) => (
                 <div
                   key={targetScores[i]}
-                  className="flex flex-col md:flex-row md:items-center gap-4 md:gap-10 p-6 sm:p-8 bg-surface rounded-xl border border-surface-variant/60 hover:border-primary/30 transition-colors"
+                  className="card-premium card-spotlight flex flex-col md:flex-row md:items-center gap-4 md:gap-10 p-6 sm:p-8 rounded-2xl"
                 >
-                  <div className="text-[40px] font-extrabold text-primary w-24 flex-shrink-0 leading-none">
+                  <div className="text-[40px] font-extrabold number-gradient w-24 flex-shrink-0 leading-none">
                     {targetScores[i]}
                   </div>
                   <div className="flex-grow">
@@ -360,7 +362,7 @@ export default async function ExamsPage() {
                   </div>
                 </div>
               ))}
-              <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-10 p-6 sm:p-8 bg-secondary/5 rounded-xl border border-secondary/20">
+              <div className="card-spotlight flex flex-col md:flex-row md:items-center gap-4 md:gap-10 p-6 sm:p-8 bg-secondary/5 rounded-2xl border border-secondary/20 shadow-premium">
                 <div className="text-[40px] font-extrabold text-secondary w-32 flex-shrink-0 leading-none">
                   1300+
                 </div>
@@ -377,14 +379,14 @@ export default async function ExamsPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="py-20 md:py-32 bg-surface">
-          <div className={`${container} max-w-3xl`}>
+        <section id="faq" className="py-24 md:py-28 bg-surface">
+          <Reveal className={`${container} max-w-3xl`}>
             <div className="text-center mb-16">
-              <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 text-primary text-label-caps tracking-widest uppercase mb-6">
+              <span className="tag-pill mb-6">
                 {t.faq.eyebrow}
               </span>
               <h2 className="text-[32px] md:text-[40px] font-extrabold text-on-surface tracking-tight">
@@ -395,7 +397,7 @@ export default async function ExamsPage() {
               {t.faq.items.map((item, i) => (
                 <details
                   key={i}
-                  className="group bg-surface-container-lowest border border-surface-variant/60 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                  className="group glass-card rounded-2xl overflow-hidden"
                 >
                   <summary className="w-full px-6 py-5 flex items-center justify-between text-left cursor-pointer list-none">
                     <span className="font-bold text-on-surface text-lg">
@@ -412,7 +414,7 @@ export default async function ExamsPage() {
                 </details>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* Consult */}

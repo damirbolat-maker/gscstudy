@@ -58,13 +58,14 @@ export default function CampsConsult() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                className="inline-flex justify-center items-center px-8 py-4 border-2 border-white/30 text-lg font-bold rounded-full hover:bg-white hover:text-primary transition-all"
+                className="inline-flex justify-center items-center gap-2 px-8 py-4 border border-white/30 text-base font-semibold rounded-xl bg-white/5 backdrop-blur hover:bg-white hover:text-primary transition-all hover:-translate-y-0.5"
                 href={`tel:${site.phone.tel}`}
               >
+                <Icon name="call" className="text-base" />
                 {site.phone.display}
               </a>
               <a
-                className="inline-flex justify-center items-center px-8 py-4 text-lg font-bold rounded-full shadow-lg text-white bg-whatsapp-green hover:bg-[#20bd5a] transition-all gap-2"
+                className="inline-flex justify-center items-center px-8 py-4 text-base font-semibold rounded-xl shadow-premium text-white bg-whatsapp-green hover:bg-[#20bd5a] transition-all hover:-translate-y-0.5 gap-2"
                 href={`${site.whatsapp.link}?text=${encodeURIComponent(t.waPrefill)}`}
                 target="_blank"
                 rel="noopener"
@@ -78,7 +79,7 @@ export default function CampsConsult() {
           <div className="relative">
             <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-3xl transform rotate-3" />
             {status === "success" ? (
-              <div className="bg-white rounded-3xl p-8 lg:p-10 shadow-2xl relative text-center">
+              <div className="bg-white rounded-2xl p-8 lg:p-10 shadow-premium-lg relative text-center">
                 <div className="w-16 h-16 bg-clever-green/10 text-clever-green rounded-full flex items-center justify-center mx-auto mb-6">
                   <Icon name="check" className="text-3xl" />
                 </div>
@@ -90,7 +91,7 @@ export default function CampsConsult() {
                 </p>
               </div>
             ) : (
-              <div className="bg-white rounded-3xl p-8 lg:p-10 shadow-2xl relative">
+              <div className="bg-white rounded-2xl p-8 lg:p-10 shadow-premium-lg relative">
                 <h3 className="text-3xl font-extrabold text-on-surface mb-2">
                   {t.formTitle}
                 </h3>
@@ -107,7 +108,7 @@ export default function CampsConsult() {
                         {t.nameLabel}
                       </label>
                       <input
-                        className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                        className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all"
                         id="k-name"
                         placeholder={t.namePh}
                         required
@@ -124,7 +125,7 @@ export default function CampsConsult() {
                         {t.phoneLabel}
                       </label>
                       <input
-                        className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                        className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all"
                         id="k-phone"
                         placeholder="+7 700 000 00 00"
                         required
@@ -143,7 +144,7 @@ export default function CampsConsult() {
                         {t.campLabel}
                       </label>
                       <select
-                        className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                        className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all"
                         id="k-camp"
                         value={form.camp}
                         onChange={(e) => setForm({ ...form, camp: e.target.value })}
@@ -161,7 +162,7 @@ export default function CampsConsult() {
                         {t.ageLabel}
                       </label>
                       <select
-                        className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                        className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all"
                         id="k-age"
                         value={form.age}
                         onChange={(e) => setForm({ ...form, age: e.target.value })}
@@ -180,7 +181,7 @@ export default function CampsConsult() {
                       {t.cityLabel}
                     </label>
                     <select
-                      className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                      className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all"
                       id="k-city"
                       value={form.city}
                       onChange={(e) => setForm({ ...form, city: e.target.value })}
@@ -209,7 +210,7 @@ export default function CampsConsult() {
                     </div>
                   </div>
                   <button
-                    className="w-full flex justify-center py-4 px-4 rounded-xl shadow-sm text-lg font-bold text-white bg-secondary hover:bg-[#8f0048] transition-all disabled:opacity-60"
+                    className="btn-accent w-full flex justify-center py-4 px-4 rounded-xl text-lg font-semibold disabled:opacity-60"
                     type="submit"
                     disabled={status === "loading"}
                   >

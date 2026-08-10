@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { site } from "@/lib/site";
 import Icon from "@/components/Icon";
+import Reveal from "@/components/Reveal";
 import { useLocale } from "@/i18n/useLocale";
 import { getSchoolDict } from "@/i18n/pages/school";
 
@@ -69,6 +70,7 @@ export default function ConsultSection({
       <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[#0d3f63] z-0" />
       <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-secondary opacity-30 blur-3xl mix-blend-screen z-0" />
       <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <Reveal>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <span className="inline-block py-1 px-3 rounded-full bg-white/10 text-white font-label-caps text-label-caps tracking-wider uppercase mb-6 border border-white/20">
@@ -100,9 +102,9 @@ export default function ConsultSection({
           </div>
 
           <div className="relative">
-            <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-xl transform rotate-3" />
+            <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-2xl transform rotate-3" />
             {status === "success" ? (
-              <div className="bg-white rounded-xl p-8 lg:p-10 shadow-2xl relative text-center">
+              <div className="bg-white rounded-2xl p-8 lg:p-10 shadow-premium-lg relative text-center">
                 <div className="w-16 h-16 bg-clever-green/10 text-clever-green rounded-full flex items-center justify-center mx-auto mb-6">
                   <Icon name="check" className="text-3xl" />
                 </div>
@@ -114,7 +116,7 @@ export default function ConsultSection({
                 </p>
               </div>
             ) : (
-              <div className="bg-white rounded-xl p-8 lg:p-10 shadow-2xl relative">
+              <div className="bg-white rounded-2xl p-8 lg:p-10 shadow-premium-lg relative">
                 <h3 className="font-headline-md text-headline-md text-primary mb-2">
                   {t.consult.formTitle}
                 </h3>
@@ -131,7 +133,7 @@ export default function ConsultSection({
                         {t.consult.name}
                       </label>
                       <input
-                        className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                        className="w-full rounded-lg border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
                         id="s-name"
                         placeholder={t.consult.namePh}
                         required
@@ -148,7 +150,7 @@ export default function ConsultSection({
                         {t.consult.city}
                       </label>
                       <select
-                        className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                        className="w-full rounded-lg border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
                         id="s-city"
                         required
                         value={form.city}
@@ -170,7 +172,7 @@ export default function ConsultSection({
                         {t.consult.phone}
                       </label>
                       <input
-                        className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                        className="w-full rounded-lg border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
                         id="s-phone"
                         placeholder="+7 700 000 00 00"
                         required
@@ -187,7 +189,7 @@ export default function ConsultSection({
                         {t.consult.emailOptional}
                       </label>
                       <input
-                        className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                        className="w-full rounded-lg border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
                         id="s-email"
                         placeholder="you@example.com"
                         type="email"
@@ -205,7 +207,7 @@ export default function ConsultSection({
                         {t.consult.course}
                       </label>
                       <select
-                        className="w-full rounded-xl border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+                        className="w-full rounded-lg border-border-subtle bg-surface-container-low px-4 py-3 text-on-surface text-[14px] focus:border-primary focus:ring-primary focus:bg-white transition-colors"
                         id="s-course"
                         value={form.course}
                         onChange={(e) => setForm({ ...form, course: e.target.value })}
@@ -251,6 +253,7 @@ export default function ConsultSection({
             )}
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

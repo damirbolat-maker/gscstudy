@@ -12,7 +12,7 @@ export default function Faq() {
   return (
     <section
       id="faq"
-      className="py-24 bg-white-layered my-8 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 shadow-sm mb-0 rounded-b-none border-b-0"
+      className="py-24 md:py-28 bg-white-layered my-8 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 shadow-sm mb-0 rounded-b-none border-b-0"
     >
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">

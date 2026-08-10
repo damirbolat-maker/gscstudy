@@ -7,7 +7,7 @@ export default async function Offices() {
   return (
     <section
       id="offices"
-      className="py-24 bg-white-layered my-8 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 shadow-sm scroll-mt-28"
+      className="py-24 md:py-28 bg-white-layered my-8 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 shadow-sm scroll-mt-28"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -21,9 +21,9 @@ export default async function Offices() {
           {site.offices.map((o, i) => (
             <div
               key={i}
-              className="card-premium p-8 bg-white/95 backdrop-blur flex flex-col"
+              className="card-premium card-spotlight p-8 bg-white/95 backdrop-blur flex flex-col"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary-fixed text-primary flex items-center justify-center mb-6">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
                 <svg
                   className="w-6 h-6"
                   fill="none"

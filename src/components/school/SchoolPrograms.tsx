@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Icon from "@/components/Icon";
+import Reveal from "@/components/Reveal";
 import { useLocale } from "@/i18n/useLocale";
 import { getSchoolDict } from "@/i18n/pages/school";
 
@@ -21,8 +22,9 @@ export default function SchoolPrograms() {
       className="py-[120px] bg-surface-container-low border-t border-border-subtle"
     >
       <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
+        <Reveal>
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
+          <span className="tag-pill">
             {t.programs.eyebrow}
           </span>
           <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
@@ -53,10 +55,10 @@ export default function SchoolPrograms() {
           {shown.map((c) => (
             <div
               key={c.title}
-              className={`spot rounded-xl p-8 border flex flex-col shadow-sm hover:shadow-md transition-shadow ${
+              className={`card-spotlight card-ring rounded-2xl p-8 flex flex-col ${
                 c.highlight
-                  ? "bg-secondary/5 border-secondary/20"
-                  : "bg-white border-border-subtle"
+                  ? "bg-secondary/5 border border-secondary/20 shadow-premium hover-lift"
+                  : "card-premium"
               }`}
             >
               <div className="mb-6">
@@ -88,7 +90,7 @@ export default function SchoolPrograms() {
                 ))}
               </div>
               <a
-                className="inline-flex items-center text-secondary font-button group hover:text-[#8f0048] transition-colors"
+                className="link-underline inline-flex w-fit items-center text-secondary font-button group hover:text-[#8f0048] transition-colors"
                 href="#consult"
               >
                 {t.programs.signUp}
@@ -100,6 +102,7 @@ export default function SchoolPrograms() {
             </div>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   );

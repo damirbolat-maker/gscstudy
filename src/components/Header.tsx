@@ -34,7 +34,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="glass-nav fixed top-0 w-full z-50">
+      <header className="glass-nav fixed top-0 w-full z-50 shadow-[0_1px_0_rgba(19,86,133,0.04)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex-shrink-0 flex items-center">
@@ -46,10 +46,10 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={withLocale(locale, item.href)}
-                  className={`text-sm font-semibold transition-colors ${
+                  className={`link-underline text-sm font-semibold transition-colors ${
                     isActive(item.href)
-                      ? "text-primary border-b-2 border-primary"
-                      : "text-gray-700 hover:text-primary"
+                      ? "text-primary"
+                      : "text-on-surface-variant hover:text-primary"
                   }`}
                 >
                   {item.label}
@@ -58,15 +58,15 @@ export default function Header() {
             </nav>
 
             <div className="hidden md:flex items-center space-x-6">
-              <div className="flex bg-gray-100 p-1 rounded-full">
+              <div className="flex items-center gap-0.5 bg-surface-container-high/70 p-1 rounded-full ring-1 ring-border-subtle">
                 {locales.map((l) => (
                   <button
                     key={l}
                     onClick={() => switchLang(l)}
-                    className={`px-3 py-1 text-xs font-bold rounded-full transition-colors uppercase ${
+                    className={`px-3 py-1 text-xs font-bold rounded-full transition-all uppercase ${
                       locale === l
-                        ? "bg-white shadow-sm text-primary"
-                        : "text-gray-500 hover:text-gray-900"
+                        ? "bg-primary text-white shadow-sm"
+                        : "text-on-surface-variant hover:text-primary"
                     }`}
                   >
                     {l}
@@ -75,13 +75,13 @@ export default function Header() {
               </div>
               <a
                 href={`tel:${site.phone.tel}`}
-                className="text-sm font-bold text-gray-900 hover:text-primary"
+                className="text-sm font-bold text-on-surface hover:text-primary transition-colors"
               >
                 {site.phone.display}
               </a>
               <a
                 href="#consult"
-                className="btn-primary px-5 py-2.5 rounded-lg text-sm font-semibold shadow-sm"
+                className="btn-primary px-5 py-2.5 rounded-xl text-sm font-semibold"
               >
                 {t.actions.consult}
               </a>
@@ -91,7 +91,7 @@ export default function Header() {
               <button
                 aria-label="Меню"
                 onClick={() => setMenuOpen(true)}
-                className="text-gray-500 hover:text-gray-900 p-2"
+                className="text-on-surface-variant hover:text-primary p-2 rounded-xl hover:bg-primary/5 transition-colors"
                 type="button"
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,10 +103,10 @@ export default function Header() {
         </div>
       </header>
 
-      <div className={`fixed inset-0 z-40 bg-white ${menuOpen ? "" : "hidden"}`}>
+      <div className={`fixed inset-0 z-40 bg-background/95 backdrop-blur-xl ${menuOpen ? "animate-scale-in" : "hidden"}`}>
         <div className="pt-20 pb-6 px-4 h-full overflow-y-auto">
           <div className="flex justify-between items-center mb-6">
-            <div className="flex bg-gray-100 p-1 rounded-full">
+            <div className="flex items-center gap-0.5 bg-surface-container-high/70 p-1 rounded-full ring-1 ring-border-subtle">
               {locales.map((l) => (
                 <button
                   key={l}
@@ -114,8 +114,8 @@ export default function Header() {
                     setMenuOpen(false);
                     switchLang(l);
                   }}
-                  className={`px-3 py-1 text-xs font-bold rounded-full uppercase ${
-                    locale === l ? "bg-white shadow-sm text-primary" : "text-gray-500"
+                  className={`px-3 py-1 text-xs font-bold rounded-full uppercase transition-all ${
+                    locale === l ? "bg-primary text-white shadow-sm" : "text-on-surface-variant hover:text-primary"
                   }`}
                 >
                   {l}
@@ -125,7 +125,7 @@ export default function Header() {
             <button
               aria-label="Закрыть"
               onClick={() => setMenuOpen(false)}
-              className="text-gray-500 hover:text-gray-900 p-2"
+              className="text-on-surface-variant hover:text-primary p-2 rounded-xl hover:bg-primary/5 transition-colors"
               type="button"
             >
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,26 +133,26 @@ export default function Header() {
               </svg>
             </button>
           </div>
-          <nav className="grid gap-y-8">
+          <nav className="grid gap-y-2">
             {nav.map((item) => (
               <Link
                 key={item.href}
                 href={withLocale(locale, item.href)}
                 onClick={() => setMenuOpen(false)}
-                className="text-2xl font-bold text-gray-900 hover:text-primary"
+                className="text-2xl font-bold text-on-surface hover:text-primary transition-colors py-2 -mx-2 px-2 rounded-xl hover:bg-primary/5"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-          <div className="mt-12 border-t border-gray-200 pt-8">
-            <a href={`tel:${site.phone.tel}`} className="block text-xl font-bold text-gray-900 mb-4">
+          <div className="mt-12 border-t border-border-subtle pt-8">
+            <a href={`tel:${site.phone.tel}`} className="block text-xl font-bold text-on-surface hover:text-primary transition-colors mb-4">
               {site.phone.display}
             </a>
             <a
               href="#consult"
               onClick={() => setMenuOpen(false)}
-              className="btn-primary block w-full text-center px-5 py-3 rounded-lg text-base font-semibold shadow-sm"
+              className="btn-primary block w-full text-center px-5 py-3 rounded-xl text-base font-semibold"
             >
               {t.actions.consult}
             </a>

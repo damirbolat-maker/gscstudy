@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AbroadConsult from "@/components/abroad/AbroadConsult";
 import Icon from "@/components/Icon";
+import Aurora from "@/components/ui/Aurora";
+import Reveal from "@/components/Reveal";
 import { getServerLocale } from "@/lib/locale";
 import { getAbroadDict } from "@/i18n/pages/abroad";
 import { getPageContent } from "@/lib/page-content";
@@ -61,13 +63,14 @@ export default async function AbroadPage() {
       <main className="pt-20 relative z-10 bg-background">
         {/* Hero */}
         <section className="relative min-h-[90vh] flex items-center pt-16 pb-24 overflow-hidden bg-grid">
+          <Aurora intensity="subtle" />
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-background z-0" />
           <div className="absolute top-1/4 -left-64 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 -right-64 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-3xl" />
           <div className="max-w-[1280px] mx-auto px-6 relative z-10 grid lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
               <div className="flex items-center gap-2 text-sm font-semibold text-on-surface-variant mb-6 uppercase tracking-wider">
-                <Link className="hover:text-primary transition-colors" href="/">
+                <Link className="link-underline hover:text-primary transition-colors" href="/">
                   {t.hero.breadcrumbHome}
                 </Link>
                 <Icon name="chevron_right" className="text-sm" />
@@ -81,7 +84,7 @@ export default async function AbroadPage() {
                 ) : (
                   <>
                     {t.hero.title1} <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                    <span className="text-gradient">
                       {t.hero.title2}
                     </span>
                   </>
@@ -93,14 +96,14 @@ export default async function AbroadPage() {
               <div className="flex flex-col sm:flex-row gap-4 mb-16">
                 <a
                   href="#consult"
-                  className="bg-secondary text-white px-8 py-4 rounded-lg text-base font-bold hover:bg-secondary/90 transition-colors shadow-lg shadow-secondary/20 flex items-center justify-center gap-2"
+                  className="btn-primary rounded-xl px-7 py-3.5 text-base font-semibold flex items-center justify-center gap-2"
                 >
                   {t.hero.ctaPrimary}
                   <Icon name="arrow_forward" className="text-sm" />
                 </a>
                 <a
                   href="#countries"
-                  className="bg-white text-on-surface border border-border-subtle px-8 py-4 rounded-lg text-base font-bold hover:bg-surface-container-low hover:border-outline-variant transition-all flex items-center justify-center gap-2"
+                  className="btn-outline rounded-xl px-7 py-3.5 text-base font-semibold flex items-center justify-center gap-2"
                 >
                   {t.hero.ctaSecondary}
                 </a>
@@ -108,7 +111,7 @@ export default async function AbroadPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-border-subtle">
                 {t.hero.stats.map(([v, l]) => (
                   <div key={l}>
-                    <div className="text-3xl font-extrabold text-primary mb-1">
+                    <div className="text-3xl font-extrabold number-gradient mb-1">
                       {v}
                     </div>
                     <div className="text-xs font-semibold text-on-surface-variant uppercase tracking-wide">
@@ -119,9 +122,9 @@ export default async function AbroadPage() {
               </div>
             </div>
             <div className="lg:col-span-5 relative hidden lg:block">
-              <div className="glass-card rounded-lg p-8 shadow-2xl relative z-10">
+              <div className="glass-card card-ring rounded-2xl p-8 shadow-premium-lg relative z-10">
                 <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                     <Icon name="school" />
                   </div>
                   <div>
@@ -190,10 +193,11 @@ export default async function AbroadPage() {
         </section>
 
         {/* Countries */}
-        <section id="countries" className="py-24 bg-surface-container-lowest scroll-mt-20">
+        <Reveal>
+        <section id="countries" className="py-24 md:py-28 bg-surface-container-lowest scroll-mt-20">
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
+              <span className="tag-pill">
                 {t.countries.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
@@ -205,10 +209,10 @@ export default async function AbroadPage() {
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {countriesMeta.map((c, ci) => (
-                <a key={c.code} href="#consult" className="group block card-21st p-6">
+                <a key={c.code} href="#consult" className="group block card-premium card-spotlight rounded-2xl p-6">
                   <div className="flex items-center gap-4 mb-6">
                     <div
-                      className="w-12 h-12 rounded-lg flex items-center justify-center text-xl font-bold border"
+                      className="w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold border"
                       style={{
                         backgroundColor: `${c.color}1a`,
                         color: c.text ?? c.color,
@@ -251,13 +255,15 @@ export default async function AbroadPage() {
             </div>
           </div>
         </section>
+        </Reveal>
 
         {/* Who */}
-        <section className="py-24 bg-white">
+        <Reveal>
+        <section className="py-24 md:py-28 bg-white">
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="grid lg:grid-cols-12 gap-16 items-start">
               <div className="lg:col-span-5 lg:sticky lg:top-32">
-                <span className="inline-block py-1 px-3 rounded-full bg-secondary/10 text-secondary text-xs font-bold tracking-widest uppercase mb-4">
+                <span className="tag-pill">
                   {t.who.eyebrow}
                 </span>
                 <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
@@ -267,7 +273,7 @@ export default async function AbroadPage() {
                   {t.who.text}
                 </p>
                 <a
-                  className="inline-flex items-center gap-2 text-primary font-bold hover:text-secondary transition-colors"
+                  className="link-underline inline-flex items-center gap-2 text-primary font-bold hover:text-secondary transition-colors"
                   href="#consult"
                 >
                   {t.who.cta}
@@ -278,9 +284,9 @@ export default async function AbroadPage() {
                 {t.who.items.map((w, wi) => (
                   <div
                     key={whoNums[wi]}
-                    className="flex gap-6 p-6 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border border-transparent hover:border-border-subtle shadow-sm"
+                    className="flex gap-6 p-6 rounded-2xl card-premium card-spotlight"
                   >
-                    <div className="text-4xl font-black text-primary/20">
+                    <div className="text-4xl font-black number-gradient opacity-40">
                       {whoNums[wi]}
                     </div>
                     <div>
@@ -297,12 +303,14 @@ export default async function AbroadPage() {
             </div>
           </div>
         </section>
+        </Reveal>
 
         {/* Levels */}
-        <section className="py-24 bg-surface-container-lowest">
+        <Reveal>
+        <section className="py-24 md:py-28 bg-surface-container-lowest">
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
+              <span className="tag-pill">
                 {t.levels.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
@@ -313,7 +321,7 @@ export default async function AbroadPage() {
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="card-21st p-8 flex flex-col h-full hover-lift">
+              <div className="card-premium card-spotlight rounded-2xl p-8 flex flex-col h-full">
                 <div className="mb-6">
                   <span className="inline-block py-1 px-3 rounded-full bg-secondary/10 text-secondary text-xs font-bold mb-4">
                     {t.levels.foundation.badge}
@@ -324,7 +332,7 @@ export default async function AbroadPage() {
                   {t.levels.foundation.text}
                 </p>
               </div>
-              <div className="bg-primary p-8 rounded-xl shadow-xl flex flex-col h-full transform md:-translate-y-4 hover-lift">
+              <div className="bg-primary p-8 rounded-2xl shadow-premium-lg flex flex-col h-full transform md:-translate-y-4 hover-lift">
                 <div className="mb-6">
                   <span className="inline-block py-1 px-3 rounded-full bg-white/20 text-white text-xs font-bold mb-4">
                     {t.levels.bachelor.badge}
@@ -335,7 +343,7 @@ export default async function AbroadPage() {
                   {t.levels.bachelor.text}
                 </p>
               </div>
-              <div className="card-21st p-8 flex flex-col h-full hover-lift">
+              <div className="card-premium card-spotlight rounded-2xl p-8 flex flex-col h-full">
                 <div className="mb-6">
                   <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
                     {t.levels.premaster.badge}
@@ -349,13 +357,16 @@ export default async function AbroadPage() {
             </div>
           </div>
         </section>
+        </Reveal>
 
         {/* What we do */}
-        <section className="py-24 bg-white border-y border-border-subtle relative overflow-hidden">
+        <Reveal>
+        <section className="py-24 md:py-28 bg-white border-y border-border-subtle relative overflow-hidden">
+          <Aurora intensity="subtle" />
           <div className="absolute inset-0 bg-grid opacity-50" />
           <div className="max-w-[1280px] mx-auto px-6 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
+              <span className="tag-pill">
                 {t.whatWeDo.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
@@ -368,7 +379,7 @@ export default async function AbroadPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
               {t.whatWeDo.items.map((w, wi) => (
                 <div key={whatWeDoNums[wi]} className="relative pl-12 group">
-                  <div className="absolute left-0 top-0 w-8 h-8 rounded-lg bg-surface border border-border-subtle group-hover:border-primary group-hover:bg-primary group-hover:text-white flex items-center justify-center text-sm font-bold text-on-surface-variant transition-colors shadow-sm">
+                  <div className="absolute left-0 top-0 w-8 h-8 rounded-xl bg-primary/10 text-primary border border-primary/10 group-hover:border-primary group-hover:bg-primary group-hover:text-white flex items-center justify-center text-sm font-bold transition-colors shadow-sm">
                     {whatWeDoNums[wi]}
                   </div>
                   <h4 className="text-lg font-bold text-on-surface mb-2 pt-1">
@@ -382,12 +393,14 @@ export default async function AbroadPage() {
             </div>
           </div>
         </section>
+        </Reveal>
 
         {/* Money */}
-        <section className="py-24 bg-surface-container-low">
+        <Reveal>
+        <section className="py-24 md:py-28 bg-surface-container-low">
           <div className="max-w-[1280px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
+              <span className="tag-pill">
                 {t.money.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
@@ -398,7 +411,7 @@ export default async function AbroadPage() {
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-lg p-8 md:p-12 shadow-sm border border-border-subtle">
+              <div className="card-premium card-spotlight rounded-2xl p-8 md:p-12">
                 <span className="inline-block py-1 px-3 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold mb-6">
                   {t.money.budget.badge}
                 </span>
@@ -424,7 +437,7 @@ export default async function AbroadPage() {
                   ))}
                 </div>
               </div>
-              <div className="bg-primary rounded-lg p-8 md:p-12 shadow-xl text-white">
+              <div className="card-ring bg-primary rounded-2xl p-8 md:p-12 shadow-premium-lg text-white">
                 <span className="inline-block py-1 px-3 rounded-full bg-white/20 text-white text-xs font-bold mb-6">
                   {t.money.grants.badge}
                 </span>
@@ -452,7 +465,7 @@ export default async function AbroadPage() {
                   </div>
                 </div>
                 <a
-                  className="inline-flex items-center justify-center w-full py-4 rounded-lg border-2 border-white/30 font-bold hover:bg-white hover:text-primary transition-colors"
+                  className="inline-flex items-center justify-center w-full py-4 rounded-xl border-2 border-white/30 font-semibold hover:bg-white hover:text-primary transition-colors"
                   href="#consult"
                 >
                   {t.money.grants.cta}
@@ -461,12 +474,14 @@ export default async function AbroadPage() {
             </div>
           </div>
         </section>
+        </Reveal>
 
         {/* Timeline */}
-        <section className="py-24 bg-white">
+        <Reveal>
+        <section className="py-24 md:py-28 bg-white">
           <div className="max-w-[1000px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
+              <span className="tag-pill">
                 {t.timeline.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">
@@ -485,17 +500,17 @@ export default async function AbroadPage() {
                   className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
                 >
                   <div
-                    className={`flex items-center justify-center w-8 h-8 rounded-full border-4 border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ml-[2px] md:ml-0 ${
+                    className={`flex items-center justify-center w-8 h-8 rounded-full border-4 border-white shadow-premium shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ml-[2px] md:ml-0 ${
                       meta.edge || meta.last
-                        ? "bg-primary text-white"
-                        : "bg-surface-container-high text-on-surface-variant group-hover:bg-primary/20 transition-colors"
+                        ? "bg-primary text-white ring-4 ring-primary/15"
+                        : "bg-surface-container-high text-on-surface-variant group-hover:bg-primary/20 group-hover:ring-4 group-hover:ring-primary/10 transition-all"
                     }`}
                   />
                   <div
-                    className={`w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-6 rounded-lg border shadow-sm transition-all hover:shadow-md ml-4 md:ml-0 group-odd:mr-auto group-even:ml-auto ${
+                    className={`w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-6 rounded-2xl card-spotlight transition-all ml-4 md:ml-0 group-odd:mr-auto group-even:ml-auto ${
                       meta.last
-                        ? "border-primary/20 bg-primary/5 hover:border-primary/40"
-                        : "border-border-subtle bg-white hover:border-primary/30"
+                        ? "card-premium border-primary/20 bg-primary/5"
+                        : "card-premium"
                     }`}
                   >
                     <div
@@ -516,15 +531,17 @@ export default async function AbroadPage() {
             </div>
           </div>
         </section>
+        </Reveal>
 
         {/* FAQ */}
+        <Reveal>
         <section
           id="faq"
-          className="py-24 bg-surface-container-lowest border-t border-border-subtle"
+          className="py-24 md:py-28 bg-surface-container-lowest border-t border-border-subtle"
         >
           <div className="max-w-[820px] mx-auto px-6">
             <div className="mb-12">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-4">
+              <span className="tag-pill">
                 {t.faq.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface">
@@ -535,16 +552,18 @@ export default async function AbroadPage() {
               {t.faq.items.map((item, i) => (
                 <details
                   key={i}
-                  className="group border border-border-subtle rounded-lg bg-white overflow-hidden"
+                  className="group card-premium rounded-2xl bg-white overflow-hidden"
                 >
                   <summary className="w-full px-6 py-5 text-left flex justify-between items-center cursor-pointer list-none">
                     <span className="font-bold text-lg text-on-surface pr-8">
                       {item.q}
                     </span>
-                    <Icon
-                      name="expand_more"
-                      className="text-primary transition group-open:rotate-180"
-                    />
+                    <span className="w-8 h-8 shrink-0 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                      <Icon
+                        name="expand_more"
+                        className="transition group-open:rotate-180"
+                      />
+                    </span>
                   </summary>
                   <div className="px-6 pb-6">
                     <p className="text-on-surface-variant leading-relaxed">
@@ -556,6 +575,7 @@ export default async function AbroadPage() {
             </div>
           </div>
         </section>
+        </Reveal>
 
         {/* Consult */}
         <AbroadConsult />

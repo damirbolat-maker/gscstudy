@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import LeadForm from "./LeadForm";
+import Aurora from "@/components/ui/Aurora";
 import { useLocale } from "@/i18n/useLocale";
 import { getDictionary } from "@/i18n/dictionaries";
 import { withLocale } from "@/i18n/config";
@@ -50,6 +51,7 @@ export default function Hero() {
 
   return (
     <section className="hero-section min-h-[90vh] flex items-center pt-24 pb-32 rounded-b-[3rem] shadow-sm">
+      <Aurora intensity="subtle" />
       <div className="hero-blob w-[600px] h-[600px] top-0 left-[-200px]" />
       <div className="hero-blob w-[500px] h-[500px] bottom-0 right-[-100px] bg-secondary" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
@@ -67,7 +69,7 @@ export default function Hero() {
                   </span>
                   <h1 className="text-5xl lg:text-[4rem] font-extrabold tracking-tight text-gray-900 mb-6 leading-[1.1]">
                     {slide.s.title1} <br />
-                    <span className={slide.title2Class}>{slide.s.title2}</span>
+                    <span className={`${slide.title2Class} text-gradient`}>{slide.s.title2}</span>
                   </h1>
                   <p className="text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
                     {slide.s.text}
@@ -150,7 +152,7 @@ export default function Hero() {
               key={s[1]}
               className={i === 4 ? "col-span-2 md:col-span-4 lg:col-span-1 hidden lg:block" : ""}
             >
-              <div className="text-4xl font-extrabold text-primary">{s[0]}</div>
+              <div className="text-4xl font-extrabold number-gradient">{s[0]}</div>
               <div className="text-base font-medium text-gray-600 mt-2">{s[1]}</div>
             </div>
           ))}

@@ -20,7 +20,10 @@ export default async function TrustStrip() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {items.map((it) => (
-            <div key={it.label} className="text-center">
+            <div
+              key={it.label}
+              className="text-center opacity-60 hover:opacity-100 transition-opacity duration-300"
+            >
               <div className="text-lg font-extrabold text-primary tracking-tight">
                 {it.label}
               </div>

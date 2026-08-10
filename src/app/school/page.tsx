@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import SchoolPrograms from "@/components/school/SchoolPrograms";
 import ConsultSection from "@/components/ConsultSection";
 import Icon from "@/components/Icon";
+import Aurora from "@/components/ui/Aurora";
+import Reveal from "@/components/Reveal";
 import { getServerLocale } from "@/lib/locale";
 import { getSchoolDict } from "@/i18n/pages/school";
 import { getPageContent } from "@/lib/page-content";
@@ -37,6 +39,7 @@ export default async function SchoolPage() {
       <main className="pt-20">
         {/* Hero */}
         <section className="relative overflow-hidden py-[120px]">
+          <Aurora intensity="subtle" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-secondary/5 blur-3xl mix-blend-multiply" />
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -52,11 +55,11 @@ export default async function SchoolPage() {
               </nav>
               <h1 className="font-display-lg text-display-lg text-primary mb-6 leading-tight">
                 {ov.heroTitle ? (
-                  ov.heroTitle
+                  <span className="text-gradient">{ov.heroTitle}</span>
                 ) : (
                   <>
                     {t.hero.title1} <br />
-                    <em className="text-secondary not-italic">
+                    <em className="text-gradient not-italic">
                       {t.hero.title2}
                     </em>
                   </>
@@ -74,7 +77,7 @@ export default async function SchoolPage() {
                 </a>
                 <a
                   href="#levels"
-                  className="inline-flex justify-center items-center px-8 py-4 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all hover:-translate-y-1"
+                  className="btn-outline inline-flex justify-center items-center rounded-xl px-8 py-4 font-button text-button font-semibold"
                 >
                   {t.hero.ctaSecondary}
                   <Icon name="arrow_downward" className="ml-2" />
@@ -83,7 +86,7 @@ export default async function SchoolPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 border-t border-border-subtle pt-10">
                 {t.hero.stats.map(([v, l]) => (
                   <div key={l}>
-                    <div className="font-display-lg text-[32px] font-extrabold text-primary mb-1 leading-tight">
+                    <div className="font-display-lg text-[32px] font-extrabold number-gradient mb-1 leading-tight">
                       {v}
                     </div>
                     <div className="font-label-caps text-label-caps text-on-surface-variant uppercase">
@@ -102,10 +105,11 @@ export default async function SchoolPage() {
           className="py-[120px] bg-white border-t border-border-subtle scroll-mt-20"
         >
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal>
             <div className="grid md:grid-cols-12 gap-12">
               <div className="md:col-span-4">
                 <div className="sticky top-28">
-                  <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
+                  <span className="tag-pill">
                     {t.levelsSection.eyebrow}
                   </span>
                   <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
@@ -121,9 +125,9 @@ export default async function SchoolPage() {
                   {levels.map((lv) => (
                     <div
                       key={lv.code}
-                      className="spot bg-surface rounded-xl p-6 border border-border-subtle flex flex-col sm:flex-row gap-6 items-start sm:items-center"
+                      className="card-premium card-spotlight card-ring rounded-2xl p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center"
                     >
-                      <div className="w-16 h-16 rounded-xl bg-primary text-white flex items-center justify-center font-display-lg text-[24px] shrink-0">
+                      <div className="w-16 h-16 rounded-xl bg-primary text-white flex items-center justify-center font-display-lg text-[24px] shrink-0 shadow-premium">
                         {lv.code}
                       </div>
                       <div className="flex-1">
@@ -142,6 +146,7 @@ export default async function SchoolPage() {
                 </div>
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
@@ -151,8 +156,9 @@ export default async function SchoolPage() {
         {/* Formats */}
         <section className="py-[120px] bg-white border-t border-border-subtle">
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
+              <span className="tag-pill">
                 {t.formatsSection.eyebrow}
               </span>
               <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
@@ -163,7 +169,7 @@ export default async function SchoolPage() {
               {formats.map((f) => (
                 <div
                   key={f.num}
-                  className="spot bg-surface rounded-xl p-8 border border-border-subtle"
+                  className="card-premium card-spotlight card-ring rounded-2xl p-8"
                 >
                   <div className="font-display-lg text-[48px] font-black text-primary/10 mb-4 leading-none">
                     {f.num}
@@ -177,14 +183,16 @@ export default async function SchoolPage() {
                 </div>
               ))}
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* Online vs Offline */}
         <section className="py-[120px] bg-surface-container-low border-t border-border-subtle">
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
+              <span className="tag-pill">
                 {t.where.eyebrow}
               </span>
               <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
@@ -195,7 +203,7 @@ export default async function SchoolPage() {
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="spot bg-white rounded-xl p-8 lg:p-10 border border-border-subtle flex flex-col">
+              <div className="card-premium card-spotlight rounded-2xl p-8 lg:p-10 flex flex-col">
                 <span className="inline-block w-fit px-3 py-1 rounded-md bg-secondary/10 text-secondary font-label-caps text-[11px] uppercase mb-6">
                   {t.where.offline.tag}
                 </span>
@@ -217,12 +225,12 @@ export default async function SchoolPage() {
                 </div>
                 <Link
                   href="/#offices"
-                  className="inline-flex justify-center items-center w-full px-6 py-3 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all"
+                  className="btn-outline inline-flex justify-center items-center w-full rounded-xl px-6 py-3 font-button text-button font-semibold"
                 >
                   {t.where.offline.cta}
                 </Link>
               </div>
-              <div className="spot bg-white rounded-xl p-8 lg:p-10 border border-border-subtle flex flex-col">
+              <div className="card-premium card-spotlight rounded-2xl p-8 lg:p-10 flex flex-col">
                 <span className="inline-block w-fit px-3 py-1 rounded-md bg-secondary/10 text-secondary font-label-caps text-[11px] uppercase mb-6">
                   {t.where.online.tag}
                 </span>
@@ -244,20 +252,22 @@ export default async function SchoolPage() {
                 </div>
                 <a
                   href="#consult"
-                  className="inline-flex justify-center items-center w-full px-6 py-3 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all"
+                  className="btn-outline inline-flex justify-center items-center w-full rounded-xl px-6 py-3 font-button text-button font-semibold"
                 >
                   {t.where.online.cta}
                 </a>
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* Lesson */}
         <section className="py-[120px] bg-white border-t border-border-subtle">
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
+              <span className="tag-pill">
                 {t.lessonSection.eyebrow}
               </span>
               <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
@@ -271,7 +281,7 @@ export default async function SchoolPage() {
               {lesson.map((step, i) => (
                 <div
                   key={i}
-                  className="spot bg-surface rounded-xl p-6 border border-border-subtle flex flex-col sm:flex-row gap-6 items-start"
+                  className="card-premium card-spotlight rounded-2xl p-6 flex flex-col sm:flex-row gap-6 items-start"
                 >
                   <div className="font-button text-secondary whitespace-nowrap bg-secondary/10 px-4 py-2 rounded-lg shrink-0 w-full sm:w-32 text-center">
                     {step.time}
@@ -287,14 +297,16 @@ export default async function SchoolPage() {
                 </div>
               ))}
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* Trial & Who */}
         <section className="py-[120px] bg-surface-container-low border-t border-border-subtle">
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="spot bg-white rounded-xl p-8 lg:p-10 border border-border-subtle flex flex-col">
+              <div className="card-premium card-spotlight rounded-2xl p-8 lg:p-10 flex flex-col">
                 <span className="inline-block w-fit px-3 py-1 rounded-md bg-secondary/10 text-secondary font-label-caps text-[11px] uppercase mb-6">
                   {t.trialWho.trial.tag}
                 </span>
@@ -317,12 +329,12 @@ export default async function SchoolPage() {
                 </div>
                 <a
                   href="#consult"
-                  className="inline-flex justify-center items-center w-full px-6 py-3 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all"
+                  className="btn-outline inline-flex justify-center items-center w-full rounded-xl px-6 py-3 font-button text-button font-semibold"
                 >
                   {t.trialWho.trial.cta}
                 </a>
               </div>
-              <div className="spot bg-white rounded-xl p-8 lg:p-10 border border-border-subtle flex flex-col">
+              <div className="card-premium card-spotlight rounded-2xl p-8 lg:p-10 flex flex-col">
                 <span className="inline-block w-fit px-3 py-1 rounded-md bg-secondary/10 text-secondary font-label-caps text-[11px] uppercase mb-6">
                   {t.trialWho.who.tag}
                 </span>
@@ -345,21 +357,23 @@ export default async function SchoolPage() {
                 </div>
                 <Link
                   href="/exams"
-                  className="inline-flex justify-center items-center w-full px-6 py-3 border-2 border-primary font-button text-button rounded-xl text-primary hover:bg-primary hover:text-white transition-all"
+                  className="btn-outline inline-flex justify-center items-center w-full rounded-xl px-6 py-3 font-button text-button font-semibold"
                 >
                   {t.trialWho.who.cta}
                 </Link>
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
         {/* Certificate */}
         <section className="py-[120px] bg-white border-t border-border-subtle">
           <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-primary/5 rounded-2xl p-8 lg:p-12 border border-primary/10 flex flex-col lg:flex-row items-center gap-10">
+            <Reveal>
+            <div className="bg-primary/5 rounded-2xl p-8 lg:p-12 border border-primary/10 shadow-premium card-spotlight flex flex-col lg:flex-row items-center gap-10">
               <div className="flex-1">
-                <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
+                <span className="tag-pill">
                   {t.certificate.eyebrow}
                 </span>
                 <h4 className="font-headline-md text-headline-md text-primary mb-4">
@@ -373,13 +387,14 @@ export default async function SchoolPage() {
                 {["A1", "A2", "B1", "B2", "C1", "C2"].map((c) => (
                   <span
                     key={c}
-                    className="w-12 h-12 rounded-lg bg-white border border-border-subtle flex items-center justify-center font-button text-primary shadow-sm"
+                    className="w-12 h-12 rounded-xl bg-white border border-border-subtle flex items-center justify-center font-button text-primary shadow-premium"
                   >
                     {c}
                   </span>
                 ))}
               </div>
             </div>
+            </Reveal>
           </div>
         </section>
 
@@ -389,8 +404,9 @@ export default async function SchoolPage() {
           className="py-[120px] bg-surface-container-low border-t border-border-subtle"
         >
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Reveal>
             <div className="text-center mb-16">
-              <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps tracking-wider uppercase mb-4">
+              <span className="tag-pill">
                 {t.faqSection.eyebrow}
               </span>
               <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
@@ -401,7 +417,7 @@ export default async function SchoolPage() {
               {faqs.map((item, i) => (
                 <details
                   key={i}
-                  className="group bg-white rounded-xl border border-border-subtle open:border-primary/30 transition-colors hover:shadow-sm"
+                  className="group card-premium card-spotlight rounded-2xl open:border-primary/30"
                   open={i === 0}
                 >
                   <summary className="flex items-center justify-between cursor-pointer list-none p-6 font-headline-sm text-[18px] text-primary">
@@ -417,6 +433,7 @@ export default async function SchoolPage() {
                 </details>
               ))}
             </div>
+            </Reveal>
           </div>
         </section>
 

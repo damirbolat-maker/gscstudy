@@ -9,7 +9,7 @@ type Review = {
 
 function ReviewCard({ r }: { r: Review }) {
   return (
-    <div className="card-premium p-8 w-80 flex-shrink-0 bg-white/95 backdrop-blur">
+    <div className="card-premium card-spotlight p-8 w-80 flex-shrink-0 bg-white/95 backdrop-blur">
       <p className="text-gray-600 mb-4 text-sm leading-relaxed">
         &ldquo;{r.text}&rdquo;
       </p>

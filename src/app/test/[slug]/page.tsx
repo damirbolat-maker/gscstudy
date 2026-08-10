@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TestRunner from "@/components/test/TestRunner";
+import Aurora from "@/components/ui/Aurora";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -45,8 +46,9 @@ export default async function TestPage({
   return (
     <>
       <Header />
-      <main className="pt-20 min-h-screen bg-background bg-dots">
-        <div className="py-16 px-4 sm:px-6 lg:px-8">
+      <main className="pt-20 min-h-screen bg-background bg-dots relative overflow-hidden">
+        <Aurora intensity="subtle" />
+        <div className="relative z-10 py-16 px-4 sm:px-6 lg:px-8">
           <TestRunner
             slug={test.slug}
             title={test.title}

@@ -9,7 +9,7 @@ import { getExamsDict } from "@/i18n/pages/exams";
 type Status = "idle" | "loading" | "success" | "error";
 
 const inputCls =
-  "w-full rounded-lg border-surface-variant/60 bg-surface-container-low text-on-surface focus:ring-primary focus:border-primary p-3.5 shadow-sm transition-shadow focus:shadow-md";
+  "w-full rounded-xl border border-surface-variant/60 bg-surface-container-low text-on-surface focus:ring-2 focus:ring-primary/30 focus:border-primary p-3.5 shadow-sm transition-all focus:shadow-md outline-none";
 
 export default function ExamsConsult() {
   const locale = useLocale();
@@ -67,14 +67,14 @@ export default function ExamsConsult() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                className="inline-flex items-center justify-center bg-white/10 text-white font-bold rounded-lg px-6 py-3.5 border border-white/20 hover:bg-white/20 transition-all shadow-sm"
+                className="inline-flex items-center justify-center bg-white/10 text-white font-bold rounded-xl px-6 py-3.5 border border-white/20 hover:bg-white/20 transition-all shadow-sm"
                 href={`tel:${site.phone.tel}`}
               >
                 <Icon name="phone" className="mr-2 text-xl" />
                 {site.phone.display}
               </a>
               <a
-                className="inline-flex items-center justify-center bg-whatsapp-green text-white font-bold rounded-lg px-6 py-3.5 hover:bg-[#20bd5a] transition-colors shadow-sm"
+                className="inline-flex items-center justify-center bg-whatsapp-green text-white font-bold rounded-xl px-6 py-3.5 hover:bg-[#20bd5a] transition-colors shadow-sm"
                 href={`${site.whatsapp.link}?text=Здравствуйте!%20Хочу%20готовиться%20к%20экзамену`}
                 target="_blank"
                 rel="noopener"
@@ -220,7 +220,7 @@ export default function ExamsConsult() {
                   </label>
                 </div>
                 <button
-                  className="inline-flex items-center justify-center w-full bg-primary text-white font-semibold rounded-lg py-4 text-base mt-2 shadow-md hover:shadow-lg hover:bg-opacity-90 transition-all disabled:opacity-60"
+                  className="btn-primary inline-flex items-center justify-center w-full rounded-xl py-4 text-base mt-2 font-semibold disabled:opacity-60"
                   type="submit"
                   disabled={status === "loading"}
                 >

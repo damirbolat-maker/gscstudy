@@ -40,7 +40,7 @@ export default function AbroadConsult() {
   }
 
   return (
-    <section id="consult" className="py-24 bg-primary relative overflow-hidden scroll-mt-20">
+    <section id="consult" className="py-24 md:py-28 bg-primary relative overflow-hidden scroll-mt-20">
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary/30 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3" />
       <div className="max-w-[1280px] mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
@@ -60,7 +60,7 @@ export default function AbroadConsult() {
           <div className="space-y-6 mb-10">
             {t.info.map((it, ii) => (
               <div key={it.label} className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
                   <Icon name={infoIcons[ii]} className="text-white" />
                 </div>
                 <div>
@@ -72,7 +72,7 @@ export default function AbroadConsult() {
               </div>
             ))}
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
                 <Icon name="payments" className="text-white" />
               </div>
               <div>
@@ -87,14 +87,14 @@ export default function AbroadConsult() {
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              className="bg-white/10 border border-white/20 text-white px-8 py-4 rounded-lg text-base font-bold hover:bg-white/20 transition-colors flex items-center justify-center gap-2"
+              className="bg-white/10 border border-white/20 text-white px-8 py-4 rounded-xl text-base font-semibold hover:bg-white/20 transition-colors flex items-center justify-center gap-2"
               href={`tel:${site.phone.tel}`}
             >
               <Icon name="call" className="text-sm" />
               {site.phone.display}
             </a>
             <a
-              className="bg-whatsapp-green text-white px-8 py-4 rounded-lg text-base font-bold hover:bg-[#20b858] transition-colors flex items-center justify-center gap-2 shadow-lg shadow-whatsapp-green/20"
+              className="bg-whatsapp-green text-white px-8 py-4 rounded-xl text-base font-semibold hover:bg-[#20b858] transition-colors flex items-center justify-center gap-2 shadow-lg shadow-whatsapp-green/20"
               href={`${site.whatsapp.link}?text=Здравствуйте!%20Хочу%20поступить%20за%20рубеж`}
               target="_blank"
               rel="noopener"
@@ -106,7 +106,7 @@ export default function AbroadConsult() {
 
         <div>
           {status === "success" ? (
-            <div className="bg-white rounded-lg p-8 md:p-10 shadow-2xl relative text-center">
+            <div className="bg-white rounded-2xl p-8 md:p-10 shadow-premium-lg relative text-center">
               <div className="w-16 h-16 bg-clever-green/10 text-clever-green rounded-full flex items-center justify-center mx-auto mb-6">
                 <Icon name="check" className="text-3xl" />
               </div>
@@ -118,7 +118,7 @@ export default function AbroadConsult() {
               </p>
             </div>
           ) : (
-            <div className="bg-white rounded-lg p-8 md:p-10 shadow-2xl relative">
+            <div className="bg-white card-ring rounded-2xl p-8 md:p-10 shadow-premium-lg relative">
               <h3 className="text-2xl font-bold text-on-surface mb-2">
                 {t.formTitle}
               </h3>
@@ -135,7 +135,7 @@ export default function AbroadConsult() {
                       {t.form.nameLabel}
                     </label>
                     <input
-                      className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
+                      className="w-full bg-surface-container-low border border-transparent rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface"
                       id="a-name"
                       placeholder={t.form.namePh}
                       required
@@ -152,7 +152,7 @@ export default function AbroadConsult() {
                       {t.form.phoneLabel}
                     </label>
                     <input
-                      className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
+                      className="w-full bg-surface-container-low border border-transparent rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface"
                       id="a-phone"
                       placeholder={t.form.phonePh}
                       required
@@ -171,7 +171,7 @@ export default function AbroadConsult() {
                       {t.form.countryLabel}
                     </label>
                     <select
-                      className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
+                      className="w-full bg-surface-container-low border border-transparent rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface"
                       id="a-country"
                       value={form.country}
                       onChange={(e) =>
@@ -191,7 +191,7 @@ export default function AbroadConsult() {
                       {t.form.levelLabel}
                     </label>
                     <select
-                      className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
+                      className="w-full bg-surface-container-low border border-transparent rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface"
                       id="a-level"
                       value={form.level}
                       onChange={(e) => setForm({ ...form, level: e.target.value })}
@@ -210,7 +210,7 @@ export default function AbroadConsult() {
                     {t.form.yearLabel}
                   </label>
                   <select
-                    className="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary text-on-surface"
+                    className="w-full bg-surface-container-low border border-transparent rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface"
                     id="a-year"
                     value={form.year}
                     onChange={(e) => setForm({ ...form, year: e.target.value })}
@@ -231,7 +231,7 @@ export default function AbroadConsult() {
                   </span>
                 </label>
                 <button
-                  className="w-full bg-secondary text-white py-4 rounded-lg font-bold hover:bg-secondary/90 transition-colors shadow-lg shadow-secondary/20 mt-4 disabled:opacity-60"
+                  className="w-full bg-secondary text-white py-4 rounded-xl font-semibold hover:bg-secondary/90 transition-colors shadow-lg shadow-secondary/20 mt-4 disabled:opacity-60"
                   type="submit"
                   disabled={status === "loading"}
                 >

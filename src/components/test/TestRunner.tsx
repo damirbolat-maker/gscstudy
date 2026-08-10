@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Icon from "@/components/Icon";
+import CountUp from "@/components/ui/CountUp";
 import { site } from "@/lib/site";
 import { useLocale } from "@/i18n/useLocale";
 import { getTestsDict } from "@/i18n/pages/tests";
@@ -70,14 +71,16 @@ export default function TestRunner({
   if (step === "intro") {
     return (
       <Card>
-        <span className="tag-pill">{t.intro.eyebrow}</span>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-primary mb-3">
-          {title}
-        </h1>
-        {description && (
-          <p className="text-on-surface-variant mb-6">{description}</p>
-        )}
-        <div className="flex flex-wrap gap-6 mb-8 text-sm">
+        <div className="text-center">
+          <span className="tag-pill">{t.intro.eyebrow}</span>
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-3">
+            <span className="text-gradient">{title}</span>
+          </h1>
+          {description && (
+            <p className="text-on-surface-variant mb-8 max-w-lg mx-auto leading-relaxed">{description}</p>
+          )}
+        </div>
+        <div className="flex flex-wrap gap-3 mb-8 text-sm">
           <Meta label={t.intro.metaQuestions} value={String(total)} />
           <Meta label={t.intro.metaTime} value={timeLimit ? `${timeLimit} ${t.intro.minutes}` : t.intro.noLimit} />
           <Meta label={t.intro.metaCost} value={t.intro.free} />
@@ -119,7 +122,7 @@ export default function TestRunner({
           </label>
           <button
             type="submit"
-            className="btn-accent w-full py-4 rounded-xl font-bold text-lg mt-2"
+            className="btn-primary shimmer w-full py-4 rounded-xl font-bold text-lg mt-2"
           >
             {t.intro.startBtn}
           </button>
@@ -132,22 +135,22 @@ export default function TestRunner({
   if (step === "quiz" && q) {
     return (
       <Card>
-        <div className="mb-6">
-          <div className="flex justify-between text-sm text-on-surface-variant mb-2">
+        <div className="mb-8">
+          <div className="flex justify-between text-sm font-semibold text-on-surface-variant mb-2.5">
             <span>
               {t.quiz.question} {idx + 1} {t.quiz.of} {total}
             </span>
-            <span>{progress}%</span>
+            <span className="number-gradient font-extrabold">{progress}%</span>
           </div>
-          <div className="h-2 rounded-full bg-surface-container-high overflow-hidden">
+          <div className="h-2.5 rounded-full bg-surface-container-high overflow-hidden">
             <div
-              className="h-full bg-primary transition-all duration-300"
+              className="h-full rounded-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
         </div>
 
-        <h2 className="text-xl md:text-2xl font-bold text-on-surface mb-6">
+        <h2 className="text-xl md:text-2xl font-bold text-on-surface mb-8 leading-snug">
           {q.text}
         </h2>
 
@@ -158,13 +161,22 @@ export default function TestRunner({
               <button
                 key={o.id}
                 onClick={() => choose(o.id)}
-                className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all font-medium ${
+                className={`group w-full text-left flex items-center gap-4 px-5 py-4 rounded-xl border-2 font-medium transition-all duration-200 ${
                   active
-                    ? "border-primary bg-primary/5 text-primary"
-                    : "border-border-subtle bg-surface hover:border-primary/40"
+                    ? "border-primary bg-primary/5 text-primary shadow-premium"
+                    : "border-border-subtle bg-surface hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-premium"
                 }`}
               >
-                {o.text}
+                <span
+                  className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                    active
+                      ? "border-primary bg-primary text-white"
+                      : "border-border-subtle group-hover:border-primary/50"
+                  }`}
+                >
+                  {active && <Icon name="check" className="text-base" />}
+                </span>
+                <span className="flex-1">{o.text}</span>
               </button>
             );
           })}
@@ -173,7 +185,7 @@ export default function TestRunner({
         {idx > 0 && (
           <button
             onClick={() => setIdx(idx - 1)}
-            className="mt-6 text-sm font-semibold text-on-surface-variant hover:text-primary"
+            className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
           >
             {t.quiz.back}
           </button>
@@ -199,17 +211,21 @@ export default function TestRunner({
     return (
       <Card>
         <div className="text-center py-4">
-          <div className="w-16 h-16 rounded-full bg-clever-green/10 text-clever-green flex items-center justify-center mx-auto mb-6">
+          <div className="w-16 h-16 rounded-full bg-clever-green/10 text-clever-green flex items-center justify-center mx-auto mb-6 shadow-premium">
             <Icon name="check" className="text-3xl" />
           </div>
-          <p className="text-on-surface-variant mb-2">{t.result.yourResult}</p>
-          <div className="text-4xl md:text-5xl font-extrabold text-primary mb-3">
-            {result.level}
+          <p className="text-on-surface-variant mb-4 text-sm uppercase tracking-wider font-semibold">{t.result.yourResult}</p>
+          <div className="inline-flex items-center justify-center card-premium card-ring rounded-2xl bg-surface-container-lowest px-10 py-5 mb-5">
+            <div className="text-4xl md:text-5xl font-extrabold number-gradient leading-none">
+              {result.level}
+            </div>
           </div>
           <p className="text-on-surface-variant mb-8">
-            {t.result.correctAnswers} <b>{result.score}</b> {t.result.of} {result.total}
+            {t.result.correctAnswers}{" "}
+            <b className="text-lg"><CountUp value={result.score} className="number-gradient font-extrabold" /></b>{" "}
+            {t.result.of} {result.total}
           </p>
-          <div className="bg-surface-container-low rounded-xl p-5 text-sm text-on-surface-variant mb-8">
+          <div className="glass-card rounded-xl p-5 text-sm text-on-surface-variant mb-8">
             {t.result.note}
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -219,7 +235,7 @@ export default function TestRunner({
               )}`}
               target="_blank"
               rel="noopener"
-              className="btn-accent px-6 py-3 rounded-xl font-bold"
+              className="btn-primary px-6 py-3 rounded-xl font-bold"
             >
               {t.result.waButton}
             </a>
@@ -252,7 +268,7 @@ export default function TestRunner({
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-2xl mx-auto card-premium bg-white p-6 md:p-10">
+    <div className="max-w-2xl mx-auto card-premium card-ring rounded-2xl bg-white p-7 md:p-12 shadow-premium">
       {children}
     </div>
   );
@@ -260,9 +276,9 @@ function Card({ children }: { children: React.ReactNode }) {
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (
-    <div>
-      <div className="font-extrabold text-primary text-lg">{value}</div>
-      <div className="text-xs uppercase tracking-wider text-on-surface-variant">
+    <div className="flex-1 min-w-[6rem] rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 text-center">
+      <div className="font-extrabold text-primary text-xl leading-none mb-1">{value}</div>
+      <div className="text-[0.7rem] uppercase tracking-wider text-on-surface-variant">
         {label}
       </div>
     </div>
@@ -295,7 +311,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-lg border-border-subtle bg-surface-container-low px-4 py-3 focus:border-primary focus:ring-primary focus:bg-white transition-colors"
+        className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 focus:border-primary focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all"
       />
     </div>
   );
