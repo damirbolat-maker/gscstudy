@@ -1,9 +1,18 @@
 import { site } from "@/lib/site";
 import { getServerDict } from "@/lib/locale";
 
+function Pin({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" />
+    </svg>
+  );
+}
+
 export default async function Offices() {
   const { dict } = await getServerDict();
   const t = dict.offices;
+
   return (
     <section
       id="offices"
@@ -17,52 +26,99 @@ export default async function Offices() {
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t.text}</p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div className="grid sm:grid-cols-2 gap-6">
           {site.offices.map((o, i) => (
-            <div
+            <a
               key={i}
-              className="card-premium card-spotlight p-8 bg-white/95 backdrop-blur flex flex-col"
+              href={o.gis}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${o.city}, ${o.address} — открыть в 2GIS`}
+              className="map-wrapper group card-ring block h-72 shadow-premium hover:shadow-premium-lg"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
+              {/* Карта-превью (стежка тайлов OSM), клик открывает 2GIS */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/maps/office-${i}.jpg`}
+                alt={`Карта: ${o.city}, ${o.address}`}
+                loading="lazy"
+                className="map-image absolute inset-0 w-full h-full object-cover"
+              />
+
+              {/* Затемнение снизу */}
+              <div className="map-overlay" />
+
+              {/* Всегда видно: город + бейдж 2GIS */}
+              <div className="absolute top-4 left-4 z-10">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-3 py-1.5 text-sm font-bold text-primary shadow-premium">
+                  <Pin className="w-4 h-4 text-secondary" />
+                  {o.city}
+                </span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-1">{o.city}</h3>
-              <p className="text-gray-600 flex-1">{o.address}</p>
-              <div className="mt-6 pt-6 border-t border-gray-100 space-y-3">
-                <a
-                  href={`tel:${site.phone.tel}`}
-                  className="flex items-center gap-2 text-sm font-bold text-gray-900 hover:text-primary"
-                >
-                  {site.phone.display}
-                </a>
-                <a
-                  href={site.whatsapp.link}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-whatsapp-green hover:underline"
-                >
-                  {t.writeWhatsApp}
-                </a>
+              <div className="absolute top-4 right-4 z-10">
+                <span className="inline-flex items-center rounded-full bg-primary/90 backdrop-blur px-3 py-1.5 text-xs font-bold text-white shadow-premium">
+                  2GIS
+                </span>
               </div>
-            </div>
+
+              {/* Появляется при наведении: адрес + действие */}
+              <div className="map-content z-10">
+                <div className="text-white/90 font-semibold">{o.address}</div>
+                <div className="mt-3 inline-flex items-center gap-2 text-white font-bold">
+                  <Pin className="w-4 h-4" />
+                  Смотреть на карте
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </a>
           ))}
         </div>
+
+        {/* Контакт под картами */}
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
+          <a
+            href={`tel:${site.phone.tel}`}
+            className="inline-flex items-center gap-2 font-bold text-gray-900 hover:text-primary"
+          >
+            <Pin className="w-4 h-4 text-primary" />
+            {site.phone.display}
+          </a>
+          <span className="hidden sm:inline text-gray-300">·</span>
+          <a
+            href={site.whatsapp.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-semibold text-whatsapp-green hover:underline"
+          >
+            {t.writeWhatsApp}
+          </a>
+        </div>
+
+        <p className="mt-4 text-center text-xs text-gray-400">
+          Карты:{" "}
+          <a
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline"
+          >
+            © OpenStreetMap
+          </a>{" "}
+          · точки в 2GIS
+        </p>
       </div>
     </section>
   );
