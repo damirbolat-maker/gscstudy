@@ -4,70 +4,23 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CampsConsult from "@/components/camps/CampsConsult";
 import Icon from "@/components/Icon";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Языковые лагеря за рубежом — лето 2026 для школьников | GSC Study",
   description:
-    "Языковые лагеря за рубежом для школьников 12–17 лет: Лондон, Дубай, Торонто, Берлин. Уроки английского, экскурсии, проживание и сопровождающий от GSC Study.",
+    "Языковые лагеря за рубежом для школьников 12–17 лет. Уроки английского, экскурсии, проживание и сопровождающий от GSC Study.",
 };
 
-const camps = [
-  {
-    num: "01",
-    city: "Лондон",
-    seats: "20 мест",
-    desc: "Проживание в кампусе университета, уроки английского в первой половине дня, поездки в Оксфорд, Кембридж и Брайтон.",
-    rows: [
-      ["Страна", "Великобритания"],
-      ["Даты", "6–26 июля"],
-      ["Возраст", "13–17 лет"],
-      ["Проживание", "кампус, комнаты на 2"],
-    ],
-    from: "from-[#1e3a5f]",
-    to: "to-[#2c5f8a]",
-  },
-  {
-    num: "02",
-    city: "Дубай",
-    seats: "16 мест",
-    desc: "Языковая практика и знакомство с кампусами филиалов британских вузов — полезно тем, кто присматривается к поступлению в ОАЭ.",
-    rows: [
-      ["Страна", "ОАЭ"],
-      ["Даты", "1–15 июня"],
-      ["Возраст", "12–16 лет"],
-      ["Проживание", "резиденция"],
-    ],
-    from: "from-[#b8860b]",
-    to: "to-[#daa520]",
-  },
-  {
-    num: "03",
-    city: "Торонто",
-    seats: "20 мест",
-    desc: "Академический английский с проектной работой и защитой в конце смены, плюс поездка на Ниагарский водопад.",
-    rows: [
-      ["Страна", "Канада"],
-      ["Даты", "13–31 июля"],
-      ["Возраст", "14–17 лет"],
-      ["Проживание", "кампус"],
-    ],
-    from: "from-[#8a2c2c]",
-    to: "to-[#c14040]",
-  },
-  {
-    num: "04",
-    city: "Берлин",
-    seats: "18 мест",
-    desc: "Английский и базовый немецкий, знакомство с системой немецких университетов и поездки по земле Бранденбург.",
-    rows: [
-      ["Страна", "Германия"],
-      ["Даты", "3–17 августа"],
-      ["Возраст", "13–17 лет"],
-      ["Проживание", "резиденция"],
-    ],
-    from: "from-[#2d4a3e]",
-    to: "to-[#3f6b57]",
-  },
+const gradients = [
+  "from-[#1e3a5f] to-[#2c5f8a]",
+  "from-[#b8860b] to-[#daa520]",
+  "from-[#8a2c2c] to-[#c14040]",
+  "from-[#2d4a3e] to-[#3f6b57]",
+  "from-[#4a2d5f] to-[#7a4f9c]",
+  "from-[#2d5f5a] to-[#3f9c8f]",
 ];
 
 const included = [
@@ -112,7 +65,31 @@ const faqs = [
   { q: "Когда нужно определиться?", a: "Оптимально за три-четыре месяца до вылета. Визовые сроки и групповые тарифы на билеты не позволяют бронировать позже, а места в группе ограничены." },
 ];
 
-export default function CampsPage() {
+export default async function CampsPage() {
+  const dbCamps = await prisma.camp.findMany({
+    where: { published: true },
+    orderBy: { order: "asc" },
+  });
+
+  const camps = dbCamps.map((c, i) => {
+    const [from, to] = gradients[i % gradients.length].split(" ");
+    const rows: [string, string][] = [
+      ["Страна", c.country],
+      ["Даты", c.dates ?? ""],
+      ["Возраст", c.ageRange ?? ""],
+      ["Проживание", c.housing ?? ""],
+    ].filter(([, v]) => v) as [string, string][];
+    return {
+      num: String(i + 1).padStart(2, "0"),
+      city: c.city,
+      seats: c.seats ? `${c.seats} мест` : c.price || "",
+      desc: c.summary ?? "",
+      rows,
+      from,
+      to,
+    };
+  });
+
   return (
     <>
       <Header />
