@@ -103,6 +103,39 @@ const config: Config = {
         "cta-hover": "0 16px 28px -8px rgba(177, 0, 90, 0.45)",
         soft: "0 4px 20px rgba(19, 86, 133, 0.08)",
         glow: "0 0 40px rgba(177, 0, 90, 0.15)",
+        premium:
+          "0 1px 2px rgba(19,86,133,0.04), 0 8px 24px -8px rgba(19,86,133,0.12)",
+        "premium-lg":
+          "0 2px 4px rgba(19,86,133,0.04), 0 24px 48px -16px rgba(19,86,133,0.20)",
+      },
+      keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-14px)" },
+        },
+        "aurora-shift": {
+          "0%, 100%": { transform: "translate(0,0) scale(1)" },
+          "33%": { transform: "translate(3%,-4%) scale(1.08)" },
+          "66%": { transform: "translate(-3%,3%) scale(0.96)" },
+        },
+        shimmer: {
+          "100%": { transform: "translateX(100%)" },
+        },
+        "gradient-x": {
+          "0%, 100%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
+        },
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.96)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+      },
+      animation: {
+        float: "float 7s ease-in-out infinite",
+        "aurora-shift": "aurora-shift 18s ease-in-out infinite",
+        shimmer: "shimmer 2.2s ease-in-out infinite",
+        "gradient-x": "gradient-x 6s ease infinite",
+        "scale-in": "scale-in 0.5s cubic-bezier(0.16,1,0.3,1) both",
       },
     },
   },
