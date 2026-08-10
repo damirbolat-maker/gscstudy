@@ -40,9 +40,9 @@ const method = [
 ];
 
 const tests = [
-  { title: "General English 13+", text: "Определяет уровень английского по шкале A1–C2 — с него начинается любая подготовка.", result: "A1–C2" },
-  { title: "IELTS Placement", text: "Показывает примерный балл IELTS и сколько нужно готовиться до целевого результата.", result: "Прогноз" },
-  { title: "SAT Placement", text: "Оценивает готовность к Digital SAT по секциям Verbal и Math и показывает, где остались пробелы.", result: "Готовность" },
+  { title: "General English 13+", text: "Определяет уровень английского по шкале A1–C2 — с него начинается любая подготовка.", result: "A1–C2", slug: "general-english" },
+  { title: "IELTS Placement", text: "Показывает примерный балл IELTS и сколько нужно готовиться до целевого результата.", result: "Прогноз", slug: "ielts-placement" },
+  { title: "SAT Placement", text: "Оценивает готовность к Digital SAT по секциям Verbal и Math и показывает, где остались пробелы.", result: "Готовность", slug: "sat-placement" },
 ];
 
 const targets = [
@@ -295,6 +295,13 @@ export default function ExamsPage() {
                 Онлайн-тест с таймером и мгновенным результатом. Нужны только имя
                 и телефон, чтобы прислать разбор.
               </p>
+              <Link
+                href="/tests"
+                className="inline-flex items-center gap-1 mt-4 font-bold text-primary hover:text-secondary transition-colors"
+              >
+                Все тесты, включая тест для детей
+                <Icon name="arrow_forward" className="text-sm" />
+              </Link>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {tests.map((t) => (
@@ -326,9 +333,9 @@ export default function ExamsPage() {
                       </div>
                     </div>
                   </div>
-                  <a href="#consult" className={`${btnOutline} w-full py-3`}>
+                  <Link href={`/test/${t.slug}`} className={`${btnOutline} w-full py-3`}>
                     Пройти тест
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>

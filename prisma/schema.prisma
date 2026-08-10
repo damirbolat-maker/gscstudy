@@ -25,16 +25,35 @@ model Lead {
 
 // Тесты уровня
 model Test {
-  id          String     @id @default(cuid())
+  id          String       @id @default(cuid())
   title       String
-  slug        String     @unique
-  kind        String     @default("placement") // placement | mock | diagnostic
+  slug        String       @unique
+  kind        String       @default("placement") // placement | kids | ielts | sat
+  audience    String       @default("adults") // adults | kids
   description String?
   timeLimit   Int? // минуты
-  published   Boolean    @default(false)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  published   Boolean      @default(false)
+  order       Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   questions   Question[]
+  results     TestResult[]
+}
+
+// Результат прохождения теста
+model TestResult {
+  id        String   @id @default(cuid())
+  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  testId    String
+  name      String
+  phone     String
+  email     String?
+  score     Int
+  total     Int
+  level     String // A1..C2 / прогноз балла / готовность
+  answers   String? // JSON: { questionId: optionId }
+  leadId    String?
+  createdAt DateTime @default(now())
 }
 
 model Question {

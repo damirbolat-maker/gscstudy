@@ -26,7 +26,7 @@ const slides = [
       </>
     ),
     text: "Группы формируем по результатам теста уровня — от A1 до C2. До восьми человек, чтобы говорил каждый.",
-    primary: { label: "Пройти тест уровня", href: "#consult", accent: true },
+    primary: { label: "Пройти тест уровня", href: "/test/general-english", accent: true },
     secondary: { label: "Узнать расписание", href: "#consult" },
   },
   {

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendLeadToBitrix } from "@/lib/bitrix";
 
 // Поля, которые кладём в отдельные колонки; остальное — в extra (JSON)
 const KNOWN = new Set(["name", "phone", "email", "city", "source"]);
@@ -43,7 +44,17 @@ export async function POST(request: Request) {
       },
     });
 
-    // TODO: параллельно отправлять заявку в Bitrix24 (webhook).
+    // отправляем в Bitrix24 (если настроен вебхук)
+    await sendLeadToBitrix({
+      name: String(name),
+      phone: String(phone),
+      email: body.email ?? null,
+      source: body.source ?? "site",
+      title: `Заявка с сайта — ${name}`,
+      comment: [interest && `Интерес: ${interest}`, body.city && `Город: ${body.city}`]
+        .filter(Boolean)
+        .join("\n"),
+    });
 
     return NextResponse.json({ ok: true });
   } catch (e) {

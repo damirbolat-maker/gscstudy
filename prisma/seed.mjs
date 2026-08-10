@@ -1,0 +1,141 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+// Каждый вопрос: [текст, [варианты], индекс правильного]
+const tests = [
+  {
+    slug: "general-english",
+    title: "General English 13+",
+    kind: "placement",
+    audience: "adults",
+    description:
+      "Определяет уровень английского по шкале A1–C2 — с него начинается любая подготовка.",
+    timeLimit: 15,
+    order: 1,
+    questions: [
+      ["I ___ a student.", ["am", "is", "are", "be"], 0],
+      ["She ___ coffee every morning.", ["drink", "drinks", "drinking", "drank"], 1],
+      ["They went to the cinema ___ Saturday.", ["in", "at", "on", "by"], 2],
+      ["I have lived here ___ 2015.", ["since", "for", "from", "at"], 0],
+      ["If it rains, we ___ at home.", ["stay", "will stay", "stayed", "would stay"], 1],
+      ["This is the book ___ I told you about.", ["who", "which", "what", "whose"], 1],
+      ["By next year, she ___ her degree.", ["will finish", "will have finished", "finishes", "finished"], 1],
+      ["He spoke as though he ___ everything.", ["knows", "knew", "had known", "has known"], 2],
+    ],
+  },
+  {
+    slug: "kids-english",
+    title: "English for Kids",
+    kind: "kids",
+    audience: "kids",
+    description:
+      "Игровой тест для детей 7–12 лет: простые слова и фразы, чтобы подобрать группу.",
+    timeLimit: 10,
+    order: 2,
+    questions: [
+      ["What colour is the sun?", ["Yellow", "Blue", "Green"], 0],
+      ["A cat says ___.", ["Meow", "Woof", "Moo"], 0],
+      ["Choose the correct one: 'I ___ happy.'", ["am", "is", "are"], 0],
+      ["How many legs does a dog have?", ["Two", "Four", "Six"], 1],
+      ["An apple is a ___.", ["Fruit", "Animal", "Colour"], 0],
+      ["The opposite of 'big' is ___.", ["Small", "Tall", "Long"], 0],
+    ],
+  },
+  {
+    slug: "ielts-placement",
+    title: "IELTS Placement",
+    kind: "ielts",
+    audience: "adults",
+    description:
+      "Показывает примерный балл IELTS и сколько нужно готовиться до целевого результата.",
+    timeLimit: 15,
+    order: 3,
+    questions: [
+      ["The results were ___ with our expectations.", ["consistent", "consist", "consisting", "consistency"], 0],
+      ["Despite ___ hard, he failed the exam.", ["study", "studying", "studied", "to study"], 1],
+      ["Choose the synonym of 'significant':", ["important", "small", "quiet", "late"], 0],
+      ["The graph ___ a sharp increase in prices.", ["shows", "show", "showing", "shown"], 0],
+      ["It was expensive; ___, we bought it.", ["however", "therefore", "moreover", "because"], 0],
+      ["She has a wide ___ of vocabulary.", ["range", "row", "line", "scale"], 0],
+      ["Not only ___ late, but he also forgot the report.", ["was he", "he was", "he is", "is he"], 0],
+      ["Choose the synonym of 'crucial':", ["essential", "optional", "minor", "rare"], 0],
+    ],
+  },
+  {
+    slug: "sat-placement",
+    title: "SAT Placement",
+    kind: "sat",
+    audience: "adults",
+    description:
+      "Оценивает готовность к Digital SAT по секциям Verbal и Math и показывает пробелы.",
+    timeLimit: 15,
+    order: 4,
+    questions: [
+      ["Each of the students ___ a laptop.", ["has", "have", "having", "haved"], 0],
+      ["Choose the most concise option:", ["Because", "Due to the fact that", "On account of the fact that", "In light of the fact that"], 0],
+      ["If 3x = 12, then x = ?", ["4", "3", "6", "9"], 0],
+      ["What is 15% of 200?", ["30", "15", "20", "45"], 0],
+      ["Solve: 2(x + 3) = 14. x = ?", ["4", "5", "7", "8"], 0],
+      ["The average of 4, 8 and 12 is:", ["8", "6", "12", "24"], 0],
+      ["Choose the synonym of 'ambiguous':", ["unclear", "obvious", "bright", "loud"], 0],
+      ["A rectangle has length 6 and width 4. Its area is:", ["24", "10", "20", "12"], 0],
+    ],
+  },
+];
+
+async function main() {
+  for (const t of tests) {
+    const test = await prisma.test.upsert({
+      where: { slug: t.slug },
+      update: {
+        title: t.title,
+        kind: t.kind,
+        audience: t.audience,
+        description: t.description,
+        timeLimit: t.timeLimit,
+        order: t.order,
+        published: true,
+      },
+      create: {
+        slug: t.slug,
+        title: t.title,
+        kind: t.kind,
+        audience: t.audience,
+        description: t.description,
+        timeLimit: t.timeLimit,
+        order: t.order,
+        published: true,
+      },
+    });
+
+    // пересоздаём вопросы
+    await prisma.question.deleteMany({ where: { testId: test.id } });
+    for (let qi = 0; qi < t.questions.length; qi++) {
+      const [text, options, correctIdx] = t.questions[qi];
+      await prisma.question.create({
+        data: {
+          testId: test.id,
+          order: qi,
+          text,
+          options: {
+            create: options.map((opt, oi) => ({
+              order: oi,
+              text: opt,
+              correct: oi === correctIdx,
+            })),
+          },
+        },
+      });
+    }
+    console.log(`seeded: ${t.title} (${t.questions.length} questions)`);
+  }
+}
+
+main()
+  .then(() => prisma.$disconnect())
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
