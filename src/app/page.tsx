@@ -8,6 +8,7 @@ import Offices from "@/components/Offices";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
+import TrustStrip from "@/components/TrustStrip";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Header />
       <main className="pt-20 relative z-10">
         <Hero />
+        <TrustStrip />
         <Reveal>
           <Directions />
         </Reveal>

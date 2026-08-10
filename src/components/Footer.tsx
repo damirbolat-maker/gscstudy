@@ -25,7 +25,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-6">
-            <Logo markSize="h-11 w-11" textClass="text-2xl text-primary" />
+            <Logo markSize="h-12 w-auto" textClass="text-2xl text-primary" />
             <p className="text-gray-600 text-base leading-relaxed max-w-xs">
               Образование без границ с 2011 года. Мы помогаем студентам достигать
               академических высот в лучших вузах мира.
