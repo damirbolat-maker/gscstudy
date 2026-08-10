@@ -2,11 +2,15 @@
 
 import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
+import { useLocale } from "@/i18n/useLocale";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export default function WhatsAppBubble() {
   const pathname = usePathname();
+  const locale = useLocale();
   // не показываем в админке
   if (pathname?.startsWith("/admin")) return null;
+  const label = getDictionary(locale).actions.bubble;
 
   return (
     <a
@@ -17,7 +21,7 @@ export default function WhatsAppBubble() {
       className="hidden md:flex fixed bottom-6 right-6 group z-50 items-center gap-3 bg-white pl-4 pr-1.5 py-1.5 rounded-full shadow-lg border border-border-subtle hover:shadow-xl transition-all duration-300"
     >
       <span className="text-sm font-semibold text-primary hidden md:block group-hover:text-whatsapp-green transition-colors">
-        Есть вопросы?
+        {label}
       </span>
       <div className="w-12 h-12 rounded-full bg-whatsapp-green flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

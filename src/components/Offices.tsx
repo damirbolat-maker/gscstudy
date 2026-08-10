@@ -1,6 +1,9 @@
 import { site } from "@/lib/site";
+import { getServerDict } from "@/lib/locale";
 
-export default function Offices() {
+export default async function Offices() {
+  const { dict } = await getServerDict();
+  const t = dict.offices;
   return (
     <section
       id="offices"
@@ -8,14 +11,11 @@ export default function Offices() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="tag-pill">Контакты</span>
+          <span className="tag-pill">{t.eyebrow}</span>
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
-            Наши центры
+            {t.title}
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Четыре учебных центра — три в Астане и один в Алматы. Или занимайтесь
-            онлайн из любого города.
-          </p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t.text}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {site.offices.map((o, i) => (
@@ -57,7 +57,7 @@ export default function Offices() {
                   href={site.whatsapp.link}
                   className="inline-flex items-center gap-2 text-sm font-semibold text-whatsapp-green hover:underline"
                 >
-                  Написать в WhatsApp
+                  {t.writeWhatsApp}
                 </a>
               </div>
             </div>

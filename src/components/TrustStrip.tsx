@@ -8,12 +8,15 @@ const items = [
   { label: "Cambridge", note: "YLE" },
 ];
 
-export default function TrustStrip() {
+import { getServerDict } from "@/lib/locale";
+
+export default async function TrustStrip() {
+  const { dict: t } = await getServerDict();
   return (
     <section className="py-10 border-y border-gray-200/60 bg-white/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">
-          Аккредитации и партнёры
+          {t.trust.title}
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {items.map((it) => (

@@ -1,34 +1,36 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import Logo from "@/components/Logo";
+import { getServerDict } from "@/lib/locale";
+import { withLocale } from "@/i18n/config";
 
-const programs = [
-  { label: "Языковая школа", href: "/school" },
-  { label: "Подготовка к IELTS", href: "/exams" },
-  { label: "Digital SAT", href: "/exams" },
-  { label: "Поступление за рубеж", href: "/abroad" },
-  { label: "Летние лагеря", href: "/camps" },
-];
+export default async function Footer() {
+  const { locale, dict: t } = await getServerDict();
+  const L = (p: string) => withLocale(locale, p);
 
-const company = [
-  { label: "О нас", href: "/about" },
-  { label: "Наши центры", href: "/#offices" },
-  { label: "Отзывы", href: "/#reviews" },
-  { label: "Языковая школа", href: "/school" },
-];
+  const programs = [
+    { label: t.footer.links.langSchool, href: "/school" },
+    { label: t.footer.links.ielts, href: "/exams" },
+    { label: t.footer.links.sat, href: "/exams" },
+    { label: t.footer.links.abroad, href: "/abroad" },
+    { label: t.footer.links.camps, href: "/camps" },
+  ];
+  const company = [
+    { label: t.footer.links.about, href: "/about" },
+    { label: t.footer.links.centers, href: "/#offices" },
+    { label: t.footer.links.reviews, href: "/#reviews" },
+    { label: t.footer.links.langSchool, href: "/school" },
+  ];
 
-export default function Footer() {
   return (
     <footer className="relative bg-white pt-24 pb-12 overflow-hidden border-t border-gray-100">
       <div className="absolute inset-0 z-0 dots-pattern opacity-40 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
           <div className="space-y-6">
-            <Logo markSize="h-12 w-auto" textClass="text-2xl text-primary" />
+            <Logo href={L("/")} markSize="h-12 w-auto" textClass="text-2xl text-primary" />
             <p className="text-gray-600 text-base leading-relaxed max-w-xs">
-              Образование без границ с 2011 года. Мы помогаем студентам достигать
-              академических высот в лучших вузах мира.
+              {t.footer.brandDesc}
             </p>
             <div className="flex gap-4">
               <a
@@ -52,16 +54,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Programs */}
           <div>
-            <h4 className="text-primary font-bold text-lg mb-6">Программы</h4>
+            <h4 className="text-primary font-bold text-lg mb-6">{t.footer.programs}</h4>
             <ul className="space-y-4">
-              {programs.map((p) => (
-                <li key={p.label}>
-                  <Link
-                    href={p.href}
-                    className="text-gray-600 hover:text-secondary transition-colors"
-                  >
+              {programs.map((p, i) => (
+                <li key={i}>
+                  <Link href={L(p.href)} className="text-gray-600 hover:text-secondary transition-colors">
                     {p.label}
                   </Link>
                 </li>
@@ -69,16 +67,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
           <div>
-            <h4 className="text-primary font-bold text-lg mb-6">Компания</h4>
+            <h4 className="text-primary font-bold text-lg mb-6">{t.footer.company}</h4>
             <ul className="space-y-4">
-              {company.map((c) => (
-                <li key={c.label}>
-                  <Link
-                    href={c.href}
-                    className="text-gray-600 hover:text-secondary transition-colors"
-                  >
+              {company.map((c, i) => (
+                <li key={i}>
+                  <Link href={L(c.href)} className="text-gray-600 hover:text-secondary transition-colors">
                     {c.label}
                   </Link>
                 </li>
@@ -86,73 +80,52 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contacts */}
           <div>
-            <h4 className="text-primary font-bold text-lg mb-6">Контакты</h4>
+            <h4 className="text-primary font-bold text-lg mb-6">{t.footer.contacts}</h4>
             <ul className="space-y-4">
               <li className="flex flex-col">
                 <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">
-                  Колл-центр
+                  {t.footer.callCenter}
                 </span>
-                <a
-                  href={`tel:${site.phone.tel}`}
-                  className="text-gray-900 font-bold hover:text-secondary"
-                >
+                <a href={`tel:${site.phone.tel}`} className="text-gray-900 font-bold hover:text-secondary">
                   {site.phone.display}
                 </a>
               </li>
               <li className="flex flex-col">
-                <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">
-                  WhatsApp
-                </span>
-                <a
-                  href={site.whatsapp.link}
-                  className="text-gray-900 font-bold hover:text-secondary"
-                >
+                <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">WhatsApp</span>
+                <a href={site.whatsapp.link} className="text-gray-900 font-bold hover:text-secondary">
                   {site.whatsapp.display}
                 </a>
               </li>
               <li className="flex flex-col">
-                <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">
-                  Email
-                </span>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="text-gray-600 hover:text-secondary"
-                >
+                <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">{t.footer.email}</span>
+                <a href={`mailto:${site.email}`} className="text-gray-600 hover:text-secondary">
                   {site.email}
                 </a>
               </li>
               <li className="flex flex-col">
-                <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">
-                  Часы работы
-                </span>
+                <span className="text-xs uppercase tracking-wider text-gray-400 mb-1">{t.footer.hours}</span>
                 <span className="text-gray-600 text-sm">{site.workingHours}</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-500">
-            © 2026 GSC Study. Все права защищены.
-          </p>
+          <p className="text-sm text-gray-500">{t.footer.rights}</p>
           <div className="flex gap-8">
             <Link href="#" className="text-sm text-gray-500 hover:text-primary">
-              Политика конфиденциальности
+              {t.footer.privacy}
             </Link>
             <Link href="#" className="text-sm text-gray-500 hover:text-primary">
-              Публичная оферта
+              {t.footer.offer}
             </Link>
           </div>
         </div>
       </div>
 
-      {/* отступ под липкую мобильную панель */}
       <div className="h-16 md:hidden" />
 
-      {/* Watermark */}
       <div className="absolute bottom-[-2rem] left-0 w-full pointer-events-none select-none opacity-[0.03] flex justify-center">
         <span className="text-[15vw] font-black whitespace-nowrap uppercase tracking-tighter text-primary">
           GSC STUDY

@@ -1,10 +1,9 @@
-const steps = [
-  { num: 1, title: "Консультация", text: "Определяем цели и уровень.", accent: false },
-  { num: 2, title: "Подготовка", text: "Учим язык и сдаем экзамены.", accent: false },
-  { num: 3, title: "Зачисление", text: "Подаем документы в вуз.", accent: true },
-];
+import { getServerDict } from "@/lib/locale";
 
-export default function Steps() {
+export default async function Steps() {
+  const { dict } = await getServerDict();
+  const t = dict.steps;
+
   return (
     <section
       id="steps"
@@ -12,23 +11,23 @@ export default function Steps() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="tag-pill">Как начать</span>
+          <span className="tag-pill">{t.eyebrow}</span>
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
-            Шаги к поступлению
+            {t.title}
           </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-8 text-center">
-          {steps.map((s) => (
-            <div key={s.num}>
+          {t.items.map((it, i) => (
+            <div key={i}>
               <div
                 className={`w-16 h-16 ${
-                  s.accent ? "bg-secondary shadow-secondary/20" : "bg-primary shadow-primary/20"
+                  i === 2 ? "bg-secondary shadow-secondary/20" : "bg-primary shadow-primary/20"
                 } text-white rounded-full flex items-center justify-center mx-auto text-2xl font-bold mb-4 shadow-lg`}
               >
-                {s.num}
+                {i + 1}
               </div>
-              <h3 className="text-xl font-bold mb-2">{s.title}</h3>
-              <p className="text-gray-600">{s.text}</p>
+              <h3 className="text-xl font-bold mb-2">{it[0]}</h3>
+              <p className="text-gray-600">{it[1]}</p>
             </div>
           ))}
         </div>

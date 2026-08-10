@@ -41,7 +41,10 @@ function ReviewCard({ r }: { r: (typeof reviews)[number] }) {
   );
 }
 
-export default function Reviews() {
+import { getServerDict } from "@/lib/locale";
+
+export default async function Reviews() {
+  const { dict } = await getServerDict();
   return (
     <section
       id="reviews"
@@ -49,9 +52,9 @@ export default function Reviews() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
         <div className="text-center">
-          <span className="tag-pill">Отзывы</span>
+          <span className="tag-pill">{dict.reviews.eyebrow}</span>
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
-            Что говорят студенты
+            {dict.reviews.title}
           </h2>
         </div>
       </div>

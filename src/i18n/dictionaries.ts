@@ -1,0 +1,437 @@
+import type { Locale } from "./config";
+
+// Словарь для «хрома» (шапка/футер/кнопки) и главной страницы.
+// ru — источник; kz/en — перевод (машинно-качественный, вычитать).
+
+const ru = {
+  nav: {
+    school: "Языковая школа",
+    exams: "Экзамены",
+    abroad: "За рубеж",
+    camps: "Лагеря",
+    centers: "Центры",
+  },
+  actions: {
+    consult: "Консультация",
+    tryLevelTest: "Пройти тест уровня",
+    pickProgram: "Подобрать программу",
+    seeCourses: "Смотреть курсы",
+    schedule: "Узнать расписание",
+    signUp: "Записаться",
+    consultOnAdmission: "Консультация по поступлению",
+    writeWhatsApp: "написать в WhatsApp",
+    bubble: "Есть вопросы?",
+  },
+  hero: {
+    slides: [
+      {
+        tag: "GSC Study",
+        title1: "Образование",
+        title2: "без границ",
+        text: "Языковые курсы, подготовка к международным экзаменам и поступление в зарубежные университеты — от первого теста уровня до зачисления.",
+      },
+      {
+        tag: "Набор 2026",
+        title1: "Старт групп",
+        title2: "каждый месяц",
+        text: "Группы формируем по результатам теста уровня — от A1 до C2. До восьми человек, чтобы говорил каждый.",
+      },
+      {
+        tag: "Приёмная кампания",
+        title1: "Поступление в вузы",
+        title2: "25+ стран",
+        text: "Подбираем университет под аттестат и бюджет, готовим документы и ведём до зачисления — UK, Германия, Канада, ОАЭ, США.",
+      },
+    ],
+    features: [
+      "Группы до восьми человек, индивидуально или онлайн",
+      "Тест уровня и пробный урок — бесплатно",
+      "Сопровождение до зачисления в университет",
+    ],
+    stats: [
+      ["15 лет", "на рынке, с 2011 года"],
+      ["15 000+", "студентов обучено"],
+      ["7.0+", "средний балл IELTS"],
+      ["25+", "стран поступления"],
+      ["2", "центра: Алматы и Астана"],
+    ],
+  },
+  leadForm: {
+    title: "Записаться на пробный урок",
+    subtitle: "Оставьте заявку — менеджер свяжется с вами в ближайшее время.",
+    name: "Имя",
+    namePh: "Айгерим",
+    city: "Город",
+    cityChoose: "Выберите",
+    cities: ["Алматы", "Астана", "Онлайн"],
+    phone: "Телефон",
+    consent: "Согласен(а) на обработку персональных данных.",
+    submit: "Записаться",
+    sending: "Отправляем…",
+    faster: "Быстрее —",
+    successTitle: "Заявка отправлена!",
+    successText: "Менеджер свяжется с вами в ближайшее время.",
+    error: "Что-то пошло не так. Попробуйте ещё раз или напишите в WhatsApp.",
+  },
+  directions: {
+    eyebrow: "Направления",
+    title: "Четыре направления GSC Study",
+    text: "Язык, экзамен и поступление связаны между собой. Мы ведём студента по всей цепочке, а не по отдельному курсу.",
+    cards: [
+      { title: "Языковая школа", text: "Английский от A1 до C2 и китайский язык. Общий, академический, деловой и детский форматы.", cta: "Смотреть курсы" },
+      { title: "Экзамены", text: "Подготовка к IELTS и Digital SAT с пробными тестами и прогнозной оценкой до реального экзамена.", cta: "Подготовка к экзаменам" },
+      { title: "За рубеж", text: "Подбор университета, подготовка документов и сопровождение до зачисления в вузы 25+ стран.", cta: "Программы за рубежом" },
+      { title: "Лагеря", text: "Языковые смены для школьников 12–17 лет с сопровождающим от GSC Study. Лето 2026.", cta: "Смотреть лагеря" },
+    ],
+  },
+  testsBlock: {
+    eyebrow: "Тестирование",
+    title: "Пробные тесты",
+    text: "Оцените свой уровень перед реальным экзаменом.",
+    ielts: { title: "Пробный IELTS", text: "Полная симуляция экзамена с проверкой всех секций." },
+    sat: { title: "Пробный Digital SAT", text: "Официальный формат на платформе Bluebook." },
+  },
+  steps: {
+    eyebrow: "Как начать",
+    title: "Шаги к поступлению",
+    items: [
+      ["Консультация", "Определяем цели и уровень."],
+      ["Подготовка", "Учим язык и сдаем экзамены."],
+      ["Зачисление", "Подаем документы в вуз."],
+    ],
+  },
+  reviews: {
+    eyebrow: "Отзывы",
+    title: "Что говорят студенты",
+  },
+  offices: {
+    eyebrow: "Контакты",
+    title: "Наши центры",
+    text: "Четыре учебных центра — три в Астане и один в Алматы. Или занимайтесь онлайн из любого города.",
+    writeWhatsApp: "Написать в WhatsApp",
+  },
+  faq: {
+    title: "Частые вопросы",
+    items: [
+      ["С какого возраста можно начать обучение?", "Мы принимаем детей с 6 лет на специальные детские программы."],
+      ["Сколько длится курс подготовки к IELTS?", "Стандартный курс длится 2-3 месяца в зависимости от вашего текущего уровня."],
+      ["Вы помогаете с визой?", "Да, мы оказываем полную визовую поддержку для наших студентов."],
+    ],
+  },
+  trust: { title: "Аккредитации и партнёры" },
+  sticky: { consult: "Консультация" },
+  footer: {
+    brandDesc: "Образование без границ с 2011 года. Мы помогаем студентам достигать академических высот в лучших вузах мира.",
+    programs: "Программы",
+    company: "Компания",
+    contacts: "Контакты",
+    callCenter: "Колл-центр",
+    email: "Email",
+    hours: "Часы работы",
+    rights: "© 2026 GSC Study. Все права защищены.",
+    privacy: "Политика конфиденциальности",
+    offer: "Публичная оферта",
+    links: {
+      langSchool: "Языковая школа",
+      ielts: "Подготовка к IELTS",
+      sat: "Digital SAT",
+      abroad: "Поступление за рубеж",
+      camps: "Летние лагеря",
+      about: "О нас",
+      centers: "Наши центры",
+      reviews: "Отзывы",
+    },
+  },
+};
+
+type Dict = typeof ru;
+
+const kz: Dict = {
+  nav: {
+    school: "Тіл мектебі",
+    exams: "Емтихандар",
+    abroad: "Шетелге",
+    camps: "Лагерьлер",
+    centers: "Орталықтар",
+  },
+  actions: {
+    consult: "Кеңес алу",
+    tryLevelTest: "Деңгей тестінен өту",
+    pickProgram: "Бағдарлама таңдау",
+    seeCourses: "Курстарды көру",
+    schedule: "Кестені білу",
+    signUp: "Жазылу",
+    consultOnAdmission: "Түсу бойынша кеңес",
+    writeWhatsApp: "WhatsApp-қа жазу",
+    bubble: "Сұрақтарыңыз бар ма?",
+  },
+  hero: {
+    slides: [
+      {
+        tag: "GSC Study",
+        title1: "Шекарасыз",
+        title2: "білім",
+        text: "Тіл курстары, халықаралық емтихандарға дайындық және шетел университеттеріне түсу — алғашқы деңгей тестінен қабылданғанға дейін.",
+      },
+      {
+        tag: "2026 жинағы",
+        title1: "Топтар ашылады",
+        title2: "ай сайын",
+        text: "Топтарды деңгей тестінің нәтижесі бойынша құрамыз — A1-ден C2-ге дейін. Әркім сөйлесуі үшін сегіз адамға дейін.",
+      },
+      {
+        tag: "Қабылдау науқаны",
+        title1: "Жоғары оқу орындарына",
+        title2: "25+ елде",
+        text: "Университетті аттестат пен бюджетке қарай таңдаймыз, құжаттарды дайындап, қабылданғанға дейін алып жүреміз — UK, Германия, Канада, БАӘ, АҚШ.",
+      },
+    ],
+    features: [
+      "Топтар сегіз адамға дейін, жеке немесе онлайн",
+      "Деңгей тесті мен сынама сабақ — тегін",
+      "Университетке қабылданғанға дейін қолдау",
+    ],
+    stats: [
+      ["15 жыл", "нарықта, 2011 жылдан бері"],
+      ["15 000+", "студент оқыды"],
+      ["7.0+", "орташа IELTS балы"],
+      ["25+", "түсу елдері"],
+      ["2", "орталық: Алматы және Астана"],
+    ],
+  },
+  leadForm: {
+    title: "Сынама сабаққа жазылу",
+    subtitle: "Өтінім қалдырыңыз — менеджер жақын арада хабарласады.",
+    name: "Аты",
+    namePh: "Айгерім",
+    city: "Қала",
+    cityChoose: "Таңдаңыз",
+    cities: ["Алматы", "Астана", "Онлайн"],
+    phone: "Телефон",
+    consent: "Дербес деректерді өңдеуге келісемін.",
+    submit: "Жазылу",
+    sending: "Жіберілуде…",
+    faster: "Жылдамырақ —",
+    successTitle: "Өтінім жіберілді!",
+    successText: "Менеджер жақын арада хабарласады.",
+    error: "Бірдеңе дұрыс болмады. Қайталап көріңіз немесе WhatsApp-қа жазыңыз.",
+  },
+  directions: {
+    eyebrow: "Бағыттар",
+    title: "GSC Study-дің төрт бағыты",
+    text: "Тіл, емтихан және түсу өзара байланысты. Біз студентті жеке курспен емес, толық жолмен алып жүреміз.",
+    cards: [
+      { title: "Тіл мектебі", text: "A1-ден C2-ге дейінгі ағылшын және қытай тілі. Жалпы, академиялық, іскерлік және балаларға арналған форматтар.", cta: "Курстарды көру" },
+      { title: "Емтихандар", text: "IELTS және Digital SAT-қа дайындық, сынама тесттер мен нақты емтиханға дейінгі болжамды бағамен.", cta: "Емтиханға дайындық" },
+      { title: "Шетелге", text: "Университет таңдау, құжаттарды дайындау және 25+ елдің ЖОО-ларына қабылданғанға дейін қолдау.", cta: "Шетелдегі бағдарламалар" },
+      { title: "Лагерьлер", text: "12–17 жастағы оқушыларға GSC Study серігімен тілдік ауысымдар. 2026 жаз.", cta: "Лагерьлерді көру" },
+    ],
+  },
+  testsBlock: {
+    eyebrow: "Тестілеу",
+    title: "Сынама тесттер",
+    text: "Нақты емтиханға дейін деңгейіңізді бағалаңыз.",
+    ielts: { title: "Сынама IELTS", text: "Барлық секцияны тексеретін толық емтихан симуляциясы." },
+    sat: { title: "Сынама Digital SAT", text: "Bluebook платформасындағы ресми формат." },
+  },
+  steps: {
+    eyebrow: "Қалай бастау керек",
+    title: "Түсуге апарар қадамдар",
+    items: [
+      ["Кеңес", "Мақсат пен деңгейді анықтаймыз."],
+      ["Дайындық", "Тіл үйретіп, емтихан тапсырамыз."],
+      ["Қабылдану", "ЖОО-ға құжат тапсырамыз."],
+    ],
+  },
+  reviews: {
+    eyebrow: "Пікірлер",
+    title: "Студенттер не дейді",
+  },
+  offices: {
+    eyebrow: "Байланыс",
+    title: "Біздің орталықтар",
+    text: "Төрт оқу орталығы — үшеуі Астанада, біреуі Алматыда. Немесе кез келген қаладан онлайн оқыңыз.",
+    writeWhatsApp: "WhatsApp-қа жазу",
+  },
+  faq: {
+    title: "Жиі қойылатын сұрақтар",
+    items: [
+      ["Оқуды неше жастан бастауға болады?", "Балаларды 6 жастан арнайы балалар бағдарламаларына қабылдаймыз."],
+      ["IELTS дайындық курсы қанша уақытқа созылады?", "Стандартты курс ағымдағы деңгейіңізге байланысты 2-3 айға созылады."],
+      ["Виза алуға көмектесесіздер ме?", "Иә, студенттерімізге толық визалық қолдау көрсетеміз."],
+    ],
+  },
+  trust: { title: "Аккредитациялар мен серіктестер" },
+  sticky: { consult: "Кеңес алу" },
+  footer: {
+    brandDesc: "2011 жылдан бері шекарасыз білім. Біз студенттерге әлемнің үздік ЖОО-ларында академиялық жетістіктерге жетуге көмектесеміз.",
+    programs: "Бағдарламалар",
+    company: "Компания",
+    contacts: "Байланыс",
+    callCenter: "Байланыс орталығы",
+    email: "Email",
+    hours: "Жұмыс уақыты",
+    rights: "© 2026 GSC Study. Барлық құқық қорғалған.",
+    privacy: "Құпиялылық саясаты",
+    offer: "Жария оферта",
+    links: {
+      langSchool: "Тіл мектебі",
+      ielts: "IELTS дайындық",
+      sat: "Digital SAT",
+      abroad: "Шетелге түсу",
+      camps: "Жазғы лагерьлер",
+      about: "Біз туралы",
+      centers: "Біздің орталықтар",
+      reviews: "Пікірлер",
+    },
+  },
+};
+
+const en: Dict = {
+  nav: {
+    school: "Language School",
+    exams: "Exams",
+    abroad: "Study Abroad",
+    camps: "Camps",
+    centers: "Centres",
+  },
+  actions: {
+    consult: "Consultation",
+    tryLevelTest: "Take the level test",
+    pickProgram: "Find a programme",
+    seeCourses: "See courses",
+    schedule: "See schedule",
+    signUp: "Sign up",
+    consultOnAdmission: "Admission consultation",
+    writeWhatsApp: "message on WhatsApp",
+    bubble: "Any questions?",
+  },
+  hero: {
+    slides: [
+      {
+        tag: "GSC Study",
+        title1: "Education",
+        title2: "without borders",
+        text: "Language courses, preparation for international exams and admission to universities abroad — from your first level test to enrolment.",
+      },
+      {
+        tag: "Intake 2026",
+        title1: "New groups start",
+        title2: "every month",
+        text: "We form groups by level-test results — from A1 to C2. Up to eight people so everyone speaks.",
+      },
+      {
+        tag: "Admissions",
+        title1: "Admission to universities in",
+        title2: "25+ countries",
+        text: "We pick a university to match your grades and budget, prepare documents and guide you to enrolment — UK, Germany, Canada, UAE, USA.",
+      },
+    ],
+    features: [
+      "Groups of up to eight, one-to-one or online",
+      "Level test and a trial lesson — free",
+      "Support all the way to university enrolment",
+    ],
+    stats: [
+      ["15 years", "on the market, since 2011"],
+      ["15,000+", "students taught"],
+      ["7.0+", "average IELTS score"],
+      ["25+", "admission countries"],
+      ["2", "centres: Almaty and Astana"],
+    ],
+  },
+  leadForm: {
+    title: "Book a trial lesson",
+    subtitle: "Leave a request — our manager will contact you shortly.",
+    name: "Name",
+    namePh: "Aigerim",
+    city: "City",
+    cityChoose: "Choose",
+    cities: ["Almaty", "Astana", "Online"],
+    phone: "Phone",
+    consent: "I agree to the processing of personal data.",
+    submit: "Sign up",
+    sending: "Sending…",
+    faster: "Faster —",
+    successTitle: "Request sent!",
+    successText: "Our manager will contact you shortly.",
+    error: "Something went wrong. Please try again or message us on WhatsApp.",
+  },
+  directions: {
+    eyebrow: "Directions",
+    title: "Four directions of GSC Study",
+    text: "Language, exam and admission are connected. We guide the student along the whole path, not a single course.",
+    cards: [
+      { title: "Language School", text: "English from A1 to C2 and Chinese. General, academic, business and kids formats.", cta: "See courses" },
+      { title: "Exams", text: "IELTS and Digital SAT preparation with mock tests and a predicted score before the real exam.", cta: "Exam preparation" },
+      { title: "Study Abroad", text: "University selection, document preparation and support up to enrolment in 25+ countries.", cta: "Programmes abroad" },
+      { title: "Camps", text: "Language sessions for schoolchildren 12–17 with a GSC Study chaperone. Summer 2026.", cta: "See camps" },
+    ],
+  },
+  testsBlock: {
+    eyebrow: "Testing",
+    title: "Mock tests",
+    text: "Check your level before the real exam.",
+    ielts: { title: "Mock IELTS", text: "A full exam simulation with all sections marked." },
+    sat: { title: "Mock Digital SAT", text: "Official format on the Bluebook platform." },
+  },
+  steps: {
+    eyebrow: "How to start",
+    title: "Steps to admission",
+    items: [
+      ["Consultation", "We define goals and level."],
+      ["Preparation", "We teach the language and pass exams."],
+      ["Enrolment", "We submit documents to the university."],
+    ],
+  },
+  reviews: {
+    eyebrow: "Reviews",
+    title: "What students say",
+  },
+  offices: {
+    eyebrow: "Contacts",
+    title: "Our centres",
+    text: "Four learning centres — three in Astana and one in Almaty. Or study online from any city.",
+    writeWhatsApp: "Message on WhatsApp",
+  },
+  faq: {
+    title: "Frequently asked questions",
+    items: [
+      ["From what age can studies begin?", "We accept children from the age of 6 into special kids programmes."],
+      ["How long is the IELTS preparation course?", "A standard course lasts 2–3 months depending on your current level."],
+      ["Do you help with visas?", "Yes, we provide full visa support for our students."],
+    ],
+  },
+  trust: { title: "Accreditations & partners" },
+  sticky: { consult: "Consultation" },
+  footer: {
+    brandDesc: "Education without borders since 2011. We help students reach academic heights at the world's best universities.",
+    programs: "Programmes",
+    company: "Company",
+    contacts: "Contacts",
+    callCenter: "Call centre",
+    email: "Email",
+    hours: "Working hours",
+    rights: "© 2026 GSC Study. All rights reserved.",
+    privacy: "Privacy policy",
+    offer: "Public offer",
+    links: {
+      langSchool: "Language School",
+      ielts: "IELTS preparation",
+      sat: "Digital SAT",
+      abroad: "Study abroad",
+      camps: "Summer camps",
+      about: "About us",
+      centers: "Our centres",
+      reviews: "Reviews",
+    },
+  },
+};
+
+const dictionaries = { ru, kz, en };
+
+export type Dictionary = Dict;
+
+export function getDictionary(locale: Locale): Dict {
+  return dictionaries[locale] ?? ru;
+}

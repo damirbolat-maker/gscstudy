@@ -2,9 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
+import { useLocale } from "@/i18n/useLocale";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export default function StickyMobileCTA() {
   const pathname = usePathname();
+  const locale = useLocale();
+  const t = getDictionary(locale);
   if (pathname?.startsWith("/admin")) return null;
 
   return (
@@ -13,7 +17,7 @@ export default function StickyMobileCTA() {
         href="#consult"
         className="flex-1 btn-accent text-center py-3 rounded-xl font-bold text-sm"
       >
-        Консультация
+        {t.sticky.consult}
       </a>
       <a
         href={`${site.whatsapp.link}?text=Здравствуйте!%20У%20меня%20есть%20вопрос`}
