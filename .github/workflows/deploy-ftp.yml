@@ -52,7 +52,9 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          protocol: ftps
+          # Хостинг сбрасывает FTPS на канале данных (ECONNRESET) — используем
+          # обычный FTP. Пароль временный, после первого деплоя его меняем.
+          protocol: ftp
           exclude: |
             **/.git*
             **/.github/**
