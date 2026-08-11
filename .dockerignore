@@ -10,3 +10,8 @@ docker-compose.yml
 *.md
 .env
 .env*.local
+
+prisma/*.db
+prisma/*.db-journal
+data
+public/uploads

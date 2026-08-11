@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+echo "[entrypoint] Applying database schema (prisma db push)…"
+./node_modules/.bin/prisma db push --skip-generate
+
+# Первичное наполнение только если тестов ещё нет — чтобы не затирать правки из админки.
+COUNT=$(node -e "const{PrismaClient}=require('@prisma/client');const p=new PrismaClient();p.test.count().then(c=>console.log(c)).catch(()=>console.log(0)).finally(()=>p.\$disconnect())" 2>/dev/null || echo 0)
+if [ "$COUNT" = "0" ]; then
+  echo "[entrypoint] Empty DB — seeding initial data…"
+  node prisma/seed.mjs || true
+else
+  echo "[entrypoint] Data present (tests=$COUNT) — skip seed."
+fi
+
+echo "[entrypoint] Starting Next.js…"
+exec ./node_modules/.bin/next start -H 0.0.0.0 -p 3000
