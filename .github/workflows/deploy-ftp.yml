@@ -55,12 +55,18 @@ jobs:
       - name: Upload the archive (single file, fast)
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          # Путь к папке домена относительно домашней (убираем ведущие/хвостовые слэши)
+          DIR=$(printf '%s' "$FTP_SERVER_DIR" | sed 's:^/*::; s:/*$::')
+          echo "Загружаю в папку: '$DIR'"
           lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER" -e "
             set ftp:ssl-allow no;
             set net:timeout 30;
             set net:max-retries 5;
             set net:reconnect-interval-base 5;
-            put -O \"$FTP_SERVER_DIR\" gsc-app.zip;
+            set xfer:clobber on;
+            cd \"$DIR\";
+            put gsc-app.zip;
+            cls -l gsc-app.zip;
             bye
           "
         env:
