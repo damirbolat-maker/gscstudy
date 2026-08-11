@@ -1,0 +1,62 @@
+name: Build and deploy (FTP to shared hosting)
+
+# Сборка на GitHub Actions (ресурсов достаточно) и доставка готового
+# приложения по FTP на shared-хостинг (Plesk Node.js/Passenger),
+# чтобы хостингу не нужно было ничего устанавливать/собирать.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ftp
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Build seeded DB template (prod.db.seed)
+        run: |
+          DATABASE_URL="file:./prod.db.seed" npx prisma db push --skip-generate
+          DATABASE_URL="file:./prod.db.seed" node prisma/seed.mjs
+
+      - name: Keep only runtime dependencies
+        run: npm prune --omit=dev
+
+      - name: Regenerate Prisma client (multi-target engines)
+        run: npx prisma generate
+
+      - name: Trigger Passenger restart on deploy
+        run: |
+          mkdir -p tmp
+          date > tmp/restart.txt
+
+      - name: Deploy over FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          protocol: ftps
+          exclude: |
+            **/.git*
+            **/.github/**
+            prisma/prod.db
+            prisma/*.db-journal
+            public/uploads/**
+            data/**

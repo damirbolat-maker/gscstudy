@@ -1,8 +1,8 @@
-name: Deploy to VPS
+name: Deploy to VPS (Docker/SSH — только вручную)
 
+# Путь для отдельного VPS с root+Docker. Сейчас не используется
+# (сайт на shared-хостинге через FTP — см. deploy-ftp.yml). Запуск только вручную.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
