@@ -104,6 +104,7 @@ model Camp {
   seats     Int?
   price     String?
   summary   String?
+  image     String? // путь к фото направления (/uploads/... или /camps/...)
   order     Int      @default(0)
   published Boolean  @default(true)
   createdAt DateTime @default(now())

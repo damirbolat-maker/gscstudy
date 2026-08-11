@@ -13,6 +13,7 @@ type Camp = {
   seats: number | null;
   price: string | null;
   summary: string | null;
+  image: string | null;
   order: number;
   published: boolean;
 };
@@ -27,8 +28,28 @@ export default function CampForm({
   deleteAction: () => Promise<void>;
 }) {
   const [saved, setSaved] = useState(false);
+  const [image, setImage] = useState<string | null>(camp.image);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const cls =
     "w-full rounded-lg border-border-subtle bg-surface-container-low px-3 py-2 focus:border-primary focus:ring-primary text-sm";
+
+  async function handleUpload(file: File) {
+    setUploadError(null);
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const json = await res.json();
+      if (json.ok) setImage(json.url);
+      else setUploadError(json.error || "Ошибка загрузки");
+    } catch {
+      setUploadError("Ошибка загрузки");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   return (
     <form
@@ -89,6 +110,54 @@ export default function CampForm({
           <span className="block font-semibold mb-1">Описание</span>
           <textarea name="summary" defaultValue={camp.summary ?? ""} rows={2} className={`${cls} resize-none`} />
         </label>
+
+        <div className="text-sm sm:col-span-2">
+          <span className="block font-semibold mb-1">Фото направления</span>
+          <input type="hidden" name="image" value={image ?? ""} />
+          <div className="flex items-start gap-4">
+            <div className="w-32 h-20 rounded-lg overflow-hidden bg-surface-container-low border border-border-subtle flex items-center justify-center shrink-0">
+              {image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={image} alt="" className="w-full h-full object-cover" />
+              ) : (
+                <Icon name="image" className="text-outline text-2xl" />
+              )}
+            </div>
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <label className="btn-outline px-3 py-1.5 rounded-lg text-sm font-semibold cursor-pointer">
+                  {uploading ? "Загрузка…" : image ? "Заменить фото" : "Загрузить фото"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) handleUpload(f);
+                      e.target.value = "";
+                    }}
+                  />
+                </label>
+                {image && (
+                  <button
+                    type="button"
+                    onClick={() => setImage(null)}
+                    className="text-outline hover:text-error text-sm font-semibold px-2 py-1.5"
+                  >
+                    Убрать
+                  </button>
+                )}
+              </div>
+              <p className="text-xs text-on-surface-variant mt-1">
+                JPG, PNG, WebP до 6 МБ. Не забудьте «Сохранить».
+              </p>
+              {uploadError && (
+                <p className="text-xs text-error mt-1">{uploadError}</p>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="flex items-center justify-between mt-4">

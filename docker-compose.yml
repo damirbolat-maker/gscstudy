@@ -12,6 +12,9 @@ services:
       # BITRIX_WEBHOOK_URL: ${BITRIX_WEBHOOK_URL}
     expose:
       - "3000"
+    # Загруженные из админки фото хранятся здесь и переживают пересборку образа
+    volumes:
+      - ./data/uploads:/app/public/uploads
     # depends_on:
     #   - db
     networks:
