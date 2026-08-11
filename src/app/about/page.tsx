@@ -34,7 +34,10 @@ const valuesMeta = [
   { icon: "travel_explore", ring: "bg-tertiary-container/20 group-hover:bg-tertiary-container", color: "text-tertiary" },
 ];
 
-const partners = ["CAMBRIDGE", "IELTS", "BRITISH COUNCIL", "TOEFL"];
+const partners = [
+  { src: "/brand/icef.png", alt: "ICEF Accredited — Trusted Agency #1478", h: "h-16" },
+  { src: "/brand/bc-ielts.png", alt: "British Council — IELTS Registration Centre", h: "h-12 sm:h-14" },
+];
 
 export default async function AboutPage() {
   const locale = await getServerLocale();
@@ -193,10 +196,11 @@ export default async function AboutPage() {
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8">
               {partners.map((p) => (
                 <div
-                  key={p}
-                  className="glass-card rounded-xl px-6 py-4 text-headline-sm text-primary-fixed-dim font-bold tracking-widest opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:-translate-y-0.5"
+                  key={p.src}
+                  className="bg-white rounded-2xl border border-border-subtle shadow-premium px-8 py-5 flex items-center transition-all duration-300 hover:-translate-y-0.5 hover:shadow-premium-lg"
                 >
-                  {p}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.src} alt={p.alt} className={`${p.h} w-auto`} />
                 </div>
               ))}
             </div>
