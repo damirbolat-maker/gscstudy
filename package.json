@@ -9,7 +9,8 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
-    "db:seed": "node prisma/seed.mjs"
+    "db:seed": "node prisma/seed.mjs",
+    "db:deploy": "prisma db push --skip-generate && node prisma/seed-if-empty.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
