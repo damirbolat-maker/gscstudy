@@ -8,15 +8,18 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      # DATABASE_URL: postgresql://gsc:${POSTGRES_PASSWORD}@db:5432/gsc
-      # BITRIX_WEBHOOK_URL: ${BITRIX_WEBHOOK_URL}
+      # SQLite-файл лежит в томе ./data/db (переживает пересборку образа)
+      DATABASE_URL: "file:/app/data/prod.db"
+    # Секреты (ADMIN_PASSWORD, AUTH_SECRET, BITRIX_WEBHOOK_URL) — из .env на сервере
+    env_file:
+      - .env
     expose:
       - "3000"
-    # Загруженные из админки фото хранятся здесь и переживают пересборку образа
     volumes:
+      # База данных SQLite
+      - ./data/db:/app/data
+      # Загруженные из админки фото
       - ./data/uploads:/app/public/uploads
-    # depends_on:
-    #   - db
     networks:
       - web
 
