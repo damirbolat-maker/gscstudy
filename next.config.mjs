@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
   reactStrictMode: true,
   eslint: {
     // Линтим отдельно (npm run lint); сборку не блокируем.
