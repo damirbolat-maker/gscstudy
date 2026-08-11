@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Заявки с форм сайта
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  city      String?
+  // произвольные поля формы (курс, страна, уровень, год и т.д.)
+  interest  String? // основной интерес (курс/страна/экзамен)
+  source    String? // с какой формы пришла заявка
+  extra     String? // JSON с остальными полями формы
+  status    String   @default("new") // new | contacted | enrolled
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Тесты уровня
+model Test {
+  id          String       @id @default(cuid())
+  title       String
+  slug        String       @unique
+  kind        String       @default("placement") // placement | kids | ielts | sat
+  audience    String       @default("adults") // adults | kids
+  description String?
+  timeLimit   Int? // минуты
+  published   Boolean      @default(false)
+  order       Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  questions   Question[]
+  results     TestResult[]
+}
+
+// Результат прохождения теста
+model TestResult {
+  id        String   @id @default(cuid())
+  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  testId    String
+  name      String
+  phone     String
+  email     String?
+  score     Int
+  total     Int
+  level     String // A1..C2 / прогноз балла / готовность
+  answers   String? // JSON: { questionId: optionId }
+  leadId    String?
+  createdAt DateTime @default(now())
+}
+
+model Question {
+  id       String   @id @default(cuid())
+  test     Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  testId   String
+  order    Int      @default(0)
+  text     String
+  options  Option[]
+}
+
+model Option {
+  id         String   @id @default(cuid())
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId String
+  order      Int      @default(0)
+  text       String
+  correct    Boolean  @default(false)
+}
+
+// Настройки сайта (ключ-значение): Bitrix webhook, контакты и т.д.
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+// Редактируемый контент страниц (CMS), по одной записи на страницу+язык
+model PageContent {
+  id        String   @id @default(cuid())
+  slug      String // home | school | exams | abroad | camps | about
+  locale    String // ru | kz | en
+  // JSON с переопределяемыми полями: heroEyebrow, heroTitle, heroSubtitle, metaTitle, metaDescription
+  data      String   @default("{}")
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale])
+}
+
+// Языковые лагеря
+model Camp {
+  id        String   @id @default(cuid())
+  city      String
+  country   String
+  dates     String?
+  ageRange  String?
+  housing   String?
+  seats     Int?
+  price     String?
+  summary   String?
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
