@@ -48,9 +48,9 @@ export default function AbroadConsult() {
           <span className="inline-block py-1 px-3 rounded-full bg-white/20 text-white text-xs font-bold tracking-widest uppercase mb-4">
             {t.eyebrow}
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-[1.25]">
             {t.title1}{" "}
-            <span className="text-secondary bg-white px-2 rounded-lg">
+            <span className="text-secondary bg-white px-3 py-0.5 rounded-lg shadow-premium [-webkit-box-decoration-break:clone] [box-decoration-break:clone]">
               {t.titleHighlight}
             </span>
           </h2>

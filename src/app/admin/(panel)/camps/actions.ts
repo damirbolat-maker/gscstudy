@@ -31,6 +31,7 @@ export async function saveCamp(id: string, formData: FormData) {
       seats: num(formData.get("seats")),
       price: String(formData.get("price") ?? "") || null,
       summary: String(formData.get("summary") ?? "") || null,
+      image: String(formData.get("image") ?? "") || null,
       order: num(formData.get("order")) ?? 0,
       published: formData.get("published") === "on",
     },

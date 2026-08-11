@@ -77,6 +77,7 @@ export default async function CampsPage() {
       city: c.city,
       seats: c.seats ? `${c.seats} ${t.camps.seatsSuffix}` : c.price || "",
       desc: c.summary ?? "",
+      image: c.image ?? null,
       rows,
       from,
       to,
@@ -177,11 +178,23 @@ export default async function CampsPage() {
                     className="group card-premium card-spotlight rounded-2xl overflow-hidden flex flex-col"
                   >
                     <div className="relative h-60 overflow-hidden">
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-br ${c.from} ${c.to} transition-transform duration-500 group-hover:scale-105`}
-                      >
-                        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
-                      </div>
+                      {c.image ? (
+                        <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={c.image}
+                            alt={c.city}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                        </>
+                      ) : (
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-br ${c.from} ${c.to} transition-transform duration-500 group-hover:scale-105`}
+                        >
+                          <div className="absolute inset-0 bg-grid-pattern opacity-20" />
+                        </div>
+                      )}
                       <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1.5 rounded-full text-sm font-bold text-primary shadow-premium">
                         {c.seats}
                       </div>

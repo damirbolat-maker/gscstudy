@@ -24,13 +24,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const countriesMeta = [
-  { code: "UK", color: "#00247d" },
-  { code: "DE", color: "#FFCE00", text: "#000000", accentRow: 2 },
-  { code: "CA", color: "#FF0000", primaryRow: 2 },
-  { code: "AE", color: "#00732f" },
-  { code: "US", color: "#3C3B6E" },
+  { code: "UK", flag: "gb", color: "#00247d" },
+  { code: "DE", flag: "de", color: "#FFCE00", text: "#000000", accentRow: 2 },
+  { code: "CA", flag: "ca", color: "#FF0000", primaryRow: 2 },
+  { code: "AE", flag: "ae", color: "#00732f" },
+  { code: "US", flag: "us", color: "#3C3B6E" },
 ] as {
   code: string;
+  flag: string;
   color: string;
   text?: string;
   accentRow?: number;
@@ -211,15 +212,13 @@ export default async function AbroadPage() {
               {countriesMeta.map((c, ci) => (
                 <a key={c.code} href="#consult" className="group block card-premium card-spotlight rounded-2xl p-6">
                   <div className="flex items-center gap-4 mb-6">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold border"
-                      style={{
-                        backgroundColor: `${c.color}1a`,
-                        color: c.text ?? c.color,
-                        borderColor: `${c.color}33`,
-                      }}
-                    >
-                      {c.code}
+                    <div className="w-12 h-12 rounded-xl overflow-hidden border border-border-subtle shadow-premium shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`/flags/${c.flag}.svg`}
+                        alt={t.countries.items[ci].name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <h3 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">
                       {t.countries.items[ci].name}
@@ -252,6 +251,36 @@ export default async function AbroadPage() {
                   </div>
                 </a>
               ))}
+            </div>
+
+            <div className="mt-16">
+              <h3 className="text-center text-2xl md:text-3xl font-bold text-on-surface mb-3">
+                {t.countries.more.title}
+              </h3>
+              <p className="text-center text-on-surface-variant max-w-2xl mx-auto mb-8">
+                {t.countries.more.text}
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                {t.countries.more.list.map((c) => (
+                  <a
+                    key={c.code}
+                    href="#consult"
+                    className="group flex items-center gap-3 card-premium card-spotlight rounded-xl px-4 py-3"
+                  >
+                    <div className="w-7 h-5 rounded overflow-hidden shrink-0 ring-1 ring-border-subtle">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`/flags/${c.code}.svg`}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <span className="text-sm font-semibold text-on-surface group-hover:text-primary transition-colors truncate">
+                      {c.name}
+                    </span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </section>
