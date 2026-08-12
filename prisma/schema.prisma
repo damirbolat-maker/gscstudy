@@ -2,7 +2,7 @@ generator client {
   provider = "prisma-client-js"
   // Собираем на Ubuntu (GitHub Actions), запускаем на хостинге (может быть
   // Ubuntu/Debian, CloudLinux/RHEL или Alpine) — включаем движки под все.
-  binaryTargets = ["native", "debian-openssl-3.0.x", "rhel-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+  binaryTargets = ["native", "debian-openssl-3.0.x", "rhel-openssl-3.0.x", "rhel-openssl-1.0.x", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
