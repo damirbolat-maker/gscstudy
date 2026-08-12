@@ -57,15 +57,29 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y -qq lftp
           # Путь к папке домена относительно домашней (убираем ведущие/хвостовые слэши)
           DIR=$(printf '%s' "$FTP_SERVER_DIR" | sed 's:^/*::; s:/*$::')
-          echo "Загружаю в папку: '$DIR'"
+          echo "Целевая папка из секрета FTP_SERVER_DIR: '$DIR'"
+          # Не прерываемся на неуспешной команде (cmd:fail-exit no), чтобы
+          # сначала снять диагностику: где реально находится домашняя папка FTP
+          # и где лежит каталог приложения. Затем кладём архив в нужное место.
           lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER" -e "
             set ftp:ssl-allow no;
             set net:timeout 30;
             set net:max-retries 5;
             set net:reconnect-interval-base 5;
             set xfer:clobber on;
-            cd \"$DIR\";
+            set cmd:fail-exit no;
+            echo '=== HOME (pwd) ===';
+            pwd;
+            echo '=== СОДЕРЖИМОЕ HOME ===';
+            cls -l;
+            echo '=== ПОДПАПКИ HOME ===';
+            cls -d */;
+            echo '=== Пробую cd в целевую папку ===';
+            cd \"$DIR\" && echo 'OK: перешёл в целевую папку' && pwd || echo 'НЕ УДАЛОСЬ перейти в целевую папку — заливаю в HOME';
+            echo '=== Заливаю архив в текущую папку ===';
             put gsc-app.zip;
+            echo '=== Проверка после заливки (pwd + файл) ===';
+            pwd;
             cls -l gsc-app.zip;
             bye
           "
