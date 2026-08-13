@@ -7,6 +7,15 @@ const fs = require("fs");
 const path = require("path");
 const next = require("next");
 
+// Путь к базе. В архив НЕ входит .env, а Prisma читает env("DATABASE_URL").
+// Поэтому задаём абсолютный путь к prod.db по умолчанию — сайт работает
+// без ручной настройки переменных окружения на хостинге. Если DATABASE_URL
+// всё же задан в панели — уважаем его.
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL = "file:" + path.join(__dirname, "prisma", "prod.db");
+  console.log("> DATABASE_URL по умолчанию:", process.env.DATABASE_URL);
+}
+
 // Первичная инициализация БД: если рабочего prod.db ещё нет — берём готовый
 // шаблон prod.db.seed (создан в CI, со схемой и стартовыми данными).
 // Так хостингу не нужен prisma-движок схемы, а данные потом не затираются
